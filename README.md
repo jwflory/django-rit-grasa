@@ -19,4 +19,4 @@ _More coming soon!_
 
 ## Legal
 
-Licensed under [3-Clause BSD License](https://opensource.org/licenses/BSD-3-Clause).
+Licensed under [2-Clause BSD License](https://opensource.org/licenses/BSD-2-Clause).
