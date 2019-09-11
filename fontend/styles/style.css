@@ -5,7 +5,7 @@ body{
 }
 /*Header Styles*/
 #header-logo{
-    width: 80px;
+    height: 70px;
 }
 .footer-nav{
     float: none; 
@@ -27,7 +27,10 @@ body{
 .program-list-card{
     height: 500px;
 }
-.program-list-card .card-body{
+.filter-card{
+    height: 325px;
+}
+.program-list-card .card-body, .filter-card .list-group{
     overflow-y: scroll;
 }
 .card-header{

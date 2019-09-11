@@ -18,10 +18,9 @@
 </head>
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-          <a class="navbar-brand" href="#">GRASA</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+          <a class="navbar-brand" href="index.php">
+          <img id="header-logo" src="media/grasalogo.png" alt="">
+        </a>
 
           <div class="collapse navbar-collapse" id="navbarsExample02">
             <ul class="navbar-nav mr-auto">
@@ -29,11 +28,14 @@
                 <a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="login.php">Login</a>
+                <a class="nav-link" href="#">Provider</a>
+              </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Admin</a>
               </li>
             </ul>
           </div>
-        <a class="navbar-brand" href="#">
-          <img id="header-logo" src="media/grasalogo.png" alt="">
-        </a>
+        <span class="form-inline mt-2 mt-md-0">
+            <button onclick="window.location.href='/login.php'" class="btn btn-outline-light my-2 my-sm-0" >Login</button>
+        </span>
     </nav>

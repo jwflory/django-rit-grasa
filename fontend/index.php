@@ -17,7 +17,7 @@
             </div>
             <div class="row">
             <!-- Search by City, State and Zip Row -->
-                <label><b>City & State or Zip Code</b></label>
+                <label><b>City &amp; State or Zip Code</b></label>
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" placeholder="Search..." aria-label="Search for a Program by Zip code" aria-describedby="button-addon2">
                   <div class="input-group-append">
@@ -27,7 +27,7 @@
             </div>
             <div class="row">
             <!-- Category Row -->
-                <div class="card" style="width:100%">
+                <div class="card filter-card" style="width:100%">
                     <header class="card-header">Filter Programs</header>
                         <div class="list-group list-group-flush">
                           <label class="form-check list-group-item">
@@ -52,6 +52,18 @@
                               <input type="checkbox" value="">
                               <span class="form-check-label">
                                Robotics
+                              </span>
+                            </label> <!-- form-check.// -->
+                             <label class="form-check list-group-item">
+                              <input type="checkbox" value="">
+                              <span class="form-check-label">
+                               ...
+                              </span>
+                            </label> <!-- form-check.// -->
+                             <label class="form-check list-group-item">
+                              <input type="checkbox" value="">
+                              <span class="form-check-label">
+                               ...
                               </span>
                             </label> <!-- form-check.// -->
                         </div>  <!-- list-group .// -->
