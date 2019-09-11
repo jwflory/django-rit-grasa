@@ -1,8 +1,4 @@
 <?php include 'header.php';?>
     <p>Login Page!</p>
 
-
-
-
-    </body>
-</html>
+<?php include 'footer.php';?>
