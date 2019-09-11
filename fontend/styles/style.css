@@ -13,7 +13,7 @@ body{
 }
 
 /*Home Styles*/
-.home-container{
+.home-container, .event-container{
     margin-top: 40px;
 }
 #gmap_canvas{
@@ -30,7 +30,7 @@ body{
 .filter-card{
     height: 325px;
 }
-.program-list-card .card-body, .filter-card .list-group{
+.program-list-card .program-list-card-body, .filter-card .list-group{
     overflow-y: scroll;
 }
 .card-header{
@@ -44,4 +44,13 @@ body{
 }
 .event-card:hover{
     background-color: #F8F8F8;
+    cursor: pointer;
+}
+
+/*Event Page Styles*/
+.event-page-card i.fa{
+    width: 20px;
+}
+.event-container{
+    margin-bottom: 40px;
 }

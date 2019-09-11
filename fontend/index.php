@@ -76,9 +76,9 @@
               <div class="card-header">
                 Programs
               </div>
-              <div class="card-body">
+              <div class="card-body program-list-card-body">
                 <!--Example Event-->
-                  <div class="card event-card">
+                  <div class="card event-card" id="event1">
                       <div class="card-body">
                         <h5 class="card-title">Soccer Program</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Rochester Middle School</h6>
@@ -87,7 +87,7 @@
                         <a href="#" class="card-link">Another link</a>
                         <i class="event-icon fa fa-futbol-o" aria-hidden="true"></i>
                       </div>
-                    </div>
+                      </div>
                 <!--Example Event-->
                   <div class="card event-card">
                       <div class="card-body">
@@ -96,8 +96,7 @@
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel risus tortor. Maecenas posuere bibendum aliquet. Nulla eget maximus velit. Praesent sed laoreet nisl. Fusce fringilla eros quis risus ornare, a posuere velit dictum. Nunc ac luctus orci, vitae mollis massa.  </p>
                         <a href="#" class="card-link">www.henhighschool.com</a>
                         <a href="#" class="card-link">Another link</a>
-                        <i class="event-icon fa fa-paint-brush
-" aria-hidden="true"></i>
+                        <i class="event-icon fa fa-paint-brush" aria-hidden="true"></i>
                       </div>
                     </div>
                   
@@ -112,5 +111,11 @@
             <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Rochester%20Institute%20of%20Technology%20&t=&z=9&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
     </div>
 </div>
+<script>
+    var eventBox = document.getElementById('event1');
+    eventBox.onclick = function(){
+        window.location = 'event.php'
+    }
 
+</script>
 <?php include 'footer.php';?>
