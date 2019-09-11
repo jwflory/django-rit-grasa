@@ -1,5 +1,5 @@
 <?php include 'header.php';?>
-    <p>Login Page edit!</p>
+    <p>Login Page test!</p>
 
 
 
