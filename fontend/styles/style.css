@@ -1,5 +1,87 @@
 /*Bootstrap overwrite css file*/
+/*Global Styles*/
+body{
+    height: 100%;
+}
 /*Header Styles*/
 #header-logo{
-    width: 80px;
+    height: 70px;
+}
+.footer-nav{
+    float: none; 
+    margin: 0 auto;
+}
+
+/*Home Styles*/
+.home-container, .event-container{
+    margin-top: 40px;
+}
+#gmap_canvas{
+    width:100%;
+    height:400px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid lightgray;
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+.program-list-card{
+    height: 500px;
+}
+.filter-card{
+    height: 325px;
+}
+.program-list-card .program-list-card-body, .filter-card .list-group{
+    overflow-y: scroll;
+}
+.card-header{
+    font-weight: bold;
+}
+.event-icon{
+    float:right;
+}
+.event-card{
+    margin-bottom: 10px;
+}
+.event-card:hover{
+    background-color: #F8F8F8;
+    cursor: pointer;
+}
+
+/*Event Page Styles*/
+.event-page-card i.fa{
+    width: 20px;
+}
+.event-container{
+    margin-bottom: 40px;
+}
+
+/*Log-in page styles*/
+.form-signin {
+  width: 50%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
