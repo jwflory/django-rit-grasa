@@ -22,3 +22,8 @@ coverage = "*"
 "flake8" = "*"
 pytest = "*"
 tox = "*"
+
+
+[requires]
+
+python_version = "3.6"
