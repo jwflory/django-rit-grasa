@@ -13,6 +13,8 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       <label>
           <a href="resetPW.php"> Forgot Password? </a>
+		  <p> or </p>
+		  <a href="register.php"> Register </a>
       </label>
     </form>
  
