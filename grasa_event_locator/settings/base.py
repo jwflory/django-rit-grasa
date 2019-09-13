@@ -70,7 +70,7 @@ INTERNAL_IPS = ('127.0.0.1')
 # LOCALE SETTINGS
 # Local time zone for this installation.
 # https://docs.djangoproject.com/en/2.0/ref/settings/#time-zone
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 # https://docs.djangoproject.com/en/2.0/ref/settings/#language-code
 LANGUAGE_CODE = 'en-us'
@@ -82,7 +82,7 @@ USE_I18N = True
 USE_L10N = False
 
 # https://docs.djangoproject.com/en/2.0/ref/settings/#use-tz
-USE_TZ = False
+USE_TZ = True
 
 
 # MEDIA AND STATIC SETTINGS
