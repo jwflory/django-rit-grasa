@@ -20,4 +20,3 @@ _More coming soon!_
 ## Legal
 
 Licensed under [2-Clause BSD License](https://opensource.org/licenses/BSD-2-Clause).
-Based from [django-starter-template](https://github.com/fasouto/django-starter-template) by Fabio Souto, used under permission of [MIT License](https://github.com/fasouto/django-starter-template/blob/6fec40a2ed76dfccdeb8b911cb38978c630a6077/LICENSE).
