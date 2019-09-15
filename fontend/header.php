@@ -31,7 +31,7 @@
                 <a class="nav-link" href="provider.php">Provider</a>
               </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Admin</a>
+                <a class="nav-link" href="admin.php">Admin</a>
               </li>
             </ul>
           </div>

@@ -130,17 +130,12 @@ body{
   z-index: 2;
 }
 
-.form-changePW input[type="current"] {
+.form-changePW input[type="password"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.form-changePW input[type="new"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
 
 /* Style the submit button */
 .form-changePW input[type=submit] {
@@ -216,17 +211,12 @@ body{
   
 }
 
-.form-register input[type="current"] {
+.form-register input[type="password"] {
   margin-bottom: 10px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.form-register input[type="confirm"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
 
 /* Style the submit button */
 .form-register input[type=submit] {
@@ -280,5 +270,4 @@ body{
   left: -35px;
   content: "&#10006;";
 }
-
 
