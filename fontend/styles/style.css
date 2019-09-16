@@ -7,6 +7,15 @@ html {
 body{
     margin-bottom: 60px;
 }
+.twentyblock{
+    height: 20px;
+}
+.w-100{
+    width:100%;
+}
+.top-20{
+    margin-top: 20px;
+}
 /*Header and footer Styles*/
 #header-logo{
     height: 70px;
@@ -112,22 +121,6 @@ body{
   z-index: 2;
 }
 
-.form-reset input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-/* Style the submit button */
-.form-reset input[type=submit] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  
-  background-color: #4CAF50;
-  color: white;
-}
-
 /*Change Password page styles*/
 
 .form-changePW {
@@ -157,12 +150,6 @@ body{
   background-color: #4CAF50;
   color: white;
 }
-
-/* Style the container for inputs */
-/*.container {
-  background-color: #f1f1f1;
-  padding: 20px;
-}*/
 
 /* The message box is shown when the user clicks on the password field */
 #message {
@@ -248,9 +235,6 @@ body{
     font-weight: normal;
     margin: 0;
 }
-.twentyblock{
-    height: 20px;
-}
 .provider-program-list button.btn{
     width:90px;
 }
@@ -262,15 +246,11 @@ body{
     padding-left: 10px;  
     padding-bottom: 20px;
 }
-.w-100{
-    width:100%;
-}
 
 /*icon width fix*/
 i.fa{
     width:30px;
 }
-
 
 
 
