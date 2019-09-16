@@ -3,7 +3,7 @@
 <div class="container home-container">
     <div class="row">
     <!-- most outer row-->
-        <div class="col-3">
+        <div class="col-sm-3">
         <!--left sidebar-->
             <div class="row">
             <!-- Search by Program Row -->
@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-sm-9">
         <!--Right Content-->
             <div class="card program-list-card">
               <div class="card-header">

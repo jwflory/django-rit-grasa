@@ -1,7 +1,7 @@
 <?php include 'header.php';?>
 <div class="container event-container">
     <div class="row">
-        <div class="col-4">
+        <div class="col-sm-4">
             <div class="card event-page-card">
               <img src="https://via.placeholder.com/150" class="card-img-top" alt="Provider Logo">
               <ul class="list-group list-group-flush">
@@ -14,7 +14,7 @@
               </div>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-sm-8">
             <h1>Soccer Program</h1>
             <h4 class="text-muted">Rochester Middle School</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris auctor turpis eget metus aliquam porttitor a id ligula. Curabitur eget odio feugiat, posuere tortor eu, pharetra ante. Phasellus scelerisque enim purus, non placerat nibh tempus vel. Nulla consectetur facilisis pellentesque. Suspendisse elit arcu, imperdiet vel pellentesque at, molestie eget ipsum. Aenean tincidunt vehicula sapien quis mollis. Aenean fringilla, nibh in interdum varius, orci magna fringilla justo, at imperdiet neque mi in magna. Duis a libero eu dolor aliquet pharetra eget eu metus. Curabitur commodo erat in nunc malesuada, in pretium sem porta. Mauris vitae eleifend est, iaculis vestibulum libero. Nulla facilisi. Nam ut cursus libero. Quisque finibus eleifend odio.</p>

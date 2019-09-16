@@ -148,10 +148,10 @@ body{
 }
 
 /* Style the container for inputs */
-.container {
+/*.container {
   background-color: #f1f1f1;
   padding: 20px;
-}
+}*/
 
 /* The message box is shown when the user clicks on the password field */
 #message {
@@ -227,47 +227,35 @@ body{
   background-color: #4CAF50;
   color: white;
 }
-
-/* Style the container for inputs */
-.container {
-  background-color: #f1f1f1;
-  padding: 20px;
+/*Provider Page Styles*/
+.provider-info{
+    font-weight: normal;
+    margin: 0;
+}
+.twentyblock{
+    height: 20px;
+}
+.provider-program-list button.btn{
+    width:90px;
+}
+.list-header-fix{
+    width:120px;
+}
+.program-header{
+    padding-top:50px;
+    padding-left: 10px;  
+    padding-bottom: 20px;
+}
+.w-100{
+    width:100%;
 }
 
-/* The message box is shown when the user clicks on the password field */
-#message {
-  display:none;
-  background: #f1f1f1;
-  color: #000;
-  position: relative;
-  padding: 20px;
-  margin-top: 10px;
+/*icon width fix*/
+i.fa{
+    width:30px;
 }
 
-#message p {
-  padding: 10px 35px;
-  font-size: 18px;
-}
 
-/* Add a green text color and a checkmark when the requirements are right */
-.valid {
-  color: green;
-}
 
-.valid:before {
-  position: relative;
-  left: -35px;
-  content: "&#10004;";
-}
 
-/* Add a red text color and an "x" icon when the requirements are wrong */
-.invalid {
-  color: red;
-}
-
-.invalid:before {
-  position: relative;
-  left: -35px;
-  content: "&#10006;";
-}
 
