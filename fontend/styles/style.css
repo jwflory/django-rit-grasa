@@ -1,9 +1,13 @@
 /*Bootstrap overwrite css file*/
 /*Global Styles*/
-body{
-    height: 100%;
+html {
+  position: relative;
+  min-height: 100%;
 }
-/*Header Styles*/
+body{
+    margin-bottom: 60px;
+}
+/*Header and footer Styles*/
 #header-logo{
     height: 70px;
 }
@@ -11,6 +15,13 @@ body{
     float: none; 
     margin: 0 auto;
 }
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+}
+
 
 /*Home Styles*/
 .home-container, .event-container{
@@ -227,6 +238,11 @@ body{
   background-color: #4CAF50;
   color: white;
 }
+
+.form-reset, .form-signin{
+    padding-top: 50px;
+}
+
 /*Provider Page Styles*/
 .provider-info{
     font-weight: normal;
