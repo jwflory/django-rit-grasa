@@ -55,7 +55,7 @@
     </div>
     <div class="row">
     <!-- Bottom Row -->
-        <h2 class="program-header w-100">Events and Programs<button type="button" class="btn btn-success float-right"> <i class="fa fa-plus" aria-hidden="true"></i> Add New Event</button></h2>
+        <h2 class="program-header w-100">Events and Programs<button type="button" class="btn btn-success float-right" id="createEvent"> <i class="fa fa-plus" aria-hidden="true"></i> Add New Event</button></h2>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -83,5 +83,11 @@
     
     </div>
 </div>
+<script>
+    var createBtn = document.getElementById('createEvent');
+    createBtn.onclick = function(){
+        window.location = 'createEvent.php'
+    }
 
+</script>
 <?php include 'footer.php';?>
