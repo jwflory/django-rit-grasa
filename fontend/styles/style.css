@@ -13,7 +13,7 @@ body{
 }
 
 /*Home Styles*/
-.home-container, .event-container{
+.home-container, .event-container {
     margin-top: 40px;
 }
 #gmap_canvas{
@@ -255,7 +255,7 @@ i.fa{
     width:30px;
 }
 
-
-
-
-
+/*style for Admin page submit button*/
+.home-container input[type=submit]{
+	background-color: #4CAF50;
+}
