@@ -12,11 +12,13 @@
             <!-- Left outer row -->
             <div class="card filter-card" style="width:100%">				
 				
-				<div class="card event-page-card">            
+				<div class="card event-page-card">  
 				
-					<div class="input-group">
-						
-                      <div class="custom-file">
+				<!-- Change logo browse file -->
+					<img src="https://via.placeholder.com/150" class="card-img-top" alt="Provider Logo">
+					
+					<div class="input-group">                     
+					  <div class="custom-file">
                         <input type="file" class="custom-file-input" id="inputGroupFile01"
                           aria-describedby="inputGroupFileAddon01">
 						  
@@ -55,7 +57,7 @@
 	
 	<div class="col-9">
         <!--Right Content-->
-            <div class="card program-list-card">
+            <div class="card program-list-card" style="height:90%">
               <div class="card-header">                
 			  </div>
 			  
