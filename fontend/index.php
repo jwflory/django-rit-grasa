@@ -8,18 +8,57 @@
             <div class="accordion" id="accordionExample">
                 <!--data filled with JS-->
             </div> 
+            <div class="row filter-btn-row">
+            <!-- button row-->
+                <div class="btn-group col-12" role="group" aria-label="Basic example">
+                  <button type="button" class="btn btn-secondary btn-outline-success">Apply Filters</button>
+                  <button type="button" class="btn btn-secondary btn-outline-danger">Clear Filters</button>
+                </div>
+            
+            </div>
         </div>
         <div class="col-sm-9">
         <!-- search results column-->
             <div class="row">
             <!-- search bar row-->
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 search-bar">
                   <input type="text" class="form-control" placeholder="Search..." aria-label="Search for a Program by name" aria-describedby="button-addon2">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search" aria-hidden="true"></i></button>
                   </div>
                 </div>
-            
+            </div>
+            <div class="row">
+            <!-- Search Results Row-->
+                <div id="results-box">
+                    <div class="card w-100 event-box">
+                      <div class="card-body row">
+                        <div class="col-sm-6">
+                            <h5 class="card-title">Soccer Program</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Rochester Middle School</h6>
+                        </div>
+                        <div class="col-sm-6 right-info">
+                                <span class="badge badge-info card-title">Play</span>
+                                <span class="badge badge-info card-title">Sports and Recreation</span>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> 1 Lomb Memorial Dr, Rochester NY</h6>
+                        </div>                      
+                      </div>
+                    </div>
+
+                    <div class="card w-100 event-box">
+                      <div class="card-body row">
+                        <div class="col-sm-6">
+                            <h5 class="card-title">Cooking for Kids</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Henrietta Elementary School</h6>
+                        </div>
+                        <div class="col-sm-6 right-info">
+                                <span class="badge badge-info card-title">Health &amp; Wellness</span>
+                                <span class="badge badge-info card-title">Arts and Culture</span>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> 14 The Random Rd, Henrietta NY</h6>
+                        </div>                      
+                      </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -30,10 +69,12 @@
 </div>
 <script>
     //Clicking on an event opens the event page
-    /*var eventBox = document.getElementById('event1');
-    eventBox.onclick = function(){
-        window.location = 'event.php'
-    }*/
+    $('.event-box').hover(
+       function(){ $(this).addClass('border-info') },
+       function(){ $(this).removeClass('border-info') }
+    ).click(function() {
+      window.location = "event.php"
+    });
     
     
     $( document ).ready(function() {
@@ -45,7 +86,6 @@
             
             //check for group name with spaces
             var words = groupList[i].split(" ")
-            console.log(groupList[i])
             if(words.length > 1){
                var name = words[0] 
             }else{
@@ -55,6 +95,10 @@
             //uncollapse first filter box
             if(i==0){
                 $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse show' aria-labelledby='headingOne' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
+            
+            //add distance
+            }else if(name=="Distance"){
+                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' aria-labelledby='headingOne' data-parent='#accordionExample'><div class='card-body'><input class='form-control form-control-sm distance-input' type='text' placeholder='From Address...'></div></div></div>")
             }else{
                 $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' aria-labelledby='headingOne' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
             }
