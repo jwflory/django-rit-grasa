@@ -44,27 +44,31 @@ body{
     border: 1px solid lightgray;
     border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
 }
-.program-list-card{
-    height: 500px;
+
+.accordion .card-header {
+    width:100%;
+    padding:0;
 }
-.filter-card{
-    height: 325px;
+.accordion .card-header button.btn{
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+    color: black;
 }
-.program-list-card .program-list-card-body, .filter-card .list-group{
-    overflow-y: scroll;
+.accordion .card-header button.btn i{
+    padding: 5px;
 }
-.card-header{
-    font-weight: bold;
+.accordion .card-header button.btn:after {
+    font-family: 'FontAwesome';  
+    content: "\f068";
+    float: right; 
 }
-.event-icon{
-    float:right;
+.accordion .card-header button.btn.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f067"; 
 }
-.event-card{
-    margin-bottom: 10px;
-}
-.event-card:hover{
-    background-color: #F8F8F8;
-    cursor: pointer;
+.filter-col{
+    padding-left: 0;
 }
 
 /*Event Page Styles*/
@@ -244,8 +248,6 @@ button i.fa{
         margin-bottom: 140px;
     }
 }
-
-
 
 
 

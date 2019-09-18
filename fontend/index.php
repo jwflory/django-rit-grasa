@@ -3,106 +3,120 @@
 <div class="container home-container">
     <div class="row">
     <!-- most outer row-->
-        <div class="col-sm-3">
-        <!--left sidebar-->
+        <div class="col-sm-3 filter-col">
+        <!-- Filter column-->
+            <div class="accordion" id="accordionExample">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Activity
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Transportation
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Grades Served
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingFour">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                      Gender
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                  <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingFive">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                      Distance
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                  <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingSix">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                      Fees
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                  <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingSeven">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                      Timing
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                  <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
+                  </div>
+                </div>
+              </div>
+            </div> <!--accordian-->
+        </div>
+        <div class="col-sm-9">
+        <!-- search results column-->
             <div class="row">
-            <!-- Search by Program Row -->
-                <label><b>Search Program</b></label>
+            <!-- search bar row-->
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" placeholder="Search..." aria-label="Search for a Program by name" aria-describedby="button-addon2">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search" aria-hidden="true"></i></button>
                   </div>
                 </div>
-            </div>
-            <div class="row">
-            <!-- Search by City, State and Zip Row -->
-                <label><b>City &amp; State or Zip Code</b></label>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Search..." aria-label="Search for a Program by Zip code" aria-describedby="button-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-            </div>
-            <div class="row">
-            <!-- Category Row -->
-                <div class="card filter-card" style="width:100%">
-                    <header class="card-header">Filter Programs</header>
-                        <div class="list-group list-group-flush">
-                          <label class="form-check list-group-item">
-                              <input type="checkbox" value="">
-                              <span class="form-check-label">
-                                Sports
-                              </span>
-                            </label> <!-- form-check.// -->
-                           <label class="form-check list-group-item">
-                              <input type="checkbox" value="">
-                              <span class="form-check-label">
-                                Theatre
-                              </span>
-                            </label> <!-- form-check.// -->
-                           <label class="form-check list-group-item">
-                              <input type="checkbox" value="">
-                              <span class="form-check-label">
-                                Art
-                              </span>
-                            </label> <!-- form-check.// -->
-                           <label class="form-check list-group-item">
-                              <input type="checkbox" value="">
-                              <span class="form-check-label">
-                               Robotics
-                              </span>
-                            </label> <!-- form-check.// -->
-                             <label class="form-check list-group-item">
-                              <input type="checkbox" value="">
-                              <span class="form-check-label">
-                               ...
-                              </span>
-                            </label> <!-- form-check.// -->
-                             <label class="form-check list-group-item">
-                              <input type="checkbox" value="">
-                              <span class="form-check-label">
-                               ...
-                              </span>
-                            </label> <!-- form-check.// -->
-                        </div>  <!-- list-group .// -->
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-9">
-        <!--Right Content-->
-            <div class="card program-list-card">
-              <div class="card-header">
-                Programs
-              </div>
-              <div class="card-body program-list-card-body">
-                <!--Example Event-->
-                  <div class="card event-card" id="event1">
-                      <div class="card-body">
-                        <h5 class="card-title">Soccer Program</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Rochester Middle School</h6>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel risus tortor. Maecenas posuere bibendum aliquet. Nulla eget maximus velit. Praesent sed laoreet nisl. Fusce fringilla eros quis risus ornare, a posuere velit dictum. Nunc ac luctus orci, vitae mollis massa.  </p>
-                        <a href="#" class="card-link">www.rocmiddleschool.com</a>
-                        <a href="#" class="card-link">Another link</a>
-                        <i class="event-icon fa fa-futbol-o" aria-hidden="true"></i>
-                      </div>
-                      </div>
-                <!--Example Event-->
-                  <div class="card event-card">
-                      <div class="card-body">
-                        <h5 class="card-title">Art Program</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Henrietta High School</h6>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel risus tortor. Maecenas posuere bibendum aliquet. Nulla eget maximus velit. Praesent sed laoreet nisl. Fusce fringilla eros quis risus ornare, a posuere velit dictum. Nunc ac luctus orci, vitae mollis massa.  </p>
-                        <a href="#" class="card-link">www.henhighschool.com</a>
-                        <a href="#" class="card-link">Another link</a>
-                        <i class="event-icon fa fa-paint-brush" aria-hidden="true"></i>
-                      </div>
-                    </div>
-                  
-                  
-                  
-              </div>
+            
             </div>
         </div>
     </div>
@@ -112,10 +126,23 @@
     </div>
 </div>
 <script>
-    var eventBox = document.getElementById('event1');
+    //Clicking on an event opens the event page
+    /*var eventBox = document.getElementById('event1');
     eventBox.onclick = function(){
         window.location = 'event.php'
-    }
+    }*/
 
+    
 </script>
 <?php include 'footer.php';?>
+
+
+
+
+
+
+
+
+
+
+
