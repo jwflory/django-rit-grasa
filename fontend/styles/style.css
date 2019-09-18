@@ -67,6 +67,9 @@ body{
     /* symbol for "collapsed" panels */
     content: "\f067"; 
 }
+.accordion .form-check-label{
+    padding-bottom: 5px;
+}
 .filter-col{
     padding-left: 0;
 }

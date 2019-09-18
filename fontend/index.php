@@ -1,110 +1,13 @@
 <?php include 'header.php';?>
-<!-- Homepage, wireframe #5 -->
+<!-- Homepage -->
 <div class="container home-container">
     <div class="row">
     <!-- most outer row-->
         <div class="col-sm-3 filter-col">
         <!-- Filter column-->
             <div class="accordion" id="accordionExample">
-              <div class="card">
-                <div class="card-header" id="headingOne">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Activity
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                  <div class="card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingTwo">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Transportation
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                  <div class="card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingThree">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      Grades Served
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                  <div class="card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingFour">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                      Gender
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                  <div class="card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingFive">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                      Distance
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-                  <div class="card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingSix">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                      Fees
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
-                  <div class="card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingSeven">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                      Timing
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
-                  <div class="card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 
-                  </div>
-                </div>
-              </div>
-            </div> <!--accordian-->
+                <!--data filled with JS-->
+            </div> 
         </div>
         <div class="col-sm-9">
         <!-- search results column-->
@@ -131,6 +34,70 @@
     eventBox.onclick = function(){
         window.location = 'event.php'
     }*/
+    
+    
+    $( document ).ready(function() {
+        
+        //Categories
+        var groupList = ["Activity", "Transportation", "Grades Served", "Gender","Distance", "Fees", "Timing"]
+        
+        for(var i=0; i<groupList.length; i++){
+            
+            //check for group name with spaces
+            var words = groupList[i].split(" ")
+            console.log(groupList[i])
+            if(words.length > 1){
+               var name = words[0] 
+            }else{
+                var name = groupList[i]
+            }
+            
+            //uncollapse first filter box
+            if(i==0){
+                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse show' aria-labelledby='headingOne' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
+            }else{
+                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' aria-labelledby='headingOne' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
+            }
+            
+        }
+        
+        //Activity
+        var activityList = ["Academic Support", "Arts and Culture", "Career or College Readiness", "Civic Engagement", "Community Service/ Service Learning", "Entrepreneurship/ Leadership", "Financial Literacy", "Health & Wellness", "Media Technology",  "Mentoring", "Nature & the Environment", "Play", "Public Speaking", "Social and Emotional Learning (SEL)", "Sports and Recreation", "STEM", "Tutoring", "Other"]
+        fillCheckBoxes(activityList, "collapseActivity");
+        
+        //Transportation
+        var transportationList = ["Provided", "Not Provided"]
+        fillCheckBoxes(transportationList, "collapseTransportation");
+        
+        //Grades Served
+        var gradesList = ["K-3rd", "K-5th", "3rd-5th", "6th-8th", "9th-12th"]
+        fillCheckBoxes(gradesList, "collapseGrades");
+        
+        //Gender
+        var genderList = ["Male Only", "Female Only", "Non-Specific"]
+        fillCheckBoxes(genderList, "collapseGender");
+        
+        //Distance
+        var distanceList = ["0-5 miles", "6-10 miles", "11-15 miles", "16-20 miles", "20+ miles"]
+        fillCheckBoxes(distanceList, "collapseDistance");
+        
+        //Fees
+        var feesList = ["Free", "$1-$25", "$26-$50", "$51-$75", "$75+"]
+        fillCheckBoxes(feesList, "collapseFees");
+        
+        //Timing
+        var timingList = ["Before School", "After School", "Evenings", "Weekends", "Summer", "Other"]
+        fillCheckBoxes(timingList, "collapseTiming");
+        
+         
+    });
+    
+    function fillCheckBoxes(list, location){
+        for(var i=0; i<list.length; i++){
+            $( "#"+location+" .card-body" ).append( "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='defaultCheckGender"+i+"'><label class='form-check-label' for='defaultCheckGender"+i+"'>"+list[i]+"</label></div>" );
+        }
+    }
+   
 
     
 </script>
