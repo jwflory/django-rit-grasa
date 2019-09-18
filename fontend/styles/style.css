@@ -228,9 +228,28 @@ body{
 i.fa{
     width:30px;
 }
+button i.fa{
+    width:auto;
+}
 
 /*style for Admin page submit button*/
 .home-container input[type=submit]{
 	background-color: #4CAF50;
 }
+/*Styles for createEvent page*/
+
+/*makes footer not cover content on mobile*/
+@media (max-width: 576px){
+    body {
+        margin-bottom: 140px;
+    }
+}
+
+
+
+
+
+
+
+
 
