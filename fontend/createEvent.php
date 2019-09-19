@@ -6,35 +6,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Age Group</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="e.g., 7-10">
-                    </div>  
-                
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select class="form-control">
-                            <option>Select Category...</option>
-                            <option>Theatre</option>
-                            <option>Sports</option>
-                            <option>Arts</option>
-                            <option>Cooking</option>
-                            <option>Robotics</option>
-                            <option>Other</option>
-                        </select>
-                    </div>    
-                
-                    <div class="form-group">
-                        <label>Location</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Street Address...">
-                    </div>    
-               
-                    <div class="form-group">
-                        <label>Website (optional)</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="http://">
-                    </div>  
-        </div>
         <div class="col-sm-8">
             <div class="form-group">
                 <label>Program Name</label>
@@ -42,11 +13,61 @@
             </div>
             <div class="form-group">
                 <label>Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="Tell us about your program..."></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" placeholder="Tell us about your program..."></textarea>
             </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Street Address...">
+            </div>    
 
+            <div class="form-group">
+                <label>Website (optional)</label>
+                <input type="url" class="form-control" id="exampleFormControlInput1" placeholder="http://">
+            </div>  
         </div>
-        
+        <div class="col-sm-4">
+            <div class="form-group text-left multiBox">
+                <label>Activity</label><br>
+                <select class="custom-select w-100 activitySelect" id="basic" multiple="multiple">
+                </select>
+            </div> 
+            <div class="form-group">
+                <label>Transportation</label>
+                <select class="form-control">
+                    <option>Not Provided</option>
+                    <option>Provided</option>
+                </select>
+            </div> 
+            <div class="form-group text-left multiBox">
+                <label>Grades Served</label><br>
+                <select class="custom-select w-100 gradesSelect" id="basic" multiple="multiple">
+                </select>
+            </div> 
+            <div class="form-group">
+                <label>Gender</label>
+                <select class="form-control">
+                    <option>Not Specific</option>
+                    <option>Female</option>
+                    <option>Male</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Fees</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00">
+                </div>
+            </div>
+            <div class="form-group text-left multiBox">
+                <label>Timing</label><br>
+                <select class="custom-select w-100 timingSelect" id="basic" multiple="multiple">
+                </select>
+            </div> 
+            
+                
+        </div>
     </div>
     <div class="row float-right">
         <div class="col-12">
@@ -55,9 +76,42 @@
     </div>
 </div>
 <script>
+    
+    //Cancel Button returns to provider page
     var cancelBtn = document.getElementById('cancelBtn');
     cancelBtn.onclick = function(){
         window.location = 'provider.php'
+    }
+    
+    //fill checkbox selects
+    fillCheckboxSelects(activityList,"activitySelect");
+    fillCheckboxSelects(gradesList,"gradesSelect");
+    fillCheckboxSelects(timingList,"timingSelect");
+    
+    //Use 3rd party code to make checkbox select
+    $('.custom-select').multiselect({
+        templates: {
+            li: '<li><a href="javascript:void(0);"><label class="pl-2"></label></a></li>'
+        }
+    });
+    $(".multiselect-container").addClass('w-100');
+    $(".multiBox .btn-group").addClass('w-100');
+    
+    
+    //fill helper function
+    function fillCheckboxSelects(list, location){
+        for(var i=0; i<list.length; i++){
+            //check for name with spaces
+            var words = list[i].split(" ")
+            if(words.length > 1){
+                //value names cannot have a slash in it or it won't show up
+               var name = words[0].replace(/^\/|\/$/g, '')
+               console.log(name);
+            }else{
+                var name = list[i]
+            }
+            $( "."+location).append( "<option value="+name+">"+list[i]+"</option>" );
+        }
     }
 
 </script>

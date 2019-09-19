@@ -279,7 +279,24 @@ button i.fa{
 	background-color: #4CAF50;
 }
 /*Styles for createEvent page*/
-
+.event-container .multiselect{
+    text-align: left;
+    border: solid 1px lightgrey;
+    color:#495057;
+    padding:5px;
+    padding-left:10px;
+}
+.event-container label.pl-2.checkbox{
+    color:#495057;
+}
+.event-container .dropdown-toggle::after {
+    float: right;
+    margin-top: 10px;
+}
+.event-container ul.multiselect-container{
+    overflow-y: scroll;
+    max-height:200px;
+}
 /*makes footer not cover content on mobile*/
 @media (max-width: 576px){
     body {
