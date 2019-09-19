@@ -27,7 +27,7 @@ path.append(os.path.join(PROJECT_ROOT, "libs"))
 SITE_ID = 1
 
 # https://docs.djangoproject.com/en/2.2/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["grasa.larrimore.de", "abba.larrimore.de"]
 
 # https://docs.djangoproject.com/en/2.2/ref/settings/#installed-apps
 INSTALLED_APPS = [
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party apps
-    'compressor',
+#    'compressor',
 
     # Local apps
     'base',
@@ -132,7 +132,7 @@ TEMPLATES = [
 
 # URL SETTINGS
 # https://docs.djangoproject.com/en/2.2/ref/settings/#root-urlconf.
-ROOT_URLCONF = '{{ project_name }}.urls'
+ROOT_URLCONF = 'grasa_event_locator.urls'
 
 
 # MIDDLEWARE SETTINGS
@@ -152,7 +152,7 @@ MIDDLEWARE = [
 LOGGING = {
     'version': 1,
     'loggers': {
-        '{{ project_name }}': {
+        'grasa_event_locator': {
             'level': "DEBUG"
         }
     }

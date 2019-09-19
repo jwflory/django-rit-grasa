@@ -1,4 +1,4 @@
-""" Default urlconf for {{ project_name }} """
+""" Default urlconf for grasa_event_locator """
 
 from django.conf import settings
 from django.conf.urls import include, url
