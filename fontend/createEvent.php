@@ -2,7 +2,26 @@
 <div class="container event-container">
     <div class="row">
         <div class="col-12">
-            <button type="button" class="btn btn-danger float-right" id="cancelBtn"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
+            <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+        </div>
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to cancel? The information for your new event will not be saved.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nevermind</button>
+                <button type="button" class="btn btn-primary" id="cancelBtn">Confirm Cancel</button>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
     <div class="row">
