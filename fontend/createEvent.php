@@ -4,6 +4,7 @@
         <div class="col-12">
             <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#cancelModal">Cancel</button>
         </div>
+        <!--Cancel Modal-->
         <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -14,18 +15,39 @@
                 </button>
               </div>
               <div class="modal-body">
-                Are you sure you want to cancel? The information for your new event will not be saved.
+               Are you sure you want to cancel? The information for your new event will not be saved.
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nevermind</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nevermind</button>
                 <button type="button" class="btn btn-primary" id="cancelBtn">Confirm Cancel</button>
+                
               </div>
             </div>
           </div>
         </div>
+        
+        <!--Submit Modal-->
+        <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Submitted</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+               Your event has been submitted to the administrators for approval. Until it is approved, your event will not appear in search results.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="submitOkBtn">OK</button>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        
     </div>
-    
-    
     
     <form class="needs-validation" novalidate>
       <div class="form-row">
@@ -121,8 +143,12 @@
 </div>
 <script>
     
-    //Cancel Button returns to provider page
+    //Cancel Button and Ok Button returns to provider page
     var cancelBtn = document.getElementById('cancelBtn');
+    cancelBtn.onclick = function(){
+        window.location = 'provider.php'
+    }
+    var cancelBtn = document.getElementById('submitOkBtn');
     cancelBtn.onclick = function(){
         window.location = 'provider.php'
     }
@@ -169,6 +195,10 @@
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
+            }else{
+                //IF CLIENT SIDE VALIDATION WORKS YOU END UP HERE
+                event.preventDefault();     //this stops the form from submitting, DELETE later
+                $('#submitModal').modal('show');
             }
             form.classList.add('was-validated');
               
