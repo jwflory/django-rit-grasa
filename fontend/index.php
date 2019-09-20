@@ -12,7 +12,7 @@
             <!-- button row-->
                 <div class="btn-group col-12" role="group" aria-label="Basic example">
                   <button type="button" class="btn btn-secondary btn-outline-success">Apply Filters</button>
-                  <button type="button" class="btn btn-secondary btn-outline-danger">Clear Filters</button>
+                  <button type="button" class="btn btn-secondary btn-outline-danger" id="clearFilters">Clear Filters</button>
                 </div>
             
             </div>
@@ -76,6 +76,16 @@
       window.location = "event.php"
     });
     
+    //Filter Buttons
+    var clearBtn = document.getElementById('clearFilters');
+    clearBtn.onclick= function(){
+        var items = $(".accordion [type='checkbox']")
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = false;
+        }
+        console.log("Filters Cleared")
+    }
     
     $( document ).ready(function() {
         
@@ -129,7 +139,13 @@
     
     function fillCheckBoxes(list, location){
         for(var i=0; i<list.length; i++){
-            $( "#"+location+" .card-body" ).append( "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='defaultCheckGender"+i+"'><label class='form-check-label' for='defaultCheckGender"+i+"'>"+list[i]+"</label></div>" );
+            var words = list[i].split(" ")
+            if(words.length > 1){
+               var name = words[0] 
+            }else{
+                var name = list[i]
+            }
+            $( "#"+location+" .card-body" ).append( "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='defaultCheck"+name+i+"'><label class='form-check-label' for='defaultCheck"+name+i+"'>"+list[i]+"</label></div>" );
         }
     }
    
