@@ -4,7 +4,7 @@
     <!--Top Row-->
         <div class="col-sm-9 card">
             <div class="card-body">
-                <h1>Rochester Middle School</h1>
+                <h2>Rochester Middle School</h2>
                 <hr>
                 <div class="row">
                     <div class="col-sm-6">
@@ -12,15 +12,6 @@
                     </div>
                     <div class="col-sm-6">
                         <button type="button" class="btn btn-link">Change Password</button>
-                    </div>
-                </div>
-                <div class="row twentyblock"></div>
-                <div class="row">
-                    <div class="col-sm-6">
-                         <h5 class="provider-info"><i class="fa fa-globe" aria-hidden="true"></i> rocmiddleschool.org</h5>
-                    </div>
-                    <div class="col-sm-6">
-                         <button type="button" class="btn btn-link">Change URL</button>
                     </div>
                 </div>
                 <div class="row twentyblock"></div>

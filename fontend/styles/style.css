@@ -44,33 +44,75 @@ body{
     border: 1px solid lightgray;
     border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
 }
-.program-list-card{
-    height: 500px;
+
+.accordion .card-header {
+    width:100%;
+    padding:0px;
 }
-.filter-card{
-    height: 325px;
+.accordion .card-header button.btn{
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+    color: black;
 }
-.program-list-card .program-list-card-body, .filter-card .list-group{
-    overflow-y: scroll;
+.accordion .card-header button.btn i{
+    padding: 5px;
 }
-.card-header{
-    font-weight: bold;
+.accordion .card-header button.btn:after {
+    font-family: 'FontAwesome';  
+    content: "\f068";
+    float: right; 
 }
-.event-icon{
-    float:right;
+.accordion .card-header button.btn.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f067"; 
 }
-.event-card{
-    margin-bottom: 10px;
+.accordion .form-check-label{
+    padding-bottom: 5px;
 }
-.event-card:hover{
-    background-color: #F8F8F8;
+.search-bar, #results-box{
+    padding-left: 15px;
+    padding-right: 15px; 
+    margin-top: 15px;
+}
+@media (min-width: 576px){
+    .filter-col {
+        padding-left: 0;  
+    }
+    .search-bar{
+        padding:0;
+        margin: 0;
+    }
+    #results-box{
+        padding:0;
+    }
+    .right-info{
+        text-align: right !important;
+    }
+}
+.distance-input{
+    margin-bottom:10px;
+}
+#results-box{
+    width:100%;
+}
+#results-box .card{
+    margin-bottom:10px;
+}
+.filter-btn-row{
+    margin-top:10px;
+}
+.filter-btn-row button{
+    padding:5px;
+    background-color: white;
+}
+.event-box:hover{
     cursor: pointer;
 }
-
-/*Event Page Styles*/
-.event-page-card i.fa{
-    width: 20px;
+.right-info{
+    text-align: left;
 }
+/*Event Page Styles*/
 .event-container{
     margin-bottom: 40px;
 }
@@ -225,7 +267,7 @@ body{
 }
 
 /*icon width fix*/
-i.fa{
+.event-page-card i.fa{
     width:30px;
 }
 button i.fa{
@@ -237,15 +279,30 @@ button i.fa{
 	background-color: #4CAF50;
 }
 /*Styles for createEvent page*/
-
+.event-container .multiselect{
+    text-align: left;
+    border: solid 1px lightgrey;
+    color:#495057;
+    padding:5px;
+    padding-left:10px;
+}
+.event-container label.pl-2.checkbox{
+    color:#495057;
+}
+.event-container .dropdown-toggle::after {
+    float: right;
+    margin-top: 10px;
+}
+.event-container ul.multiselect-container{
+    overflow-y: scroll;
+    max-height:200px;
+}
 /*makes footer not cover content on mobile*/
 @media (max-width: 576px){
     body {
         margin-bottom: 140px;
     }
 }
-
-
 
 
 
