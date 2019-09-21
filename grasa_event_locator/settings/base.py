@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party apps
-#    'compressor',
+    'compressor',
 
     # Local apps
     'base',
