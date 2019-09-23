@@ -61,14 +61,14 @@
                     <tr>
                       <th scope="row">Monroe Middle School</th>
                       <td>Approved</td>
-                      <td><button type="button" class="btn btn-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-danger">Deny</button></td>
+                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
+                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
                     </tr>
                     <tr>
                       <th scope="row">Rush Lower School</th>
                       <td>Pending</td>
-                      <td><button type="button" class="btn btn-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-danger">Deny</button></td>
+                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
+                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -90,17 +90,17 @@
                       <th scope="row">Soccer Program</th>
                       <td>Rochester Middle School</td>
                       <td>Approved</td>
-                      <td><button type="button" class="btn btn-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-danger">Deny</button></td>
+                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
+                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
+                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
                     </tr>
                     <tr>
                       <th scope="row">Cooking for Kids!</th>
                       <td>Henrietta Elementary School</td>
                       <td>Pending</td>
-                      <td><button type="button" class="btn btn-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-danger">Deny</button></td>
+                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
+                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
+                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -122,17 +122,17 @@
                       <th scope="row">Better Soccer Program</th>
                       <td>Rochester Middle School</td>
                       <td>Approved</td>
-                      <td><button type="button" class="btn btn-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-danger">Deny</button></td>
+                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
+                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
+                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
                     </tr>
                     <tr>
                       <th scope="row">Cooking for Adults!</th>
                       <td>Henrietta Elementary School</td>
                       <td>Pending</td>
-                      <td><button type="button" class="btn btn-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-danger">Deny</button></td>
+                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
+                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
+                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
                     </tr>
                   </tbody>
                 </table>

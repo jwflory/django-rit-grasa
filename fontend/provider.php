@@ -61,14 +61,14 @@
             <tr>
               <th scope="row">Soccer Program</th>
               <td>Approved</td>
-              <td><button type="button" class="btn btn-info editBtn">Edit</button></td>
-              <td><button type="button" class="btn btn-danger">Delete</button></td>
+              <td><button type="button" class="btn btn-outline-info editBtn">Edit</button></td>
+              <td><button type="button" class="btn btn-outline-danger">Delete</button></td>
             </tr>
             <tr class="warning">
               <th scope="row">Cooking Program</th>
               <td>Submitted for Approval</td>
-              <td><button type="button" class="btn btn-info disabled editBtn">Edit</button></td>
-              <td><button type="button" class="btn btn-danger disabled">Delete</button></td>
+              <td><button type="button" class="btn btn-outline-info disabled editBtn">Edit</button></td>
+              <td><button type="button" class="btn btn-outline-danger disabled">Delete</button></td>
             </tr>
           </tbody>
         </table>
