@@ -5,17 +5,18 @@ DEBUG = True
 INTERNAL_IPS = ["127.0.0.1"]
 
 SECRET_KEY = "secret"
-
+ALLOWED_HOSTS = ["grasa.larrimore.de", "abba.larrimore.de"]
 # DATABASE SETTINGS
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'development.sqlite3',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'grasa_event_locator',
+        'USER': 'grasaadmin',
+        'PASSWORD': 'djangoGrasa2019',
+        'HOST': 'db',
+        'PORT': '3306',
+	'OPTIONS': {'charset': 'utf8mb4'},
     },
 }
 
@@ -42,7 +43,7 @@ DEBUG_TOOLBAR_CONFIG = {
     'TAG': 'body',
     'SHOW_TEMPLATE_CONTEXT': True,
     'ENABLE_STACKTRACES': True,
-    'SHOW_TOOLBAR_CALLBACK': '{{ project_name }}.settings.development.show_toolbar',
+    'SHOW_TOOLBAR_CALLBACK': 'grasa_event_locator.settings.development.show_toolbar',
 }
 
 DEBUG_TOOLBAR_PANELS = (
