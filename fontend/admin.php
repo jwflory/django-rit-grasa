@@ -2,62 +2,51 @@
 
 <div class="container home-container">
 
-    <div class="row">
-    <!-- most outer row-->
-        <div class="col-3">
-        <!--Left Content-->
-            
-            <div class="row">
-			
-            <!-- Left outer row -->
-            <div class="card filter-card" style="width:100%">				
-				
-				<div class="card event-page-card">  
-				
-				<!-- Change logo browse file -->
-					<img src="https://via.placeholder.com/150" class="card-img-top" alt="Provider Logo">
-					
-					<div class="input-group">                     
-					  <div class="custom-file">
+
+	<div class="row">
+    <!--Top Row-->
+        <div class="col-sm-9 card">
+            <div class="card-body">
+                <h2>Admin Portal</h2>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                         <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> admin@rms.org</h5>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-link">Change Password</button>
+                    </div>
+                </div>
+               
+				<input class="btn btn-primary" type="submit" value="Submit">				
+            </div>
+        </div>
+		
+        <div class="col-sm-3">
+            <div class="card event-page-card">
+              <img src="https://via.placeholder.com/150" class="card-img-top" alt="Provider Logo">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <div class="input-group">
+
+                      <div class="custom-file">
                         <input type="file" class="custom-file-input" id="inputGroupFile01"
                           aria-describedby="inputGroupFileAddon01">
-						  
-                        <label class="custom-file-label" for="inputGroupFile01"> Choose Logo to change! </label>
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file...</label>
                       </div>
-                    </div>              
-              
-				</div>
-        			
-				</br>
-				<div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
-					<p>Change Color [P]
-						<input type="color" value="#ff0000">
-					</p>  
-					
-					<p>Change Color [S] 
-						<input type="color" value="#ff0000">
-					</p>				
-					
-					<p>Change Color [T]
-						<input type="color" value="#ff0000">
-					</p>
-					</br>
-					<div>
-                        <button type="button" class="btn btn-link">Change Password </button>
-                    </div>
-				</div>		
-			
-				<input class="btn btn-primary" type="submit" value="Submit">				
-					 
-			</div>
-			
-		</div>
-			        
+                  </div>
+                  
+                </li>
+              </ul>
+            </div>
+        </div>
+		
 	</div>
+
 	
-	<div class="col-9">
-        <!--Right Content-->
-            <div class="card program-list-card" style="height:90%">
+	<div class="row-lg">
+        <!--Bottom row-->
+            <div class="card program-list-card">
               <div class="card-header">                
 			  </div>
 			  
@@ -151,7 +140,7 @@
 		
 			</div>	
 		</div>
-	</div>
+	
 </div>
 		
 <?php include 'footer.php';?>
