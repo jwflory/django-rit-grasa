@@ -2,45 +2,36 @@
 
 <div class="container home-container">
 
-
 	<div class="row">
     <!--Top Row-->
-        <div class="col-sm-9 card">
+        <div class="col-sm-12">
             <div class="card-body">
                 <h2>Admin Portal</h2>
                 <hr>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                          <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> admin@rms.org</h5>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <button type="button" class="btn btn-link">Change Password</button>
                     </div>
+					<div class ="col-sm-4">
+					<p> Choose logo to change!</p>
+                      <div class="custom-file">
+						
+                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                          aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file...</label>
+						
+                      </div>
+                    </div>              
+				
                 </div>
                
 				<input class="btn btn-primary" type="submit" value="Submit">				
             </div>
-        </div>
-		
-        <div class="col-sm-3">
-            <div class="card event-page-card">
-              <img src="https://via.placeholder.com/150" class="card-img-top" alt="Provider Logo">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class="input-group">
-
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01"
-                          aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" for="inputGroupFile01">Choose file...</label>
-                      </div>
-                  </div>
-                  
-                </li>
-              </ul>
-            </div>
-        </div>
-		
+			
+        </div>			
 	</div>
 
 	
