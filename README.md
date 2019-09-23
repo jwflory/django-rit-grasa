@@ -1,6 +1,8 @@
 django-rit-grasa
 ================
 
+[![Documentation Status](https://readthedocs.org/projects/django-rit-grasa/badge/?version=latest)](https://django-rit-grasa.readthedocs.io/en/latest/?badge=latest)
+
 Django web application used by Greater Rochester After-School Alliance (GRASA) to improve access to after-school programs in Monroe County, NY
 
 
