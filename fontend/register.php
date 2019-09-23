@@ -5,7 +5,10 @@
   <h1 class="h3 mb-3 font-weight-normal text-center top-20">Register</h1>
   <form action="register.php">
   
-	<label for="resetPW">Email address</label>
+    <label for="name">Organization Name</label>
+	<input type="text" id="resetPW" class="form-control" required autofocus>
+      
+	<label for="resetPW" class="top-20">Email address</label>
 	<input type="email" id="resetPW" class="form-control" required autofocus>
 	
     <label for="myPW" class="top-20">Password</label>
