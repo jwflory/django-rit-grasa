@@ -7,12 +7,12 @@ DEBUG = False
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'grasa_event_locator',
-        'USER': 'grasaadmin',
-        'PASSWORD': 'djangoGrasa2019',
-        'HOST': 'db',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
 	'OPTIONS': {'charset': 'utf8mb4'},
     },
 }
