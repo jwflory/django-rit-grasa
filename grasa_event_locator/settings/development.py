@@ -5,7 +5,7 @@ DEBUG = True
 INTERNAL_IPS = ["127.0.0.1"]
 
 SECRET_KEY = "secret"
-ALLOWED_HOSTS = ["grasa.larrimore.de", "abba.larrimore.de"]
+ALLOWED_HOSTS = ["grasa.larrimore.de", "abba.larrimore.de", "127.0.0.1"]
 # DATABASE SETTINGS
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 DATABASES = {
@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'grasa_event_locator',
 ]
 
-ROOT_URLCONF = 'grasa_program_locator.urls'
+ROOT_URLCONF = 'grasa_event_locator.urls'
 
 TEMPLATES = [
     {
@@ -75,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'grasa_program_locator.wsgi.application'
+WSGI_APPLICATION = 'grasa_event_locator.wsgi.application'
 LOGIN_REDIRECT_URL = '/grasa_event_locator/templates/index.php'
 
 DEBUG_TOOLBAR_CONFIG = {
