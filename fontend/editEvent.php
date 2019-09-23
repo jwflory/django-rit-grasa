@@ -1,6 +1,7 @@
 <?php include 'header.php';?>
 <div class="container event-container">
-    <h2>Create Event</h2>
+    <h2>Edit Event</h2>
+    <p class="text-muted">When you edit your event it will need to be re-submited for approval by the administrators. Until the change is approved, your event will remain the same.</p>
     <div class="row">
         <div class="col-12">
             <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#cancelModal">Cancel</button>
@@ -16,7 +17,7 @@
                 </button>
               </div>
               <div class="modal-body">
-               Are you sure you want to cancel? The information for your new event will not be saved.
+               Are you sure you want to cancel? The information you changed about your event will not be saved.
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nevermind</button>
@@ -38,7 +39,7 @@
                 </button>
               </div>
               <div class="modal-body">
-               Your event has been submitted to the administrators for approval. Until it is approved, your event will not appear in search results.
+               Your edited event has been submitted to the administrators for approval. Until it is approved, your unedited event will appear in search results.
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="submitOkBtn">OK</button>

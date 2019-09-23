@@ -275,8 +275,13 @@ button i.fa{
 }
 
 /*style for Admin page submit button*/
-.home-container input[type=submit]{
-	background-color: #4CAF50;
+.admin-logo-change{
+    width: 100px;
+    margin:0 auto;
+}
+.provider-logo-change{
+    width: 150px;
+    margin:0 auto;
 }
 /*Styles for createEvent page*/
 .event-container .multiselect{
