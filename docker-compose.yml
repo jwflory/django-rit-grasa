@@ -5,20 +5,23 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: Grasa-Django-App
-    network_mode: host
+#    network_mode: host
     ports:
-      - 80:80
+      - 80:8000
       - 443:443
+#`    links:
+#      - db
   db:
     image: "mariadb:10.1"
-    command: mysql --default-authentication-plugin=mysql_native_password
+    container_name: db
+#    command: mariadb
     volumes:
       - "~/.cache/django-rit-grasa-db:/var/lib/mysql:z"
     ports:
       - 3306:3306
+#    network_mode: host
     environment:
       - MYSQL_ROOT_PASSWORD=djangoGrasa2019
       - MYSQL_DATABASE=grasa_event_locator
       - MYSQL_USER=grasaadmin
       - MYSQL_PASSWORD=djangoGrasa2019
-
