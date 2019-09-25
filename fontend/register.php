@@ -16,7 +16,8 @@
  
     <label for="confirmPW" class="top-20">Confirm Password</label>
 	<input type="password" id="confirmPW" class="form-control" name="confirm" required>
-	<input type="checkbox" onclick="myFunction()"> &nbsp; Show Password
+	<input id="SPcheckbox" type="checkbox" onclick="myFunction()">
+    <label for="SPcheckbox">&nbsp; Show Password</label>
 	
     <input class="btn btn-lg btn-success btn-block top-20" type="submit" value="Submit">
   </form>
