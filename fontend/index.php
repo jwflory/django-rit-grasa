@@ -64,7 +64,7 @@
     </div>
     <div class="row">
     <!-- map row-->
-            <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Rochester%20Institute%20of%20Technology%20&t=&z=9&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+            <iframe title="Map" id="gmap_canvas" src="https://maps.google.com/maps?q=Rochester%20Institute%20of%20Technology%20&t=&z=9&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" aria-hidden="true"></iframe>
     </div>
 </div>
 <script>
