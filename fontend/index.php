@@ -10,6 +10,11 @@
             </div> 
             <div class="row filter-btn-row">
             <!-- button row-->
+                <div class="col-12">
+                    <div class="filter-alert alert alert-danger alert-dismissible fade show" role="alert">
+                      Filters Cleared
+                    </div>
+                </div>
                 <div class="btn-group col-12" role="group" aria-label="Basic example">
                   <button type="button" class="btn btn-secondary btn-outline-success">Apply Filters</button>
                   <button type="button" class="btn btn-secondary btn-outline-danger" id="clearFilters">Clear Filters</button>
@@ -84,11 +89,15 @@
             if (items[i].type == 'checkbox')
                 items[i].checked = false;
         }
-        console.log("Filters Cleared")
+        //show and hide alert for clear filters
+        $(".filter-alert").show()
+        setTimeout(function() {
+            $(".filter-alert").hide();
+        }, 2000);
+        
     }
     
     $( document ).ready(function() {
-        
         //Categories
         for(var i=0; i<groupList.length; i++){
             

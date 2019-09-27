@@ -116,6 +116,9 @@ body{
 .right-info{
     text-align: left;
 }
+.filter-alert{
+    display: none;
+}
 /*Event Page Styles*/
 .event-container{
     margin-bottom: 40px;
