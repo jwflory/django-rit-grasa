@@ -55,10 +55,10 @@ body{
     text-decoration: none;
     color: black;
 }
-.accordion .card-header button.btn:focus{
+/*.accordion .card-header button.btn:focus{
     box-shadow: 0 0 5px rgba(0, 123, 255, 1);
     border: 1px solid rgba(0, 123, 255, 1);
-}
+}*/
 .accordion .card-header button.btn i{
     padding: 5px;
 }
@@ -119,6 +119,9 @@ body{
 /*Event Page Styles*/
 .event-container{
     margin-bottom: 40px;
+}
+.activity-badges{
+    font-size: 1.1rem;
 }
 
 /*Log-in page styles*/
