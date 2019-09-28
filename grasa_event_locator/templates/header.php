@@ -69,9 +69,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="provider.php">Provider</a>
               </li>
+              {% if user.is_staff or not user.is_authenticated %}
                 <li class="nav-item">
                 <a class="nav-link" href="admin.php">Admin</a>
               </li>
+              {% endif %}
             </ul>
           </div>
         <span class="form-inline mt-2 mt-md-0">

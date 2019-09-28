@@ -7,8 +7,14 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth import logout
 from .models import *
 from django.contrib.auth.models import User as UserAccount
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 def admin(request):
+        if request.user.is_staff:
+                return render(request, 'admin.php')
+        else:
+                return render(request, 'login.php')
         return render(request, 'admin.php')
 
 def changepw(request):
@@ -24,14 +30,14 @@ def index(request):
         return render(request, 'index.php')
 
 def login(request):
+        if request.user.is_authenticated:
+                return HttpResponseRedirect("index.php")
         if request.method == 'POST':
                         email = request.POST['email']
                         password = request.POST['password']
                         user = authenticate(request, username=email, password=password)
                         if user is not None:
                                 auth_login(request, user)
-                                print("Logged In!")
-                                print(user.is_authenticated)
                                 return(render(request,'provider.php'))
                         else:
                                 return render(request,'login.php',)
