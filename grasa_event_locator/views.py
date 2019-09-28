@@ -12,9 +12,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 def admin(request):
         if request.user.is_staff:
-                return render(request, 'admin.php')
+                return render(request, "admin.php")
         else:
-                return render(request, 'login.php')
+                return HttpResponseRedirect("login.php")
         return render(request, 'admin.php')
 
 def changepw(request):
