@@ -4,6 +4,7 @@ from django.db import models
 class User(models.Model):
     email = models.EmailField(max_length=255)
     password = models.CharField(max_length=40)
+    org_name = models.CharField(max_length=255)
     isAdmin = models.BooleanField(default=False)
     isActive = models.BooleanField(default=False)
     isPending = models.BooleanField(default=True)

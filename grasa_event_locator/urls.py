@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView
 
@@ -14,5 +15,6 @@ urlpatterns = [
     path('register.php', views.register),
     path('resetPW.php', views.resetpw),
     path('logout', views.logout_view),
+    path('admin/', admin.site.urls),
 ]
 

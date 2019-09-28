@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+{% include "header.php" %}
 <div class="container event-container">
     <h2>Edit Event</h2>
     <p class="text-muted">When you edit your event it will need to be re-submited for approval by the administrators. Until the change is approved, your event will remain the same.</p>
@@ -55,70 +55,70 @@
       <div class="form-row">
             <div class="col-sm-8">
                 <div class="form-group">
-                    <label>Program Name</label>
-                    <input type="text" class="form-control" placeholder="Name..." required>
+                    <label for="name">Program Name</label>
+                    <input id="name" type="text" class="form-control" placeholder="Name..." required>
                     <div class="invalid-feedback">
                         Please provide a name for your program.
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" placeholder="Tell us about your program..." required></textarea>
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" rows="8" placeholder="Tell us about your program..." required></textarea>
                     <div class="invalid-feedback">
                         Please provide a description for your program.
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Location</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Street Address..." required>
+                    <label for="location">Location</label>
+                    <input type="text" class="form-control" id="location" placeholder="Street Address..." required>
                     <div class="invalid-feedback">
                         Please provide your program's street address.
                     </div>
                 </div>    
                 <div class="form-group">
-                    <label>Website (optional)</label>
-                    <input type="url" class="form-control" id="exampleFormControlInput1" placeholder="http://">
+                    <label for="website">Website (optional)</label>
+                    <input type="url" class="form-control" id="website" placeholder="http://">
                 </div>  
             </div>
             <div class="col-sm-4">
                 <div class="form-group text-left multiBox">
-                    <label>Activity</label><br>
-                    <select class="form-control custom-select w-100 activitySelect" id="basic" multiple="multiple" required>
+                    <label for="activity">Activity</label><br>
+                    <select id="activity" class="form-control custom-select w-100 activitySelect" multiple="multiple" required>
                     </select>
                     <div class="invalid-feedback">
                         Please select at least one activity.
                     </div>
                 </div> 
                 <div class="form-group">
-                    <label>Transportation</label>
-                    <select class="form-control" required>
+                    <label for="transportation">Transportation</label>
+                    <select id="transportation" class="form-control" required>
                         <option>Not Provided</option>
                         <option>Provided</option>
                     </select>
                 </div> 
                 <div class="form-group text-left multiBox">
-                    <label>Grades Served</label><br>
-                    <select class="custom-select w-100 gradesSelect" id="basic" multiple="multiple" required>
+                    <label for="grades">Grades Served</label><br>
+                    <select id="grades" class="custom-select w-100 gradesSelect" multiple="multiple" required>
                     </select>
                     <div class="invalid-feedback">
                         Please select at least one grade group.
                     </div>
                 </div> 
                 <div class="form-group">
-                    <label>Gender</label>
-                    <select class="form-control" required>
+                    <label for="gender">Gender</label>
+                    <select id="gender" class="form-control" required>
                         <option>Not Specific</option>
                         <option>Female</option>
                         <option>Male</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Fees</label>
+                    <label for="fees">Fees</label>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                       </div>
-                      <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" required>
+                      <input id="fees" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" required>
                         <div class="invalid-feedback">
                             Please enter total amount of fees. If the program is free enter 0.00
                         </div>
@@ -126,8 +126,8 @@
                     
                 </div>
                 <div class="form-group text-left multiBox">
-                    <label>Timing</label><br>
-                    <select class="custom-select w-100 timingSelect" id="basic" multiple="multiple" required>
+                    <label for="timing">Timing</label><br>
+                    <select id="timing" class="custom-select w-100 timingSelect" multiple="multiple" required>
                     </select>
                      <div class="invalid-feedback">
                         Please select at least one time.
@@ -247,4 +247,4 @@
     
 
 </script>
-<?php include 'footer.php';?>
+{% include "footer.php" %}

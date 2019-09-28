@@ -5,6 +5,8 @@ from .models import *
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth import logout
+from .models import *
+from django.contrib.auth.models import User as UserAccount
 
 def admin(request):
         return render(request, 'admin.php')
@@ -23,18 +25,16 @@ def index(request):
 
 def login(request):
         if request.method == 'POST':
-                login_form_var = LoginForm(request.POST)
-                if login_form_var.is_valid():
-                        username = request.POST['username']
+                        email = request.POST['email']
                         password = request.POST['password']
-                        user = authenticate(request, username=username, password=password)
+                        user = authenticate(request, username=email, password=password)
                         if user is not None:
                                 auth_login(request, user)
                                 print("Logged In!")
                                 print(user.is_authenticated)
                                 return(render(request,'provider.php'))
                         else:
-                                return render(request,'login.php', {'login_form_var': login_form_var}, user)
+                                return render(request,'login.php',)
         else:
                 login_form_var = LoginForm()
         return render(request, 'login.php', {'login_form_var': login_form_var})
@@ -62,7 +62,17 @@ def provider(request):
 
 
 def register(request):
-        return render(request, 'register.php')
+        if request.method == 'POST' and request.POST['current'] == request.POST['confirm'] :
+                emailAddr = request.POST['emailAddr']
+                orgName = request.POST['orgName']
+                current = request.POST['current']
+                submission = User(email = emailAddr, password = current, org_name = orgName)
+                submission.save()
+                user = UserAccount.objects.create_user(emailAddr, emailAddr, current)
+                return render(request, 'login.php')
+        else:
+                return render(request, 'register.php', )
+        return render(request, 'register.php', )
 
 def resetpw(request):
         return render(request, 'resetPW.php')

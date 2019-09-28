@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+{% include "header.php" %}
 <!-- Homepage -->
 <div class="container home-container">
     <div class="row">
@@ -10,6 +10,11 @@
             </div> 
             <div class="row filter-btn-row">
             <!-- button row-->
+                <div class="col-12">
+                    <div class="filter-alert alert alert-danger alert-dismissible fade show" role="alert">
+                      Filters Cleared
+                    </div>
+                </div>
                 <div class="btn-group col-12" role="group" aria-label="Basic example">
                   <button type="button" class="btn btn-secondary btn-outline-success">Apply Filters</button>
                   <button type="button" class="btn btn-secondary btn-outline-danger" id="clearFilters">Clear Filters</button>
@@ -24,7 +29,7 @@
                 <div class="input-group mb-3 search-bar">
                   <input type="text" class="form-control" placeholder="Search..." aria-label="Search for a Program by name" aria-describedby="button-addon2">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2" aria-label="Search"><i class="fa fa-search" aria-hidden="true"></i></button>
                   </div>
                 </div>
             </div>
@@ -64,7 +69,7 @@
     </div>
     <div class="row">
     <!-- map row-->
-            <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Rochester%20Institute%20of%20Technology%20&t=&z=9&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+            <iframe title="Map" id="gmap_canvas" src="https://maps.google.com/maps?q=Rochester%20Institute%20of%20Technology%20&t=&z=9&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" aria-hidden="true"></iframe>
     </div>
 </div>
 <script>
@@ -84,11 +89,15 @@
             if (items[i].type == 'checkbox')
                 items[i].checked = false;
         }
-        console.log("Filters Cleared")
+        //show and hide alert for clear filters
+        $(".filter-alert").show()
+        setTimeout(function() {
+            $(".filter-alert").hide();
+        }, 2000);
+        
     }
     
     $( document ).ready(function() {
-        
         //Categories
         for(var i=0; i<groupList.length; i++){
             
@@ -102,13 +111,13 @@
             
             //uncollapse first filter box
             if(i==0){
-                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse show' aria-labelledby='headingOne' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
+                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse show' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
             
             //add distance
             }else if(name=="Distance"){
-                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' aria-labelledby='headingOne' data-parent='#accordionExample'><div class='card-body'><input class='form-control form-control-sm distance-input' type='text' placeholder='From Address...'></div></div></div>")
+                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' data-parent='#accordionExample'><div class='card-body'><input class='form-control form-control-sm distance-input' type='text' placeholder='From Address...'></div></div></div>")
             }else{
-                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' aria-labelledby='headingOne' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
+                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
             }
             
         }
@@ -152,8 +161,7 @@
 
     
 </script>
-<?php include 'footer.php';?>
-
+{% include "footer.php" %}
 
 
 
