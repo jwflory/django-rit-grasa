@@ -66,9 +66,11 @@
               <li class="nav-item active">
                 <a class="nav-link" href="index.php">Home<span class="sr-only sr-only-focusable">(current)</span></a>
               </li>
+              {% if not user.is_staff %}
               <li class="nav-item">
                 <a class="nav-link" href="provider.php">Provider</a>
               </li>
+              {% endif %}
               {% if user.is_staff or not user.is_authenticated %}
                 <li class="nav-item">
                 <a class="nav-link" href="admin.php">Admin</a>
