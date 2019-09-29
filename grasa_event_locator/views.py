@@ -27,6 +27,8 @@ def event(request):
         return render(request, 'event.php')
 
 def index(request):
+#        p = User.objects.filter(email=request.user.username).values('org_name')[0]
+#        p_test = p.get('org_name')
         return render(request, 'index.php')
 
 def login(request):

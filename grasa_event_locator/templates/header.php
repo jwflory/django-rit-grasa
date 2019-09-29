@@ -1,5 +1,4 @@
 {% load static %}
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -72,8 +71,14 @@
               </li>
               {% endif %}
               {% if user.is_staff or not user.is_authenticated %}
-                <li class="nav-item">
+               <li class="nav-item">
                 <a class="nav-link" href="admin.php">Admin</a>
+              </li>
+              {% endif %}
+               {% if user.is_authenticated %}
+               <li class="nav-item">
+                <a class="nav-link">Logged in User:</a>
+
               </li>
               {% endif %}
             </ul>
