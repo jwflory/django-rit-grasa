@@ -25,7 +25,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 # WSGI SETTINGS
 # https://docs.djangoproject.com/en/2.2/ref/settings/#wsgi-application
-WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
+WSGI_APPLICATION = 'grasa_event_locator.wsgi.application'
 
 # NOTIFICATIONS
 # A tuple that lists people who get code error notifications.
