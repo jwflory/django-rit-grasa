@@ -3,7 +3,8 @@
 	
     <form class="form-signin">
       
-      <h1 class="h3 mb-3 font-weight-normal text-center">GRASA Programs</h1>
+      <h1 class="h3 mb-3 font-weight-normal text-center">GRASA Programs Login</h1>
+      <p class="text-muted text-center">You do not need an account to browse events, only if you would like to add your own event.</p>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>

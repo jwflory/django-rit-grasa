@@ -46,7 +46,11 @@
             
         
         <!--New User Approval-->
-            <h4 class="top-20">New Users</h4>
+            <h4 class="top-20">Pending Users
+                <button type="button" class="btn btn-success float-right" id="addAdmin"> <i class="fa fa-plus" aria-hidden="true"></i> Add Admin</button>
+                <button type="button" class="btn btn-info float-right" id="allUsers"> <i class="fa fa-address-book" aria-hidden="true"></i> View All Users</button>
+            
+            </h4>
                 <table class="table table-hover table-bordered">
                   <thead class="thead-light">
                     <tr>
@@ -59,7 +63,7 @@
                   <tbody class="provider-program-list">
                     <tr>
                       <th scope="row">Monroe Middle School</th>
-                      <td>Approved</td>
+                      <td>Pending</td>
                       <td><button type="button" class="btn btn-outline-success">Approve</button></td>
                       <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
                     </tr>
@@ -147,7 +151,10 @@
             window.location = 'event.php'
         }
     }
-        
+    var allUsersBtn = document.getElementById('allUsers');
+    allUsersBtn.onclick = function(){
+        window.location = 'allUsers.php'
+    }
     
 </script>
 		

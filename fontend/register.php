@@ -2,7 +2,7 @@
 
 
 <div class="form-register">
-  <h1 class="h3 mb-3 font-weight-normal text-center top-20">Register</h1>
+  <h1 class="h3 mb-3 font-weight-normal text-center top-20">Register as a Provider</h1>
   <form action="register.php">
   
     <label for="name">Organization Name</label>

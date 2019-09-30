@@ -283,6 +283,11 @@ body{
 button i.fa{
     width:auto;
 }
+/*Admin Page*/
+#addAdmin, #allUsers{
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
 
 /*style for Admin page submit button*/
 .admin-logo-change{
@@ -318,7 +323,10 @@ button i.fa{
         margin-bottom: 140px;
     }
 }
-
+/*All Users*/
+.allUsersContainer{
+    padding:20px;
+}
 
 
 
