@@ -59,7 +59,7 @@
                   <tbody class="provider-program-list">
                     {% for pendingUser in pendingUserList %}
                     <tr>
-                      <th scope="row">{{ pendingUser.org_name }}</th>
+                      <th scope="row">{{ pendingUser.org_name }} - <a href="mailto:{{ pendingUser.user }}">{{ pendingUser.user }}</a></th>
                       <td>Pending</td>
                       <td><a href="{% url 'approve_user' pendingUser.id %}"><button type="button" class="btn btn-outline-success">Approve</button></td></a>
                       <td><a href="{% url 'deny_user' pendingUser.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
