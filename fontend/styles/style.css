@@ -386,22 +386,13 @@ span.subhead::before, span.subhead::after {
 /*Styles for Contact section*/
 .contact-container {
 	text-align: left;
-    border: solid 1px lightgray;    
+    /*border: solid 1px lightgray;    */
     padding:5px;
     padding-left:20px;
 	padding-right:20px;
 	margin-top:40px;
 }
 
-.contact-container button {
-  margin-bottom: 10px;
-  background-color: #4CAF50;
-  color: white;
-}
-
-.address p{
-	font-weight: 600;
-}
 
 #contact {
 	font-size:3em;
