@@ -48,9 +48,10 @@ def login(request):
                         if user is not None and user.userinfo.isActive: 
                                 auth_login(request, user)
                                 if request.user.userinfo.isAdmin:
-                                        return render(request, 'admin.php')
+                                        return HttpResponseRedirect("admin.php")
                                 else:
-                                        return(render(request,'provider.php'))
+                                        return HttpResponseRedirect("provider.php")
+
                         else:
                                 return render(request,'login.php',)
                                 #Will need to put some logic here to state invalid credentials
@@ -63,8 +64,10 @@ def logout_view(request):
         return HttpResponseRedirect("index.php")
 
 def provider(request):
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 return render(request, 'provider.php', )
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                return render(request, 'index.php', )
         else:
                 return HttpResponseRedirect("login.php")
 
