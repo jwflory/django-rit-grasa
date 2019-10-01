@@ -7,11 +7,6 @@ services:
     container_name: Grasa-Django-App
     network_mode: host
     ports:
-      - 80:80
-      - 443:443
-  db:
-    image: "mariadb:10.1"
-    command: mysql --default-authentication-plugin=mysql_native_password
     volumes:
       - "~/.cache/django-rit-grasa-db:/var/lib/mysql:z"
     ports:
