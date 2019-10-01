@@ -28,9 +28,12 @@ def changepw(request):
 
 def createevent(request):
         if request.method == 'POST':
-                program = Program(user_id=request.user.userinfo.id, )
+                print(request.POST['activity'])
+                g = (str(request.user.userinfo.id))
+                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], activity=request.POST['activity'], transportation=request.POST['transportation'], grades=request.POST['grades'], gender=request.POST['gender'], fees=request.POST['fees'], timing=request.POST['timing'])
+                program.save()
         else:
-                print("10")
+                return render(request, 'createEvent.php')
         return render(request, 'createEvent.php')
 
 def event(request, eventID):
