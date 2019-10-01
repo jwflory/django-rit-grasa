@@ -36,6 +36,14 @@ body{
 .home-container, .event-container {
     margin-top: 40px;
 }
+/*Leaflet Map Styles*/
+#mapid{
+    height: 400px; 
+    width: 100%; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+/* Google Maps Styles
 #gmap_canvas{
     width:100%;
     height:400px;
@@ -43,7 +51,7 @@ body{
     margin-bottom: 20px;
     border: 1px solid lightgray;
     border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
-}
+}*/
 
 .accordion .card-header {
     width:100%;
@@ -283,6 +291,11 @@ body{
 button i.fa{
     width:auto;
 }
+/*Admin Page*/
+#addAdmin, #allUsers{
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
 
 /*style for Admin page submit button*/
 .admin-logo-change{
@@ -318,7 +331,10 @@ button i.fa{
         margin-bottom: 140px;
     }
 }
-
+/*All Users*/
+.allUsersContainer{
+    padding:20px;
+}
 
 /*Styles for About section*/
 .about-container {
@@ -370,22 +386,13 @@ span.subhead::before, span.subhead::after {
 /*Styles for Contact section*/
 .contact-container {
 	text-align: left;
-    border: solid 1px lightgray;    
+    /*border: solid 1px lightgray;    */
     padding:5px;
     padding-left:30px;
 	padding-right:30px;
 	margin-top:40px;
 }
 
-.contact-container button {
-  margin-bottom: 10px;
-  background-color: #4CAF50;
-  color: white;
-}
-
-.address p{
-	font-weight: 600;
-}
 
 #contact {
 	font-size:3em;
