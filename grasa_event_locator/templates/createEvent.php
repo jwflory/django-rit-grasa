@@ -50,12 +50,12 @@
         
     </div>
     
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" method="post" novalidate>
       <div class="form-row">
             <div class="col-sm-8">
                 <div class="form-group">
                     <label for="name">Program Name</label>
-                    <input id="name" type="text" class="form-control" placeholder="Name..." required>
+                    <input id="name" type="text" class="form-control" placeholder="Name..." name="name" required>
                     <div class="invalid-feedback">
                         Please provide a name for your program.
                     </div>

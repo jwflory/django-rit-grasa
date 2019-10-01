@@ -25,6 +25,10 @@ def changepw(request):
         return render(request, 'changePW.php')
 
 def createevent(request):
+        if request.method == 'POST':
+                program = Program(user_id=request.user.userinfo.id, )
+        else:
+                print("10")
         return render(request, 'createEvent.php')
 
 def event(request):
