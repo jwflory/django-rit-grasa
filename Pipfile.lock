@@ -1,7 +1,6 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1bae5c7520f22ed2349975f1663a7da6ca2e9a55c5b44504304de1094cf2653b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -558,10 +557,6 @@
         },
         "urllib3": {
             "hashes": [
-                "sha256:2f3eadfea5d92bc7899e75b5968410b749a054b492d5a6379c1344a1481bc2cb",
-                "sha256:9c6c593cb28f52075016307fc26b0a0f8e82bc7d1ff19aaaa959b91710a56c47"
-            ],
-            "version": "==1.25.5"
         },
         "virtualenv": {
             "hashes": [

@@ -5,33 +5,19 @@ DEBUG = True
 INTERNAL_IPS = ["127.0.0.1"]
 
 SECRET_KEY = "secret"
-ALLOWED_HOSTS = ["grasa.larrimore.de", "abba.larrimore.de", "127.0.0.1", "hleong.ddns.net"]
-# DATABASE SETTINGS
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'grasa_event_locator',
-#        'USER': 'grasaadmin',
-#        'PASSWORD': 'djangoGrasa2019',
-#        'HOST': 'db',
-#        'PORT': '3306',
-#	'OPTIONS': {'charset': 'utf8mb4'},
-#    },
-#}
 
-# DATABASE SETTINGS
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-DATABASES = {
- 'default': {
- 'ENGINE': 'django.db.backends.mysql',
- 'NAME': 'django',
- 'USER': 'root',
- 'PASSWORD': 'hleong',
- 'HOST': 'localhost',   # Or an IP that your DB is hosted on
- 'PORT': '3306',
- }
-}
+ALLOWED_HOSTS = ["grasa.larrimore.de", "abba.larrimore.de", "127.0.0.1", "hleong.ddns.net"]
+
+ DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'grasa_event_locator',
+        'USER': 'grasaadmin',
+        'PASSWORD': 'djangoGrasa2019',
+        'HOST': 'db',
+        'PORT': '3306',
+	'OPTIONS': {'charset': 'utf8mb4'},
+    }
 
 CACHES = {
     "default": {
