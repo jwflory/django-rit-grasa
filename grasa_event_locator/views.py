@@ -40,14 +40,17 @@ def login(request):
                         email = request.POST['email']
                         password = request.POST['password']
                         user = authenticate(request, username=email, password=password)
-                        #This will check that the user is active, if not 
+                        #This will check that the user is active, if not
                         #(say and un-approved account) it will not let them 
                         #log in. Same if no email/password match a row in the 
                         #database, but will log them in and cause .is_authenticated
                         #to return true otherwise.
                         if user is not None and user.userinfo.isActive: 
                                 auth_login(request, user)
-                                return(render(request,'provider.php'))
+                                if request.user.userinfo.isAdmin:
+                                        return render(request, 'admin.php')
+                                else:
+                                        return(render(request,'provider.php'))
                         else:
                                 return render(request,'login.php',)
                                 #Will need to put some logic here to state invalid credentials
