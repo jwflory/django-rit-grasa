@@ -8,17 +8,17 @@ SECRET_KEY = "secret"
 
 ALLOWED_HOSTS = ["grasa.larrimore.de", "abba.larrimore.de", "127.0.0.1", "hleong.ddns.net"]
 
- DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'grasa_event_locator',
-        'USER': 'grasaadmin',
-        'PASSWORD': 'djangoGrasa2019',
-        'HOST': 'db',
+        'NAME': 'django',
+        'USER': 'root',
+        'PASSWORD': 'hleong',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
 	'OPTIONS': {'charset': 'utf8mb4'},
     }
-
+}
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.dummy.DummyCache"
