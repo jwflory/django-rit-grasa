@@ -46,14 +46,18 @@ def login(request):
                         email = request.POST['email']
                         password = request.POST['password']
                         user = authenticate(request, username=email, password=password)
-                        #This will check that the user is active, if not 
+                        #This will check that the user is active, if not
                         #(say and un-approved account) it will not let them 
                         #log in. Same if no email/password match a row in the 
                         #database, but will log them in and cause .is_authenticated
                         #to return true otherwise.
                         if user is not None and user.userinfo.isActive: 
                                 auth_login(request, user)
-                                return(render(request,'provider.php'))
+                                if request.user.userinfo.isAdmin:
+                                        return HttpResponseRedirect("admin.php")
+                                else:
+                                        return HttpResponseRedirect("provider.php")
+
                         else:
                                 return render(request,'login.php',)
                                 #Will need to put some logic here to state invalid credentials
@@ -66,8 +70,10 @@ def logout_view(request):
         return HttpResponseRedirect("index.php")
 
 def provider(request):
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 return render(request, 'provider.php', )
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                return render(request, 'index.php', )
         else:
                 return HttpResponseRedirect("login.php")
 
