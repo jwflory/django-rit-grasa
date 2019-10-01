@@ -1,4 +1,5 @@
 <!doctype html>
+<html lang="en">
 <head>
     <!--Bootstrap Style-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -18,6 +19,11 @@
     <!--Custom 3rd Party Bootstrap Code-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+    
+    <!--Leaflet Code-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
     
     
     
@@ -54,14 +60,15 @@
 </script>
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-          <a class="navbar-brand" href="index.php">
-          <img id="header-logo" src="media/grasalogo.png" alt="">
+          <a class="navbar-brand" aria-label="GRASA-Logo" href="index.php">
+          <img id="header-logo" src="media/grasalogo.png" alt="Logo">
         </a>
 
           <div class="collapse navbar-collapse" id="navbarsExample02">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a>
+
+                <a class="nav-link" href="index.php">Browse Events<span class="sr-only sr-only-focusable">(current)</span></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="provider.php">Provider</a>
