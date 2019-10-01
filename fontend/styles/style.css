@@ -372,8 +372,8 @@ span.subhead::before, span.subhead::after {
 	text-align: left;
     border: solid 1px lightgray;    
     padding:5px;
-    padding-left:20px;
-	padding-right:20px;
+    padding-left:30px;
+	padding-right:30px;
 	margin-top:40px;
 }
 
