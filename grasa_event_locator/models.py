@@ -61,7 +61,7 @@ class Program(models.Model):
     address = models.CharField(max_length=40)
     website = models.CharField(max_length=40)
     isPending = models.BooleanField(default=True)
-    editOf = models.IntegerField(default=None)
+    editOf = models.IntegerField(default=0)
     categories = models.ManyToManyField(Category)
 
     def __str__(self):

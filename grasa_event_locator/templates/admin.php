@@ -65,6 +65,7 @@
                       <td><a href="{% url 'deny_user' pendingUser.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
                     </tr>
                     {% endfor %}
+                    {% comment %}
                     <tr>
                       <th scope="row">Monroe Middle School</th>
                       <td>Approved</td>
@@ -77,6 +78,7 @@
                       <td><button type="button" class="btn btn-outline-success">Approve</button></td>
                       <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
                     </tr>
+                    {% endcomment %}
                   </tbody>
                 </table>
         <!--New Event Approval-->
@@ -93,6 +95,17 @@
                     </tr>
                   </thead>
                   <tbody class="provider-program-list">
+                    {% for pendingEvent in pendingEventList %}
+                    <tr>
+                      <th scope="row">{{ pendingEvent.title }}</th>
+                      <td>{{ pendingEvent.user_id.org_name }}</td>
+                      <td>Pending</td>
+                      <td><a href="{% url 'event_page' pendingEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></td></a>
+                      <td><a href="{% url 'approve_event' pendingEvent.id %}"><button type="button" class="btn btn-outline-success">Approve</button></td></a>
+                      <td><a href="{% url 'deny_event' pendingEvent.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
+                    </tr>
+                    {% endfor %}
+                    {% comment %}
                     <tr>
                       <th scope="row">Soccer Program</th>
                       <td>Rochester Middle School</td>
@@ -109,9 +122,10 @@
                       <td><button type="button" class="btn btn-outline-success">Approve</button></td>
                       <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
                     </tr>
+                    {% endcomment %}
                   </tbody>
                 </table>
-        <!--New Event Approval-->
+        <!--Edited Event Approval-->
             <h4 class="top-20">Updated Events</h4>
                 <table class="table table-hover table-bordered">
                   <thead class="thead-light">
@@ -125,6 +139,17 @@
                     </tr>
                   </thead>
                   <tbody class="provider-program-list">
+                    {% for pendingEdit in pendingEditList %}
+                    <tr>
+                      <th scope="row">{{ pendingEdit.title }}</th>
+                      <td>{{ pendingEdit.user_id.org_name }}</td>
+                      <td>Pending</td>
+                      <td><a href="{% url 'event_page' pendingEdit.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></td></a>
+                      <td><a href="{% url 'approve_event' pendingEdit.id %}"><button type="button" class="btn btn-outline-success">Approve</button></td></a>
+                      <td><a href="{% url 'deny_event' pendingEdit.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
+                    </tr>
+                    {% endfor %}
+                    {% comment %}
                     <tr>
                       <th scope="row">Better Soccer Program</th>
                       <td>Rochester Middle School</td>
@@ -141,6 +166,7 @@
                       <td><button type="button" class="btn btn-outline-success">Approve</button></td>
                       <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
                     </tr>
+                    {% endcomment %}
                   </tbody>
                 </table>
         </div><!-- col-->
@@ -148,6 +174,7 @@
     <div class="twentyblock"></div>
 	
 </div>
+{% comment %}
 <script>
     var viewBtns = document.getElementsByClassName('view-event')
     for(var i=0; i<viewBtns.length; i++){
@@ -158,5 +185,5 @@
         
     
 </script>
-
+{% endcomment %}
 {% include "footer.php" %}

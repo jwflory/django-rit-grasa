@@ -13,8 +13,10 @@ from django.shortcuts import redirect
 def admin(request):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 pendingUserList = userInfo.objects.filter(isPending=True)
+                pendingEventList = Program.objects.filter(isPending=True).filter(editOf=0)
+                pendingEditList = Program.objects.filter(isPending=True).exclude(editOf=0)
 
-                context = {'pendingUserList' : pendingUserList}
+                context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList}
 
                 return render(request, "admin.php", context)
         else:
@@ -31,8 +33,12 @@ def createevent(request):
                 print("10")
         return render(request, 'createEvent.php')
 
-def event(request):
-        return render(request, 'event.php')
+def event(request, eventID):
+        event = Program.objects.get(pk=eventID)
+
+        context = {'event' : event}
+
+        return render(request, 'event.php', context)
 
 def index(request):
         return render(request, 'index.php')
@@ -104,16 +110,63 @@ def register(request):
 def resetpw(request):
         return render(request, 'resetPW.php')
 
+#Functional views, post only, need to be logged in admin, self defining names
+
 def approveUser(request, userID):
-        u = userInfo.objects.get(pk=userID)
-        u.isPending = False
-        u.isActive = True
-        u.save()
-        return redirect("admin_page")
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                u = userInfo.objects.get(pk=userID)
+                u.isPending = False
+                u.isActive = True
+                u.save()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
 
 def denyUser(request, userID):
-        u = userInfo.objects.get(pk=userID)
-        u.isPending = False
-        u.isActive = False
-        u.save()
-        return redirect("admin_page")
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                u = userInfo.objects.get(pk=userID)
+                u.isPending = False
+                u.isActive = False
+                u.save()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
+
+def approveEvent(request, eventID):
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                p = Program.objects.get(pk=eventID)
+                p.isPending = False
+                p.save()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
+
+def denyEvent(request, eventID):
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                p = Program.objects.get(pk=eventID)
+                p.delete()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
+
+def approveEdit(request, editID):
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                p = Program.objects.get(pk=editID)
+                oldP = Program.objects.get(pk=p.editOf)
+                #Strange issue here, I get no errors but editOf won't switch to 0 and oldP wont delete
+                oldP.delete()
+                p.editOf = 0
+                p.isPending = False
+                p.save()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
+
+def denyEdit(request, editID):
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                p = Program.objects.get(pk=editID)
+                p.delete()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
+
