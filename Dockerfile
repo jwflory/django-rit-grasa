@@ -13,5 +13,4 @@ RUN pipenv install --system --deploy --dev
 
 EXPOSE 8000
 
-RUN sleep 10
 CMD ["python3", "/usr/src/app/manage.py", "runserver", "0.0.0.0:8000"]
