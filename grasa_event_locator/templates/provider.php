@@ -57,12 +57,14 @@
             </tr>
           </thead>
           <tbody class="provider-program-list">
+            {% for myEvent in myEventList %}
             <tr>
-              <th scope="row">Soccer Program</th>
+              <th scope="row">{{ myEvent.title }}</th>
               <td>Approved</td>
-              <td><button type="button" class="btn btn-outline-info editBtn">Edit</button></td>
+              <td><button type="button" href="{% url 'event_page' myEvent.id %}" class="btn btn-outline-info editBtn">Edit</button></td>
               <td><button type="button" class="btn btn-outline-danger">Delete</button></td>
             </tr>
+            {% endfor %}
             <tr class="warning">
               <th scope="row">Cooking Program</th>
               <td>Submitted for Approval</td>

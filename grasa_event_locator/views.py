@@ -78,7 +78,11 @@ def logout_view(request):
 
 def provider(request):
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
-                return render(request, 'provider.php', )
+                myEventList = Program.objects.filter(user_id = request.user.userinfo.id).exclude(isPending = True)
+
+                context = {'myEventList' : myEventList}
+
+                return render(request, "provider.php", context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 return render(request, 'index.php', )
         else:

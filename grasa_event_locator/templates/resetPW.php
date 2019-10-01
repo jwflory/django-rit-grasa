@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+{% include "header.php" %}
 
 
   <div class="form-reset">
@@ -15,3 +15,4 @@
 
 
 {% include "footer.php" %}
+
