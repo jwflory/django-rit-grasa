@@ -5,7 +5,7 @@ DEBUG = True
 INTERNAL_IPS = ["127.0.0.1"]
 
 SECRET_KEY = "secret"
-ALLOWED_HOSTS = ["grasa.larrimore.de", "abba.larrimore.de", "127.0.0.1", "10.0.1.10"]
+ALLOWED_HOSTS = ["grasa.larrimore.de", "abba.larrimore.de", "127.0.0.1", "hleong.ddns.net"]
 # DATABASE SETTINGS
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 # DATABASES = {
@@ -25,9 +25,9 @@ ALLOWED_HOSTS = ["grasa.larrimore.de", "abba.larrimore.de", "127.0.0.1", "10.0.1
 DATABASES = {
  'default': {
  'ENGINE': 'django.db.backends.mysql',
- 'NAME': 'grasatest2',
+ 'NAME': 'django',
  'USER': 'root',
- 'PASSWORD': 'MySQLPass',
+ 'PASSWORD': 'hleong',
  'HOST': 'localhost',   # Or an IP that your DB is hosted on
  'PORT': '3306',
  }

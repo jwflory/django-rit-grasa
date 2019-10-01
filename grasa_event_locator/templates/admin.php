@@ -1,4 +1,5 @@
 {% include "header.php" %}
+{% load static %}
 
 <div class="container home-container">
 
@@ -21,7 +22,7 @@
         <div class="col-sm-3">
             <p class="">Change Site Logo:</p>
             <div class="card event-page-card">
-              <img src="media/grasalogo.png" class="card-img-top admin-logo-change" alt="Site Logo">
+              <img src="{% static "img/grasalogo.png" %}" class="card-img-top admin-logo-change" alt="Site Logo">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <div class="input-group">
