@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/django-rit-grasa.iml" filepath="$PROJECT_DIR$/.idea/django-rit-grasa.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/django-rit-grasa-master/.idea/django-rit-grasa-master.iml" filepath="$USER_HOME$/Downloads/django-rit-grasa-master/.idea/django-rit-grasa-master.iml" />
     </modules>
   </component>
 </project>

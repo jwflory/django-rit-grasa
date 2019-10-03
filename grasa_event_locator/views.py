@@ -10,6 +10,9 @@ from django.contrib.auth.models import User as UserAccount
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect
 
+def aboutContact(request):
+        return render(request, 'aboutContact.php')
+
 def admin(request):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 pendingUserList = userInfo.objects.filter(isPending=True)
@@ -23,6 +26,9 @@ def admin(request):
                 return HttpResponseRedirect("login.php")
         return render(request, 'admin.php')
 
+def allUsers(request):
+        return render(request, 'allUsers.php')
+
 def changepw(request):
         return render(request, 'changePW.php')
 
@@ -35,6 +41,9 @@ def createevent(request):
         else:
                 return render(request, 'createEvent.php')
         return render(request, 'createEvent.php')
+
+def editEvent(request):
+        return render(request, 'editEvent.php')
 
 def event(request, eventID):
         event = Program.objects.get(pk=eventID)

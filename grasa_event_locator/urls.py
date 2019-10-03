@@ -6,9 +6,12 @@ from django.urls import path
 from django.contrib import admin
 
 urlpatterns = [
+    path('aboutContact.php', views.aboutContact),
     path('admin.php', views.admin, name='admin_page'),
+    path('allUsers.php', views.allUsers),
     path('changePW.php', views.changepw),
     path('createEvent.php', views.createevent),
+    path('editEvent.php', views.editEvent),
     path('event/<eventID>', views.event, name='event_page'),
     path('index.php', views.index),
     path('login.php', views.login, name='login_page'),

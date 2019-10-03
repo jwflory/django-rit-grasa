@@ -22,10 +22,10 @@
               <img src="https://via.placeholder.com/150" class="card-img-top" alt="Provider Logo">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item"><i class="fa fa-money" aria-hidden="true"></i> $20.00</li>
-                <li class="list-group-item"><i class="fa fa-map-marker" aria-hidden="true"></i>{{ event.address }}</li>
+                <li class="list-group-item"><i class="fa fa-map-marker" aria-hidden="true"></i> 1 Lomb Memorial Dr, Rochester NY</li>
               </ul>
               <div class="card-body">
-                <a href="#" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i>{{ event.website }}</a>
+                <a href="#" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> "Event's Website"</a>
               </div>
             </div>
         </div>

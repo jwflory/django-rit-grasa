@@ -8,25 +8,9 @@
 			<span class="subhead">OUR STORY</span>
 			
 			<p class="main-content">
-			Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har været standard 
-			fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog 
-			til sammenligning af forskellige skrifttyper. Lorem Ipsum har ikke alene overlevet fem århundreder, 
-			men har også vundet indpas i elektronisk typografi uden væsentlige ændringer. Sætningen blev gjordt kendt 
-			i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med 
-			layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
-			<br>			
-			
-			I modsætning til hvad mange tror, er Lorem Ipsum ikke bare tilfældig tekst. Det stammer fra et stykke 
-			litteratur på latin fra år 45 f.kr., hvilket gør teksten over 2000 år gammel. Richard McClintock, 
-			professor i latin fra Hampden-Sydney universitet i Virginia, undersøgte et af de mindst kendte ord 
-			"consectetur" fra en del af Lorem Ipsum, og fandt frem til dets oprindelse ved at studere brugen gennem 
-			klassisk litteratur. Lorem Ipsum stammer fra afsnittene 1.10.32 og 1.10.33 fra "de Finibus Bonorum et 
-			Malorum" (Det gode og ondes ekstremer), som er skrevet af Cicero i år 45 f.kr. Bogen, som var meget 
-			populær i renæssancen, er en afhandling om etik. Den første linie af Lorem Ipsum "Lorem ipsum dolor sit 
-			amet..." kommer fra en linje i afsnit 1.10.32.
-			Standardafsnittet af Lorem Ipsum, som er brugt siden 1500-tallet, er gengivet nedenfor for de, der er interesserede. 
-			Afsnittene 1.10.32 og 1.10.33 fra "de Finibus Bonorum et Malorum" af Cicero er også gengivet i deres nøjagtige 
-			udgave i selskab med den engelske udgave fra oversættelsen af H. Rackham fra 1914.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed nunc ac neque interdum euismod id sit amet purus. Nam ut dapibus purus, non laoreet lectus. Mauris et sollicitudin velit, malesuada aliquam neque. Mauris a vehicula erat, sit amet rhoncus ante. Praesent nulla mi, tincidunt et porttitor ac, congue in tellus. Aliquam erat volutpat. Nulla pretium non dolor sit amet euismod. Donec a metus id elit cursus fermentum a sed lectus. Integer iaculis blandit mauris, quis pharetra ex varius sit amet. Morbi suscipit magna lectus, et interdum tellus porttitor a. Pellentesque volutpat luctus consequat. Phasellus nisi lorem, sodales ac malesuada at, molestie non metus. Sed finibus tincidunt elit ac bibendum. Donec non diam efficitur, pulvinar arcu iaculis, congue tortor. Curabitur enim metus, condimentum pellentesque iaculis ac, auctor eu odio.</p>
+
+            <p>Phasellus volutpat lacus sit amet mi aliquam ultrices. Sed dui nisl, fermentum sit amet commodo ut, auctor et arcu. Proin non erat ut justo euismod viverra. Nunc tempus rhoncus tellus ac efficitur. Sed vel tincidunt eros, non venenatis nunc. Maecenas blandit erat varius leo dictum, a sagittis diam viverra. Integer et libero nec est placerat tincidunt. Pellentesque egestas, justo vitae molestie tincidunt, risus ipsum blandit erat, ac egestas lacus urna sed ligula. Proin id accumsan lorem, vel blandit justo. Aenean pellentesque at lorem non tincidunt. Aliquam efficitur vitae mi at rhoncus. Proin rutrum facilisis mi, a facilisis nunc commodo vel. Ut pulvinar in diam non consectetur. Proin et tincidunt eros.
 	
 			
 			</p>		
@@ -34,8 +18,6 @@
 		</div>
 	
 	</div>
-
-  </section>
 	<div class="container contact-container">
 		
 				<h2 id="contact">Contact Us</h2>
@@ -61,8 +43,8 @@
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<label for="exampleInputEmail1">Email address</label>
-									<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-									<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+									<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email *">
+									<small id="emailHelp" class="form-text text-muted">We will never share your email with anyone else.</small>
 								</div>
 							</div>
 							
@@ -79,7 +61,7 @@
 									<textarea class="form-control" rows="6" placeholder="Type your message for us here *"></textarea>
 								</div>
 							</div>
-								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="submit" class="btn btn-success">Submit</button>
 							
 							
 						</form>
@@ -102,12 +84,12 @@
 						</p>						
 						<h5>Website</h5>
 						<p>
-							<a href="https://www.monroecounty.gov/" target="_blank"><i class="fa fa-globe"></i></i>
+							<a href="https://www.monroecounty.gov/" target="_blank"><i class="fa fa-globe"></i>
 							www.moroecounty.gov </a>							
 						</p>
 						<h5>Office Hours</h5>
 						<p>
-							Mon - Fri : 9a.m - 5p.m <br>
+							Mon - Fri : 9am - 5pm <br>
 							Sat - Sun : closed
 						</p>
 						
@@ -120,10 +102,5 @@
 					</div>
 				</div>
 			</div>
-										
-		</section>
 		
-	</div>
-		
-	
-<?php include 'footer.php';?>
+{ % include header.php % }

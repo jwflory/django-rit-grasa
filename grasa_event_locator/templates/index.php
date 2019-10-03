@@ -69,9 +69,17 @@
     </div>
     <div class="row">
     <!-- map row-->
-            <iframe title="Map" id="gmap_canvas" src="https://maps.google.com/maps?q=Rochester%20Institute%20of%20Technology%20&t=&z=9&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" aria-hidden="true"></iframe>
+        <div id="mapid"></div>
+        
+        
     </div>
 </div>
+<!--Leaflet JS-->
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+
+<!--Custom page JS-->
 <script>
     //Clicking on an event opens the event page
     $('.event-box').hover(
@@ -157,8 +165,35 @@
             $( "#"+location+" .card-body" ).append( "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='defaultCheck"+name+i+"'><label class='form-check-label' for='defaultCheck"+name+i+"'>"+list[i]+"</label></div>" );
         }
     }
-   
-
+    
+    //Leaflet Code
+    //init
+    var mymap = L.map('mapid').setView([43.0846, -77.6743], 13);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'sk.eyJ1IjoibGRpZG9uYXRvIiwiYSI6ImNrMTdzdmN4YTFqODgzbnBrOHB4ZzJ1dzQifQ.T7D-X5eab-y3J-KIu_WTBw'
+    }).addTo(mymap);
+    
+    //markers
+    //testing colors https://github.com/pointhi/leaflet-color-markers
+    var greenIcon = new L.Icon({
+      iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+    
+    var marker = L.marker([43.0846, -77.6743]).addTo(mymap);
+    marker.bindPopup("<div class='leafeventPopup'><b>Soccer Program</b><br>Rochester Middle School<br><a href='event.php'>Details</a></div>").openPopup();
+    
+    
+    var marker2 = L.marker([43.0966, -77.6973], {icon: greenIcon}).addTo(mymap);
+    marker2.bindPopup("<b>Cooking for Kids</b><br>Henrietta Elementary School<br><a href='event.php'>Details</a></div>");
+    
     
 </script>
 {% include "footer.php" %}

@@ -47,7 +47,11 @@
             
         
         <!--New User Approval-->
-            <h4 class="top-20">New Users</h4>
+            <h4 class="top-20">Pending Users
+                <button type="button" class="btn btn-success float-right" id="addAdmin"> <i class="fa fa-plus" aria-hidden="true"></i> Add Admin</button>
+                <button type="button" class="btn btn-info float-right" id="allUsers"> <i class="fa fa-address-book" aria-hidden="true"></i> View All Users</button>
+            
+            </h4>
                 <table class="table table-hover table-bordered">
                   <thead class="thead-light">
                     <tr>
@@ -58,28 +62,14 @@
                     </tr>
                   </thead>
                   <tbody class="provider-program-list">
-                    {% for pendingUser in pendingUserList %}
                     <tr>
+                    {% for pendingUser in pendingUserList %}
                       <th scope="row">{{ pendingUser.org_name }} - <a href="mailto:{{ pendingUser.user }}">{{ pendingUser.user }}</a></th>
                       <td>Pending</td>
-                      <td><a href="{% url 'approve_user' pendingUser.id %}"><button type="button" class="btn btn-outline-success">Approve</button></td></a>
-                      <td><a href="{% url 'deny_user' pendingUser.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
+                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
+                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
                     </tr>
                     {% endfor %}
-                    {% comment %}
-                    <tr>
-                      <th scope="row">Monroe Middle School</th>
-                      <td>Approved</td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Rush Lower School</th>
-                      <td>Pending</td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
-                    </tr>
-                    {% endcomment %}
                   </tbody>
                 </table>
         <!--New Event Approval-->
@@ -106,27 +96,9 @@
                       <td><a href="{% url 'deny_event' pendingEvent.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
                     </tr>
                     {% endfor %}
-                    {% comment %}
-                    <tr>
-                      <th scope="row">Soccer Program</th>
-                      <td>Rochester Middle School</td>
-                      <td>Approved</td>
-                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Cooking for Kids!</th>
-                      <td>Henrietta Elementary School</td>
-                      <td>Pending</td>
-                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
-                    </tr>
-                    {% endcomment %}
                   </tbody>
                 </table>
-        <!--Edited Event Approval-->
+        <!--New Event Approval-->
             <h4 class="top-20">Updated Events</h4>
                 <table class="table table-hover table-bordered">
                   <thead class="thead-light">
@@ -150,24 +122,6 @@
                       <td><a href="{% url 'deny_event' pendingEdit.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
                     </tr>
                     {% endfor %}
-                    {% comment %}
-                    <tr>
-                      <th scope="row">Better Soccer Program</th>
-                      <td>Rochester Middle School</td>
-                      <td>Approved</td>
-                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Cooking for Adults!</th>
-                      <td>Henrietta Elementary School</td>
-                      <td>Pending</td>
-                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
-                    </tr>
-                    {% endcomment %}
                   </tbody>
                 </table>
         </div><!-- col-->
@@ -175,7 +129,6 @@
     <div class="twentyblock"></div>
 	
 </div>
-{% comment %}
 <script>
     var viewBtns = document.getElementsByClassName('view-event')
     for(var i=0; i<viewBtns.length; i++){
@@ -183,8 +136,11 @@
             window.location = 'event.php'
         }
     }
-        
+    var allUsersBtn = document.getElementById('allUsers');
+    allUsersBtn.onclick = function(){
+        window.location = 'allUsers.php'
+    }
     
 </script>
-{% endcomment %}
+		
 {% include "footer.php" %}
