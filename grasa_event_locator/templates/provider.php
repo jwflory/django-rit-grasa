@@ -17,7 +17,7 @@
                 <div class="row twentyblock"></div>
                 <div class="row">
                     <div class="col-sm-6">
-                         <h5 class="provider-info"><i class="fa fa-id-card" aria-hidden="true"></i> Rochester Middle School</h5>
+                         <h5 class="provider-info"><i class="fa fa-id-card" aria-hidden="true"></i> {{ currentUser.org_name }}</h5>
                     </div>
                     <div class="col-sm-6">
                          <button type="button" class="btn btn-link">Change Name</button>

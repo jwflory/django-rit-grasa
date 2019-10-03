@@ -66,8 +66,8 @@
                     {% for pendingUser in pendingUserList %}
                       <th scope="row">{{ pendingUser.org_name }} - <a href="mailto:{{ pendingUser.user }}">{{ pendingUser.user }}</a></th>
                       <td>Pending</td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
+                      <td><a href="{% url 'approve_user' pendingUser.id %}"><button type="button" class="btn btn-outline-success">Approve</button></td></a>
+                      <td><a href="{% url 'deny_user' pendingUser.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
                     </tr>
                     {% endfor %}
                   </tbody>
