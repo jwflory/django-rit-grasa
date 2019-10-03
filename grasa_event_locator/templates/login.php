@@ -15,7 +15,7 @@
         <div class="twentyblock"></div>
       <div class="text-center">
           <p><a href="resetPW.php">Forgot Password?</a></p>
-          <p>"Don't have an account?"<br><a href="register.php">Register</a></p>
+          <p>Don't have an account?<br><a href="register.php">Register</a></p>
       </div>
     </form>
  
