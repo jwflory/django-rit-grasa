@@ -1,4 +1,5 @@
-<?php include 'header.php';?>
+{% include "header.php" %}
+{% load static %}
 
 <div class="container home-container">
 
@@ -21,7 +22,7 @@
         <div class="col-sm-3">
             <p class="">Change Site Logo:</p>
             <div class="card event-page-card">
-              <img src="media/grasalogo.png" class="card-img-top admin-logo-change" alt="Site Logo">
+              <img src="{% static "img/grasalogo.png" %}" class="card-img-top admin-logo-change" alt="Site Logo">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <div class="input-group">
@@ -62,17 +63,13 @@
                   </thead>
                   <tbody class="provider-program-list">
                     <tr>
-                      <th scope="row">Monroe Middle School</th>
+                    {% for pendingUser in pendingUserList %}
+                      <th scope="row">{{ pendingUser.org_name }} - <a href="mailto:{{ pendingUser.user }}">{{ pendingUser.user }}</a></th>
                       <td>Pending</td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
+                      <td><a href="{% url 'approve_user' pendingUser.id %}"><button type="button" class="btn btn-outline-success">Approve</button></td></a>
+                      <td><a href="{% url 'deny_user' pendingUser.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
                     </tr>
-                    <tr>
-                      <th scope="row">Rush Lower School</th>
-                      <td>Pending</td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
-                    </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
         <!--New Event Approval-->
@@ -89,22 +86,16 @@
                     </tr>
                   </thead>
                   <tbody class="provider-program-list">
+                    {% for pendingEvent in pendingEventList %}
                     <tr>
-                      <th scope="row">Soccer Program</th>
-                      <td>Rochester Middle School</td>
-                      <td>Approved</td>
-                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Cooking for Kids!</th>
-                      <td>Henrietta Elementary School</td>
+                      <th scope="row">{{ pendingEvent.title }}</th>
+                      <td>{{ pendingEvent.user_id.org_name }}</td>
                       <td>Pending</td>
-                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
+                      <td><a href="{% url 'event_page' pendingEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></td></a>
+                      <td><a href="{% url 'approve_event' pendingEvent.id %}"><button type="button" class="btn btn-outline-success">Approve</button></td></a>
+                      <td><a href="{% url 'deny_event' pendingEvent.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
                     </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
         <!--New Event Approval-->
@@ -121,22 +112,16 @@
                     </tr>
                   </thead>
                   <tbody class="provider-program-list">
+                    {% for pendingEdit in pendingEditList %}
                     <tr>
-                      <th scope="row">Better Soccer Program</th>
-                      <td>Rochester Middle School</td>
-                      <td>Approved</td>
-                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Cooking for Adults!</th>
-                      <td>Henrietta Elementary School</td>
+                      <th scope="row">{{ pendingEdit.title }}</th>
+                      <td>{{ pendingEdit.user_id.org_name }}</td>
                       <td>Pending</td>
-                      <td><button type="button" class="btn btn-outline-info view-event">View</button></td>
-                      <td><button type="button" class="btn btn-outline-success">Approve</button></td>
-                      <td><button type="button" class="btn btn-outline-danger">Deny</button></td>
+                      <td><a href="{% url 'event_page' pendingEdit.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></td></a>
+                      <td><a href="{% url 'approve_event' pendingEdit.id %}"><button type="button" class="btn btn-outline-success">Approve</button></td></a>
+                      <td><a href="{% url 'deny_event' pendingEdit.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
                     </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
         </div><!-- col-->
@@ -158,4 +143,4 @@
     
 </script>
 		
-<?php include 'footer.php';?>
+{% include "footer.php" %}

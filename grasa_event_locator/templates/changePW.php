@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+{% include "header.php" %}
 
 
   <div class="form-changePW">
@@ -38,5 +38,5 @@ function myFunction() {
 }
 </script>
 
-<?php include 'footer.php';?>
+{% include "footer.php" %}
 

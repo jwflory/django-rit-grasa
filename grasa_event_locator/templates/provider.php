@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+{% include "header.php" %}
 <div class="container event-container">
     <div class="row">
     <!--Top Row-->
@@ -8,7 +8,9 @@
                 <hr>
                 <div class="row">
                     <div class="col-sm-6">
-                         <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> provider@rms.org</h5>
+                    {% for c in currentUser %}
+                         <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> {{ c.user }}</h5>
+                   {% endfor %}
                     </div>
                     <div class="col-sm-6">
                         <button type="button" class="btn btn-link">Change Password</button>
@@ -17,7 +19,9 @@
                 <div class="row twentyblock"></div>
                 <div class="row">
                     <div class="col-sm-6">
-                         <h5 class="provider-info"><i class="fa fa-id-card" aria-hidden="true"></i> Rochester Middle School</h5>
+                    {% for c in currentUser %}
+                         <h5 class="provider-info"><i class="fa fa-id-card" aria-hidden="true"></i> {{ c.org_name }}</h5>
+                   {% endfor %}
                     </div>
                     <div class="col-sm-6">
                          <button type="button" class="btn btn-link">Change Name</button>
@@ -57,12 +61,14 @@
             </tr>
           </thead>
           <tbody class="provider-program-list">
+            {% for myEvent in myEventList %}
             <tr>
-              <th scope="row">Soccer Program</th>
+              <th scope="row">{{ myEvent.title }}</th>
               <td>Approved</td>
-              <td><button type="button" class="btn btn-outline-info editBtn">Edit</button></td>
+              <td><button type="button" href="{% url 'event_page' myEvent.id %}" class="btn btn-outline-info editBtn">Edit</button></td>
               <td><button type="button" class="btn btn-outline-danger">Delete</button></td>
             </tr>
+            {% endfor %}
             <tr class="warning">
               <th scope="row">Cooking Program</th>
               <td>Submitted for Approval</td>
@@ -93,4 +99,4 @@
     }
     
 </script>
-<?php include 'footer.php';?>
+{% include "footer.php" %}

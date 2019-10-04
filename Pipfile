@@ -3,7 +3,6 @@ url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
 django = ">=2.2.0"
 "argon2-cffi" = "*"
@@ -12,7 +11,6 @@ django-compressor = "*"
 bcrypt = "*"
 mysqlclient = "*"
 
-
 [dev-packages]
 django-debug-toolbar = "*"
 sphinx = "*"
@@ -20,7 +18,6 @@ coverage = "*"
 "flake8" = "*"
 pytest = "*"
 tox = "*"
-
 
 [requires]
 python_version = "3.6"
