@@ -8,9 +8,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-sm-6">
-                    {% for c in currentUser %}
-                         <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> {{ c.user }}</h5>
-                   {% endfor %}
+                         <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> {{ user }}</h5>
                     </div>
                     <div class="col-sm-6">
                         <button type="button" class="btn btn-link">Change Password</button>
@@ -19,9 +17,7 @@
                 <div class="row twentyblock"></div>
                 <div class="row">
                     <div class="col-sm-6">
-                    {% for c in currentUser %}
-                         <h5 class="provider-info"><i class="fa fa-id-card" aria-hidden="true"></i> {{ c.org_name }}</h5>
-                   {% endfor %}
+                         <h5 class="provider-info"><i class="fa fa-id-card" aria-hidden="true"></i> {{ user.userinfo.org_name }}</h5>
                     </div>
                     <div class="col-sm-6">
                          <button type="button" class="btn btn-link">Change Name</button>
