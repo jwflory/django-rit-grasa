@@ -142,7 +142,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Fees</label>
+                    <label for="fees">Fees</label>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text">$</span>

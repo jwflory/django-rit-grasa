@@ -1,4 +1,4 @@
-{% include "header.php" %}
+<?php include 'header.php';?>
 <div class="row allUsersContainer">
     <div class="col-sm-12">
         <div class="twentyblock"></div>
@@ -60,4 +60,4 @@
     }
     
 </script>
-{% include "footer.php" %}
+<?php include 'footer.php';?>
