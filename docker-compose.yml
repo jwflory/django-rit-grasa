@@ -5,11 +5,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: Grasa-Django-App
-    network_mode: host
     depends_on:
       - db
     ports:
-      - 80:8000
+      - 8000:8000
   db:
     image: "mariadb:10.1"
     volumes:
