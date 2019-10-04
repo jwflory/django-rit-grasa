@@ -72,12 +72,21 @@
 
                 <a class="nav-link" href="index.php">Browse Events<span class="sr-only sr-only-focusable">(current)</span></a>
               </li>
+              {% if not user.userinfo.isAdmin %}
               <li class="nav-item">
                 <a class="nav-link" href="provider.php">Provider</a>
               </li>
+              {% endif %}
+              {% if user.userinfo.isAdmin or not user.is_authenticated %}
                 <li class="nav-item">
                 <a class="nav-link" href="admin.php">Admin</a>
               </li>
+              {% endif %}
+              {% if not user.userinfo.isAdmin and user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link">Welcome, {{ user.userinfo.org_name }}!</a>
+              </li>
+              {% endif %}
             </ul>
           </div>
         <span class="form-inline mt-2 mt-md-0">
