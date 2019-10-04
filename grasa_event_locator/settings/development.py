@@ -11,10 +11,10 @@ ALLOWED_HOSTS = ["grasa.larrimore.de", "abba.larrimore.de", "127.0.0.1", "hleong
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django',
-        'USER': 'root',
-        'PASSWORD': 'hleong',
-        'HOST': '127.0.0.1',
+        'NAME': 'grasa_event_locator',
+        'USER': 'grasaadmin',
+        'PASSWORD': 'djangoGrasa2019',
+        'HOST': 'db',
         'PORT': '3306',
 	'OPTIONS': {'charset': 'utf8mb4'},
     }
