@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+{% include "header.php" %}
 <!-- Homepage -->
 <div class="container home-container">
     <div class="row">
@@ -196,8 +196,7 @@
     
     
 </script>
-<?php include 'footer.php';?>
-
+{% include "footer.php" %}
 
 
 

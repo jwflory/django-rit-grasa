@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
     <!--Our Custom Style-->
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="{% static "css/custom.css" %}">
     
     <!--Font Awesome 4-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -61,7 +63,7 @@
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
           <a class="navbar-brand" aria-label="GRASA-Logo" href="index.php">
-          <img id="header-logo" src="media/grasalogo.png" alt="Logo">
+          <img id="header-logo" src="{% static "img/grasalogo.png" %}" alt="Logo">
         </a>
 
           <div class="collapse navbar-collapse" id="navbarsExample02">
@@ -70,15 +72,28 @@
 
                 <a class="nav-link" href="index.php">Browse Events<span class="sr-only sr-only-focusable">(current)</span></a>
               </li>
+              {% if not user.userinfo.isAdmin %}
               <li class="nav-item">
                 <a class="nav-link" href="provider.php">Provider</a>
               </li>
+              {% endif %}
+              {% if user.userinfo.isAdmin or not user.is_authenticated %}
                 <li class="nav-item">
                 <a class="nav-link" href="admin.php">Admin</a>
               </li>
+              {% endif %}
+              {% if not user.userinfo.isAdmin and user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link">Welcome, {{ user.userinfo.org_name }}!</a>
+              </li>
+              {% endif %}
             </ul>
           </div>
         <span class="form-inline mt-2 mt-md-0">
+        {% if user.is_authenticated %}
+            <button onclick="window.location.href='/logout'" class="btn btn-outline-light my-2 my-sm-0" >Logout</button>
+        {% else %}
             <button onclick="window.location.href='/login.php'" class="btn btn-outline-light my-2 my-sm-0" >Login</button>
+        {% endif %}
         </span>
     </nav>

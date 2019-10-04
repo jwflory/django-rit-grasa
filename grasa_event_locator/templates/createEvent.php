@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+{% include "header.php" %}
 <div class="container event-container">
     <h2>Create Event</h2>
     <div class="row">
@@ -32,16 +32,17 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Submitted</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Submit</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-               Your event has been submitted to the administrators for approval. Until it is approved, your event will not appear in search results.
+               Your event will be submitted to the administrators for approval. Until it is approved, your event will not appear in search results.
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="submitOkBtn">OK</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
+                <button type="button" class="btn btn-success" id="submitOkBtn"><i class="fa fa-check" aria-hidden="true"></i> Submit for Approval</button>
                 
               </div>
             </div>
@@ -50,62 +51,91 @@
         
     </div>
     
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" method="post" novalidate>
+    {% csrf_token %}
       <div class="form-row">
             <div class="col-sm-8">
                 <div class="form-group">
-                    <label for="name">Program Name</label>
-                    <input id="name" type="text" class="form-control" placeholder="Name..." required>
+                    <label>Program Name</label>
+                    <input type="text" class="form-control" placeholder="Program Name..." name="title" required>
                     <div class="invalid-feedback">
                         Please provide a name for your program.
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="8" placeholder="Tell us about your program..." required></textarea>
+                    <label>Description</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Tell us about your program..." name="content" required></textarea>
                     <div class="invalid-feedback">
                         Please provide a description for your program.
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="location">Location</label>
-                    <input type="text" class="form-control" id="location" placeholder="Street Address..." required>
+                    <label>Location</label>
+                    <input type="text" class="form-control" id="addressInput" placeholder="Street Address..." name="address" required>
+                    <input type="hidden" id="lat" name="lat" value="nil">
+                    <input type="hidden" id="lng" name="lng" value="nil">
                     <div class="invalid-feedback">
                         Please provide your program's street address.
                     </div>
                 </div>    
                 <div class="form-group">
-                    <label for="website">Website (optional)</label>
-                    <input type="url" class="form-control" id="website" placeholder="http://">
-                </div>  
+                    <label>Website (optional)</label>
+                    <input type="url" class="form-control" id="exampleFormControlInput1" placeholder="http://" name="website">
+                </div> 
+                <fieldset class="pocFieldset">
+                    <legend>Point of Contact</legend>
+                   <div class="form-row">
+                        <div class="form-group col-md-4">
+                          <label for="contactname">Name</label>
+                          <input type="text" class="form-control" id="contactname" placeholder="Name..." name="contact_name" required>
+                            <div class="invalid-feedback">
+                                Please provide your program's contact name.
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="email">Email</label>
+                          <input type="email" class="form-control" id="email" placeholder="Email..." name="contact_email" required>
+                            <div class="invalid-feedback">
+                                Please provide your program's contact email.
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="phone">Phone</label>
+                          <input type="tel" class="form-control" id="phone" placeholder="Phone..." name="contact_phone" required>
+                            <div class="invalid-feedback">
+                                Please provide your program's contact phone number.
+                            </div>
+                        </div>
+                      </div>
+                 </fieldset>
             </div>
             <div class="col-sm-4">
                 <div class="form-group text-left multiBox">
-                    <label for="activity">Activity</label><br>
-                    <select id="activity" class="form-control custom-select w-100 activitySelect" multiple="multiple" required>
+                    <label>Activity</label><br>
+                    <select class="form-control custom-select w-100 activitySelect" id="basic" multiple="multiple" name="activity" required>
                     </select>
                     <div class="invalid-feedback">
                         Please select at least one activity.
                     </div>
                 </div> 
                 <div class="form-group">
-                    <label for="transportation">Transportation</label>
-                    <select id="transportation" class="form-control" required>
+                    <label>Transportation</label>
+                    <select class="form-control" name="transportation" required>
                         <option>Not Provided</option>
                         <option>Provided</option>
                     </select>
                 </div> 
                 <div class="form-group text-left multiBox">
-                    <label for="grades">Grades Served</label><br>
-                    <select id="grades" class="custom-select w-100 gradesSelect" multiple="multiple" required>
+                    <label>Grades Served</label><br>
+                    <select class="custom-select w-100 gradesSelect" id="basic" multiple="multiple" name="grades" required>
                     </select>
                     <div class="invalid-feedback">
                         Please select at least one grade group.
                     </div>
                 </div> 
                 <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select id="gender" class="form-control" required>
+                    <label>Gender</label>
+                    <select class="form-control" name="gender" required>
                         <option>Not Specific</option>
                         <option>Female</option>
                         <option>Male</option>
@@ -117,7 +147,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                       </div>
-                      <input id="fees" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" required>
+                      <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" name="fees" required>
                         <div class="invalid-feedback">
                             Please enter total amount of fees. If the program is free enter 0.00
                         </div>
@@ -125,8 +155,8 @@
                     
                 </div>
                 <div class="form-group text-left multiBox">
-                    <label for="timing">Timing</label><br>
-                    <select id="timing" class="custom-select w-100 timingSelect" multiple="multiple" required>
+                    <label>Timing</label><br>
+                    <select class="custom-select w-100 timingSelect" id="basic" multiple="multiple" name="timing" required>
                     </select>
                      <div class="invalid-feedback">
                         Please select at least one time.
@@ -137,7 +167,7 @@
             </div>
         </div>
         
-      <button class="btn btn-success float-right" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Submit for Approval</button>
+      <button class="btn btn-success float-right" type="submit">Validate Event</button>
     </form>
     
     
@@ -149,8 +179,10 @@
     cancelBtn.onclick = function(){
         window.location = 'provider.php'
     }
-    var cancelBtn = document.getElementById('submitOkBtn');
-    cancelBtn.onclick = function(){
+    var okBtn = document.getElementById('submitOkBtn');
+    okBtn.onclick = function(){
+        //SUBMITS the form
+        $('form').submit()
         window.location = 'provider.php'
     }
     
@@ -168,7 +200,6 @@
     $(".multiselect-container").addClass('w-100');
     $(".multiBox .btn-group").addClass('w-100');
     
-    
     //fill helper function
     function fillCheckboxSelects(list, location){
         for(var i=0; i<list.length; i++){
@@ -184,6 +215,12 @@
         }
     }
     
+    //geocoding
+    /*
+    $('#addressInput').focusout(function() {
+        doGeocoding()
+    });*/
+    
     //Validation
     (function() {
       'use strict';
@@ -193,13 +230,21 @@
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function(form) {
           form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
+            //doGeocoding()
+            if(form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
             }else{
                 //IF CLIENT SIDE VALIDATION WORKS YOU END UP HERE
-                event.preventDefault();     //this stops the form from submitting, DELETE later
-                $('#submitModal').modal('show');
+                event.preventDefault();  //stops page from submitting, moved that to modal function
+                doGeocoding().then(function(results){
+                    //sends an alert if something is wrong with the geocoding.
+                    if(geoCheck() === false){
+                        alert('There was a problem finding your event location.')
+                    }else{
+                        $('#submitModal').modal('show');
+                    }
+                });
             }
             form.classList.add('was-validated');
               
@@ -241,9 +286,38 @@
         }, false);
     })();
     
-    //multi select validation issues continue
-
+    //function that geocodes the street address
+    function doGeocoding(){
+        var streetString = $('#addressInput').val();
+        var api_url = 'http://www.mapquestapi.com/geocoding/v1/address?key=nEoQhpyWJ6K3nx0wsur3eVa4oYAfhvhY&location='+streetString
+        return fetch(api_url)
+          .then((resp) => resp.json())
+          .then(function(data) {
+            if(data.info.statuscode === 0){
+                 $('#lat').val(data.results[0].locations[0].latLng.lat)
+                 $('#lng').val(data.results[0].locations[0].latLng.lng)
+                 return true;
+            }else{
+                 $('#lat').val('nil')
+                 $('#lng').val('nil')
+                return false;
+            }
+          }).catch(function(error) {
+            $('#lat').val('nil')
+            $('#lng').val('nil')
+            console.log(error);
+            return false;
+        });
+    }
     
-
+    //function to check if the geocoding worked
+    function geoCheck(){
+        if($('#lat').val() === 'nil' || $('#lng').val() === 'nil'){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
 </script>
-<?php include 'footer.php';?>
+{% include "footer.php" %}

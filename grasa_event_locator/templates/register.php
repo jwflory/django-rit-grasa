@@ -1,15 +1,15 @@
-<?php include 'header.php';?>
+{% include "header.php" %}
 
 
 <div class="form-register">
   <h1 class="h3 mb-3 font-weight-normal text-center top-20">Register as a Provider</h1>
-  <form action="register.php">
+  <form action="register.php" method="post">{% csrf_token %}
   
     <label for="name">Organization Name</label>
-	<input type="text" id="resetPW" class="form-control" required autofocus>
+	<input type="text" id="resetPW" class="form-control" name="orgName" required autofocus>
       
 	<label for="resetPW" class="top-20">Email address</label>
-	<input type="email" id="resetPW" class="form-control" required autofocus>
+	<input type="email" id="resetPW" class="form-control" name="emailAddr" required autofocus>
 	
     <label for="myPW" class="top-20">Password</label>
     <input type="password" id="myPW" class="form-control" name="current" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
@@ -48,5 +48,4 @@ function myFunction() {
 }
 </script>
 
-<?php include 'footer.php';?>
-
+{% include "footer.php" %}
