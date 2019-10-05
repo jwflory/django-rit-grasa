@@ -1,9 +1,9 @@
-<?php include 'header.php';?>
+{% include "header.php" %}
 
 	<div class="container about-container">
 		
 		<div class="about-row">
-
+            <br>
 			<h2 id="about">About Us</h2>
 			<span class="subhead">OUR STORY</span>
 			
@@ -104,4 +104,4 @@
 			</div>
 		
 	
-<?php include 'footer.php';?>
+{% include "footer.php" %}

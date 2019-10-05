@@ -60,17 +60,15 @@
             {% for myEvent in myEventList %}
             <tr>
               <th scope="row">{{ myEvent.title }}</th>
+              {% if myEvent.isPending == 1 %}
+              <td>Submitted for Approval</td>
+              {% else %}
               <td>Approved</td>
+              {% endif %}
               <td><button type="button" href="{% url 'event_page' myEvent.id %}" class="btn btn-outline-info editBtn">Edit</button></td>
               <td><button type="button" class="btn btn-outline-danger">Delete</button></td>
             </tr>
             {% endfor %}
-            <tr class="warning">
-              <th scope="row">Cooking Program</th>
-              <td>Submitted for Approval</td>
-              <td><button type="button" class="btn btn-outline-info disabled editBtn">Edit</button></td>
-              <td><button type="button" class="btn btn-outline-danger disabled">Delete</button></td>
-            </tr>
           </tbody>
         </table>
     
