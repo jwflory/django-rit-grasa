@@ -7,7 +7,7 @@
         <!-- Filter column-->
             <div class="accordion" id="accordionExample">
                 <!--data filled with JS-->
-            </div> 
+            </div>
             <div class="row filter-btn-row">
             <!-- button row-->
                 <div class="col-12">
@@ -19,7 +19,7 @@
                   <button type="button" class="btn btn-secondary btn-outline-success">Apply Filters</button>
                   <button type="button" class="btn btn-secondary btn-outline-danger" id="clearFilters">Clear Filters</button>
                 </div>
-            
+
             </div>
         </div>
         <div class="col-sm-9">
@@ -50,7 +50,7 @@
                                 </span>
                                 {% endfor %}
                             <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ event.address }}</h6>
-                        </div>                      
+                        </div>
                       </div>
                     </div>
                     <a>
@@ -62,8 +62,8 @@
     <div class="row">
     <!-- map row-->
         <div id="mapid"></div>
-        
-        
+
+
     </div>
 </div>
 <!--Leaflet JS-->
@@ -80,7 +80,7 @@
     ).click(function() {
       window.location = "index.php"
     });
-    
+
     //Filter Buttons
     var clearBtn = document.getElementById('clearFilters');
     clearBtn.onclick= function(){
@@ -94,70 +94,70 @@
         setTimeout(function() {
             $(".filter-alert").hide();
         }, 2000);
-        
+
     }
-    
+
     $( document ).ready(function() {
         //Categories
         for(var i=0; i<groupList.length; i++){
-            
+
             //check for group name with spaces
             var words = groupList[i].split(" ")
             if(words.length > 1){
-               var name = words[0] 
+               var name = words[0]
             }else{
                 var name = groupList[i]
             }
-            
+
             //uncollapse first filter box
             if(i==0){
                 $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse show' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
-            
+
             //add distance
             }else if(name=="Distance"){
                 $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' data-parent='#accordionExample'><div class='card-body'><input class='form-control form-control-sm distance-input' type='text' placeholder='From Address...'></div></div></div>")
             }else{
                 $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
             }
-            
+
         }
-        
+
         //Activity
         fillCheckBoxes(activityList, "collapseActivity");
-        
+
         //Transportation
         fillCheckBoxes(transportationList, "collapseTransportation");
-        
+
         //Grades Served
         fillCheckBoxes(gradesList, "collapseGrades");
-        
+
         //Gender
         fillCheckBoxes(genderList, "collapseGender");
-        
+
         //Distance
         fillCheckBoxes(distanceList, "collapseDistance");
-        
+
         //Fees
         fillCheckBoxes(feesList, "collapseFees");
-        
+
         //Timing
         fillCheckBoxes(timingList, "collapseTiming");
-        
-         
+
+
     });
-    
+
     function fillCheckBoxes(list, location){
         for(var i=0; i<list.length; i++){
             var words = list[i].split(" ")
             if(words.length > 1){
-               var name = words[0] 
+               var name = words[0]
             }else{
                 var name = list[i]
             }
             $( "#"+location+" .card-body" ).append( "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='defaultCheck"+name+i+"'><label class='form-check-label' for='defaultCheck"+name+i+"'>"+list[i]+"</label></div>" );
         }
     }
-    
+
     //Leaflet Code
     //init
     var mymap = L.map('mapid').setView([43.0846, -77.6743], 13);
@@ -167,7 +167,7 @@
         id: 'mapbox.streets',
         accessToken: 'sk.eyJ1IjoibGRpZG9uYXRvIiwiYSI6ImNrMTdzdmN4YTFqODgzbnBrOHB4ZzJ1dzQifQ.T7D-X5eab-y3J-KIu_WTBw'
     }).addTo(mymap);
-    
+
     //markers
     //testing colors https://github.com/pointhi/leaflet-color-markers
     var greenIcon = new L.Icon({
@@ -178,15 +178,15 @@
       popupAnchor: [1, -34],
       shadowSize: [41, 41]
     });
-    
+
     var marker = L.marker([43.0846, -77.6743]).addTo(mymap);
     marker.bindPopup("<div class='leafeventPopup'><b>Soccer Program</b><br>Rochester Middle School<br><a href='event.php'>Details</a></div>").openPopup();
-    
-    
+
+
     var marker2 = L.marker([43.0966, -77.6973], {icon: greenIcon}).addTo(mymap);
     marker2.bindPopup("<b>Cooking for Kids</b><br>Henrietta Elementary School<br><a href='event.php'>Details</a></div>");
-    
-    
+
+
 </script>
 {% include "footer.php" %}
 
