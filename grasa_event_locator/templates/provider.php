@@ -38,7 +38,7 @@
                         <label class="custom-file-label" for="inputGroupFile01">Choose file...</label>
                       </div>
                     </div>
-                  
+
                 </li>
               </ul>
             </div>
@@ -73,7 +73,7 @@
             {% endfor %}
           </tbody>
         </table>
-    
+
     </div>
 </div>
 <script>
@@ -82,7 +82,7 @@
     createBtn.onclick = function(){
         window.location = 'createEvent.php'
     }
-    
+
     //edit event button
     var editBtns = document.getElementsByClassName('editBtn');
     for(var i=0; i<editBtns.length; i++){
@@ -93,6 +93,6 @@
             }
         }
     }
-    
+
 </script>
 {% include "footer.php" %}
