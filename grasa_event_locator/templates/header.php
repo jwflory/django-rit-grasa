@@ -38,7 +38,7 @@
         var groupList = ["Activity", "Transportation", "Grades Served", "Gender","Distance", "Fees", "Timing"]
         
         //Activity
-        var activityList = ["Academic Support", "Arts and Culture", "Career or College Readiness", "Civic Engagement", "Community Service/ Service Learning", "Entrepreneurship/ Leadership", "Financial Literacy", "Health & Wellness", "Media Technology",  "Mentoring", "Nature & the Environment", "Play", "Public Speaking", "Social and Emotional Learning (SEL)", "Sports and Recreation", "STEM", "Tutoring", "Other"]
+        var activityList = ["Academic Support", "Arts and Culture", "Career or College Readiness", "Civic Engagement", "Community Service / Service Learning", "Entrepreneurship/ Leadership", "Financial Literacy", "Health & Wellness", "Media Technology",  "Mentoring", "Nature & the Environment", "Play", "Public Speaking", "Social and Emotional Learning (SEL)", "Sports and Recreation", "STEM", "Tutoring", "Other"]
 
         //Transportation
         var transportationList = ["Provided", "Not Provided"]
