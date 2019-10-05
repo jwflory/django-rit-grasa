@@ -189,13 +189,3 @@
 
 </script>
 {% include "footer.php" %}
-
-
-
-
-
-
-
-
-
-
