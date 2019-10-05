@@ -5,7 +5,7 @@ from .models import *
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth import logout
-from django.contrib.auth.models import User as UserAccount 
+from django.contrib.auth.models import User as UserAccount
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect
 from django.db import connection
@@ -30,7 +30,7 @@ def admin(request):
 
 def allUsers(request):
         userList = userInfo.objects.filter(isPending=False)
-        context = {'userList' : userList,}
+        context = {'userList': userList}
         return render(request, 'allUsers.php', context)
 
 def changepw(request):
@@ -112,7 +112,6 @@ def database(request):
 
 def createevent(request):
         if request.method == 'POST':
-                print(request.POST.getlist('activity')[0])
                 g = (str(request.user.userinfo.id))
                 program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'])
                 program.save()
@@ -204,11 +203,11 @@ def login(request):
                         password = request.POST['password']
                         user = authenticate(request, username=email, password=password)
                         #This will check that the user is active, if not
-                        #(say and un-approved account) it will not let them 
-                        #log in. Same if no email/password match a row in the 
+                        #(say and un-approved account) it will not let them
+                        #log in. Same if no email/password match a row in the
                         #database, but will log them in and cause .is_authenticated
                         #to return true otherwise.
-                        if user is not None and user.userinfo.isActive: 
+                        if user is not None and user.userinfo.isActive:
                                 auth_login(request, user)
                                 if request.user.userinfo.isAdmin:
                                         return HttpResponseRedirect("admin.php")

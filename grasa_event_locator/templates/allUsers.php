@@ -18,8 +18,7 @@
                 <tr>
                   <th scope="row">{{ user.org_name }}</th>
                   <td><a href="mailto:{{ user.user }}">{{ user.user }}</a></td>
-
-                  <td> TBD </td>
+                  <td>To be implemented</td>
                   <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
                 </tr>
                 {% endfor %}
@@ -44,7 +43,7 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Nevermind</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Confirm Delete</button>
-                
+
               </div>
             </div>
           </div>
@@ -55,6 +54,6 @@
     backBtn.onclick = function(){
         window.location = 'admin.php'
     }
-    
+
 </script>
 {% include "footer.php" %}
