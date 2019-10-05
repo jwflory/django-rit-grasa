@@ -27,14 +27,15 @@ def admin(request):
         return render(request, 'admin.php')
 
 def allUsers(request):
-        return render(request, 'allUsers.php')
+        userList = userInfo.objects.filter(isPending=False)
+        context = {'userList' : userList}
+        return render(request, 'allUsers.php', context)
 
 def changepw(request):
         return render(request, 'changePW.php')
 
 def createevent(request):
         if request.method == 'POST':
-                print(request.POST['activity'])
                 g = (str(request.user.userinfo.id))
                 program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], activity=request.POST['activity'], transportation=request.POST['transportation'], grades=request.POST['grades'], gender=request.POST['gender'], fees=request.POST['fees'], timing=request.POST['timing'])
                 program.save()
@@ -88,7 +89,6 @@ def logout_view(request):
 def provider(request):
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
-                print(userInfo.objects.filter(user=request.user.userinfo.id))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id).exclude(isPending = True)
                 context = {'myEventList' : myEventList, 'currentUser' : currentUser}
                 return render(request, "provider.php", context)

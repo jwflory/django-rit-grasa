@@ -14,18 +14,14 @@
                 </tr>
               </thead>
               <tbody class="provider-program-list">
+                {% for user in userList %}
                 <tr>
-                  <th scope="row">Monroe Middle School</th>
-                  <td>monroemsstaff@monroe.org</td>
-                  <td>4</td>
+                  <th scope="row">{{ user.org_name }}</th>
+                  <td><a href="mailto:{{ user.user }}">{{ user.user }}</a></td>
+                  <td>To be implemented</td>
                   <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
                 </tr>
-                <tr>
-                  <th scope="row">Rush Lower School</th>
-                  <td>rushemail@rushschool.org</td>
-                  <td>5</td>
-                  <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-                </tr>
+                {% endfor %}
               </tbody>
             </table>
     </div>
