@@ -42,7 +42,7 @@ def database(request):
                 cursor.execute("ALTER TABLE grasa_event_locator_category AUTO_INCREMENT = 1")
         table = Category(description = "Academic Support")
         table.save()
-        table = Category(description = "Arts and Culture")
+        table = Category(description = "Arts & Culture")
         table.save()
         table = Category(description = "Career or College Readiness")
         table.save()
