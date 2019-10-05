@@ -21,11 +21,23 @@
             <div class="card event-page-card">
               <img src="https://via.placeholder.com/150" class="card-img-top" alt="Provider Logo">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item"><i class="fa fa-money" aria-hidden="true"></i> $20.00</li>
-                <li class="list-group-item"><i class="fa fa-map-marker" aria-hidden="true"></i> 1 Lomb Memorial Dr, Rochester NY</li>
+                {% if event.fees %}
+                <li class="list-group-item"><i class="fa fa-money" aria-hidden="true"></i> ${{ event.fees }}</li>
+                {% else %}
+                <li class="list-group-item"><i class="fa fa-money" aria-hidden="true"></i> Not Provided </li>
+                {% endif %}
+                {% if event.address %}
+                <a href="https://maps.google.com/?q={{ event.address }}"><li class="list-group-item"><i class="fa fa-map-marker" aria-hidden="true"></i>{{ event.address }}</li></a>
+                {% else %}
+                <a><li class="list-group-item"><i class="fa fa-map-marker" aria-hidden="true"></i>Not Provided</li></a>
+                {% endif %}
               </ul>
               <div class="card-body">
-                <a href="#" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> "Event's Website"</a>
+              {% if event.website %}
+                 <a href="//{{ event.website }}" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> {{ event.website }}</a>
+              {% else %}
+                <a href="" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> Not Provided</a>
+              {% endif %}
               </div>
             </div>
         </div>

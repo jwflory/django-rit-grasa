@@ -36,33 +36,22 @@
             <div class="row">
             <!-- Search Results Row-->
                 <div id="results-box">
-                    <div class="card w-100 event-box">
+            {% for event in allEventList %}
+                    <a href="{% url 'event_page' event.id %}"> <div class="card w-100 event-box">
                       <div class="card-body row">
                         <div class="col-sm-6">
-                            <h5 class="card-title">Soccer Program</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Rochester Middle School</h6>
+                            <h5 class="card-title">{{ event.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ event.user_id.org_name }}</h6>
                         </div>
                         <div class="col-sm-6 right-info">
                                 <span class="badge badge-info card-title">Play</span>
                                 <span class="badge badge-info card-title">Sports and Recreation</span>
-                            <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> 1 Lomb Memorial Dr, Rochester NY</h6>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ event.address }}</h6>
                         </div>                      
                       </div>
                     </div>
-
-                    <div class="card w-100 event-box">
-                      <div class="card-body row">
-                        <div class="col-sm-6">
-                            <h5 class="card-title">Cooking for Kids</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Henrietta Elementary School</h6>
-                        </div>
-                        <div class="col-sm-6 right-info">
-                                <span class="badge badge-info card-title">Health &amp; Wellness</span>
-                                <span class="badge badge-info card-title">Arts and Culture</span>
-                            <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> 14 The Random Rd, Henrietta NY</h6>
-                        </div>                      
-                      </div>
-                    </div>
+                    <a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -86,7 +75,7 @@
        function(){ $(this).addClass('border-info') },
        function(){ $(this).removeClass('border-info') }
     ).click(function() {
-      window.location = "event.php"
+      window.location = "index.php"
     });
     
     //Filter Buttons

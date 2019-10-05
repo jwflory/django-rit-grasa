@@ -109,9 +109,10 @@ def database(request):
 
 def createevent(request):
         if request.method == 'POST':
+                print(request.POST['activity'])
                 g = (str(request.user.userinfo.id))
-                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'])
-                program.save()
+                # program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'])
+                # program.save()
         else:
                 return render(request, 'createEvent.php')
         return render(request, 'createEvent.php')
@@ -127,7 +128,9 @@ def event(request, eventID):
         return render(request, 'event.php', context)
 
 def index(request):
-        return render(request, 'index.php')
+        allEventList = Program.objects.filter(isPending=False)
+        context = {'allEventList': allEventList,}
+        return render(request, 'index.php', context)
 
 def login(request):
         if request.user.is_authenticated:
@@ -152,8 +155,8 @@ def login(request):
                                 return render(request,'login.php',)
                                 #Will need to put some logic here to state invalid credentials
         else:
-                login_form_var = LoginForm()
-        return render(request, 'login.php', {'login_form_var': login_form_var})
+                return render(request, 'login.php')
+        return render(request, 'login.php')
 
 def logout_view(request):
         logout(request)

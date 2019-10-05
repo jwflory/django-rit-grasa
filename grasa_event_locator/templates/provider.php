@@ -52,6 +52,7 @@
             <tr>
               <th scope="col">Program Name</th>
               <th scope="col">Status</th>
+              <th scope="col" class="list-header-fix">View</th>
               <th scope="col" class="list-header-fix">Edit</th>
               <th scope="col" class="list-header-fix">Delete</th>
             </tr>
@@ -65,6 +66,7 @@
               {% else %}
               <td>Approved</td>
               {% endif %}
+              <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></td></a>
               <td><button type="button" href="{% url 'event_page' myEvent.id %}" class="btn btn-outline-info editBtn">Edit</button></td>
               <td><button type="button" class="btn btn-outline-danger">Delete</button></td>
             </tr>
