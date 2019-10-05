@@ -77,11 +77,11 @@
                     <div class="invalid-feedback">
                         Please provide your program's street address.
                     </div>
-                </div>    
+                </div>
                 <div class="form-group">
                     <label>Website (optional)</label>
                     <input type="url" class="form-control" id="exampleFormControlInput1" placeholder="http://" name="website">
-                </div> 
+                </div>
                 <fieldset class="pocFieldset">
                     <legend>Point of Contact</legend>
                    <div class="form-row">
@@ -117,14 +117,14 @@
                     <div class="invalid-feedback">
                         Please select at least one activity.
                     </div>
-                </div> 
+                </div>
                 <div class="form-group">
                     <label>Transportation</label>
                     <select class="form-control" name="transportation" required>
                         <option>Not Provided</option>
                         <option>Provided</option>
                     </select>
-                </div> 
+                </div>
                 <div class="form-group text-left multiBox">
                     <label>Grades Served</label><br>
                     <select class="custom-select w-100 gradesSelect" id="basic" multiple="multiple" name="grades" required>
@@ -132,7 +132,7 @@
                     <div class="invalid-feedback">
                         Please select at least one grade group.
                     </div>
-                </div> 
+                </div>
                 <div class="form-group">
                     <label>Gender</label>
                     <select class="form-control" name="gender" required>
@@ -152,7 +152,7 @@
                             Please enter total amount of fees. If the program is free enter 0.00
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="form-group text-left multiBox">
                     <label>Timing</label><br>
@@ -211,7 +211,7 @@
             }else{
                 var name = list[i]
             }
-            $( "."+location).append( "<option value="+name+">"+list[i]+"</option>" );
+            $( "."+location).append( "<option value=\""+list[i]+"\">"+list[i]+"</option>" );
         }
     }
     
