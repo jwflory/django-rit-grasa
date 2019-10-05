@@ -56,10 +56,10 @@ class Category(models.Model):
 
 class Program(models.Model):
     user_id = models.ForeignKey(userInfo, on_delete=models.CASCADE)
-    title = models.CharField(max_length=20)
-    content = models.CharField(max_length=250)
-    address = models.CharField(max_length=40)
-    website = models.CharField(max_length=40)
+    title = models.CharField(max_length=255)
+    content = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    website = models.CharField(max_length=255)
     fees = models.CharField(max_length=255)
     isPending = models.BooleanField(default=True)
     contact_name = models.CharField(max_length=255)

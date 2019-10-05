@@ -161,19 +161,19 @@
                      <div class="invalid-feedback">
                         Please select at least one time.
                     </div>
-                </div> 
+                </div>
 
 
             </div>
         </div>
-        
+
       <button class="btn btn-success float-right" type="submit">Validate Event</button>
     </form>
-    
-    
+
+
 </div>
 <script>
-    
+
     //Cancel Button and Ok Button returns to provider page
     var cancelBtn = document.getElementById('cancelBtn');
     cancelBtn.onclick = function(){
@@ -185,12 +185,12 @@
         $('form').submit()
         window.location = 'provider.php'
     }
-    
+
     //fill checkbox selects
     fillCheckboxSelects(activityList,"activitySelect");
     fillCheckboxSelects(gradesList,"gradesSelect");
     fillCheckboxSelects(timingList,"timingSelect");
-    
+
     //Use 3rd party code to make checkbox select
     $('.custom-select').multiselect({
         templates: {
@@ -199,7 +199,7 @@
     });
     $(".multiselect-container").addClass('w-100');
     $(".multiBox .btn-group").addClass('w-100');
-    
+
     //fill helper function
     function fillCheckboxSelects(list, location){
         for(var i=0; i<list.length; i++){
@@ -214,13 +214,13 @@
             $( "."+location).append( "<option value=\""+list[i]+"\">"+list[i]+"</option>" );
         }
     }
-    
+
     //geocoding
     /*
     $('#addressInput').focusout(function() {
         doGeocoding()
     });*/
-    
+
     //Validation
     (function() {
       'use strict';
@@ -236,7 +236,7 @@
               event.stopPropagation();
             }else{
                 //IF CLIENT SIDE VALIDATION WORKS YOU END UP HERE
-                event.preventDefault();  //stops page from submitting, moved that to modal function
+                // event.preventDefault();  stops page from submitting, moved that to modal function
                 doGeocoding().then(function(results){
                     //sends an alert if something is wrong with the geocoding.
                     if(geoCheck() === false){
