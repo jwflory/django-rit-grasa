@@ -112,8 +112,7 @@ def database(request):
 
 def createevent(request):
         if request.method == 'POST':
-                print("Yes")
-                print(request.POST.getlist('activity'))
+                print(request.POST.getlist('activity')[0])
                 g = (str(request.user.userinfo.id))
                 program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'])
                 program.save()
@@ -174,11 +173,13 @@ def event(request, eventID):
         for t in timing_list:
                 timing_list_pub = timing_list_pub + str(t) + ", "
         timing_list_pub = timing_list_pub[:-2]
+
         gender_list = event.categories.filter(id__gte=26)
         gender_list = gender_list.filter(id__lte=28)
         for g in gender_list:
                 gender_list_pub = gender_list_pub + str(g) + ", "
         gender_list_pub = gender_list_pub[:-2]
+
         transportation_list = event.categories.filter(id__gte=19)
         transportation_list = transportation_list.filter(id__lte=20)
         for t in transportation_list:
@@ -191,6 +192,7 @@ def event(request, eventID):
 
 def index(request):
         allEventList = Program.objects.filter(isPending=False)
+
         context = {'allEventList': allEventList,}
         return render(request, 'index.php', context)
 

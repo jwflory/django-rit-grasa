@@ -1,7 +1,7 @@
 {% include "header.php" %}
 <div class="container event-container">
     <div class="row">
-        
+
         <div class="col-sm-8">
             <h1>{{ event.title }}</h1>
             <h4 class="text-muted">{{ event.user_id.org_name }}</h4>
@@ -43,7 +43,7 @@
               </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 
