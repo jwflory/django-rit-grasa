@@ -18,7 +18,8 @@
                 <tr>
                   <th scope="row">{{ user.org_name }}</th>
                   <td><a href="mailto:{{ user.user }}">{{ user.user }}</a></td>
-                  <td>To be implemented</td>
+
+                  <td> TBD </td>
                   <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
                 </tr>
                 {% endfor %}

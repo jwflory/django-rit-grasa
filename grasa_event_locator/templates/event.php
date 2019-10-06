@@ -6,14 +6,15 @@
             <h1>{{ event.title }}</h1>
             <h4 class="text-muted">{{ event.user_id.org_name }}</h4>
             <div class="activity-badges">
-                <span class="badge badge-info card-title">Play</span>
-                <span class="badge badge-info card-title">Sports and Recreation</span>
+            {% for f in topic_list %}
+                <span class="badge badge-info card-title">{{ f }}</span>
+            {% endfor %}
             </div>
             <p>{{ event.content }}</p>
-            <p><b>Grades: </b> 3rd-5th, 6th-8th</p>
-            <p><b>Timing: </b> After School, Summer</p>
-            <p><b>Gender: </b> Non-Specific</p>
-            <p><b>Transportation: </b> Not Provided</p>
+            <p><b>Grades: </b> {{ grades_list_pub }} </p>
+            <p><b>Timing: </b> {{ timing_list_pub }}</p>
+            <p><b>Gender: </b> {{ gender_list_pub }}</p>
+            <p><b>Transportation: </b> {{ transportation_list_pub}}</p>
 
 
         </div>

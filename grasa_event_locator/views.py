@@ -29,7 +29,7 @@ def admin(request):
 
 def allUsers(request):
         userList = userInfo.objects.filter(isPending=False)
-        context = {'userList' : userList}
+        context = {'userList' : userList,}
         return render(request, 'allUsers.php', context)
 
 def changepw(request):
@@ -48,6 +48,8 @@ def database(request):
         table = Category(description = "Civic Engagement")
         table.save()
         table = Category(description = "Community Service / Service Learning")
+        table.save()
+        table = Category(description = "Entrepreneurship / Leadership")
         table.save()
         table = Category(description = "Financial Literacy")
         table.save()
@@ -73,9 +75,9 @@ def database(request):
         table.save()
         table = Category(description="Other")
         table.save()
-        table = Category(description="Not Provided")
+        table = Category(description="Transportation Not Provided")
         table.save()
-        table = Category(description="Provided")
+        table = Category(description="Transportation Provided")
         table.save()
         table = Category(description="K-3rd")
         table.save()
@@ -109,11 +111,40 @@ def database(request):
 
 def createevent(request):
         if request.method == 'POST':
-                print("Yes")
-                print(request.POST.getlist('activity'))
+                print(request.POST.getlist('activity')[0])
                 g = (str(request.user.userinfo.id))
                 program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'])
                 program.save()
+                i = 0
+                for tag in request.POST.getlist('activity'):
+                        var = Category.objects.get(description=str(request.POST.getlist('activity')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i= i + 1
+                i = 0
+                for tag in request.POST.getlist('transportation'):
+                        var = Category.objects.get(description=str(request.POST.getlist('transportation')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
+                i = 0
+                for tag in request.POST.getlist('grades'):
+                        var = Category.objects.get(description=str(request.POST.getlist('grades')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
+                i = 0
+                for tag in request.POST.getlist('gender'):
+                        var = Category.objects.get(description=str(request.POST.getlist('gender')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
+                i = 0
+                for tag in request.POST.getlist('timing'):
+                        var = Category.objects.get(description=str(request.POST.getlist('timing')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
                 return HttpResponseRedirect("provider.php")
         else:
                 print("No")
@@ -125,13 +156,42 @@ def editEvent(request):
 
 def event(request, eventID):
         event = Program.objects.get(pk=eventID)
+        grades_list_pub = ""
+        timing_list_pub = ""
+        gender_list_pub = ""
+        transportation_list_pub = ""
+        topic_list = event.categories.filter(id__lte=18)
+        grades_list = event.categories.filter(id__gte=21)
+        grades_list = grades_list.filter(id__lte=25)
+        for g in grades_list:
+                grades_list_pub = grades_list_pub + str(g) + ", "
+        grades_list_pub = grades_list_pub[:-2]
 
-        context = {'event' : event}
+        timing_list = event.categories.filter(id__gte=29)
+        timing_list = timing_list.filter(id__lte=34)
+        for t in timing_list:
+                timing_list_pub = timing_list_pub + str(t) + ", "
+        timing_list_pub = timing_list_pub[:-2]
+
+        gender_list = event.categories.filter(id__gte=26)
+        gender_list = gender_list.filter(id__lte=28)
+        for g in gender_list:
+                gender_list_pub = gender_list_pub + str(g) + ", "
+        gender_list_pub = gender_list_pub[:-2]
+
+        transportation_list = event.categories.filter(id__gte=19)
+        transportation_list = transportation_list.filter(id__lte=20)
+        for t in transportation_list:
+                transportation_list_pub = transportation_list_pub + str(t)
+        transportation_list_pub = transportation_list_pub[15:]
+
+        context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub}
 
         return render(request, 'event.php', context)
 
 def index(request):
         allEventList = Program.objects.filter(isPending=False)
+
         context = {'allEventList': allEventList,}
         return render(request, 'index.php', context)
 

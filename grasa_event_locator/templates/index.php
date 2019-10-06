@@ -44,8 +44,11 @@
                             <h6 class="card-subtitle mb-2 text-muted">{{ event.user_id.org_name }}</h6>
                         </div>
                         <div class="col-sm-6 right-info">
-                                <span class="badge badge-info card-title">Play</span>
-                                <span class="badge badge-info card-title">Sports and Recreation</span>
+                                {% for t in event.categories.all %}
+                                <span class="badge badge-info card-title">
+                                {{ t }}
+                                </span>
+                                {% endfor %}
                             <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ event.address }}</h6>
                         </div>                      
                       </div>

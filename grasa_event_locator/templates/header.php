@@ -38,7 +38,7 @@
         var groupList = ["Activity", "Transportation", "Grades Served", "Gender","Distance", "Fees", "Timing"]
         
         //Activity
-        var activityList = ["Academic Support", "Arts and Culture", "Career or College Readiness", "Civic Engagement", "Community Service / Service Learning", "Entrepreneurship/ Leadership", "Financial Literacy", "Health & Wellness", "Media Technology",  "Mentoring", "Nature & the Environment", "Play", "Public Speaking", "Social and Emotional Learning (SEL)", "Sports and Recreation", "STEM", "Tutoring", "Other"]
+        var activityList = ["Academic Support", "Arts and Culture", "Career or College Readiness", "Civic Engagement", "Community Service / Service Learning", "Entrepreneurship / Leadership", "Financial Literacy", "Health & Wellness", "Media Technology",  "Mentoring", "Nature & the Environment", "Play", "Public Speaking", "Social and Emotional Learning (SEL)", "Sports and Recreation", "STEM", "Tutoring", "Other"]
 
         //Transportation
         var transportationList = ["Provided", "Not Provided"]
@@ -62,7 +62,7 @@
 </script>
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-          <a class="navbar-brand" aria-label="GRASA-Logo" href="index.php">
+          <a class="navbar-brand" aria-label="GRASA-Logo" href="/index.php">
           <img id="header-logo" src="{% static "img/grasalogo.png" %}" alt="Logo">
         </a>
 

@@ -121,8 +121,8 @@
                 <div class="form-group">
                     <label>Transportation</label>
                     <select class="form-control" name="transportation" required>
-                        <option>Not Provided</option>
-                        <option>Provided</option>
+                        <option name="Transportation Not Provided">Transportation Not Provided</option>
+                        <option name="Transportation Provided">Transportation Provided</option>
                     </select>
                 </div>
                 <div class="form-group text-left multiBox">
@@ -136,9 +136,9 @@
                 <div class="form-group">
                     <label>Gender</label>
                     <select class="form-control" name="gender" required>
-                        <option>Not Specific</option>
-                        <option>Female</option>
-                        <option>Male</option>
+                        <option name="Not Specified">Not Specific</option>
+                        <option name="Female">Female</option>
+                        <option name="Male">Male</option>
                     </select>
                 </div>
                 <div class="form-group">
