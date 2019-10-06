@@ -1,14 +1,59 @@
 version: '3'
 services:
-  app:
+  justin:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: Grasa-Django-App
+    container_name: justin
+    depends_on:
+      - db
+    ports:
+      - 4000:8000
+  nathaniel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nathaniel
+    depends_on:
+      - db
+    ports:
+      - 5000:8000
+  lei:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lei
+    depends_on:
+      - db
+    ports:
+      - 3000:8000
+  harrison:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: harrison
+    depends_on:
+      - db
+    ports:
+      - 7000:8000
+  eli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: eli
     depends_on:
       - db
     ports:
       - 8000:8000
+  lauren:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lauren
+    depends_on:
+      - db
+    ports:
+      - 9000:8000
   db:
     image: "mariadb:10.1"
     volumes:
