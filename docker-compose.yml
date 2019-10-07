@@ -1,63 +1,15 @@
 version: '3'
 services:
-  justin:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: justin
     depends_on:
       - db
     ports:
-      - 4000:8000
-  nathaniel:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: nathaniel
-    depends_on:
-      - db
-    ports:
-      - 5000:8000
-  lei:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: lei
-    depends_on:
-      - db
-    ports:
-      - 3000:8000
-  harrison:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: harrison
-    depends_on:
-      - db
-    ports:
-      - 7000:8000
-  eli:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: eli
-    depends_on:
-      - db
-    ports:
-      - 8000:8000
-  lauren:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: lauren
-    depends_on:
-      - db
-    ports:
-      - 9000:8000
+      - 16000:8000
   db:
     image: "mariadb:10.1"
-    volumes:
-      - "~/.cache/django-rit-grasa-db:/var/lib/mysql:z"
     ports:
       - 3306:3306
     environment:
@@ -65,4 +17,3 @@ services:
       - MYSQL_DATABASE=grasa_event_locator
       - MYSQL_USER=grasaadmin
       - MYSQL_PASSWORD=djangoGrasa2019
-

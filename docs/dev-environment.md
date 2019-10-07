@@ -53,4 +53,4 @@ To shut down `docker-compose` in detached mode, use this command:
 ## Open in web browser
 
 Once `docker-compose` is running, open a web browser.
-Visit [localhost:8000](http://localhost:8000/) to view the site running locally.
+Visit [localhost:16000](http://localhost:16000/) to view the site running locally.
