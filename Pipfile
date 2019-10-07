@@ -10,6 +10,8 @@ django-compressor = "*"
 "psycopg2" = "*"
 bcrypt = "*"
 mysqlclient = "*"
+django-haystack = "*"
+whoosh = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
