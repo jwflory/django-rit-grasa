@@ -55,6 +55,7 @@ class Category(models.Model):
 
 
 class Program(models.Model):
+    objects = None
     user_id = models.ForeignKey(userInfo, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     content = models.CharField(max_length=255)
