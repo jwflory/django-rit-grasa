@@ -5,11 +5,12 @@ from .models import *
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth import logout
-from .models import *
 from django.contrib.auth.models import User as UserAccount 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect
 from django.db import connection
+from haystack.generic_views import SearchView
+from haystack.forms import SearchForm
 
 def aboutContact(request):
         return render(request, 'aboutContact.php')
@@ -324,4 +325,10 @@ def denyEdit(request, editID):
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
+
+class programSearchView(SearchView):
+        template_name = 'search/search.html'
+        form_class = grasaSearchForm
+        #form_class = SearchForm
+        #searchqueryset = sqs
 
