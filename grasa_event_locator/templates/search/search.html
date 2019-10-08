@@ -133,6 +133,7 @@
         setTimeout(function() {
             $(".filter-alert").hide();
         }, 2000);
+<<<<<<< HEAD
     }
 
     $( document ).ready(function() {
@@ -151,12 +152,34 @@
             if(i==0){
                 $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse show' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
 
+=======
+
+    }
+
+    $( document ).ready(function() {
+        //Categories
+        for(var i=0; i<groupList.length; i++){
+
+            //check for group name with spaces
+            var words = groupList[i].split(" ")
+            if(words.length > 1){
+               var name = words[0]
+            }else{
+                var name = groupList[i]
+            }
+
+            //uncollapse first filter box
+            if(i==0){
+                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse show' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
+
+>>>>>>> Newer search changes
             //add distance
             }else if(name=="Distance"){
                 $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' data-parent='#accordionExample'><div class='card-body'><input class='form-control form-control-sm distance-input' type='text' placeholder='From Address...'></div></div></div>")
             }else{
                 $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
             }
+<<<<<<< HEAD
 
         }
 
@@ -184,6 +207,35 @@
 
     });
 
+=======
+
+        }
+
+        //Activity
+        fillCheckBoxes(activityList, "collapseActivity");
+
+        //Transportation
+        fillCheckBoxes(transportationList, "collapseTransportation");
+
+        //Grades Served
+        fillCheckBoxes(gradesList, "collapseGrades");
+
+        //Gender
+        fillCheckBoxes(genderList, "collapseGender");
+
+        //Distance
+        fillCheckBoxes(distanceList, "collapseDistance");
+
+        //Fees
+        fillCheckBoxes(feesList, "collapseFees");
+
+        //Timing
+        fillCheckBoxes(timingList, "collapseTiming");
+
+
+    });
+
+>>>>>>> Newer search changes
     function fillCheckBoxes(list, location){
         for(var i=0; i<list.length; i++){
             var words = list[i].split(" ")
@@ -220,10 +272,8 @@
     var marker = L.marker([43.0846, -77.6743]).addTo(mymap);
     marker.bindPopup("<div class='leafeventPopup'><b>Soccer Program</b><br>Rochester Middle School<br><a href='event.php'>Details</a></div>").openPopup();
 
-
     var marker2 = L.marker([43.0966, -77.6973], {icon: greenIcon}).addTo(mymap);
     marker2.bindPopup("<b>Cooking for Kids</b><br>Henrietta Elementary School<br><a href='event.php'>Details</a></div>");
-
 
 </script>
 {% include "footer.php" %}
