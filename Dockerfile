@@ -7,9 +7,9 @@ COPY . /usr/src/app
 
 RUN apt-get --yes update \
     && apt-get --yes upgrade \
-    && pip3 install pipenv
+    && pip3 install pipenv \
+    && pip3 install mysqlclient
 
-RUN pip3 install mysqlclient
 RUN pipenv install --system --deploy --dev
 
 EXPOSE 8000
