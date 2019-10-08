@@ -15,6 +15,7 @@
             <p><b>Timing: </b> {{ timing_list_pub }}</p>
             <p><b>Gender: </b> {{ gender_list_pub }}</p>
             <p><b>Transportation: </b> {{ transportation_list_pub}}</p>
+            <p><b>Contact Information: </b> <br> {{ event.contact_name }} <br> {{ event.contact_email }} <br> {{ event.contact_phone }}</p>
 
 
         </div>
