@@ -38,7 +38,7 @@
         var groupList = ["Activity", "Transportation", "Grades Served", "Gender","Distance", "Fees", "Timing"]
         
         //Activity
-        var activityList = ["Academic Support", "Arts and Culture", "Career or College Readiness", "Civic Engagement", "Community Service/ Service Learning", "Entrepreneurship/ Leadership", "Financial Literacy", "Health & Wellness", "Media Technology",  "Mentoring", "Nature & the Environment", "Play", "Public Speaking", "Social and Emotional Learning (SEL)", "Sports and Recreation", "STEM", "Tutoring", "Other"]
+        var activityList = ["Academic Support", "Arts and Culture", "Career or College Readiness", "Civic Engagement", "Community Service / Service Learning", "Entrepreneurship / Leadership", "Financial Literacy", "Health & Wellness", "Media Technology",  "Mentoring", "Nature & the Environment", "Play", "Public Speaking", "Social and Emotional Learning (SEL)", "Sports and Recreation", "STEM", "Tutoring", "Other"]
 
         //Transportation
         var transportationList = ["Provided", "Not Provided"]
@@ -62,7 +62,7 @@
 </script>
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-          <a class="navbar-brand" aria-label="GRASA-Logo" href="index.php">
+          <a class="navbar-brand" aria-label="GRASA-Logo" href="/index.php">
           <img id="header-logo" src="{% static "img/grasalogo.png" %}" alt="Logo">
         </a>
 
@@ -70,16 +70,16 @@
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
 
-                <a class="nav-link" href="index.php">Browse Events<span class="sr-only sr-only-focusable">(current)</span></a>
+                <a class="nav-link" href="/index.php">Browse Events<span class="sr-only sr-only-focusable">(current)</span></a>
               </li>
               {% if not user.userinfo.isAdmin %}
               <li class="nav-item">
-                <a class="nav-link" href="provider.php">Provider</a>
+                <a class="nav-link" href="/provider.php">Provider</a>
               </li>
               {% endif %}
               {% if user.userinfo.isAdmin or not user.is_authenticated %}
                 <li class="nav-item">
-                <a class="nav-link" href="admin.php">Admin</a>
+                <a class="nav-link" href="/admin.php">Admin</a>
               </li>
               {% endif %}
               {% if not user.userinfo.isAdmin and user.is_authenticated %}

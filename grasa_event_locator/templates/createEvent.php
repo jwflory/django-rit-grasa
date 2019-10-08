@@ -77,11 +77,11 @@
                     <div class="invalid-feedback">
                         Please provide your program's street address.
                     </div>
-                </div>    
+                </div>
                 <div class="form-group">
                     <label>Website (optional)</label>
                     <input type="url" class="form-control" id="exampleFormControlInput1" placeholder="http://" name="website">
-                </div> 
+                </div>
                 <fieldset class="pocFieldset">
                     <legend>Point of Contact</legend>
                    <div class="form-row">
@@ -117,14 +117,14 @@
                     <div class="invalid-feedback">
                         Please select at least one activity.
                     </div>
-                </div> 
+                </div>
                 <div class="form-group">
                     <label>Transportation</label>
                     <select class="form-control" name="transportation" required>
-                        <option>Not Provided</option>
-                        <option>Provided</option>
+                        <option name="Transportation Not Provided">Transportation Not Provided</option>
+                        <option name="Transportation Provided">Transportation Provided</option>
                     </select>
-                </div> 
+                </div>
                 <div class="form-group text-left multiBox">
                     <label>Grades Served</label><br>
                     <select class="custom-select w-100 gradesSelect" id="basic" multiple="multiple" name="grades" required>
@@ -132,13 +132,13 @@
                     <div class="invalid-feedback">
                         Please select at least one grade group.
                     </div>
-                </div> 
+                </div>
                 <div class="form-group">
                     <label>Gender</label>
                     <select class="form-control" name="gender" required>
-                        <option>Not Specific</option>
-                        <option>Female</option>
-                        <option>Male</option>
+                        <option name="Not Specified">Not Specific</option>
+                        <option name="Female">Female</option>
+                        <option name="Male">Male</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -152,7 +152,7 @@
                             Please enter total amount of fees. If the program is free enter 0.00
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="form-group text-left multiBox">
                     <label>Timing</label><br>
@@ -161,19 +161,19 @@
                      <div class="invalid-feedback">
                         Please select at least one time.
                     </div>
-                </div> 
+                </div>
 
 
             </div>
         </div>
-        
+
       <button class="btn btn-success float-right" type="submit">Validate Event</button>
     </form>
-    
-    
+
+
 </div>
 <script>
-    
+
     //Cancel Button and Ok Button returns to provider page
     var cancelBtn = document.getElementById('cancelBtn');
     cancelBtn.onclick = function(){
@@ -185,12 +185,12 @@
         $('form').submit()
         window.location = 'provider.php'
     }
-    
+
     //fill checkbox selects
     fillCheckboxSelects(activityList,"activitySelect");
     fillCheckboxSelects(gradesList,"gradesSelect");
     fillCheckboxSelects(timingList,"timingSelect");
-    
+
     //Use 3rd party code to make checkbox select
     $('.custom-select').multiselect({
         templates: {
@@ -199,7 +199,7 @@
     });
     $(".multiselect-container").addClass('w-100');
     $(".multiBox .btn-group").addClass('w-100');
-    
+
     //fill helper function
     function fillCheckboxSelects(list, location){
         for(var i=0; i<list.length; i++){
@@ -211,16 +211,16 @@
             }else{
                 var name = list[i]
             }
-            $( "."+location).append( "<option value="+name+">"+list[i]+"</option>" );
+            $( "."+location).append( "<option value=\""+list[i]+"\">"+list[i]+"</option>" );
         }
     }
-    
+
     //geocoding
     /*
     $('#addressInput').focusout(function() {
         doGeocoding()
     });*/
-    
+
     //Validation
     (function() {
       'use strict';
@@ -236,7 +236,7 @@
               event.stopPropagation();
             }else{
                 //IF CLIENT SIDE VALIDATION WORKS YOU END UP HERE
-                event.preventDefault();  //stops page from submitting, moved that to modal function
+                // event.preventDefault();  stops page from submitting, moved that to modal function
                 doGeocoding().then(function(results){
                     //sends an alert if something is wrong with the geocoding.
                     if(geoCheck() === false){

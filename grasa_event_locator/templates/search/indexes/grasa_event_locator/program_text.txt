@@ -1,0 +1,5 @@
+{{ object.user_id.org_name }}
+{{ object.title }}
+{% for category in object.categories.all %}
+    {{ category.description}}
+{% endfor %}

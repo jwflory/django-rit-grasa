@@ -5,10 +5,12 @@ from .models import *
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth import logout
-from .models import *
 from django.contrib.auth.models import User as UserAccount 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect
+from django.db import connection
+from haystack.generic_views import SearchView
+from haystack.forms import SearchForm
 
 def aboutContact(request):
         return render(request, 'aboutContact.php')
@@ -27,18 +29,126 @@ def admin(request):
         return render(request, 'admin.php')
 
 def allUsers(request):
-        return render(request, 'allUsers.php')
+        userList = userInfo.objects.filter(isPending=False)
+        context = {'userList' : userList,}
+        return render(request, 'allUsers.php', context)
 
 def changepw(request):
         return render(request, 'changePW.php')
 
+def database(request):
+        with connection.cursor() as cursor:
+                cursor.execute("delete from grasa_event_locator_category")
+                cursor.execute("ALTER TABLE grasa_event_locator_category AUTO_INCREMENT = 1")
+        table = Category(description = "Academic Support")
+        table.save()
+        table = Category(description = "Arts and Culture")
+        table.save()
+        table = Category(description = "Career or College Readiness")
+        table.save()
+        table = Category(description = "Civic Engagement")
+        table.save()
+        table = Category(description = "Community Service / Service Learning")
+        table.save()
+        table = Category(description = "Entrepreneurship / Leadership")
+        table.save()
+        table = Category(description = "Financial Literacy")
+        table.save()
+        table = Category(description = "Health & Wellness")
+        table.save()
+        table = Category(description = "Media Technology")
+        table.save()
+        table = Category(description = "Mentoring")
+        table.save()
+        table = Category(description="Nature & the Environment")
+        table.save()
+        table = Category(description="Play")
+        table.save()
+        table = Category(description="Public Speaking")
+        table.save()
+        table = Category(description="Social and Emotional Learning (SEL)")
+        table.save()
+        table = Category(description="Sports and Recreation")
+        table.save()
+        table = Category(description="STEM")
+        table.save()
+        table = Category(description="Tutoring")
+        table.save()
+        table = Category(description="Other")
+        table.save()
+        table = Category(description="Transportation Not Provided")
+        table.save()
+        table = Category(description="Transportation Provided")
+        table.save()
+        table = Category(description="K-3rd")
+        table.save()
+        table = Category(description="K-5th")
+        table.save()
+        table = Category(description="3rd-5th")
+        table.save()
+        table = Category(description="6th-8th")
+        table.save()
+        table = Category(description="9th-12th")
+        table.save()
+        table = Category(description="Not Specific")
+        table.save()
+        table = Category(description="Female")
+        table.save()
+        table = Category(description="Male")
+        table.save()
+        table = Category(description="Before School")
+        table.save()
+        table = Category(description="After School")
+        table.save()
+        table = Category(description="Evenings")
+        table.save()
+        table = Category(description="Weekends")
+        table.save()
+        table = Category(description="Summer")
+        table.save()
+        table = Category(description="Other")
+        table.save()
+        return HttpResponseRedirect("admin.php")
+
 def createevent(request):
         if request.method == 'POST':
-                print(request.POST['activity'])
+                print(request.POST.getlist('activity')[0])
                 g = (str(request.user.userinfo.id))
-                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], activity=request.POST['activity'], transportation=request.POST['transportation'], grades=request.POST['grades'], gender=request.POST['gender'], fees=request.POST['fees'], timing=request.POST['timing'])
+                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'])
                 program.save()
+                i = 0
+                for tag in request.POST.getlist('activity'):
+                        var = Category.objects.get(description=str(request.POST.getlist('activity')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i= i + 1
+                i = 0
+                for tag in request.POST.getlist('transportation'):
+                        var = Category.objects.get(description=str(request.POST.getlist('transportation')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
+                i = 0
+                for tag in request.POST.getlist('grades'):
+                        var = Category.objects.get(description=str(request.POST.getlist('grades')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
+                i = 0
+                for tag in request.POST.getlist('gender'):
+                        var = Category.objects.get(description=str(request.POST.getlist('gender')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
+                i = 0
+                for tag in request.POST.getlist('timing'):
+                        var = Category.objects.get(description=str(request.POST.getlist('timing')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
+                return HttpResponseRedirect("provider.php")
         else:
+                print("No")
                 return render(request, 'createEvent.php')
         return render(request, 'createEvent.php')
 
@@ -47,13 +157,44 @@ def editEvent(request):
 
 def event(request, eventID):
         event = Program.objects.get(pk=eventID)
+        grades_list_pub = ""
+        timing_list_pub = ""
+        gender_list_pub = ""
+        transportation_list_pub = ""
+        topic_list = event.categories.filter(id__lte=18)
+        grades_list = event.categories.filter(id__gte=21)
+        grades_list = grades_list.filter(id__lte=25)
+        for g in grades_list:
+                grades_list_pub = grades_list_pub + str(g) + ", "
+        grades_list_pub = grades_list_pub[:-2]
 
-        context = {'event' : event}
+        timing_list = event.categories.filter(id__gte=29)
+        timing_list = timing_list.filter(id__lte=34)
+        for t in timing_list:
+                timing_list_pub = timing_list_pub + str(t) + ", "
+        timing_list_pub = timing_list_pub[:-2]
+
+        gender_list = event.categories.filter(id__gte=26)
+        gender_list = gender_list.filter(id__lte=28)
+        for g in gender_list:
+                gender_list_pub = gender_list_pub + str(g) + ", "
+        gender_list_pub = gender_list_pub[:-2]
+
+        transportation_list = event.categories.filter(id__gte=19)
+        transportation_list = transportation_list.filter(id__lte=20)
+        for t in transportation_list:
+                transportation_list_pub = transportation_list_pub + str(t)
+        transportation_list_pub = transportation_list_pub[15:]
+
+        context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub}
 
         return render(request, 'event.php', context)
 
 def index(request):
-        return render(request, 'index.php')
+        allEventList = Program.objects.filter(isPending=False)
+
+        context = {'allEventList': allEventList,}
+        return render(request, 'index.php', context)
 
 def login(request):
         if request.user.is_authenticated:
@@ -78,8 +219,8 @@ def login(request):
                                 return render(request,'login.php',)
                                 #Will need to put some logic here to state invalid credentials
         else:
-                login_form_var = LoginForm()
-        return render(request, 'login.php', {'login_form_var': login_form_var})
+                return render(request, 'login.php')
+        return render(request, 'login.php')
 
 def logout_view(request):
         logout(request)
@@ -88,8 +229,7 @@ def logout_view(request):
 def provider(request):
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
-                print(userInfo.objects.filter(user=request.user.userinfo.id))
-                myEventList = Program.objects.filter(user_id = request.user.userinfo.id).exclude(isPending = True)
+                myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
                 context = {'myEventList' : myEventList, 'currentUser' : currentUser}
                 return render(request, "provider.php", context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
@@ -185,4 +325,10 @@ def denyEdit(request, editID):
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
+
+class programSearchView(SearchView):
+        template_name = 'search/search.html'
+        form_class = grasaSearchForm
+        #form_class = SearchForm
+        #searchqueryset = sqs
 

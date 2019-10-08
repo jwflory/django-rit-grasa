@@ -55,20 +55,20 @@ class Category(models.Model):
 
 
 class Program(models.Model):
+    objects = None
     user_id = models.ForeignKey(userInfo, on_delete=models.CASCADE)
-    title = models.CharField(max_length=20)
-    content = models.CharField(max_length=250)
-    address = models.CharField(max_length=40)
-    website = models.CharField(max_length=40)
-    activity = models.CharField(max_length=255)
-    transportation = models.CharField(max_length=255)
-    grades = models.CharField(max_length=255)
-    gender = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    content = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    website = models.CharField(max_length=255)
     fees = models.CharField(max_length=255)
-    timing = models.CharField(max_length=255)
     isPending = models.BooleanField(default=True)
+    contact_name = models.CharField(max_length=255)
+    contact_email = models.CharField(max_length=255)
+    contact_phone = models.CharField(max_length=255)
     editOf = models.IntegerField(default=0)
     categories = models.ManyToManyField(Category)
+
 
     def __str__(self):
         return self.title

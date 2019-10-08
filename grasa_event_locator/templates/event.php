@@ -6,14 +6,15 @@
             <h1>{{ event.title }}</h1>
             <h4 class="text-muted">{{ event.user_id.org_name }}</h4>
             <div class="activity-badges">
-                <span class="badge badge-info card-title">Play</span>
-                <span class="badge badge-info card-title">Sports and Recreation</span>
+            {% for f in topic_list %}
+                <span class="badge badge-info card-title">{{ f }}</span>
+            {% endfor %}
             </div>
             <p>{{ event.content }}</p>
-            <p><b>Grades: </b> 3rd-5th, 6th-8th</p>
-            <p><b>Timing: </b> After School, Summer</p>
-            <p><b>Gender: </b> Non-Specific</p>
-            <p><b>Transportation: </b> Not Provided</p>
+            <p><b>Grades: </b> {{ grades_list_pub }} </p>
+            <p><b>Timing: </b> {{ timing_list_pub }}</p>
+            <p><b>Gender: </b> {{ gender_list_pub }}</p>
+            <p><b>Transportation: </b> {{ transportation_list_pub}}</p>
 
 
         </div>
@@ -21,11 +22,23 @@
             <div class="card event-page-card">
               <img src="https://via.placeholder.com/150" class="card-img-top" alt="Provider Logo">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item"><i class="fa fa-money" aria-hidden="true"></i> $20.00</li>
-                <li class="list-group-item"><i class="fa fa-map-marker" aria-hidden="true"></i> 1 Lomb Memorial Dr, Rochester NY</li>
+                {% if event.fees %}
+                <li class="list-group-item"><i class="fa fa-money" aria-hidden="true"></i> ${{ event.fees }}</li>
+                {% else %}
+                <li class="list-group-item"><i class="fa fa-money" aria-hidden="true"></i> Not Provided </li>
+                {% endif %}
+                {% if event.address %}
+                <a href="https://maps.google.com/?q={{ event.address }}"><li class="list-group-item"><i class="fa fa-map-marker" aria-hidden="true"></i>{{ event.address }}</li></a>
+                {% else %}
+                <a><li class="list-group-item"><i class="fa fa-map-marker" aria-hidden="true"></i>Not Provided</li></a>
+                {% endif %}
               </ul>
               <div class="card-body">
-                <a href="#" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> "Event's Website"</a>
+              {% if event.website %}
+                 <a href="//{{ event.website }}" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> {{ event.website }}</a>
+              {% else %}
+                <a href="" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> Not Provided</a>
+              {% endif %}
               </div>
             </div>
         </div>
