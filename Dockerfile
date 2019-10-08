@@ -2,8 +2,8 @@
 # Not to be used in production environment (yet).
 FROM python:3.6
 
-WORKDIR /usr/src/app
-COPY . /usr/src/app
+WORKDIR /app
+COPY . /app
 
 RUN apt-get --yes update \
     && apt-get --yes upgrade \
