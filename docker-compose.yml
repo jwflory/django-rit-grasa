@@ -14,7 +14,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./db:z
+      - ./db:/var/lib/mysql:z
     environment:
       - MYSQL_ROOT_PASSWORD=djangoGrasa2019
       - MYSQL_DATABASE=grasa_event_locator
