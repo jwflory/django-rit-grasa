@@ -217,7 +217,8 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-
+#Database
+/db
 
 ##### VIM
 

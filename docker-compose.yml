@@ -13,6 +13,8 @@ services:
     image: "mariadb:10.1"
     ports:
       - 3306:3306
+    volumes:
+      - ./db:z
     environment:
       - MYSQL_ROOT_PASSWORD=djangoGrasa2019
       - MYSQL_DATABASE=grasa_event_locator
