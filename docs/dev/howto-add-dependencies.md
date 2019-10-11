@@ -49,3 +49,16 @@ There are two steps to installing new dependencies:
 
 Run the first command with the `--dev` flag if installing a dependency only for development environments, not production.
 The second command updates the `Pipfile.lock` file with your changes and ensures the versions installed locally match what is specified in `Pipfile.lock`.
+
+
+## FAQ
+
+### When testing dependencies, should `pip` or `pip3` be run?
+
+If in doubt, use them exactly as written in the step.
+
+When you install `pipenv`, this guide assumes you are running Python 3 on your base operating system.
+`pip3` is an explicit process call to your system's installed Python 3 interpreter.
+If you do not have Python 2 installed, `pip` probably works the same too.
+Later, after opening a `pipenv shell`, the Python virtualenv rewrites the meaning of `pip` to whatever the specified `python_version` is in `Pipfile`.
+So long as you are in the shell, `pip` will _always_ mean the same thing as `pip3`.
