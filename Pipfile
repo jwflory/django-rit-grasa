@@ -14,11 +14,13 @@ django-haystack = "*"
 whoosh = "*"
 
 [dev-packages]
-django-debug-toolbar = "*"
-sphinx = "*"
 coverage = "*"
+django-debug-toolbar = "*"
 "flake8" = "*"
 pytest = "*"
+recommonmark = "*"
+sphinx = "*"
+sphinx-rtd-theme = "*"
 tox = "*"
 
 [requires]
