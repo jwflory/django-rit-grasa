@@ -69,7 +69,6 @@
           <div class="collapse navbar-collapse" id="navbarsExample02">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-
                 <a class="nav-link" href="/index.php">Browse Events<span class="sr-only sr-only-focusable">(current)</span></a>
               </li>
               {% if not user.userinfo.isAdmin %}
@@ -85,6 +84,11 @@
               {% if not user.userinfo.isAdmin and user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link">Welcome, {{ user.userinfo.org_name }}!</a>
+              </li>
+              {% endif %}
+              {% if not user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="admin_user">Create Admin User</a>
               </li>
               {% endif %}
             </ul>
