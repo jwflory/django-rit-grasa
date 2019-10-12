@@ -36,39 +36,27 @@ def admin_user(request):
                 cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isAdmin` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
                 cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isPending` = '0' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
                 cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isActive` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
-        return HttpResponseRedirect("index.php")
-
-def allUsers(request):
-        userList = userInfo.objects.filter(isPending=False)
-        context = {'userList': userList}
-        return render(request, 'allUsers.php', context)
-
-def changepw(request):
-        return render(request, 'changePW.php')
-
-def database(request):
-        with connection.cursor() as cursor:
                 cursor.execute("delete from grasa_event_locator_category")
                 cursor.execute("ALTER TABLE grasa_event_locator_category AUTO_INCREMENT = 1")
-        table = Category(description = "Academic Support")
+        table = Category(description="Academic Support")
         table.save()
-        table = Category(description = "Arts and Culture")
+        table = Category(description="Arts and Culture")
         table.save()
-        table = Category(description = "Career or College Readiness")
+        table = Category(description="Career or College Readiness")
         table.save()
-        table = Category(description = "Civic Engagement")
+        table = Category(description="Civic Engagement")
         table.save()
-        table = Category(description = "Community Service / Service Learning")
+        table = Category(description="Community Service / Service Learning")
         table.save()
-        table = Category(description = "Entrepreneurship / Leadership")
+        table = Category(description="Entrepreneurship / Leadership")
         table.save()
-        table = Category(description = "Financial Literacy")
+        table = Category(description="Financial Literacy")
         table.save()
-        table = Category(description = "Health & Wellness")
+        table = Category(description="Health & Wellness")
         table.save()
-        table = Category(description = "Media Technology")
+        table = Category(description="Media Technology")
         table.save()
-        table = Category(description = "Mentoring")
+        table = Category(description="Mentoring")
         table.save()
         table = Category(description="Nature & the Environment")
         table.save()
@@ -118,7 +106,15 @@ def database(request):
         table.save()
         table = Category(description="Other")
         table.save()
-        return HttpResponseRedirect("admin.php")
+        return HttpResponseRedirect("index.php")
+
+def allUsers(request):
+        userList = userInfo.objects.filter(isPending=False)
+        context = {'userList': userList}
+        return render(request, 'allUsers.php', context)
+
+def changepw(request):
+        return render(request, 'changePW.php')
 
 def createevent(request):
         if request.method == 'POST':

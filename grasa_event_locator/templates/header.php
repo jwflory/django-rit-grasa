@@ -88,7 +88,7 @@
               {% endif %}
               {% if not user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="admin_user">Create Admin User</a>
+                <a class="nav-link" href="admin_user">Create Administrator Account</a>
               </li>
               {% endif %}
             </ul>

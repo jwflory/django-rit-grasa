@@ -48,7 +48,6 @@
         
         <!--New User Approval-->
             <h4 class="top-20">Pending Users
-                <a href="database"><button type="button" class="btn btn-success float-right" id="addAdmin"> Database </button></a>
                 <button type="button" class="btn btn-success float-right" id="addAdmin"> <i class="fa fa-plus" aria-hidden="true"></i> Add Admin</button>
                 <button type="button" class="btn btn-info float-right" id="allUsers"> <i class="fa fa-address-book" aria-hidden="true"></i> View All Users</button>
             
