@@ -16,6 +16,7 @@ def aboutContact(request):
         return render(request, 'aboutContact.php')
 
 def admin(request):
+
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 pendingUserList = userInfo.objects.filter(isPending=True)
                 pendingEventList = Program.objects.filter(isPending=True).filter(editOf=0)

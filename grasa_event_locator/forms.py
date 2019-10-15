@@ -1,7 +1,6 @@
 from django import forms
+from .models import *
 from haystack.forms import SearchForm
-
-
 class grasaSearchForm(SearchForm):
     q = forms.CharField(required=False, label=('Search'),
                         widget=forms.TextInput(attrs={'type': 'search', 'name': 'q', 'id': 'id_q', 'class': 'form-control', 'placeholder': 'Search...', 'aria-label': 'Search for a Program by name', 'aria-describedby': 'button-addon2'}))

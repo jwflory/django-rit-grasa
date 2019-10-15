@@ -133,4 +133,3 @@ class Program(models.Model):
     def denyProgram(self, id):
         p = self.get_by_id(id)
         p.delete()
-

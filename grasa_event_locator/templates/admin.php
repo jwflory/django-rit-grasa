@@ -26,13 +26,11 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <div class="input-group">
-
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="inputGroupFile01">
                         <label class="custom-file-label" for="inputGroupFile01">Choose file...</label>
                       </div>
                     </div>
-                  
                 </li>
               </ul>
             </div>
