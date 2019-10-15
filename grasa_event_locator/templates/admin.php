@@ -14,7 +14,7 @@
                          <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> {{ user }} </h5>
                     </div>
                     <div class="col-sm-6">
-                        <button type="button" class="btn btn-link">Change Password</button>
+                        <a href="changePW.php"><button type="button" class="btn btn-link">Change Password</button></a>
                     </div>
                 </div>
             </div>

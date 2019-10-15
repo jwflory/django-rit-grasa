@@ -114,6 +114,14 @@ def allUsers(request):
         return render(request, 'allUsers.php', context)
 
 def changepw(request):
+        if request.method == 'POST':
+                current = request.POST['current']
+                new = request.POST['new']
+                if request.user.check_password(current):
+                        request.user.set_password(new)
+                        request.user.save()
+                else:
+                        print("No")
         return render(request, 'changePW.php')
 
 def createevent(request):
