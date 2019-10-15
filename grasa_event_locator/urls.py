@@ -12,7 +12,7 @@ urlpatterns = [
     path('changePW.php', views.changepw),
     path('createEvent.php', views.createevent),
     path("admin_user", views.admin_user),
-    path('editEvent.php', views.editEvent),
+    path('editEvent/<eventID>', views.editEvent, name='edit_page'),
     path('event/<eventID>', views.event, name='event_page'),
     path('index.php', views.index),
     path('login.php', views.login, name='login_page'),

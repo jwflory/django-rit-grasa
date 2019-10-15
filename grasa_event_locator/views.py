@@ -115,21 +115,24 @@ def allUsers(request):
         return render(request, 'allUsers.php', context)
 
 def changepw(request):
-        if request.method == 'POST':
-                current = request.POST['current']
-                new = request.POST['new']
-                if request.user.check_password(current):
-                        request.user.set_password(new)
-                        request.user.save()
-                else:
-                        print("No")
+        if request.user.is_authenticated:
+            if request.method == 'POST':
+                    current = request.POST['current']
+                    new = request.POST['new']
+                    if request.user.check_password(current):
+                            request.user.set_password(new)
+                            request.user.save()
+                    else:
+                            print("No")
+        else:
+            return HttpResponseRedirect("index.php")
         return render(request, 'changePW.php')
 
 def createevent(request):
         if request.method == 'POST':
                 print(request.POST.getlist('activity')[0])
                 g = (str(request.user.userinfo.id))
-                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'])
+                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lon=request.POST['lon'])
                 program.save()
                 i = 0
                 for tag in request.POST.getlist('activity'):
@@ -167,8 +170,11 @@ def createevent(request):
                 return render(request, 'createEvent.php')
         return render(request, 'createEvent.php')
 
-def editEvent(request):
-        return render(request, 'editEvent.php')
+def editEvent(request, eventID):
+        event = Program.objects.get(pk=eventID)
+        print(event.content)
+        context = {'event': event}
+        return render(request, 'editEvent.php', context)
 
 def event(request, eventID):
         event = Program.objects.get(pk=eventID)

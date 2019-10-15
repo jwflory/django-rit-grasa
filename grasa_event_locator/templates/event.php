@@ -38,7 +38,7 @@
               {% if event.website %}
                  <a href="//{{ event.website }}" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> {{ event.website }}</a>
               {% else %}
-                <a href="" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> Not Provided</a>
+                <class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> Not Provided
               {% endif %}
               </div>
             </div>

@@ -11,7 +11,7 @@
                          <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> {{ user }}</h5>
                     </div>
                     <div class="col-sm-6">
-                        <button type="button" class="btn btn-link">Change Password</button>
+                        <a href="changePW.php"><button type="button" class="btn btn-link">Change Password</button></a>
                     </div>
                 </div>
                 <div class="row twentyblock"></div>
@@ -67,7 +67,7 @@
               <td>Approved</td>
               {% endif %}
               <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></td></a>
-              <td><button type="button" href="{% url 'event_page' myEvent.id %}" class="btn btn-outline-info editBtn">Edit</button></td>
+              <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn">Edit</button></td></a>
               <td><button type="button" class="btn btn-outline-danger">Delete</button></td>
             </tr>
             {% endfor %}
