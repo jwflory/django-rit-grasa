@@ -110,7 +110,7 @@ def admin_user(request):
         return HttpResponseRedirect("index.php")
 
 def allUsers(request):
-        userList = userInfo.objects.filter(isPending=False)
+        userList = userInfo.objects.filter(isActive=True)
         context = {'userList': userList}
         return render(request, 'allUsers.php', context)
 
