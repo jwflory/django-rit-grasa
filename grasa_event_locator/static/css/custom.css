@@ -82,6 +82,10 @@ body{
 .accordion .form-check-label{
     padding-bottom: 5px;
 }
+.accordion ul{
+    list-style-type: none;
+    padding: 0;
+}
 .search-bar, #results-box{
     padding-left: 15px;
     padding-right: 15px; 
