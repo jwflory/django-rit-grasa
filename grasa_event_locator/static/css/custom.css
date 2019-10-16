@@ -411,6 +411,20 @@ span.subhead::before, span.subhead::after {
 	position:relative;
 }
 
+/*Styles for HomePage title*/
+.jumbotron {
+	background-color: #4CAF50;
+	position: relative;
+
+}
+
+.jumbotron p {
+	text-align:center;
+}
+
+.alert alert-block alert-danger {
+	display: none;
+}
 
 
 

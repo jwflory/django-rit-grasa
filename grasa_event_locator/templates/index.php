@@ -1,5 +1,14 @@
 {% include "header.php" %}
 <!-- Homepage -->
+
+<div class="jumbotron">
+        <div class="container">
+          <h1 class="display-4">After-school or Summer Programs Finder! </h1>
+          <p> To connect children, youth and their families with out-of-school time programs to ignite their individual interests and talents.</p>
+        
+        </div>    
+</div>
+
 <div class="container home-container">
     <div class="row">
     <!-- most outer row-->
