@@ -121,8 +121,8 @@
                 <div class="form-group">
                     <label>Transportation</label>
                     <select class="form-control" name="transportation" required>
-                        <option name="Transportation Not Provided">Not Provided</option>
-                        <option name="Transportation Provided">Provided</option>
+                        <option name="Transportation Not Provided">Transportation Not Provided</option>
+                        <option name="Transportation Provided">Transportation Provided</option>
                     </select>
                 </div>
                 <div class="form-group text-left multiBox">

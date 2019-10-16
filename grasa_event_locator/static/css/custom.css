@@ -91,6 +91,10 @@ body{
     padding-right: 15px; 
     margin-top: 15px;
 }
+#results-box a{
+    color: inherit;
+    text-decoration: none;
+}
 @media (min-width: 576px){
     .filter-col {
         padding-left: 0;  
