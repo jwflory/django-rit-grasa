@@ -45,9 +45,12 @@
                         </div>
                         <div class="col-sm-6 right-info">
                                 {% for t in event.categories.all %}
-                                <span class="badge badge-info card-title">
-                                {{ t }}
-                                </span>
+                                    {% if t.id <= 18 %}
+                                        <span class="badge badge-info card-title">
+                                        {{ t }}
+                                        </span>
+                                    {% else %}
+                                    {% endif %}
                                 {% endfor %}
                             <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ event.address }}</h6>
                         </div>
