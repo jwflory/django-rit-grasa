@@ -233,7 +233,6 @@
                 //IF CLIENT SIDE VALIDATION WORKS YOU END UP HERE
                 doGeocoding().then(function(results){
                     //sends an alert if something is wrong with the geocoding.
-                    console.log("geocoding should be done")
                     if(geoCheck() === false){
                         alert('There was a problem finding your event location.')
                     }else{
@@ -296,7 +295,6 @@
                  $('#lng').val('nil')
                 return false;
             }
-            console.log("geocoding is done")
           }).catch(function(error) {
             $('#lat').val('nil')
             $('#lng').val('nil')
