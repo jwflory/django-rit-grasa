@@ -16,7 +16,10 @@ DATABASES = {
         'PASSWORD': 'djangoGrasa2019',
         'HOST': 'db',
         'PORT': '3306',
-	'OPTIONS': {'charset': 'utf8mb4'},
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        },
     }
 }
 CACHES = {
@@ -33,9 +36,9 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 def show_toolbar(request):
     return not request.is_ajax() and request.user and request.user.is_superuser
 
+
 # MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware", ]
 # INSTALLED_APPS += ["debug_toolbar", ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
