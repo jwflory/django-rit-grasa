@@ -132,7 +132,7 @@ def createevent(request):
         if request.method == 'POST':
                 print(request.POST.getlist('activity')[0])
                 g = (str(request.user.userinfo.id))
-                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lon=request.POST['lon'])
+                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lng=request.POST['lng'])
                 program.save()
                 i = 0
                 for tag in request.POST.getlist('activity'):

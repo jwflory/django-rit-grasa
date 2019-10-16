@@ -7,8 +7,74 @@
         <div class="col-sm-3 filter-col">
         <!-- Filter column-->
             <div class="accordion" id="accordionExample">
-                <!--data filled with JS-->
+                <div class="card">
+                    <div class="card-header" id="headingActivity">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseActivity" aria-expanded="false" aria="" controls="collapseActivity">Activity</button></h2></div>
+                    <div id="collapseActivity" class="collapse" data-parent="#accordionExample" style="">
+                        <div class="card-body">
+                            {{ form.activities }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTransportation">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTransportation" aria-expanded="true" aria="" controls="collapseTransportation">Transportation</button></h2></div>
+                    <div id="collapseTransportation" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <!--put transporation here-->
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingGrades">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseGrades" aria-expanded="true" aria="" controls="collapseGrades">Grades Served</button></h2></div>
+                    <div id="collapseGrades" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <!--put grades here-->
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingGender">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseGender" aria-expanded="true" aria="" controls="collapseGender">Gender</button></h2></div>
+                    <div id="collapseGender" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <!-- put gender here-->
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingDistance">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseDistance" aria-expanded="true" aria="" controls="collapseDistance">Distance</button></h2></div>
+                    <div id="collapseDistance" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <input class="form-control form-control-sm distance-input" type="text" placeholder="From Address...">
+                            <!--put distance here-->
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingFees">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFees" aria-expanded="true" aria="" controls="collapseFees">Fees</button></h2></div>
+                    <div id="collapseFees" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <!--put fees in here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTiming">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTiming" aria-expanded="true" aria="" controls="collapseTiming">Timing</button></h2></div>
+                    <div id="collapseTiming" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <!--put timing in here-->
+                        </div>
+                    </div>
+                </div>
             </div>
+            
+            
+            
             <div class="row filter-btn-row">
             <!-- button row-->
                 <div class="col-12">
@@ -33,7 +99,6 @@
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2" aria-label="Search" value="Search"><i class="fa fa-search" aria-hidden="true"></i></button>
                   </div>
                 </div>
-                {{ form.activities }}
             </div>
             <div class="row">
             <!-- Search Results Row-->
@@ -55,9 +120,10 @@
                         </div>
                       </div>
                     </div>
-                    <a>
+                    </a>
                 {% endfor %}
                 </div>
+                
             </div>
         </div>
     </div>
@@ -95,68 +161,7 @@
             $(".filter-alert").hide();
         }, 2000);
     }
-
-    $( document ).ready(function() {
-        //Categories
-        for(var i=0; i<groupList.length; i++){
-
-            //check for group name with spaces
-            var words = groupList[i].split(" ")
-            if(words.length > 1){
-               var name = words[0]
-            }else{
-                var name = groupList[i]
-            }
-
-            //uncollapse first filter box
-            if(i==0){
-                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse show' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
-            //add distance
-            }else if(name=="Distance"){
-                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' data-parent='#accordionExample'><div class='card-body'><input class='form-control form-control-sm distance-input' type='text' placeholder='From Address...'></div></div></div>")
-            }else{
-                $(".accordion").append("<div class='card'><div class='card-header' id='heading"+name+"'><h2 class='mb-0'><button class='btn btn-link collapsed' type='button' data-toggle='collapse' data-target='#collapse"+name+"' aria-expanded='true' aria controls='collapse"+name+"'>"+groupList[i]+"</button></h2></div><div id='collapse"+name+"' class='collapse' data-parent='#accordionExample'><div class='card-body'></div></div></div>")
-            }
-        }
-
-        //Activity
-        fillCheckBoxes(activityList, "collapseActivity");
-
-        //Transportation
-        fillCheckBoxes(transportationList, "collapseTransportation");
-
-        //Grades Served
-        fillCheckBoxes(gradesList, "collapseGrades");
-
-        //Gender
-        fillCheckBoxes(genderList, "collapseGender");
-
-        //Distance
-        fillCheckBoxes(distanceList, "collapseDistance");
-
-        //Fees
-        fillCheckBoxes(feesList, "collapseFees");
-
-        //Timing
-        fillCheckBoxes(timingList, "collapseTiming");
-
-
-    });
-
-    function fillCheckBoxes(list, location){
-        $( "#"+location+" .card-body" ).append();
-        {% comment %}
-        for(var i=0; i<list.length; i++){
-            var words = list[i].split(" ")
-            if(words.length > 1){
-               var name = words[0]
-            }else{
-                var name = list[i]
-            }
-            $( "#"+location+" .card-body" ).append( "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='defaultCheck"+name+i+"'><label class='form-check-label' for='defaultCheck"+name+i+"'>"+list[i]+"</label></div>" );
-        }
-        {% endcomment %}
-    }
+    
 
     //Leaflet Code
     //init
