@@ -66,9 +66,16 @@
               {% else %}
               <td>Approved</td>
               {% endif %}
-              <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></td></a>
-              <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn">Edit</button></td></a>
+              {% if myEvent.isPending == 1 %}
+                <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event" disabled>View</button></a></td>
+                <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn" disabled>Edit</button></a></td>
+                <td><button type="button" class="btn btn-outline-danger" disabled>Delete</button></td> 
+              {% else %}
+              
+              <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></a></td>
+              <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn">Edit</button></a></td>
               <td><button type="button" class="btn btn-outline-danger">Delete</button></td>
+              {% endif %}
             </tr>
             {% endfor %}
           </tbody>
