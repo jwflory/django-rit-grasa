@@ -75,9 +75,9 @@ def admin_user(request):
         table.save()
         table = Category(description="Other")
         table.save()
-        table = Category(description="Transportation Not Provided")
+        table = Category(description="Not Provided")
         table.save()
-        table = Category(description="Transportation Provided")
+        table = Category(description="Provided")
         table.save()
         table = Category(description="K-3rd")
         table.save()
@@ -205,7 +205,6 @@ def event(request, eventID):
         transportation_list = transportation_list.filter(id__lte=20)
         for t in transportation_list:
                 transportation_list_pub = transportation_list_pub + str(t)
-        transportation_list_pub = transportation_list_pub[15:]
 
         context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub}
 
@@ -213,8 +212,7 @@ def event(request, eventID):
 
 def index(request):
         allEventList = Program.objects.filter(isPending=False)
-
-        context = {'allEventList': allEventList,}
+        context = {'allEventList': allEventList}
         return render(request, 'index.php', context)
 
 def login(request):
