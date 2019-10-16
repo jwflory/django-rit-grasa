@@ -61,7 +61,7 @@ class Program(models.Model):
     content = models.CharField(max_length=255, default="NOT SPECIFIED")
     address = models.CharField(max_length=255, default="NOT SPECIFIED")
     lat = models.CharField(max_length=255, default="43.154535")
-    lon = models.CharField(max_length=255, default="-77.590575")
+    lng = models.CharField(max_length=255, default="-77.590575")
     website = models.CharField(max_length=255, default="NOT SPECIFIED")
     fees = models.CharField(max_length=255, default="NOT SPECIFIED")
     isPending = models.BooleanField(default=True)

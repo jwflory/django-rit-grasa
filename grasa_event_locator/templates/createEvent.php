@@ -73,7 +73,7 @@
                     <label>Location</label>
                     <input type="text" class="form-control" id="addressInput" placeholder="Street Address..." name="address" required>
                     <input type="hidden" id="lat" name="lat" value="0">
-                    <input type="hidden" id="lng" name="lon" value="0">
+                    <input type="hidden" id="lng" name="lng" value="0">
                     <div class="invalid-feedback">
                         Please provide your program's street address.
                     </div>
