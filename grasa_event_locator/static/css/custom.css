@@ -139,6 +139,9 @@ body{
 .event-container{
     margin-bottom: 40px;
 }
+.event-page-card a{
+    text-decoration: none;
+}
 .activity-badges{
     font-size: 1.1rem;
 }
@@ -293,7 +296,7 @@ body{
 }
 
 /*icon width fix*/
-.event-page-card i.fa{
+.event-page-card i.fa, .event-container i.fa{
     width:30px;
 }
 button i.fa{
