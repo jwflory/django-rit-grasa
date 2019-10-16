@@ -1,7 +1,7 @@
 {% include "header.php" %}
 <div class="container event-container">
     <div class="row">
-        
+
         <div class="col-sm-8">
             <h1>{{ event.title }}</h1>
             <h4 class="text-muted">{{ event.user_id.org_name }}</h4>
@@ -15,6 +15,7 @@
             <p><b>Timing: </b> {{ timing_list_pub }}</p>
             <p><b>Gender: </b> {{ gender_list_pub }}</p>
             <p><b>Transportation: </b> {{ transportation_list_pub}}</p>
+            <p><b>Contact Information: </b> <br> {{ event.contact_name }} <br> {{ event.contact_email }} <br> {{ event.contact_phone }}</p>
 
 
         </div>
@@ -37,12 +38,12 @@
               {% if event.website %}
                  <a href="//{{ event.website }}" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> {{ event.website }}</a>
               {% else %}
-                <a href="" class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> Not Provided</a>
+                <class="card-link"><i class="fa fa-globe" aria-hidden="true"></i> Not Provided
               {% endif %}
               </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 

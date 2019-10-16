@@ -2,7 +2,8 @@
 
 
   <div class="form-changePW">
-	<form action="changePW.php">
+	<form action="changePW.php" method="post">
+	{% csrf_token %}
 		<label for="currentPW">Current Password</label>
 		<input type="password" id="currentPW" class="form-control" name="current" required>
 		</br>

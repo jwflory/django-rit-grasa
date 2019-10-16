@@ -14,7 +14,7 @@
                          <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> {{ user }} </h5>
                     </div>
                     <div class="col-sm-6">
-                        <button type="button" class="btn btn-link">Change Password</button>
+                        <a href="changePW.php"><button type="button" class="btn btn-link">Change Password</button></a>
                     </div>
                 </div>
             </div>
@@ -26,13 +26,11 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <div class="input-group">
-
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="inputGroupFile01">
                         <label class="custom-file-label" for="inputGroupFile01">Choose file...</label>
                       </div>
                     </div>
-                  
                 </li>
               </ul>
             </div>
@@ -48,7 +46,6 @@
         
         <!--New User Approval-->
             <h4 class="top-20">Pending Users
-                <a href="database"><button type="button" class="btn btn-success float-right" id="addAdmin"> Database </button></a>
                 <button type="button" class="btn btn-success float-right" id="addAdmin"> <i class="fa fa-plus" aria-hidden="true"></i> Add Admin</button>
                 <button type="button" class="btn btn-info float-right" id="allUsers"> <i class="fa fa-address-book" aria-hidden="true"></i> View All Users</button>
             

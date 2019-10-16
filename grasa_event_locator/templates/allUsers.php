@@ -18,9 +18,8 @@
                 <tr>
                   <th scope="row">{{ user.org_name }}</th>
                   <td><a href="mailto:{{ user.user }}">{{ user.user }}</a></td>
-
                   <td> TBD </td>
-                  <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
+                  <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal" onclick="window.location.href='{% url 'deny_user' user.id %}'">Delete</button></td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -42,9 +41,9 @@
                Are you sure you want to delete this user? This cannot be undone.<br><br><b>THIS WILL REMOVE ALL EVENTS ASSOCIATED WITH THE USER</b>.
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nevermind</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Never Mind</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Confirm Delete</button>
-                
+
               </div>
             </div>
           </div>
@@ -55,6 +54,6 @@
     backBtn.onclick = function(){
         window.location = 'admin.php'
     }
-    
+
 </script>
 {% include "footer.php" %}
