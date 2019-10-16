@@ -1,5 +1,5 @@
-How do I add new dependencies/libraries/frameworks to the project?
-==================================================================
+How to: Add new dependencies / libraries?
+=========================================
 
 If we use a new library or framework, we need to **install it as a dependency** in the project.
 Dependencies are specific versions of third-party software we want to use in the project.
