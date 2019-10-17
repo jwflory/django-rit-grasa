@@ -14,9 +14,15 @@
                          <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> {{ user }} </h5>
                     </div>
                     <div class="col-sm-6">
-                        <a href="changePW.php"><button type="button" class="btn btn-link">Change Password</button></a>
+                        <a href="changePW.php"><button type="button" class="btn btn-link float-right">Change Password</button></a>
                     </div>
                 </div>
+                <div class="twentyblock"></div>
+                <hr>
+                <button type="button" class="btn btn-secondary" id="allUsers"><i class="fa fa-user" aria-hidden="true"></i> View Providers</button>
+                <button type="button" class="btn btn-warning" id="allAdmins"><i class="fa fa-user-secret" aria-hidden="true"></i> View Admins</button>
+                <button type="button" class="btn btn-info float-right" id="allEvents"><i class="fa fa-calendar" aria-hidden="true"></i> View All Events</button>
+                
             </div>
         </div>
         <div class="col-sm-3">
@@ -37,42 +43,6 @@
         </div>
     </div>
     
-    <!-- add admin modal-->
-        <div class="modal fade" id="addadminModal" tabindex="-1" role="dialog" aria-labelledby="addadminModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="addadminModalLabel">Add New Admin</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            <form action="" method="post">
-              <div class="modal-body">
-                
-
-                    <label for="resetPW" class="top-20">Email address</label>
-                    <input type="email" id="resetPW" class="form-control" name="emailAddr" required autofocus>
-
-                    <label for="myPW" class="top-20">Password</label>
-                    <input type="password" id="myPW" class="form-control" name="current" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-
-                    <label for="confirmPW" class="top-20">Confirm Password</label>
-                    <input type="password" id="confirmPW" class="form-control" name="confirm" required>
-                    <input id="SPcheckbox" type="checkbox" onclick="myFunction()">
-                    <label for="SPcheckbox">&nbsp; Show Password</label>
-
-                  
-                  
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-success" type="submit" value="Submit">Create Admin</button>
-              </div>
-            </form>
-            </div>
-          </div>
-        </div>
 
 	<div class="twentyblock"></div>
 	<div class="row">
@@ -82,11 +52,7 @@
             
         
         <!--New User Approval-->
-            <h4 class="top-20">Pending Users
-                <button type="button" class="btn btn-success float-right" id="addAdmin" data-toggle="modal" data-target="#addadminModal"> <i class="fa fa-plus" aria-hidden="true"></i> Add Admin</button>
-                <button type="button" class="btn btn-info float-right" id="allUsers"> <i class="fa fa-address-book" aria-hidden="true"></i> View All Users</button>
-            
-            </h4>
+            <h4 class="top-20">Pending Users </h4>
                 <table class="table table-bordered">
                   <thead class="thead-light">
                     <tr>
@@ -108,6 +74,7 @@
                   </tbody>
                 </table>
         <!--New Event Approval-->
+            <div class="twentyblock"></div>
             <h4 class="top-20">New Events</h4>
                 <table class="table  table-bordered">
                   <thead class="thead-light">
@@ -134,6 +101,7 @@
                   </tbody>
                 </table>
         <!--New Event Approval-->
+            <div class="twentyblock"></div>
             <h4 class="top-20">Updated Events</h4>
                 <table class="table table-bordered">
                   <thead class="thead-light">
@@ -171,9 +139,19 @@
             window.location = 'event.php'
         }
     }
+    
+    //Toolbar Links
     var allUsersBtn = document.getElementById('allUsers');
     allUsersBtn.onclick = function(){
         window.location = 'allUsers.php'
+    }
+    var allUsersBtn = document.getElementById('allAdmins');
+    allUsersBtn.onclick = function(){
+        window.location = 'allAdmins.php'
+    }
+    var allEventsBtn = document.getElementById('allEvents');
+    allEventsBtn.onclick = function(){
+        window.location = 'allEvents.php'
     }
     
 </script>

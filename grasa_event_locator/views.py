@@ -113,6 +113,16 @@ def allUsers(request):
         userList = userInfo.objects.filter(isActive=True)
         context = {'userList': userList}
         return render(request, 'allUsers.php', context)
+    
+def allAdmins(request):
+        userList = userInfo.objects.filter(isActive=True)
+        context = {'userList': userList}
+        return render(request, 'allAdmins.php', context)
+
+def allEvents(request):
+        userList = userInfo.objects.filter(isActive=True)
+        context = {'userList': userList}
+        return render(request, 'allEvents.php', context)
 
 def changepw(request):
         if request.user.is_authenticated:

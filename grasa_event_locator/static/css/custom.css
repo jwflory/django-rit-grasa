@@ -306,13 +306,13 @@ button i.fa{
     width:auto;
 }
 /*Admin Page*/
-#addAdmin, #allUsers{
+#addAdmin{
     margin-left: 20px;
     margin-bottom: 10px;
 }
 /*style for Admin page submit button*/
 .admin-logo-change{
-    width: 100px;
+    width: 120px;
     margin:0 auto;
 }
 .provider-logo-change{
