@@ -9,6 +9,8 @@ urlpatterns = [
     path('aboutContact.php', views.aboutContact),
     path('admin.php', views.admin, name='admin_page'),
     path('allUsers.php', views.allUsers),
+    path('allAdmins.php', views.allAdmins),
+    path('allEvents.php', views.allEvents),
     path('changePW.php', views.changepw),
     path('createEvent.php', views.createevent),
     path("admin_user", views.admin_user),

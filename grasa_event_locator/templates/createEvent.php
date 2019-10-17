@@ -72,8 +72,8 @@
                 <div class="form-group">
                     <label>Location</label>
                     <input type="text" class="form-control" id="addressInput" placeholder="Street Address..." name="address" required>
-                    <input type="text" id="lat" name="lat" value="0" readonly>
-                    <input type="text" id="lng" name="lng" value="0" readonly>
+                    <input type="hidden" id="lat" name="lat" value="0" readonly>
+                    <input type="hidden" id="lng" name="lng" value="0" readonly>
                     <div class="invalid-feedback">
                         Please provide your program's street address.
                     </div>
@@ -101,9 +101,9 @@
                         </div>
                         <div class="form-group col-md-4">
                           <label for="phone">Phone</label>
-                          <input type="tel" class="form-control" id="phone" placeholder="Phone..." name="contact_phone" required>
+                          <input type="tel" class="form-control" id="phone" placeholder="xxx-xxx-xxxx" name="contact_phone" pattern="^\d{3}-\d{3}-\d{4}$" required>
                             <div class="invalid-feedback">
-                                Please provide your program's contact phone number.
+                                Please provide your program's contact phone number and format as xxx-xxx-xxxx.
                             </div>
                         </div>
                       </div>
@@ -147,7 +147,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                       </div>
-                      <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" name="fees" required>
+                      <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" name="fees" step=".01" required>
                         <div class="invalid-feedback">
                             Please enter total amount of fees. If the program is free enter 0.00
                         </div>

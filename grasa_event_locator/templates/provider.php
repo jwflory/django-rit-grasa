@@ -1,5 +1,8 @@
 {% include "header.php" %}
 <div class="container event-container">
+    <div class="changeName-alert alert alert-success alert-dismissible fade show" role="alert">
+              Organization Name Saved
+    </div>
     <div class="row">
     <!--Top Row-->
         <div class="col-sm-9 card">
@@ -20,7 +23,14 @@
                          <h5 class="provider-info"><i class="fa fa-id-card" aria-hidden="true"></i> {{ user.userinfo.org_name }}</h5>
                     </div>
                     <div class="col-sm-6">
-                         <button type="button" class="btn btn-link">Change Name</button>
+                         <button type="button" class="btn btn-link changeNameLink">Change Name</button>
+                        <div class="input-group mb-3 changeNameInput">
+                          <input type="text" class="form-control" placeholder="Name" aria-label="{{ user.userinfo.org_name }}" aria-describedby="button-addon2" value="{{ user.userinfo.org_name }}">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-primary changeNameSave" type="button" id="button-addon2">Save</button>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -47,7 +57,7 @@
     <div class="row">
     <!-- Bottom Row -->
         <h2 class="program-header w-100">Events and Programs<button type="button" class="btn btn-success float-right" id="createEvent"> <i class="fa fa-plus" aria-hidden="true"></i> Add New Event</button></h2>
-        <table class="table table-hover table-bordered">
+        <table class="table table-bordered">
           <thead class="thead-light">
             <tr>
               <th scope="col">Program Name</th>
@@ -66,9 +76,16 @@
               {% else %}
               <td>Approved</td>
               {% endif %}
-              <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></td></a>
-              <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn">Edit</button></td></a>
+              {% if myEvent.isPending == 1 %}
+                <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event" disabled>View</button></a></td>
+                <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn" disabled>Edit</button></a></td>
+                <td><button type="button" class="btn btn-outline-danger" disabled>Delete</button></td> 
+              {% else %}
+              
+              <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></a></td>
+              <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn">Edit</button></a></td>
               <td><button type="button" class="btn btn-outline-danger">Delete</button></td>
+              {% endif %}
             </tr>
             {% endfor %}
           </tbody>
@@ -93,6 +110,25 @@
             }
         }
     }
+    
+    //Change Name 
+    var changeLink = document.getElementsByClassName('changeNameLink')[0];
+    var changeSaveBtn = document.getElementsByClassName('changeNameSave')[0];
+    var changeBox = document.getElementsByClassName('changeNameInput')[0];
+    changeLink.onclick = function(){
+        changeLink.style.display = "none";
+        changeBox.style.visibility="visible";
+    }
+    changeSaveBtn.onclick = function(){
+        changeLink.style.display = "block";
+        changeBox.style.visibility="hidden";
+        //Change Name popup
+        $(".changeName-alert").show()
+        setTimeout(function() {
+            $(".changeName-alert").hide();
+        }, 2000);
+    }
+    
 
 </script>
 {% include "footer.php" %}

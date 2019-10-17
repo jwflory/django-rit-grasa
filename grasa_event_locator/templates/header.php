@@ -81,11 +81,6 @@
                 <a class="nav-link" href="/admin.php">Admin</a>
               </li>
               {% endif %}
-              {% if not user.userinfo.isAdmin and user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link">Welcome, {{ user.userinfo.org_name }}!</a>
-              </li>
-              {% endif %}
               {% if not user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link" href="admin_user">Create Administrator Account</a>
@@ -95,6 +90,9 @@
           </div>
         <span class="form-inline mt-2 mt-md-0">
         {% if user.is_authenticated %}
+            {% if not user.userinfo.isAdmin and user.is_authenticated %}
+                <a class="nav-link" style="color:white;">{{ user.userinfo.org_name }}</a>
+            {% endif %}
             <button onclick="window.location.href='/logout'" class="btn btn-outline-light my-2 my-sm-0" >Logout</button>
         {% else %}
             <button onclick="window.location.href='/login.php'" class="btn btn-outline-light my-2 my-sm-0" >Login</button>
