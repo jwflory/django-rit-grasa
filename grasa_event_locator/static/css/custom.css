@@ -132,7 +132,7 @@ body{
 .right-info{
     text-align: left;
 }
-.filter-alert{
+.filter-alert, .changeName-alert{
     display: none;
 }
 /*Event Page Styles*/
@@ -293,6 +293,9 @@ body{
     padding-top:50px;
     padding-left: 10px;  
     padding-bottom: 20px;
+}
+.changeNameInput{
+    visibility: hidden;
 }
 
 /*icon width fix*/
