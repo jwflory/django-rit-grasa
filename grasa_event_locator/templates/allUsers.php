@@ -21,7 +21,6 @@
                   <td> TBD </td>
                   <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
                 </tr>
-
                 <!--Delete Modal-->
                 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -49,12 +48,17 @@
             </table>
     </div>
 </div>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+</div>
 
 
 <script>
     var backBtn = document.getElementById('backBtn');
     backBtn.onclick = function(){
-        window.location = 'admin.php'
+        window.location = 'allUsers.php'
     }
 
 </script>

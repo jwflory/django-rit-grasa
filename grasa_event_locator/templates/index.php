@@ -182,13 +182,10 @@
       shadowSize: [41, 41]
     });
 
-    var marker = L.marker([43.0846, -77.6743]).addTo(mymap);
-    marker.bindPopup("<div class='leafeventPopup'><b>Soccer Program</b><br>Rochester Middle School<br><a href='event.php'>Details</a></div>").openPopup();
-
-
-    var marker2 = L.marker([43.0966, -77.6973], {icon: greenIcon}).addTo(mymap);
-    marker2.bindPopup("<b>Cooking for Kids</b><br>Henrietta Elementary School<br><a href='event.php'>Details</a></div>");
-
+{% for event in allEventList %}
+    var marker = L.marker([{{ event.lat }},  {{ event.lng }}]).addTo(mymap);
+    marker.bindPopup("<div class='leafeventPopup'><b>{{ event.title }}</b><br>{{ event.address }}<br><a href='{% url 'event_page' event.id %}'>Details</a></div>").openPopup();
+{% endfor %}
 
 </script>
 {% include "footer.php" %}
