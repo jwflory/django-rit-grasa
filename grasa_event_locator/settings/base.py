@@ -7,6 +7,12 @@ from sys import path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import yaml
+
+
+# CONFIGURATION
+# Load configuration from disk
+config = yaml.load(open('config.yml'), Loader=yaml.SafeLoader)
 
 # PATHS
 # Path containing the django project
@@ -60,12 +66,32 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptPasswordHasher',
 ]
 
+
+# DATABASE SETTINGS
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config['database']['db'],
+        'USER': config['database']['username'],
+        'PASSWORD': config['database']['password'],
+        'HOST': config['database']['host'],
+        'PORT': config['database']['port'],
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        },
+    },
+}
+
+
 # DEBUG SETTINGS
 # https://docs.djangoproject.com/en/2.2/ref/settings/#debug
 DEBUG = False
 
 # https://docs.djangoproject.com/en/2.2/ref/settings/#internal-ips
 INTERNAL_IPS = ('127.0.0.1')
+
 
 # LOCALE SETTINGS
 # Local time zone for this installation.
@@ -110,6 +136,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+
 # TEMPLATE SETTINGS
 # https://docs.djangoproject.com/en/2.2/ref/settings/#templates
 TEMPLATES = [
@@ -146,6 +173,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 # LOGGING
 # https://docs.djangoproject.com/en/2.2/topics/logging/

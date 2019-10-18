@@ -3,23 +3,6 @@ from .base import *  # noqa
 
 DEBUG = False
 
-# DATABASE SETTINGS
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        },
-    },
-}
-
 # IMPORTANT!:
 # You must keep this secret, you can store it in an
 # environment variable and set it with:
