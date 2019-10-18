@@ -48,12 +48,6 @@
             </table>
     </div>
 </div>
-                {% endfor %}
-              </tbody>
-            </table>
-    </div>
-</div>
-
 
 <script>
     var backBtn = document.getElementById('backBtn');
