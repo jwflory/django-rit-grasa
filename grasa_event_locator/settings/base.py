@@ -12,7 +12,7 @@ import yaml
 
 # CONFIGURATION
 # Load configuration from disk
-config = yaml.load(open('config.yml'), Loader=yaml.SafeLoader)
+config = yaml.safe_load(os.environ.get('CONFIGPATH', open('config.yml')))
 
 # PATHS
 # Path containing the django project
