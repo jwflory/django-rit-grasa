@@ -48,17 +48,12 @@
             </table>
     </div>
 </div>
-                {% endfor %}
-              </tbody>
-            </table>
-    </div>
-</div>
 
 
 <script>
     var backBtn = document.getElementById('backBtn');
     backBtn.onclick = function(){
-        window.location = 'allUsers.php'
+        window.location = 'admin.php'
     }
 
 </script>
