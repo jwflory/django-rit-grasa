@@ -49,7 +49,6 @@
     </div>
 </div>
 
-
 <script>
     var backBtn = document.getElementById('backBtn');
     backBtn.onclick = function(){

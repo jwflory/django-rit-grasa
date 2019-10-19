@@ -8,6 +8,7 @@ from django.contrib import admin
 urlpatterns = [
     path('aboutContact.php', views.aboutContact),
     path('admin.php', views.admin, name='admin_page'),
+    path('admin_activate', views.admin_activate),
     path('allUsers.php', views.allUsers),
     path('allAdmins.php', views.allAdmins),
     path('allEvents.php', views.allEvents),

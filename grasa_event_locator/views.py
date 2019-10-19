@@ -29,6 +29,11 @@ def admin(request):
                 return HttpResponseRedirect("login.php")
         return render(request, 'admin.php')
 
+def admin_activate(request):
+        with connection.cursor() as cursor:
+                cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isActive` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
+        return HttpResponseRedirect("login.php")
+
 def admin_user(request):
         newUser = UserAccount.objects.create_user("admin@admin.admin", "admin@admin.admin", "Password1")
         uInfo = userInfo(user=newUser, org_name="Administrator")
