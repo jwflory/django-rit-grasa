@@ -85,6 +85,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="admin_user">Create Administrator Account</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="admin_activate">Reactivate Administrator Account</a>
+              </li>
               {% endif %}
             </ul>
           </div>
