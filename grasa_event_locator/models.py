@@ -58,7 +58,7 @@ class Program(models.Model):
     objects = None
     user_id = models.ForeignKey(userInfo, on_delete=models.CASCADE)
     title = models.CharField(max_length=255, default="NOT SPECIFIED")
-    content = models.CharField(max_length=255, default="NOT SPECIFIED")
+    content = models.TextField(default="NOT SPECIFIED")
     address = models.CharField(max_length=255, default="NOT SPECIFIED")
     lat = models.CharField(max_length=255, default="43.154535")
     lng = models.CharField(max_length=255, default="-77.590575")
