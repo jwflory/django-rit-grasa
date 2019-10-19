@@ -1,8 +1,15 @@
-language: python
-python:
-- 3.6
-- 3.7
-install:
-- pip install pipenv
-- pipenv install --dev
-script: docs/test-docs.sh
+jobs:
+  include:
+    - language: python
+      python: 3.6
+      install:
+        - pip install pipenv
+        - pipenv install --dev
+      script: docs/test-docs.sh
+
+    - language: ruby
+      services:
+        - docker
+      script:
+        - docker build -t jwflory/django-rit-grasa:latest .
+        - docker images -a

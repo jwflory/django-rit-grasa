@@ -12,6 +12,7 @@ bcrypt = "*"
 mysqlclient = "*"
 django-haystack = "*"
 whoosh = "*"
+pyyaml = "*"
 
 [dev-packages]
 coverage = "*"

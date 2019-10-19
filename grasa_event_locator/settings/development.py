@@ -8,20 +8,6 @@ SECRET_KEY = "secret"
 
 ALLOWED_HOSTS = ["*"]
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'grasa_event_locator',
-        'USER': 'grasaadmin',
-        'PASSWORD': 'djangoGrasa2019',
-        'HOST': 'db',
-        'PORT': '3306',
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        },
-    }
-}
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.dummy.DummyCache"
