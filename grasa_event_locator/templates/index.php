@@ -1,5 +1,6 @@
 {% include "header.php" %}
 <!-- Homepage -->
+
 <div class="container home-container">
     <div class="row">
     <!-- most outer row-->
@@ -182,10 +183,9 @@
       shadowSize: [41, 41]
     });
 
-{% for event in allEventList %}
-    var marker = L.marker([{{ event.lat }},  {{ event.lng }}]).addTo(mymap);
-    marker.bindPopup("<div class='leafeventPopup'><b>{{ event.title }}</b><br>{{ event.address }}<br><a href='{% url 'event_page' event.id %}'>Details</a></div>").openPopup();
-{% endfor %}
-
+    {% for lat, lng, html_string in zip_table %}
+    var marker = L.marker([{{ lat }},  {{ lng }}]).addTo(mymap);
+    marker.bindPopup("<div class='leafeventPopup'>{{ html_string | safe }}</div>").openPopup();
+    {% endfor %}
 </script>
 {% include "footer.php" %}
