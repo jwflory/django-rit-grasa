@@ -57,6 +57,7 @@
                   <thead class="thead-light">
                     <tr>
                       <th scope="col">Organization Name</th>
+                      <th scope="col">Contact</th>
                       <th scope="col">Status</th>
                       <th scope="col" class="list-header-fix">Approve</th>
                       <th scope="col" class="list-header-fix">Deny</th>
@@ -65,7 +66,12 @@
                   <tbody class="provider-program-list">
                     <tr>
                     {% for pendingUser in pendingUserList %}
-                      <th scope="row">{{ pendingUser.org_name }} - <a href="mailto:{{ pendingUser.user }}">{{ pendingUser.user }}</a></th>
+                      <th scope="row">{{ pendingUser.org_name }}<br>
+                      <i class="fa fa-envelope" aria-hidden="true"></i> Login: <a href="mailto:{{ pendingUser.user }}">{{ pendingUser.user }}</a></th>
+                      <th><i class="fa fa-user" aria-hidden="true"></i> {{ pendingUser.contact_name }}<br>
+                      <i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:{{ pendingUser.contact_email }}">{{ pendingUser.contact_email }}</a><br>
+                      <i class="fa fa-phone" aria-hidden="true"></i> {{ pendingUser.contact_phone }}
+                      </th>
                       <td>Pending</td>
                       <td><a href="{% url 'approve_user' pendingUser.id %}"><button type="button" class="btn btn-outline-success">Approve</button></a></td>
                       <td><a href="{% url 'deny_user' pendingUser.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></a></td>

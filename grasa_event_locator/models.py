@@ -8,7 +8,10 @@ class userInfo(models.Model):
     isAdmin = models.BooleanField(default=False)
     isActive = models.BooleanField(default=False)
     isPending = models.BooleanField(default=True)
-    image_reference = models.CharField(max_length=40, default="")
+    contact_name = models.CharField(max_length=255, default="Name not Specified")
+    contact_phone = models.CharField(max_length=255, default="Phone Number not Specified")
+    contact_email = models.CharField(max_length=255, default="Email Address not Specified")
+    image_reference = models.CharField(max_length=40, default="NOT SPECIFIED")
 
     def __str__(self):
         return self.org_name
