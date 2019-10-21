@@ -138,8 +138,8 @@ body{
 /*Log-in page styles*/
 .form-signin {
   width: 50%;
-  max-width: 330px;
-  padding: 15px;
+  max-width: 350px;
+  padding: 10px;
   margin: 0 auto;
 }
 
@@ -147,7 +147,7 @@ body{
   position: relative;
   box-sizing: border-box;
   height: auto;
-  padding: 10px;
+  padding: 15px;
   font-size: 16px;
 }
 .form-signin .form-control:focus {
@@ -422,11 +422,31 @@ span.subhead::before, span.subhead::after {
 	text-align:center;
 }
 
-.alert {
+/*Styles for alert messages for register.php and login.php*/
+.alert-msg {
 	
 	color: red;
 	padding-top: none;
 }
 
+/* Style for verticle line btw column on registration page */
+.border-right {
+    border-right: 1px solid black;
+}
 
+/*Styles for Contact section on Registration page */
+.register-container {
+	text-align: left;
+    /*border: solid 1px lightgray;    */
+    padding:5px;
+    padding-left:20px;
+	padding-right:20px;
+	margin-top:40px;
+}
 
+.register-contact-body{	
+    padding-left:50px;
+	padding-right:20px;
+	padding-top:20px;
+	text-align:left;
+}
