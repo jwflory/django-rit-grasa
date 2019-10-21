@@ -59,7 +59,9 @@
           </div>
         </div>
 	</div>
+	
   </form>
+  
      <div class="text-center top-20">
           <p>Already have an account?<br><a href="login.php">Return to Login</a></p>
       </div>
