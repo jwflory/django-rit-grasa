@@ -283,21 +283,19 @@ def index(request):
                 #        lat2, lng2 = value.split(', ')
                 #        lat.append(lat2)
                 #        lng.append(lng2)
-                try:
-                        for value in coord:
-                                if i == 0:
+                for value in coord:
+                        if i == 0:
+                                html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
+                        else:
+                                if str(coord[i]) == str(coord[i - 1]):
                                         html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
                                 else:
-                                        if str(coord[i]) == str(coord[i - 1]):
-                                                html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
-                                        else:
-                                                # print(html_string_to_write)
-                                                html_string.append(html_string_to_write)
-                                                html_string_to_write = ""
-                                                html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
-                                coord2.append(coord[i])
-                                i = i + 1
-                except IndexError:
+                                        # print(html_string_to_write)
+                                        html_string.append(html_string_to_write)
+                                        html_string_to_write = ""
+                                        html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
+                        coord2.append(coord[i])
+                        i = i + 1
                         gotdata = 'null'
                 html_string.append(html_string_to_write)
                 coord2 = list(dict.fromkeys(coord2))
@@ -310,7 +308,7 @@ def index(request):
                      if html_string[i].count("<hr>") == 1:
                              html_string[i]= html_string[i].replace("<hr>","")
                 zip_table = zip(lat, lng, html_string)
-        except ValueError:
+        except (IndexError, ValueError):
                 gotdata = 'null'
         context = {'allEventList': allEventList, 'zip_table': zip_table}
         return render(request, 'index.php', context)
