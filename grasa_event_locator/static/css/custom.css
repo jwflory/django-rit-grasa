@@ -254,7 +254,7 @@ body{
 .form-register {
   width: 50%;
   max-width: 330px;
-  padding: 15px;
+  padding: 10px;
   margin: 0 auto;
 }
 
@@ -422,8 +422,10 @@ span.subhead::before, span.subhead::after {
 	text-align:center;
 }
 
-.alert alert-block alert-danger {
-	display: none;
+.alert {
+	
+	color: red;
+	padding-top: none;
 }
 
 
