@@ -11,6 +11,14 @@ assignees: ''
 
 <!-- one sentence summary of problem -->
 
+## Stacktrace
+
+<!-- if you have a stacktrace or log, paste it between the quoted lines below -->
+
+```
+paste logs here
+```
+
 
 # Affected components
 
