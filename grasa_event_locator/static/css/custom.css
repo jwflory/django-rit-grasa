@@ -82,10 +82,18 @@ body{
 .accordion .form-check-label{
     padding-bottom: 5px;
 }
+.accordion ul{
+    list-style-type: none;
+    padding: 0;
+}
 .search-bar, #results-box{
     padding-left: 15px;
     padding-right: 15px; 
     margin-top: 15px;
+}
+#results-box a{
+    color: inherit;
+    text-decoration: none;
 }
 @media (min-width: 576px){
     .filter-col {
@@ -124,12 +132,15 @@ body{
 .right-info{
     text-align: left;
 }
-.filter-alert{
+.filter-alert, .changeName-alert{
     display: none;
 }
 /*Event Page Styles*/
 .event-container{
     margin-bottom: 40px;
+}
+.event-page-card a{
+    text-decoration: none;
 }
 .activity-badges{
     font-size: 1.1rem;
@@ -283,22 +294,25 @@ body{
     padding-left: 10px;  
     padding-bottom: 20px;
 }
+.changeNameInput{
+    visibility: hidden;
+}
 
 /*icon width fix*/
-.event-page-card i.fa{
+.event-page-card i.fa, .event-container i.fa{
     width:30px;
 }
 button i.fa{
     width:auto;
 }
 /*Admin Page*/
-#addAdmin, #allUsers{
+#addAdmin{
     margin-left: 20px;
     margin-bottom: 10px;
 }
 /*style for Admin page submit button*/
 .admin-logo-change{
-    width: 100px;
+    width: 120px;
     margin:0 auto;
 }
 .provider-logo-change{

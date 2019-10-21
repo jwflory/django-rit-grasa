@@ -11,6 +11,7 @@ from django.shortcuts import redirect
 from django.db import connection
 from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
+import time
 
 def aboutContact(request):
         return render(request, 'aboutContact.php')
@@ -28,6 +29,11 @@ def admin(request):
         else:
                 return HttpResponseRedirect("login.php")
         return render(request, 'admin.php')
+
+def admin_activate(request):
+        with connection.cursor() as cursor:
+                cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isActive` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
+        return HttpResponseRedirect("login.php")
 
 def admin_user(request):
         newUser = UserAccount.objects.create_user("admin@admin.admin", "admin@admin.admin", "Password1")
@@ -75,9 +81,9 @@ def admin_user(request):
         table.save()
         table = Category(description="Other")
         table.save()
-        table = Category(description="Transportation Not Provided")
+        table = Category(description="Not Provided")
         table.save()
-        table = Category(description="Transportation Provided")
+        table = Category(description="Provided")
         table.save()
         table = Category(description="K-3rd")
         table.save()
@@ -113,6 +119,16 @@ def allUsers(request):
         userList = userInfo.objects.filter(isActive=True)
         context = {'userList': userList}
         return render(request, 'allUsers.php', context)
+    
+def allAdmins(request):
+        userList = userInfo.objects.filter(isActive=True)
+        context = {'userList': userList}
+        return render(request, 'allAdmins.php', context)
+
+def allEvents(request):
+        userList = userInfo.objects.filter(isActive=True)
+        context = {'userList': userList}
+        return render(request, 'allEvents.php', context)
 
 def changepw(request):
         if request.user.is_authenticated:
@@ -130,9 +146,8 @@ def changepw(request):
 
 def createevent(request):
         if request.method == 'POST':
-                print(request.POST.getlist('activity')[0])
                 g = (str(request.user.userinfo.id))
-                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lon=request.POST['lon'])
+                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lng=request.POST['lng'])
                 program.save()
                 i = 0
                 for tag in request.POST.getlist('activity'):
@@ -172,7 +187,6 @@ def createevent(request):
 
 def editEvent(request, eventID):
         event = Program.objects.get(pk=eventID)
-        print(event.content)
         context = {'event': event}
         return render(request, 'editEvent.php', context)
 
@@ -205,17 +219,9 @@ def event(request, eventID):
         transportation_list = transportation_list.filter(id__lte=20)
         for t in transportation_list:
                 transportation_list_pub = transportation_list_pub + str(t)
-        transportation_list_pub = transportation_list_pub[15:]
 
         context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub}
-
         return render(request, 'event.php', context)
-
-def index(request):
-        allEventList = Program.objects.filter(isPending=False)
-
-        context = {'allEventList': allEventList,}
-        return render(request, 'index.php', context)
 
 def login(request):
         if request.user.is_authenticated:
@@ -246,6 +252,65 @@ def login(request):
 def logout_view(request):
         logout(request)
         return HttpResponseRedirect("index.php")
+
+def index(request):
+        e_id = []
+        title = []
+        address = []
+        coord = []
+        coord2 = []
+        lat = []
+        lng = []
+        html_string = []
+        i = 1
+
+        allEventList = Program.objects.filter(isPending=False)
+        for event in allEventList:
+                e_id.append(event.id)
+                title.append(event.title)
+                address.append(event.address)
+                coord.append(event.lat + ', ' + event.lng)
+                html_string= []
+                html_string_to_write = ""
+                i = 0
+
+        zip_table = sorted(zip(coord, e_id, title, address))
+        zip_table.sort()
+        coord, e_id, title, address = zip(*zip_table)
+        # Separate coordinates into lat and lng lists
+        # for value in coord:
+        #        lat2, lng2 = value.split(', ')
+        #        lat.append(lat2)
+        #        lng.append(lng2)
+        try:
+                for value in coord:
+                        if i == 0:
+                                html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
+                        else:
+                                if str(coord[i]) == str(coord[i - 1]):
+                                        html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
+                                else:
+                                        # print(html_string_to_write)
+                                        html_string.append(html_string_to_write)
+                                        html_string_to_write = ""
+                                        html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
+                        coord2.append(coord[i])
+                        i = i + 1
+        except IndexError:
+                gotdata = 'null'
+        html_string.append(html_string_to_write)
+        coord2 = list(dict.fromkeys(coord2))
+        for value in coord2:
+                lat2, lng2 = value.split(', ')
+                lat.append(lat2)
+                lng.append(lng2)
+        # Remove horizontal line from map marker with only one location:
+        for i in range(0, len(html_string) - 1):
+             if html_string[i].count("<hr>") == 1:
+                     html_string[i]= html_string[i].replace("<hr>","")
+        zip_table = zip(lat, lng, html_string)
+        context = {'allEventList': allEventList, 'zip_table': zip_table}
+        return render(request, 'index.php', context)
 
 def provider(request):
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:

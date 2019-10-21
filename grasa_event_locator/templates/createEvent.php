@@ -38,7 +38,7 @@
                 </button>
               </div>
               <div class="modal-body">
-               Your event will be submitted to the administrators for approval. Until it is approved, your event will not appear in search results.
+               Looks Good! Your event will be submitted to the administrators for approval. Until it is approved, your event will not appear in search results.
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
@@ -72,8 +72,8 @@
                 <div class="form-group">
                     <label>Location</label>
                     <input type="text" class="form-control" id="addressInput" placeholder="Street Address..." name="address" required>
-                    <input type="text" id="lat" name="lat" value="0">
-                    <input type="text" id="lng" name="lng" value="0">
+                    <input type="hidden" id="lat" name="lat" value="0" readonly>
+                    <input type="hidden" id="lng" name="lng" value="0" readonly>
                     <div class="invalid-feedback">
                         Please provide your program's street address.
                     </div>
@@ -101,9 +101,9 @@
                         </div>
                         <div class="form-group col-md-4">
                           <label for="phone">Phone</label>
-                          <input type="tel" class="form-control" id="phone" placeholder="Phone..." name="contact_phone" required>
+                          <input type="tel" class="form-control" id="phone" placeholder="xxx-xxx-xxxx" name="contact_phone" pattern="^\d{3}-\d{3}-\d{4}$" required>
                             <div class="invalid-feedback">
-                                Please provide your program's contact phone number.
+                                Please provide your program's contact phone number and format as xxx-xxx-xxxx.
                             </div>
                         </div>
                       </div>
@@ -121,8 +121,8 @@
                 <div class="form-group">
                     <label>Transportation</label>
                     <select class="form-control" name="transportation" required>
-                        <option name="Transportation Not Provided">Transportation Not Provided</option>
-                        <option name="Transportation Provided">Transportation Provided</option>
+                        <option name="Not Provided">Not Provided</option>
+                        <option name="Provided">Provided</option>
                     </select>
                 </div>
                 <div class="form-group text-left multiBox">
@@ -147,7 +147,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                       </div>
-                      <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" name="fees" required>
+                      <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" name="fees" step=".01" required>
                         <div class="invalid-feedback">
                             Please enter total amount of fees. If the program is free enter 0.00
                         </div>
@@ -183,7 +183,6 @@
     okBtn.onclick = function(){
         //SUBMITS the form
         $('form').submit()
-        window.location = 'provider.php'
     }
 
     //fill checkbox selects
@@ -215,11 +214,6 @@
         }
     }
 
-    //geocoding
-    /*
-    $('#addressInput').focusout(function() {
-        doGeocoding()
-    });*/
 
     //Validation
     (function() {
@@ -230,13 +224,13 @@
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function(form) {
           form.addEventListener('submit', function(event) {
-            //doGeocoding()
             if(form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
             }else{
+                event.preventDefault();
+                event.stopPropagation();
                 //IF CLIENT SIDE VALIDATION WORKS YOU END UP HERE
-                // event.preventDefault();  stops page from submitting, moved that to modal function
                 doGeocoding().then(function(results){
                     //sends an alert if something is wrong with the geocoding.
                     if(geoCheck() === false){
@@ -245,6 +239,7 @@
                         $('#submitModal').modal('show');
                     }
                 });
+                
             }
             form.classList.add('was-validated');
               
@@ -290,9 +285,7 @@
     function doGeocoding(){
         var streetString = $('#addressInput').val();
         var api_url = 'http://www.mapquestapi.com/geocoding/v1/address?key=nEoQhpyWJ6K3nx0wsur3eVa4oYAfhvhY&location='+streetString
-        return fetch(api_url)
-          .then((resp) => resp.json())
-          .then(function(data) {
+        return fetch(api_url).then((resp) => resp.json()).then(function(data) {
             if(data.info.statuscode === 0){
                  $('#lat').val(data.results[0].locations[0].latLng.lat)
                  $('#lng').val(data.results[0].locations[0].latLng.lng)

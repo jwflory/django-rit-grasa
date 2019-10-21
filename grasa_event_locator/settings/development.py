@@ -8,17 +8,6 @@ SECRET_KEY = "secret"
 
 ALLOWED_HOSTS = ["*"]
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'grasa_event_locator',
-        'USER': 'grasaadmin',
-        'PASSWORD': 'djangoGrasa2019',
-        'HOST': 'db',
-        'PORT': '3306',
-	'OPTIONS': {'charset': 'utf8mb4'},
-    }
-}
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.dummy.DummyCache"
@@ -33,9 +22,9 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 def show_toolbar(request):
     return not request.is_ajax() and request.user and request.user.is_superuser
 
+
 # MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware", ]
 # INSTALLED_APPS += ["debug_toolbar", ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

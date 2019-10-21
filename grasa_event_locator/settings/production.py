@@ -3,19 +3,6 @@ from .base import *  # noqa
 
 DEBUG = False
 
-# DATABASE SETTINGS
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    },
-}
-
 # IMPORTANT!:
 # You must keep this secret, you can store it in an
 # environment variable and set it with:
