@@ -17,6 +17,16 @@ This page explains how to set up a local development environment to test the GRA
 * [docker-compose](https://docs.docker.com/compose/install/)
 
 
+## Setup
+
+A configuration file must be provided at start, either as a `config.yml` in the root directory of the project or a path specified as a `CONFIGPATH` environment variable.
+For local development, run the following command to get started with development:
+
+```sh
+cp config.yml.example config.yml
+```
+
+
 ## Run project with docker-compose
 
 `docker-compose` is used for local development.
