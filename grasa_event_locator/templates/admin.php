@@ -14,9 +14,15 @@
                          <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> {{ user }} </h5>
                     </div>
                     <div class="col-sm-6">
-                        <a href="changePW.php"><button type="button" class="btn btn-link">Change Password</button></a>
+                        <a href="changePW.php"><button type="button" class="btn btn-link float-right">Change Password</button></a>
                     </div>
                 </div>
+                <div class="twentyblock"></div>
+                <hr>
+                <button type="button" class="btn btn-secondary" id="allUsers"><i class="fa fa-user" aria-hidden="true"></i> View Providers</button>
+                <button type="button" class="btn btn-warning" id="allAdmins"><i class="fa fa-user-secret" aria-hidden="true"></i> View Admins</button>
+                <button type="button" class="btn btn-info float-right" id="allEvents"><i class="fa fa-calendar" aria-hidden="true"></i> View All Events</button>
+                
             </div>
         </div>
         <div class="col-sm-3">
@@ -36,6 +42,7 @@
             </div>
         </div>
     </div>
+    
 
 	<div class="twentyblock"></div>
 	<div class="row">
@@ -45,15 +52,12 @@
             
         
         <!--New User Approval-->
-            <h4 class="top-20">Pending Users
-                <button type="button" class="btn btn-success float-right" id="addAdmin"> <i class="fa fa-plus" aria-hidden="true"></i> Add Admin</button>
-                <button type="button" class="btn btn-info float-right" id="allUsers"> <i class="fa fa-address-book" aria-hidden="true"></i> View All Users</button>
-            
-            </h4>
-                <table class="table table-hover table-bordered">
+            <h4 class="top-20">Pending Users </h4>
+                <table class="table table-bordered">
                   <thead class="thead-light">
                     <tr>
                       <th scope="col">Organization Name</th>
+                      <th scope="col">Contact</th>
                       <th scope="col">Status</th>
                       <th scope="col" class="list-header-fix">Approve</th>
                       <th scope="col" class="list-header-fix">Deny</th>
@@ -62,17 +66,23 @@
                   <tbody class="provider-program-list">
                     <tr>
                     {% for pendingUser in pendingUserList %}
-                      <th scope="row">{{ pendingUser.org_name }} - <a href="mailto:{{ pendingUser.user }}">{{ pendingUser.user }}</a></th>
+                      <th scope="row">{{ pendingUser.org_name }}<br>
+                      <i class="fa fa-envelope" aria-hidden="true"></i> Login: <a href="mailto:{{ pendingUser.user }}">{{ pendingUser.user }}</a></th>
+                      <th><i class="fa fa-user" aria-hidden="true"></i> {{ pendingUser.contact_name }}<br>
+                      <i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:{{ pendingUser.contact_email }}">{{ pendingUser.contact_email }}</a><br>
+                      <i class="fa fa-phone" aria-hidden="true"></i> {{ pendingUser.contact_phone }}
+                      </th>
                       <td>Pending</td>
-                      <td><a href="{% url 'approve_user' pendingUser.id %}"><button type="button" class="btn btn-outline-success">Approve</button></td></a>
-                      <td><a href="{% url 'deny_user' pendingUser.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
+                      <td><a href="{% url 'approve_user' pendingUser.id %}"><button type="button" class="btn btn-outline-success">Approve</button></a></td>
+                      <td><a href="{% url 'deny_user' pendingUser.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></a></td>
                     </tr>
                     {% endfor %}
                   </tbody>
                 </table>
         <!--New Event Approval-->
+            <div class="twentyblock"></div>
             <h4 class="top-20">New Events</h4>
-                <table class="table table-hover table-bordered">
+                <table class="table  table-bordered">
                   <thead class="thead-light">
                     <tr>
                       <th scope="col">Event Name</th>
@@ -89,16 +99,17 @@
                       <th scope="row">{{ pendingEvent.title }}</th>
                       <td>{{ pendingEvent.user_id.org_name }}</td>
                       <td>Pending</td>
-                      <td><a href="{% url 'event_page' pendingEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></td></a>
-                      <td><a href="{% url 'approve_event' pendingEvent.id %}"><button type="button" class="btn btn-outline-success">Approve</button></td></a>
-                      <td><a href="{% url 'deny_event' pendingEvent.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
+                      <td><a href="{% url 'event_page' pendingEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></a></td>
+                      <td><a href="{% url 'approve_event' pendingEvent.id %}"><button type="button" class="btn btn-outline-success">Approve</button></a></td>
+                      <td><a href="{% url 'deny_event' pendingEvent.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></a></td>
                     </tr>
                     {% endfor %}
                   </tbody>
                 </table>
         <!--New Event Approval-->
+            <div class="twentyblock"></div>
             <h4 class="top-20">Updated Events</h4>
-                <table class="table table-hover table-bordered">
+                <table class="table table-bordered">
                   <thead class="thead-light">
                     <tr>
                       <th scope="col">Event Name</th>
@@ -115,9 +126,9 @@
                       <th scope="row">{{ pendingEdit.title }}</th>
                       <td>{{ pendingEdit.user_id.org_name }}</td>
                       <td>Pending</td>
-                      <td><a href="{% url 'event_page' pendingEdit.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></td></a>
-                      <td><a href="{% url 'approve_event' pendingEdit.id %}"><button type="button" class="btn btn-outline-success">Approve</button></td></a>
-                      <td><a href="{% url 'deny_event' pendingEdit.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></td></a>
+                      <td><a href="{% url 'event_page' pendingEdit.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></a></td>
+                      <td><a href="{% url 'approve_event' pendingEdit.id %}"><button type="button" class="btn btn-outline-success">Approve</button></a></td>
+                      <td><a href="{% url 'deny_event' pendingEdit.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></a></td>
                     </tr>
                     {% endfor %}
                   </tbody>
@@ -134,9 +145,19 @@
             window.location = 'event.php'
         }
     }
+    
+    //Toolbar Links
     var allUsersBtn = document.getElementById('allUsers');
     allUsersBtn.onclick = function(){
         window.location = 'allUsers.php'
+    }
+    var allUsersBtn = document.getElementById('allAdmins');
+    allUsersBtn.onclick = function(){
+        window.location = 'allAdmins.php'
+    }
+    var allEventsBtn = document.getElementById('allEvents');
+    allEventsBtn.onclick = function(){
+        window.location = 'allEvents.php'
     }
     
 </script>

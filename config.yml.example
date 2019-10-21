@@ -1,0 +1,13 @@
+%YAML 1.2
+---
+
+database:
+  host: "db"
+  port: "3306"
+  username: "grasaadmin"
+  password: "djangoGrasa2019"
+  db: "grasa_event_locator"
+
+users:
+  admins:
+    - "admin@example.com"

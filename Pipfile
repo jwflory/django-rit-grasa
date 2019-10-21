@@ -7,11 +7,12 @@ name = "pypi"
 django = ">=2.2.0"
 "argon2-cffi" = "*"
 django-compressor = "*"
-"psycopg2" = "*"
+"psycopg2-binary" = "*"
 bcrypt = "*"
 mysqlclient = "*"
 django-haystack = "*"
 whoosh = "*"
+pyyaml = "*"
 
 [dev-packages]
 coverage = "*"

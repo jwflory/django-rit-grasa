@@ -8,7 +8,10 @@ class userInfo(models.Model):
     isAdmin = models.BooleanField(default=False)
     isActive = models.BooleanField(default=False)
     isPending = models.BooleanField(default=True)
-    image_reference = models.CharField(max_length=40, default="")
+    contact_name = models.CharField(max_length=255, default="Name not Specified")
+    contact_phone = models.CharField(max_length=255, default="Phone Number not Specified")
+    contact_email = models.CharField(max_length=255, default="Email Address not Specified")
+    image_reference = models.CharField(max_length=40, default="NOT SPECIFIED")
 
     def __str__(self):
         return self.org_name
@@ -58,10 +61,10 @@ class Program(models.Model):
     objects = None
     user_id = models.ForeignKey(userInfo, on_delete=models.CASCADE)
     title = models.CharField(max_length=255, default="NOT SPECIFIED")
-    content = models.CharField(max_length=255, default="NOT SPECIFIED")
+    content = models.TextField(default="NOT SPECIFIED")
     address = models.CharField(max_length=255, default="NOT SPECIFIED")
     lat = models.CharField(max_length=255, default="43.154535")
-    lon = models.CharField(max_length=255, default="-77.590575")
+    lng = models.CharField(max_length=255, default="-77.590575")
     website = models.CharField(max_length=255, default="NOT SPECIFIED")
     fees = models.CharField(max_length=255, default="NOT SPECIFIED")
     isPending = models.BooleanField(default=True)

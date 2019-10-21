@@ -5,10 +5,8 @@
         <div class="container">
           <h1 class="display-4">After-school or Summer Programs Finder! </h1>
           <p> To connect children, youth and their families with out-of-school time programs to ignite their individual interests and talents.</p>
-        
         </div>    
 </div>
-
 <div class="container home-container">
     <div class="row">
     <!-- most outer row-->
@@ -54,9 +52,12 @@
                         </div>
                         <div class="col-sm-6 right-info">
                                 {% for t in event.categories.all %}
-                                <span class="badge badge-info card-title">
-                                {{ t }}
-                                </span>
+                                    {% if t.id <= 18 %}
+                                        <span class="badge badge-info card-title">
+                                        {{ t }}
+                                        </span>
+                                    {% else %}
+                                    {% endif %}
                                 {% endfor %}
                             <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ event.address }}</h6>
                         </div>
@@ -188,13 +189,9 @@
       shadowSize: [41, 41]
     });
 
-    var marker = L.marker([43.0846, -77.6743]).addTo(mymap);
-    marker.bindPopup("<div class='leafeventPopup'><b>Soccer Program</b><br>Rochester Middle School<br><a href='event.php'>Details</a></div>").openPopup();
-
-
-    var marker2 = L.marker([43.0966, -77.6973], {icon: greenIcon}).addTo(mymap);
-    marker2.bindPopup("<b>Cooking for Kids</b><br>Henrietta Elementary School<br><a href='event.php'>Details</a></div>");
-
-
+    {% for lat, lng, html_string in zip_table %}
+    var marker = L.marker([{{ lat }},  {{ lng }}]).addTo(mymap);
+    marker.bindPopup("<div class='leafeventPopup'>{{ html_string | safe }}</div>").openPopup();
+    {% endfor %}
 </script>
 {% include "footer.php" %}
