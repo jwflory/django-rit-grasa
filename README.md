@@ -1,6 +1,7 @@
 django-rit-grasa
 ================
 
+[![Build Status](https://travis-ci.com/jwflory/django-rit-grasa.svg?branch=master)](https://travis-ci.com/jwflory/django-rit-grasa)
 [![Documentation Status](https://readthedocs.org/projects/django-rit-grasa/badge/?version=latest)](https://django-rit-grasa.readthedocs.io/en/latest/?badge=latest)
 
 Django web application used by Greater Rochester After-School Alliance (GRASA) to improve access to after-school programs in Monroe County, NY
@@ -8,15 +9,35 @@ Django web application used by Greater Rochester After-School Alliance (GRASA) t
 
 ## About
 
-This is a Django application created for the [Greater Rochester After-School Alliance](https://www.racf.org/About/Giving-Circles-Initiatives-and-Partnerships/Greater-Rochester-After-School-Alliance).
-The application hosts information about after-school programs in Greater Rochester and improves visibility of these programs.
-It serves the needs of three groups of users:
+The GRASA Events Locator is an events locator system to better connect Monroe County families to out-of-school programs in the Greater Rochester area.
+This application was created for the [Greater Rochester After-School Alliance](https://www.racf.org/About/Giving-Circles-Initiatives-and-Partnerships/Greate) by Team Platypus at the [Rochester Institute of Technology](https://www.rit.edu/).
 
-* Families (parents, children)
-* Program providers
-* GRASA/Monroe County staff
+Read more about the project [in our documentation](https://django-rit-grasa.readthedocs.io/en/latest/about/about-project/ "About this project – django-rit-grasa")
 
-_More coming soon!_
+[![Screenshot of main search page](https://i.imgur.com/uK3ChK0.png)](https://i.imgur.com/uK3ChK0.png "Screenshot of main search page")
+
+
+## Documentation
+
+[**django-rit-grasa.readthedocs.io**](https://django-rit-grasa.readthedocs.io/)
+
+[Project documentation](https://django-rit-grasa.readthedocs.io/) is hosted on ReadTheDocs.
+If you are starting to work on the project, review the [_Create a development environment_](https://django-rit-grasa.readthedocs.io/en/latest/dev/howto-setup-dev-environment/) page for help on getting started.
+
+
+## Team
+
+Team Platypus consists of the following individuals:
+
+* Project manager: **Flory, Justin W.**
+* Back-end:
+    * **Leong, Harrison**
+    * **Levasseur, Robert "Eli"**
+* Front-end:
+    * **DiDonato, Lauren**
+    * **Mon, Lei**
+* Operations:
+    * **Larrimore, Nathaniel**
 
 
 ## Legal
