@@ -14,9 +14,20 @@
       {% endif %}
       <label for="inputEmail" class="sr-only">Email address</label>
       <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
+      
+      <div class="alert-msg">	
+		    Please use a valid email address.
+	    </div>
+
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-        
+
+      <div class="alert-msg">
+			  The provided password doesn't match!
+			  <button class="message__close" hidden data-closenotification>
+				  <span class="message__closetext">Close message</span>
+			  </button>
+		  </div>  
       
       <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
         <div class="twentyblock"></div>

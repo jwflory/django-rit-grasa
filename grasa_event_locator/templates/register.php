@@ -1,40 +1,124 @@
 {% include "header.php" %}
 
-
-<div class="form-register">
-  <h1 class="h3 mb-3 font-weight-normal text-center top-20">Register as a Provider</h1>
-  <form action="register.php" method="post">{% csrf_token %}
+<div class="container register-container">
+	<div class="row">
+		<div class="col-lg-7">
+					
+			<div class="form-register">
   
-    <label for="name">Organization Name</label>
-	<input type="text" id="resetPW" class="form-control" name="orgName" required autofocus>
-      
-	<label for="resetPW" class="top-20">Email address</label>
-	<input type="email" id="resetPW" class="form-control" name="emailAddr" required autofocus>
-	
-    <label for="myPW" class="top-20">Password</label>
-    <input type="password" id="myPW" class="form-control" name="current" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
- 
-    <label for="confirmPW" class="top-20">Confirm Password</label>
-	<input type="password" id="confirmPW" class="form-control" name="confirm" required>
-	<input id="SPcheckbox" type="checkbox" onclick="myFunction()">
-    <label for="SPcheckbox">&nbsp; Show Password</label>
-	
-    <input class="btn btn-lg btn-success btn-block top-20" type="submit" value="Submit">
-  </form>
-     <div class="text-center top-20">
-          <p>Already have an account?<br><a href="login.php">Return to Login</a></p>
-      </div>
-</div>
+				<h1 class="h3 mb-3 font-weight-normal text-center top-20">Register as a Provider</h1>
+				<form action="register.php" method="post">
+			  
+				{% csrf_token %}
+  
+					<label for="name">Organization Name</label>
+					<input type="text" id="resetPW" class="form-control" name="orgName" required autofocus>
+					
+					<div class="alert-msg">
+						Organization name already exist !
+					</div>
 
-<div id="message">
-  <h3>Password must contain the following:</h3>
-  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-  <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-  <p id="number" class="invalid">A <b>number</b></p>
-  <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-</div>
+					<label for="resetPW">Email address</label>
+					<input type="email" id="resetPW" class="form-control" name="emailAddr" required autofocus>
+					
+					<div class="alert-msg">
+						Email already exist !
+					</div>
+					
+					<label for="myPW">Password</label>
+					<input type="password" id="myPW" class="form-control" name="current" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+				 
+					<label for="confirmPW" class="top-20">Confirm Password</label>
+					<input type="password" id="confirmPW" class="form-control" name="confirm" required>
+					<input id="SPcheckbox" type="checkbox" onclick="myFunction()">
+					<label for="SPcheckbox">&nbsp; Show Password</label>
 
+					<!--Pop-up confirmation page after clicking submit button on Registration form-->
+					<div class="row">
+						<div class="col-12">
+							<button type="button" class="btn btn-lg btn-success btn-block top-20" data-toggle="modal" data-target="#submitModal">Submit</button>
+						</div>
+						<!--Cancel Modal-->
+						<div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+							<div class="modal-content">
+							  <div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								  <span aria-hidden="true">&times;</span>
+								</button>
+							  </div>
+							  <div class="modal-body">
+							   <p>An Administrator will look over your registration.</p>
+							   More questions?<br>
+							   Please Contact Us: <a href="mailto:first@email.address,second@email.address,third@email.address">johndoe@gmail.com</a>
+							  </div>
+							  <div class="modal-footer">
+								
+								<button type="button" class="btn btn-primary" id="cancelBtn">OK</button>
+								
+							  </div>
+							</div>
+						  </div>
+						</div>
+					</div>
+
+  
+					<div class="text-center top-20">
+						  <p>Already have an account?<br><a href="login.php">Return to Login</a></p>
+					</div>
+				  
+					<div id="message">
+					  <h3>Password must contain the following:</h3>
+					  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+					  <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+					  <p id="number" class="invalid">A <b>number</b></p>
+					  <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+					</div>
+
+	
+				</form>
+			</div>
+		</div>
+
+		<div class="col-lg-1 border-right">		
+		</div>
+		
+		<div class="col-lg-4 register-contact">
+				
+				<h1 class="h3 mb-3 font-weight-normal text-center top-20">Contact Information: </h1>
+				
+				<div class="register-contact-body">
+					<h5>Call Us </h5>
+					<p><a href="tel:+5951234567"><i class="fa fa-phone" aria-hidden="true"></i> (+1) 585-123-4567 </a><br>
+					
+					</p>
+					<h5>Email</h5>
+					<p>
+						<a href="mailto:johndoe@gmail.com"><i class="fa fa-envelope"></i>
+						johndoe@gmail.com</a>
+					</p>			
+					
+					<h5>Address</h5>
+					<p>
+						111 Monroe County <br>
+						New York 14623
+						
+					</p>
+				</div>
+		</div>
+	</div>
+</div>
+	
+			
 <script>
+
+	//Ok Button returns to provider page
+    var cancelBtn = document.getElementById('cancelBtn');
+    cancelBtn.onclick = function(){
+        window.location = 'provider.php'
+    }
+   
 function myFunction() {
   var x = document.getElementById("myPW");
   var y = document.getElementById("confirmPW");
@@ -45,7 +129,10 @@ function myFunction() {
     x.type = "password";
 	y.type = "password";
   }
+
 }
+
+
 </script>
 
 {% include "footer.php" %}
