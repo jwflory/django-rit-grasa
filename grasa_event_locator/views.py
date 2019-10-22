@@ -263,26 +263,26 @@ def index(request):
         lng = []
         html_string = []
         i = 1
-
-        allEventList = Program.objects.filter(isPending=False)
-        for event in allEventList:
-                e_id.append(event.id)
-                title.append(event.title)
-                address.append(event.address)
-                coord.append(event.lat + ', ' + event.lng)
-                html_string= []
-                html_string_to_write = ""
-                i = 0
-
-        zip_table = sorted(zip(coord, e_id, title, address))
-        zip_table.sort()
-        coord, e_id, title, address = zip(*zip_table)
-        # Separate coordinates into lat and lng lists
-        # for value in coord:
-        #        lat2, lng2 = value.split(', ')
-        #        lat.append(lat2)
-        #        lng.append(lng2)
+        zip_table = ""
         try:
+                allEventList = Program.objects.filter(isPending=False)
+                for event in allEventList:
+                        e_id.append(event.id)
+                        title.append(event.title)
+                        address.append(event.address)
+                        coord.append(event.lat + ', ' + event.lng)
+                        html_string= []
+                        html_string_to_write = ""
+                        i = 0
+
+                zip_table = sorted(zip(coord, e_id, title, address))
+                zip_table.sort()
+                coord, e_id, title, address = zip(*zip_table)
+                # Separate coordinates into lat and lng lists
+                # for value in coord:
+                #        lat2, lng2 = value.split(', ')
+                #        lat.append(lat2)
+                #        lng.append(lng2)
                 for value in coord:
                         if i == 0:
                                 html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
@@ -296,19 +296,20 @@ def index(request):
                                         html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
                         coord2.append(coord[i])
                         i = i + 1
-        except IndexError:
+                        gotdata = 'null'
+                html_string.append(html_string_to_write)
+                coord2 = list(dict.fromkeys(coord2))
+                for value in coord2:
+                        lat2, lng2 = value.split(', ')
+                        lat.append(lat2)
+                        lng.append(lng2)
+                # Remove horizontal line from map marker with only one location:
+                for i in range(0, len(html_string) - 1):
+                     if html_string[i].count("<hr>") == 1:
+                             html_string[i]= html_string[i].replace("<hr>","")
+                zip_table = zip(lat, lng, html_string)
+        except (IndexError, ValueError):
                 gotdata = 'null'
-        html_string.append(html_string_to_write)
-        coord2 = list(dict.fromkeys(coord2))
-        for value in coord2:
-                lat2, lng2 = value.split(', ')
-                lat.append(lat2)
-                lng.append(lng2)
-        # Remove horizontal line from map marker with only one location:
-        for i in range(0, len(html_string) - 1):
-             if html_string[i].count("<hr>") == 1:
-                     html_string[i]= html_string[i].replace("<hr>","")
-        zip_table = zip(lat, lng, html_string)
         context = {'allEventList': allEventList, 'zip_table': zip_table}
         return render(request, 'index.php', context)
 
