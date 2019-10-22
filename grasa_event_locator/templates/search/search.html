@@ -1,5 +1,6 @@
 {% include "header.php" %}
 <!-- Homepage -->
+
 <div class="container home-container">
     <form method="get" action=".">
     <div class="row">
@@ -21,7 +22,7 @@
                         <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTransportation" aria-expanded="true" aria="" controls="collapseTransportation">Transportation</button></h2></div>
                     <div id="collapseTransportation" class="collapse" data-parent="#accordionExample">
                         <div class="card-body">
-                            <!--put transporation here-->
+                            {{ form.transportations }}
                         </div>
                     </div>
                 </div>
@@ -30,7 +31,7 @@
                         <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseGrades" aria-expanded="true" aria="" controls="collapseGrades">Grades Served</button></h2></div>
                     <div id="collapseGrades" class="collapse" data-parent="#accordionExample">
                         <div class="card-body">
-                            <!--put grades here-->
+                            {{ form.grades }}
                         </div>
                     </div>
                 </div>
@@ -39,7 +40,7 @@
                         <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseGender" aria-expanded="true" aria="" controls="collapseGender">Gender</button></h2></div>
                     <div id="collapseGender" class="collapse" data-parent="#accordionExample">
                         <div class="card-body">
-                            <!-- put gender here-->
+                            {{ form.genders }}
                         </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                         <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFees" aria-expanded="true" aria="" controls="collapseFees">Fees</button></h2></div>
                     <div id="collapseFees" class="collapse" data-parent="#accordionExample">
                         <div class="card-body">
-                            <!--put fees in here -->
+                            {{ form.fees }}
                         </div>
                     </div>
                 </div>
@@ -67,7 +68,7 @@
                         <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTiming" aria-expanded="true" aria="" controls="collapseTiming">Timing</button></h2></div>
                     <div id="collapseTiming" class="collapse" data-parent="#accordionExample">
                         <div class="card-body">
-                            <!--put timing in here-->
+                            {{ form.timings }}
                         </div>
                     </div>
                 </div>
@@ -112,9 +113,12 @@
                         </div>
                         <div class="col-sm-6 right-info">
                                 {% for t in result.object.categories.all %}
-                                <span class="badge badge-info card-title">
-                                {{ t }}
-                                </span>
+                                    <!--Merged from index, makes only activity categories show-->
+                                    {% if t.id <= 18 %}
+                                        <span class="badge badge-info card-title">
+                                        {{ t }}
+                                        </span>
+                                    {% endif %}
                                 {% endfor %}
                             <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ result.object.address }}</h6>
                         </div>
@@ -184,11 +188,11 @@
       shadowSize: [41, 41]
     });
 
-    var marker = L.marker([43.0846, -77.6743]).addTo(mymap);
-    marker.bindPopup("<div class='leafeventPopup'><b>Soccer Program</b><br>Rochester Middle School<br><a href='event.php'>Details</a></div>").openPopup();
-
-    var marker2 = L.marker([43.0966, -77.6973], {icon: greenIcon}).addTo(mymap);
-    marker2.bindPopup("<b>Cooking for Kids</b><br>Henrietta Elementary School<br><a href='event.php'>Details</a></div>");
+    //Merged from index, plots all events on map
+    {% for lat, lng, html_string in zip_table %}
+    var marker = L.marker([{{ lat }},  {{ lng }}]).addTo(mymap);
+    marker.bindPopup("<div class='leafeventPopup'>{{ html_string | safe }}</div>").openPopup();
+    {% endfor %}
 
 </script>
 {% include "footer.php" %}

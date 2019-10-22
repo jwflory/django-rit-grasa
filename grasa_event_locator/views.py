@@ -111,7 +111,8 @@ def admin_user(request):
         table.save()
         table = Category(description="Summer")
         table.save()
-        table = Category(description="Other")
+        #Refactored to "Other Time" to avoid conflicts with activities "Other"
+        table = Category(description="Other Time")
         table.save()
         return HttpResponseRedirect("index.php")
 
@@ -147,7 +148,8 @@ def changepw(request):
 def createevent(request):
         if request.method == 'POST':
                 g = (str(request.user.userinfo.id))
-                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lng=request.POST['lng'])
+                #Only change was to set fees to fees=float(request.POST['fees']) so that the value gets stored in DB as float
+                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=float(request.POST['fees']), contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lng=request.POST['lng'])
                 program.save()
                 i = 0
                 for tag in request.POST.getlist('activity'):
@@ -254,63 +256,7 @@ def logout_view(request):
         return HttpResponseRedirect("index.php")
 
 def index(request):
-        e_id = []
-        title = []
-        address = []
-        coord = []
-        coord2 = []
-        lat = []
-        lng = []
-        html_string = []
-        i = 1
-
-        allEventList = Program.objects.filter(isPending=False)
-        for event in allEventList:
-                e_id.append(event.id)
-                title.append(event.title)
-                address.append(event.address)
-                coord.append(event.lat + ', ' + event.lng)
-                html_string= []
-                html_string_to_write = ""
-                i = 0
-
-        zip_table = sorted(zip(coord, e_id, title, address))
-        zip_table.sort()
-        coord, e_id, title, address = zip(*zip_table)
-        # Separate coordinates into lat and lng lists
-        # for value in coord:
-        #        lat2, lng2 = value.split(', ')
-        #        lat.append(lat2)
-        #        lng.append(lng2)
-        try:
-                for value in coord:
-                        if i == 0:
-                                html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
-                        else:
-                                if str(coord[i]) == str(coord[i - 1]):
-                                        html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
-                                else:
-                                        # print(html_string_to_write)
-                                        html_string.append(html_string_to_write)
-                                        html_string_to_write = ""
-                                        html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
-                        coord2.append(coord[i])
-                        i = i + 1
-        except IndexError:
-                gotdata = 'null'
-        html_string.append(html_string_to_write)
-        coord2 = list(dict.fromkeys(coord2))
-        for value in coord2:
-                lat2, lng2 = value.split(', ')
-                lat.append(lat2)
-                lng.append(lng2)
-        # Remove horizontal line from map marker with only one location:
-        for i in range(0, len(html_string) - 1):
-             if html_string[i].count("<hr>") == 1:
-                     html_string[i]= html_string[i].replace("<hr>","")
-        zip_table = zip(lat, lng, html_string)
-        context = {'allEventList': allEventList, 'zip_table': zip_table}
-        return render(request, 'index.php', context)
+        return redirect("haystack_search")
 
 def provider(request):
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
@@ -415,6 +361,70 @@ def denyEdit(request, editID):
 class programSearchView(SearchView):
         template_name = 'search/search.html'
         form_class = grasaSearchForm
+
+        #Harrison's map work for Index
+        e_id = []
+        title = []
+        address = []
+        coord = []
+        coord2 = []
+        lat = []
+        lng = []
+        html_string = []
+        i = 1
+        zip_table = ""
+        try:
+                allEventList = Program.objects.filter(isPending=False)
+                for event in allEventList:
+                        e_id.append(event.id)
+                        title.append(event.title)
+                        address.append(event.address)
+                        coord.append(event.lat + ', ' + event.lng)
+                        html_string= []
+                        html_string_to_write = ""
+                        i = 0
+
+                zip_table = sorted(zip(coord, e_id, title, address))
+                zip_table.sort()
+                coord, e_id, title, address = zip(*zip_table)
+                # Separate coordinates into lat and lng lists
+                # for value in coord:
+                #        lat2, lng2 = value.split(', ')
+                #        lat.append(lat2)
+                #        lng.append(lng2)
+                for value in coord:
+                        if i == 0:
+                                html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
+                        else:
+                                if str(coord[i]) == str(coord[i - 1]):
+                                        html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
+                                else:
+                                        # print(html_string_to_write)
+                                        html_string.append(html_string_to_write)
+                                        html_string_to_write = ""
+                                        html_string_to_write = html_string_to_write + "<b>" + str(title[i]) + "</b><br>" + str(address[i]) + "<br><a href='/event/" + str(e_id[i]) + "'>Details</a><hr>"
+                        coord2.append(coord[i])
+                        i = i + 1
+                        gotdata = 'null'
+                html_string.append(html_string_to_write)
+                coord2 = list(dict.fromkeys(coord2))
+                for value in coord2:
+                        lat2, lng2 = value.split(', ')
+                        lat.append(lat2)
+                        lng.append(lng2)
+                # Remove horizontal line from map marker with only one location:
+                for i in range(0, len(html_string) - 1):
+                     if html_string[i].count("<hr>") == 1:
+                             html_string[i]= html_string[i].replace("<hr>","")
+                zip_table = zip(lat, lng, html_string)
+        except (IndexError, ValueError):
+                gotdata = 'null'
+        #Next two lines modified for search
+        #context = {'allEventList': allEventList, 'zip_table': zip_table}
+        #return render(request, 'index.php', context)
+
+
+        extra_context={ 'allEventList': allEventList, 'zip_table': zip_table }
         #form_class = SearchForm
         #searchqueryset = sqs
 
