@@ -54,8 +54,7 @@
 							   Please Contact Us: <a href="mailto:first@email.address,second@email.address,third@email.address">johndoe@gmail.com</a>
 							  </div>
 							  <div class="modal-footer">
-								
-								<button type="button" class="btn btn-primary" id="cancelBtn">OK</button>
+								<button type="submit" class="btn btn-primary" id="cancelBtn">OK</button>
 								
 							  </div>
 							</div>
