@@ -121,7 +121,8 @@
                 <div class="form-group">
                     <label>Transportation</label>
                     <select class="form-control" name="transportation" required>
-                        <option name="Not Provided">Not Provided</option>
+                        <!--Refactored to match header and forms as well as fix duplicate search bug-->
+                        <option name="Not-Provided">Not-Provided</option>
                         <option name="Provided">Provided</option>
                     </select>
                 </div>
@@ -136,9 +137,10 @@
                 <div class="form-group">
                     <label>Gender</label>
                     <select class="form-control" name="gender" required>
-                        <option name="Not Specified">Not Specific</option>
-                        <option name="Female">Female</option>
-                        <option name="Male">Male</option>
+                        <!--Refactored to match header and forms as well as fix duplicate search bug-->
+                        <option name="Non-Specific">Non-Specific</option>
+                        <option name="Female-Only">Female-Only</option>
+                        <option name="Male-Only">Male-Only</option>
                     </select>
                 </div>
                 <div class="form-group">

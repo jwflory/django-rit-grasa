@@ -81,7 +81,8 @@ def admin_user(request):
         table.save()
         table = Category(description="Other")
         table.save()
-        table = Category(description="Not Provided")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Not-Provided")
         table.save()
         table = Category(description="Provided")
         table.save()
@@ -95,15 +96,20 @@ def admin_user(request):
         table.save()
         table = Category(description="9th-12th")
         table.save()
-        table = Category(description="Not Specific")
+        #Refactored to match header and forms
+        table = Category(description="Non-Specific")
         table.save()
-        table = Category(description="Female")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Female-Only")
         table.save()
-        table = Category(description="Male")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Male-Only")
         table.save()
-        table = Category(description="Before School")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Before-School")
         table.save()
-        table = Category(description="After School")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="After-School")
         table.save()
         table = Category(description="Evenings")
         table.save()
@@ -111,7 +117,8 @@ def admin_user(request):
         table.save()
         table = Category(description="Summer")
         table.save()
-        table = Category(description="Other")
+        #Refactored to "Other Time" to avoid conflicts with activities "Other" as well as fix duplicate search bug
+        table = Category(description="Other-Time")
         table.save()
         return HttpResponseRedirect("index.php")
 
@@ -158,7 +165,8 @@ def changepw(request):
 def createevent(request):
         if request.method == 'POST':
                 g = (str(request.user.userinfo.id))
-                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=request.POST['fees'], contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lng=request.POST['lng'])
+                #Only change was to set fees to fees=float(request.POST['fees']) so that the value gets stored in DB as float
+                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=float(request.POST['fees']), contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lng=request.POST['lng'])
                 program.save()
                 i = 0
                 for tag in request.POST.getlist('activity'):
@@ -246,6 +254,10 @@ def login(request):
                         #log in. Same if no email/password match a row in the
                         #database, but will log them in and cause .is_authenticated
                         #to return true otherwise.
+                        if user is not None and not user.userinfo.isActive:
+                            #Logic to see if the user is pending or doesn't exist
+                            context = {'pendingUser' : True, 'wrongCredentials' : False}
+                            return render(request,'login.php', context)
                         if user is not None and user.userinfo.isActive:
                                 auth_login(request, user)
                                 if request.user.userinfo.isAdmin:
@@ -254,17 +266,122 @@ def login(request):
                                         return HttpResponseRedirect("provider.php")
 
                         else:
-                                return render(request,'login.php',)
-                                #Will need to put some logic here to state invalid credentials
+                                context = {'pendingUser' : False, 'wrongCredentials' : True}
+                                return render(request,'login.php', context)
         else:
-                return render(request, 'login.php')
-        return render(request, 'login.php')
+                context = {'pendingUser' : False, 'wrongCredentials' : False}
+                return render(request, 'login.php', context)
+        context = {'pendingUser' : False, 'wrongCredentials' : False}
+        return render(request, 'login.php', context)
 
 def logout_view(request):
         logout(request)
         return HttpResponseRedirect("index.php")
 
 def index(request):
+        return redirect("haystack_search")
+
+def provider(request):
+        if request.method == 'POST':
+                 with connection.cursor() as cursor:
+                        cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `org_name` = '" + request.POST['changename'] + "' WHERE `org_name` = '" + request.user.userinfo.org_name + "';")
+                 return render(request, 'provider.php', )
+        if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
+                myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
+                context = {'myEventList' : myEventList, 'currentUser' : currentUser}
+                return render(request, "provider.php", context)
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                return render(request, 'index.php', )
+        else:
+                return HttpResponseRedirect("login.php")
+
+
+def register(request):
+        if request.method == 'POST' and request.POST['current'] == request.POST['confirm'] :
+                emailAddr = request.POST['emailAddr']
+                orgName = request.POST['orgName']
+                current = request.POST['current']
+                newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
+                uInfo = userInfo(user = newUser, org_name = orgName)
+                uInfo.save()
+                return redirect("login_page")
+                #return render(request, 'login.php')
+        else:
+                return render(request, 'register.php', )
+        return render(request, 'register.php', )
+
+def resetpw(request):
+        return render(request, 'resetPW.php')
+
+#Functional views, post only, need to be logged in admin, self defining names
+
+def approveUser(request, userID):
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                u = userInfo.objects.get(pk=userID)
+                u.isPending = False
+                u.isActive = True
+                u.save()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
+
+def denyUser(request, userID):
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                u = userInfo.objects.get(pk=userID)
+                #for program in u.program_set.all():
+                #    program.delete()
+                #^^^^^works but breaks page unless rebuild_index run
+                u.isPending = False
+                u.isActive = False
+                u.save()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
+
+def approveEvent(request, eventID):
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                p = Program.objects.get(pk=eventID)
+                p.isPending = False
+                p.save()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
+
+def denyEvent(request, eventID):
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                p = Program.objects.get(pk=eventID)
+                p.delete()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
+
+def approveEdit(request, editID):
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                p = Program.objects.get(pk=editID)
+                oldP = Program.objects.get(pk=p.editOf)
+                #Strange issue here, I get no errors but editOf won't switch to 0 and oldP wont delete
+                oldP.delete()
+                p.editOf = 0
+                p.isPending = False
+                p.save()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
+
+def denyEdit(request, editID):
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                p = Program.objects.get(pk=editID)
+                p.delete()
+                return redirect("admin_page")
+        else:
+                return redirect("login_page")
+
+class programSearchView(SearchView):
+        template_name = 'search/search.html'
+        form_class = grasaSearchForm
+
+        #Harrison's map work for Index
         e_id = []
         title = []
         address = []
@@ -321,105 +438,12 @@ def index(request):
                 zip_table = zip(lat, lng, html_string)
         except (IndexError, ValueError):
                 gotdata = 'null'
-        context = {'allEventList': allEventList, 'zip_table': zip_table}
-        return render(request, 'index.php', context)
-
-def provider(request):
-        if request.method == 'POST':
-                 with connection.cursor() as cursor:
-                        cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `org_name` = '" + request.POST['changename'] + "' WHERE `org_name` = '" + request.user.userinfo.org_name + "';")
-                 return render(request, 'provider.php', )
-        if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
-                currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
-                myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
-                context = {'myEventList' : myEventList, 'currentUser' : currentUser}
-                return render(request, "provider.php", context)
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
-                return render(request, 'index.php', )
-        else:
-                return HttpResponseRedirect("login.php")
+        #Next two lines modified for search
+        #context = {'allEventList': allEventList, 'zip_table': zip_table}
+        #return render(request, 'index.php', context)
 
 
-def register(request):
-        if request.method == 'POST' and request.POST['current'] == request.POST['confirm'] :
-                emailAddr = request.POST['emailAddr']
-                orgName = request.POST['orgName']
-                current = request.POST['current']
-                newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
-                uInfo = userInfo(user = newUser, org_name = orgName)
-                uInfo.save()
-                return redirect("login_page")
-                #return render(request, 'login.php')
-        else:
-                return render(request, 'register.php', )
-        return render(request, 'register.php', )
-
-def resetpw(request):
-        return render(request, 'resetPW.php')
-
-#Functional views, post only, need to be logged in admin, self defining names
-
-def approveUser(request, userID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
-                u = userInfo.objects.get(pk=userID)
-                u.isPending = False
-                u.isActive = True
-                u.save()
-                return redirect("admin_page")
-        else:
-                return redirect("login_page")
-
-def denyUser(request, userID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
-                u = userInfo.objects.get(pk=userID)
-                u.isPending = False
-                u.isActive = False
-                u.save()
-                return redirect("admin_page")
-        else:
-                return redirect("login_page")
-
-def approveEvent(request, eventID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
-                p = Program.objects.get(pk=eventID)
-                p.isPending = False
-                p.save()
-                return redirect("admin_page")
-        else:
-                return redirect("login_page")
-
-def denyEvent(request, eventID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
-                p = Program.objects.get(pk=eventID)
-                p.delete()
-                return redirect("admin_page")
-        else:
-                return redirect("login_page")
-
-def approveEdit(request, editID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
-                p = Program.objects.get(pk=editID)
-                oldP = Program.objects.get(pk=p.editOf)
-                #Strange issue here, I get no errors but editOf won't switch to 0 and oldP wont delete
-                oldP.delete()
-                p.editOf = 0
-                p.isPending = False
-                p.save()
-                return redirect("admin_page")
-        else:
-                return redirect("login_page")
-
-def denyEdit(request, editID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
-                p = Program.objects.get(pk=editID)
-                p.delete()
-                return redirect("admin_page")
-        else:
-                return redirect("login_page")
-
-class programSearchView(SearchView):
-        template_name = 'search/search.html'
-        form_class = grasaSearchForm
+        extra_context={ 'allEventList': allEventList, 'zip_table': zip_table }
         #form_class = SearchForm
         #searchqueryset = sqs
 

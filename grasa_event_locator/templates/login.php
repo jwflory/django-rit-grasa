@@ -5,6 +5,13 @@
       
       <h1 class="h3 mb-3 font-weight-normal text-center">GRASA Programs Login</h1>
       <p class="text-muted text-center">You do not need an account to browse events, only if you would like to add your own event.</p>
+      <!-- These are used to check for pending users or failed logins and give feedback -->
+      {% if pendingUser %}
+      <p class="text-muted text-center">Your account has been logged in the database but has not yet been approved.</p>
+      {% endif %}
+      {% if wrongCredentials %}
+      <p class="text-muted text-center">Username or Password are Incorrect</p>
+      {% endif %}
       <label for="inputEmail" class="sr-only">Email address</label>
       <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>

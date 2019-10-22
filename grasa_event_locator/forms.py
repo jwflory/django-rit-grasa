@@ -28,7 +28,7 @@ activityList = [
     ("Tutoring", "Tutoring"),
     ("Other", "Other"),
 ]
-transportationList = [("Provided", "Provided"), ("Not Provided", "Not Provided")]
+transportationList = [("Provided", "Provided"), ("Not-Provided", "Not-Provided")]
 gradesList = [
     ("K-3rd", "K-3rd"),
     ("K-5th", "K-5th"),
@@ -37,8 +37,8 @@ gradesList = [
     ("9th-12th", "9th-12th"),
 ]
 genderList = [
-    ("Male Only", "Male Only"),
-    ("Female Only", "Female Only"),
+    ("Male-Only", "Male-Only"),
+    ("Female-Only", "Female-Only"),
     ("Non-Specific", "Non-Specific"),
 ]
 feesList = [
@@ -49,12 +49,13 @@ feesList = [
     ("$75+", "$75+"),
 ]
 timingList = [
-    ("Before School", "Before School"),
-    ("After School", "After School"),
+    ("Before-School", "Before-School"),
+    ("After-School", "After-School"),
     ("Evenings", "Evenings"),
     ("Weekends", "Weekends"),
     ("Summer", "Summer"),
-    ("Other", "Other"),
+    #Refactored to "Other Time" to avoid conflicts with activities "Other"
+    ("Other-Time", "Other-Time"),
 ]
 
 
@@ -135,7 +136,6 @@ class grasaSearchForm(SearchForm):
 
         selectedActivities = self.cleaned_data["activities"]
         for activity in activityList:
-            print(activity[0])
             for selectedActivity in selectedActivities:
                 print(selectedActivity)
                 if activity[0] == selectedActivity:
@@ -145,6 +145,9 @@ class grasaSearchForm(SearchForm):
         for transportation in transportationList:
             for selectedTransportation in selectedTransportations:
                 if transportation[0] == selectedTransportation:
+                    print('inside transport filter')
+                    print(transportation[0])
+                    print(selectedTransportation)
                     sqs = sqs.filter(content=transportation[0])
 
         selectedGrades = self.cleaned_data["grades"]
@@ -162,10 +165,26 @@ class grasaSearchForm(SearchForm):
         # Needs changes
         selectedFees = self.cleaned_data["fees"]
         for selectedFee in selectedFees:
-            # Free
+            # These need to be specially written since they aren't stored as a range in the DB
             if "Free" == selectedFee:
                 print("Free selected")
-                sqs = sqs.filter(fees="0.00")
+                sqs = sqs.filter(fees=0.00)
+            if "$1-$25" == selectedFee:
+                print("$1-$25 selected")
+                sqs = sqs.filter(fees__gte=0.01)
+                sqs = sqs.filter(fees__lte=25.99)
+            if "$26-$50" == selectedFee:
+                print("$26-$50 selected")
+                print(sqs.count())
+                sqs = sqs.filter(fees__gte=26.00)
+                sqs = sqs.filter(fees__lte=50.99)
+                print(sqs.count())
+            if "$51-$75" == selectedFee:
+                print("$51-$75 selected")
+                sqs = sqs.filter(fees__gte=51.00)
+                sqs = sqs.filter(fees__lte=75.99)
+            if "$75+" == selectedFee:
+                sqs = sqs.filter(fees__gte=75.00)
 
         selectedTimings = self.cleaned_data["timings"]
         for timing in timingList:
