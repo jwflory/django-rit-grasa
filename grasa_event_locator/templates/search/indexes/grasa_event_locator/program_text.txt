@@ -1,5 +1,6 @@
 {{ object.user_id.org_name }}
 {{ object.title }}
+{{ object.fees }}
 {% for category in object.categories.all %}
     {{ category.description}}
 {% endfor %}

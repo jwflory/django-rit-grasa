@@ -56,7 +56,8 @@
         var feesList = ["Free", "$1-$25", "$26-$50", "$51-$75", "$75+"]
 
         //Timing
-        var timingList = ["Before School", "After School", "Evenings", "Weekends", "Summer", "Other"]
+        //Refactored to "Other Time" to avoid conflicts with activities "Other"
+        var timingList = ["Before School", "After School", "Evenings", "Weekends", "Summer", "Other Time"]
 
 
 </script>
