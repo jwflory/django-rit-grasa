@@ -12,6 +12,7 @@ from django.db import connection
 from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
 import time
+from django.db import *
 
 def aboutContact(request):
         return render(request, 'aboutContact.php')
@@ -380,7 +381,6 @@ def denyEdit(request, editID):
 class programSearchView(SearchView):
         template_name = 'search/search.html'
         form_class = grasaSearchForm
-
         #Harrison's map work for Index
         e_id = []
         title = []
@@ -436,7 +436,7 @@ class programSearchView(SearchView):
                      if html_string[i].count("<hr>") == 1:
                              html_string[i]= html_string[i].replace("<hr>","")
                 zip_table = zip(lat, lng, html_string)
-        except (IndexError, ValueError):
+        except (IndexError, ValueError, ProgrammingError):
                 gotdata = 'null'
         #Next two lines modified for search
         #context = {'allEventList': allEventList, 'zip_table': zip_table}
