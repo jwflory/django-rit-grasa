@@ -116,13 +116,24 @@ def admin_user(request):
         return HttpResponseRedirect("index.php")
 
 def allUsers(request):
-        userList = userInfo.objects.filter(isActive=True)
+        userList = userInfo.objects.filter(isActive=True).filter(isAdmin=False)
         context = {'userList': userList}
         return render(request, 'allUsers.php', context)
-    
+
 def allAdmins(request):
-        userList = userInfo.objects.filter(isActive=True)
+        userList = userInfo.objects.filter(isAdmin=True)
         context = {'userList': userList}
+
+        if request.method == 'POST' and request.POST['confirm'] == request.POST['confirm']:
+                emailAddr = request.POST['emailAddr']
+                current = request.POST['current']
+                newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
+                uInfo = userInfo(user=newUser, org_name="Administrator")
+                uInfo.save()
+                return redirect("allAdmins")
+                #return render(request, 'login.php')
+        else:
+                return render(request, 'allAdmins.php', context)
         return render(request, 'allAdmins.php', context)
 
 def allEvents(request):
