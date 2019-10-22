@@ -1,6 +1,6 @@
 # Local development container. Includes development dependencies.
 # Not to be used in production environment (yet).
-FROM python:3.6
+FROM python:3.6-stretch
 
 WORKDIR /app
 COPY . /app
