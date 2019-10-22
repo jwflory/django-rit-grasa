@@ -61,7 +61,6 @@
         //Refactored to "Other Time", "Before-School", and "After-School" to avoid conflicts with activities "Other" as well as fix duplicate search bug
         var timingList = ["Before-School", "After-School", "Evenings", "Weekends", "Summer", "Other-Time"]
 
-
 </script>
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
