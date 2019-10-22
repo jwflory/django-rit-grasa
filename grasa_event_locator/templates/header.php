@@ -41,13 +41,15 @@
         var activityList = ["Academic Support", "Arts and Culture", "Career or College Readiness", "Civic Engagement", "Community Service / Service Learning", "Entrepreneurship / Leadership", "Financial Literacy", "Health & Wellness", "Media Technology",  "Mentoring", "Nature & the Environment", "Play", "Public Speaking", "Social and Emotional Learning (SEL)", "Sports and Recreation", "STEM", "Tutoring", "Other"]
 
         //Transportation
-        var transportationList = ["Provided", "Not Provided"]
+        //Refactored to match header and forms as well as fix duplicate search bug
+        var transportationList = ["Provided", "Not-Provided"]
 
         //Grades Served
         var gradesList = ["K-3rd", "K-5th", "3rd-5th", "6th-8th", "9th-12th"]
 
         //Gender
-        var genderList = ["Male Only", "Female Only", "Non-Specific"]
+        //Refactored to match header and forms as well as fix duplicate search bug
+        var genderList = ["Male-Only", "Female-Only", "Non-Specific"]
 
         //Distance
         var distanceList = ["0-5 miles", "6-10 miles", "11-15 miles", "16-20 miles", "20+ miles"]
@@ -56,9 +58,8 @@
         var feesList = ["Free", "$1-$25", "$26-$50", "$51-$75", "$75+"]
 
         //Timing
-        //Refactored to "Other Time" to avoid conflicts with activities "Other"
-        var timingList = ["Before School", "After School", "Evenings", "Weekends", "Summer", "Other Time"]
-
+        //Refactored to "Other Time", "Before-School", and "After-School" to avoid conflicts with activities "Other" as well as fix duplicate search bug
+        var timingList = ["Before-School", "After-School", "Evenings", "Weekends", "Summer", "Other-Time"]
 
 </script>
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">

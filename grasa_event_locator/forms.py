@@ -28,7 +28,7 @@ activityList = [
     ("Tutoring", "Tutoring"),
     ("Other", "Other"),
 ]
-transportationList = [("Provided", "Provided"), ("Not Provided", "Not Provided")]
+transportationList = [("Provided", "Provided"), ("Not-Provided", "Not-Provided")]
 gradesList = [
     ("K-3rd", "K-3rd"),
     ("K-5th", "K-5th"),
@@ -37,8 +37,8 @@ gradesList = [
     ("9th-12th", "9th-12th"),
 ]
 genderList = [
-    ("Male Only", "Male Only"),
-    ("Female Only", "Female Only"),
+    ("Male-Only", "Male-Only"),
+    ("Female-Only", "Female-Only"),
     ("Non-Specific", "Non-Specific"),
 ]
 feesList = [
@@ -49,13 +49,13 @@ feesList = [
     ("$75+", "$75+"),
 ]
 timingList = [
-    ("Before School", "Before School"),
-    ("After School", "After School"),
+    ("Before-School", "Before-School"),
+    ("After-School", "After-School"),
     ("Evenings", "Evenings"),
     ("Weekends", "Weekends"),
     ("Summer", "Summer"),
     #Refactored to "Other Time" to avoid conflicts with activities "Other"
-    ("Other Time", "Other Time"),
+    ("Other-Time", "Other-Time"),
 ]
 
 
@@ -145,6 +145,9 @@ class grasaSearchForm(SearchForm):
         for transportation in transportationList:
             for selectedTransportation in selectedTransportations:
                 if transportation[0] == selectedTransportation:
+                    print('inside transport filter')
+                    print(transportation[0])
+                    print(selectedTransportation)
                     sqs = sqs.filter(content=transportation[0])
 
         selectedGrades = self.cleaned_data["grades"]
