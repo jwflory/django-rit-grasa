@@ -81,7 +81,8 @@ def admin_user(request):
         table.save()
         table = Category(description="Other")
         table.save()
-        table = Category(description="Not Provided")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Not-Provided")
         table.save()
         table = Category(description="Provided")
         table.save()
@@ -95,15 +96,20 @@ def admin_user(request):
         table.save()
         table = Category(description="9th-12th")
         table.save()
-        table = Category(description="Not Specific")
+        #Refactored to match header and forms
+        table = Category(description="Non-Specific")
         table.save()
-        table = Category(description="Female")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Female-Only")
         table.save()
-        table = Category(description="Male")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Male-Only")
         table.save()
-        table = Category(description="Before School")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Before-School")
         table.save()
-        table = Category(description="After School")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="After-School")
         table.save()
         table = Category(description="Evenings")
         table.save()
@@ -111,19 +117,30 @@ def admin_user(request):
         table.save()
         table = Category(description="Summer")
         table.save()
-        #Refactored to "Other Time" to avoid conflicts with activities "Other"
-        table = Category(description="Other Time")
+        #Refactored to "Other Time" to avoid conflicts with activities "Other" as well as fix duplicate search bug
+        table = Category(description="Other-Time")
         table.save()
         return HttpResponseRedirect("index.php")
 
 def allUsers(request):
-        userList = userInfo.objects.filter(isActive=True)
+        userList = userInfo.objects.filter(isActive=True).filter(isAdmin=False)
         context = {'userList': userList}
         return render(request, 'allUsers.php', context)
-    
+
 def allAdmins(request):
-        userList = userInfo.objects.filter(isActive=True)
+        userList = userInfo.objects.filter(isAdmin=True)
         context = {'userList': userList}
+
+        if request.method == 'POST' and request.POST['confirm'] == request.POST['confirm']:
+                emailAddr = request.POST['emailAddr']
+                current = request.POST['current']
+                newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
+                uInfo = userInfo(user=newUser, org_name="Administrator")
+                uInfo.save()
+                return redirect("allAdmins")
+                #return render(request, 'login.php')
+        else:
+                return render(request, 'allAdmins.php', context)
         return render(request, 'allAdmins.php', context)
 
 def allEvents(request):
@@ -237,6 +254,10 @@ def login(request):
                         #log in. Same if no email/password match a row in the
                         #database, but will log them in and cause .is_authenticated
                         #to return true otherwise.
+                        if user is not None and not user.userinfo.isActive:
+                            #Logic to see if the user is pending or doesn't exist
+                            context = {'pendingUser' : True, 'wrongCredentials' : False}
+                            return render(request,'login.php', context)
                         if user is not None and user.userinfo.isActive:
                                 auth_login(request, user)
                                 if request.user.userinfo.isAdmin:
@@ -245,11 +266,13 @@ def login(request):
                                         return HttpResponseRedirect("provider.php")
 
                         else:
-                                return render(request,'login.php',)
-                                #Will need to put some logic here to state invalid credentials
+                                context = {'pendingUser' : False, 'wrongCredentials' : True}
+                                return render(request,'login.php', context)
         else:
-                return render(request, 'login.php')
-        return render(request, 'login.php')
+                context = {'pendingUser' : False, 'wrongCredentials' : False}
+                return render(request, 'login.php', context)
+        context = {'pendingUser' : False, 'wrongCredentials' : False}
+        return render(request, 'login.php', context)
 
 def logout_view(request):
         logout(request)
@@ -259,6 +282,10 @@ def index(request):
         return redirect("haystack_search")
 
 def provider(request):
+        if request.method == 'POST':
+                 with connection.cursor() as cursor:
+                        cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `org_name` = '" + request.POST['changename'] + "' WHERE `org_name` = '" + request.user.userinfo.org_name + "';")
+                 return render(request, 'provider.php', )
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
@@ -268,17 +295,6 @@ def provider(request):
                 return render(request, 'index.php', )
         else:
                 return HttpResponseRedirect("login.php")
-
-#         if request.method == 'POST':
-#                 form = SubmitEvent(request.POST)
-#
-#                if form.is_valid():
-#                        new_event = Events(event_title=request.POST['event_title'], event_extsite=request.POST['event_extsite'], event_address=request.POST['event_address'])
-#                        new_event.save()
-#        else:
-#                form = SubmitEvent()
-#
-#        context = {'form' : form}
 
 
 def register(request):
@@ -313,6 +329,9 @@ def approveUser(request, userID):
 def denyUser(request, userID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 u = userInfo.objects.get(pk=userID)
+                #for program in u.program_set.all():
+                #    program.delete()
+                #^^^^^works but breaks page unless rebuild_index run
                 u.isPending = False
                 u.isActive = False
                 u.save()

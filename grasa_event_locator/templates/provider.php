@@ -25,9 +25,12 @@
                     <div class="col-sm-6">
                          <button type="button" class="btn btn-link changeNameLink">Change Name</button>
                         <div class="input-group mb-3 changeNameInput">
-                          <input type="text" class="form-control" placeholder="Name" aria-label="{{ user.userinfo.org_name }}" aria-describedby="button-addon2" value="{{ user.userinfo.org_name }}">
+                        <form action="provider.php" method="post">
+                        {% csrf_token %}
+                          <input type="text" class="form-control" placeholder="Name" aria-label="{{ user.userinfo.org_name }}" aria-describedby="button-addon2" value="{{ user.userinfo.org_name }}" name="changename"></input>
                           <div class="input-group-append">
-                            <button class="btn btn-outline-primary changeNameSave" type="button" id="button-addon2">Save</button>
+                            <button class="btn btn-outline-primary changeNameSave" type="submit" id="button-addon2">Save</button>
+                          </form>
                           </div>
                         </div>
 
@@ -111,7 +114,7 @@
         }
     }
     
-    //Change Name 
+    //Change Name
     var changeLink = document.getElementsByClassName('changeNameLink')[0];
     var changeSaveBtn = document.getElementsByClassName('changeNameSave')[0];
     var changeBox = document.getElementsByClassName('changeNameInput')[0];
