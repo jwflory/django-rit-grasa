@@ -81,7 +81,8 @@ def admin_user(request):
         table.save()
         table = Category(description="Other")
         table.save()
-        table = Category(description="Not Provided")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Not-Provided")
         table.save()
         table = Category(description="Provided")
         table.save()
@@ -95,15 +96,20 @@ def admin_user(request):
         table.save()
         table = Category(description="9th-12th")
         table.save()
-        table = Category(description="Not Specific")
+        #Refactored to match header and forms
+        table = Category(description="Non-Specific")
         table.save()
-        table = Category(description="Female")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Female-Only")
         table.save()
-        table = Category(description="Male")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Male-Only")
         table.save()
-        table = Category(description="Before School")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="Before-School")
         table.save()
-        table = Category(description="After School")
+        #Refactored to match header and forms as well as fix duplicate search bug
+        table = Category(description="After-School")
         table.save()
         table = Category(description="Evenings")
         table.save()
@@ -111,8 +117,8 @@ def admin_user(request):
         table.save()
         table = Category(description="Summer")
         table.save()
-        #Refactored to "Other Time" to avoid conflicts with activities "Other"
-        table = Category(description="Other Time")
+        #Refactored to "Other Time" to avoid conflicts with activities "Other" as well as fix duplicate search bug
+        table = Category(description="Other-Time")
         table.save()
         return HttpResponseRedirect("index.php")
 
@@ -237,6 +243,10 @@ def login(request):
                         #log in. Same if no email/password match a row in the
                         #database, but will log them in and cause .is_authenticated
                         #to return true otherwise.
+                        if user is not None and not user.userinfo.isActive:
+                            #Logic to see if the user is pending or doesn't exist
+                            context = {'pendingUser' : True, 'wrongCredentials' : False}
+                            return render(request,'login.php', context)
                         if user is not None and user.userinfo.isActive:
                                 auth_login(request, user)
                                 if request.user.userinfo.isAdmin:
@@ -245,11 +255,13 @@ def login(request):
                                         return HttpResponseRedirect("provider.php")
 
                         else:
-                                return render(request,'login.php',)
-                                #Will need to put some logic here to state invalid credentials
+                                context = {'pendingUser' : False, 'wrongCredentials' : True}
+                                return render(request,'login.php', context)
         else:
-                return render(request, 'login.php')
-        return render(request, 'login.php')
+                context = {'pendingUser' : False, 'wrongCredentials' : False}
+                return render(request, 'login.php', context)
+        context = {'pendingUser' : False, 'wrongCredentials' : False}
+        return render(request, 'login.php', context)
 
 def logout_view(request):
         logout(request)
@@ -313,6 +325,9 @@ def approveUser(request, userID):
 def denyUser(request, userID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 u = userInfo.objects.get(pk=userID)
+                #for program in u.program_set.all():
+                #    program.delete()
+                #^^^^^works but breaks page unless rebuild_index run
                 u.isPending = False
                 u.isActive = False
                 u.save()
