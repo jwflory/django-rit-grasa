@@ -18,7 +18,7 @@
               <tbody class="provider-program-list">
                 <tr>
                 {% for user in userList %}
-                  <th scope="row"><a href="{{ user.user }}">{{ user.user }}</a></th>
+                  <th scope="row"><a href="mailto:{{ user.user }}">{{ user.user }}</a></th>
                   <th scope="row">time</th>
                   <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
                 </tr>
