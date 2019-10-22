@@ -325,6 +325,10 @@ def index(request):
         return render(request, 'index.php', context)
 
 def provider(request):
+        if request.method == 'POST':
+                 with connection.cursor() as cursor:
+                        cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `org_name` = '" + request.POST['changename'] + "' WHERE `org_name` = '" + request.user.userinfo.org_name + "';")
+                 return render(request, 'provider.php', )
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
@@ -334,17 +338,6 @@ def provider(request):
                 return render(request, 'index.php', )
         else:
                 return HttpResponseRedirect("login.php")
-
-#         if request.method == 'POST':
-#                 form = SubmitEvent(request.POST)
-#
-#                if form.is_valid():
-#                        new_event = Events(event_title=request.POST['event_title'], event_extsite=request.POST['event_extsite'], event_address=request.POST['event_address'])
-#                        new_event.save()
-#        else:
-#                form = SubmitEvent()
-#
-#        context = {'form' : form}
 
 
 def register(request):
