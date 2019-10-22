@@ -66,7 +66,8 @@ class Program(models.Model):
     lat = models.CharField(max_length=255, default="43.154535")
     lng = models.CharField(max_length=255, default="-77.590575")
     website = models.CharField(max_length=255, default="NOT SPECIFIED")
-    fees = models.CharField(max_length=255, default="NOT SPECIFIED")
+    #Refactored fees to a float so they could be filtered by a range
+    fees = models.FloatField(default=0)
     isPending = models.BooleanField(default=True)
     contact_name = models.CharField(max_length=255, default="NOT SPECIFIED")
     contact_email = models.CharField(max_length=255, default="NOT SPECIFIED")
