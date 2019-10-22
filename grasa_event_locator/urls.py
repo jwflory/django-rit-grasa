@@ -31,7 +31,7 @@ urlpatterns = [
     path('approve_edit/<editID>', views.approveEdit, name='approve_edit'),
     path('deny_edit/<editID>', views.denyEdit, name='deny_edit'),
     #path('search/', include('haystack.urls')),
-    url(r'^search/?$', views.programSearchView.as_view(), name='haystack_search'),
+    url(r'^search//?$', views.programSearchView.as_view(), name='haystack_search'),
     #path('search/', views.programSearchView.as_view(), name='haystack_search'),
 ]
 
