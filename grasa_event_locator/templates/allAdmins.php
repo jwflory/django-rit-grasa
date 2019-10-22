@@ -17,10 +17,12 @@
               </thead>
               <tbody class="provider-program-list">
                 <tr>
-                  <th scope="row">Put Name Here</th>
+                {% for user in userList %}
+                  <th scope="row"><a href="mailto:{{ user.user }}">{{ user.user }}</a></th>
                   <th scope="row">time</th>
                   <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
                 </tr>
+                {% endfor %}
 
                 <!--Delete Modal-->
                 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

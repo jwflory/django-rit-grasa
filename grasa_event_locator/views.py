@@ -123,13 +123,24 @@ def admin_user(request):
         return HttpResponseRedirect("index.php")
 
 def allUsers(request):
-        userList = userInfo.objects.filter(isActive=True)
+        userList = userInfo.objects.filter(isActive=True).filter(isAdmin=False)
         context = {'userList': userList}
         return render(request, 'allUsers.php', context)
-    
+
 def allAdmins(request):
-        userList = userInfo.objects.filter(isActive=True)
+        userList = userInfo.objects.filter(isAdmin=True)
         context = {'userList': userList}
+
+        if request.method == 'POST' and request.POST['confirm'] == request.POST['confirm']:
+                emailAddr = request.POST['emailAddr']
+                current = request.POST['current']
+                newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
+                uInfo = userInfo(user=newUser, org_name="Administrator")
+                uInfo.save()
+                return redirect("allAdmins")
+                #return render(request, 'login.php')
+        else:
+                return render(request, 'allAdmins.php', context)
         return render(request, 'allAdmins.php', context)
 
 def allEvents(request):
@@ -271,6 +282,10 @@ def index(request):
         return redirect("haystack_search")
 
 def provider(request):
+        if request.method == 'POST':
+                 with connection.cursor() as cursor:
+                        cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `org_name` = '" + request.POST['changename'] + "' WHERE `org_name` = '" + request.user.userinfo.org_name + "';")
+                 return render(request, 'provider.php', )
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
@@ -280,17 +295,6 @@ def provider(request):
                 return render(request, 'index.php', )
         else:
                 return HttpResponseRedirect("login.php")
-
-#         if request.method == 'POST':
-#                 form = SubmitEvent(request.POST)
-#
-#                if form.is_valid():
-#                        new_event = Events(event_title=request.POST['event_title'], event_extsite=request.POST['event_extsite'], event_address=request.POST['event_address'])
-#                        new_event.save()
-#        else:
-#                form = SubmitEvent()
-#
-#        context = {'form' : form}
 
 
 def register(request):
