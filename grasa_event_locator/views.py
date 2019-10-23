@@ -44,6 +44,12 @@ def admin_user(request):
                 cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isAdmin` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
                 cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isPending` = '0' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
                 cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isActive` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
+        return HttpResponseRedirect("index.php")
+
+def create_database(request):
+        with connection.cursor() as cursor:
+                cursor.execute("delete from grasa_event_locator_program_categories")
+                cursor.execute("delete from grasa_event_locator_program")
                 cursor.execute("delete from grasa_event_locator_category")
                 cursor.execute("ALTER TABLE grasa_event_locator_category AUTO_INCREMENT = 1")
         table = Category(description="Academic Support")
