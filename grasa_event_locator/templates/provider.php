@@ -29,6 +29,8 @@
                           <div class="input-group-append">
                             <button class="btn btn-outline-primary changeNameSave" type="submit" id="button-addon2">Save</button>
                           </div>
+                        </form>
+                          
                         </div>
                      </form>
 
