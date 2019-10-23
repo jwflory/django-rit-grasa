@@ -31,11 +31,10 @@
                             <input type="text" class="form-control" placeholder="{{ user.userinfo.org_name }}" aria-label="{{ user.userinfo.org_name }}" value="{{ user.userinfo.org_name }}" name="changename">
                           <div class="input-group-append">
                             <button class="btn btn-outline-primary changeNameSave" type="submit" id="button-addon2">Save</button>
-                           </div>
+                          </div>
                         </div>
-                    </form>
+                     </form>
 
-                    </div>
                 </div>
             </div>
         </div>
