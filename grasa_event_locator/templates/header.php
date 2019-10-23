@@ -71,10 +71,10 @@
         </a>
 
           <div class="collapse navbar-collapse" id="navbarsExample02">
+              <span class="nav-item portalLink">
+                <a class="nav-link" href="/index.php"><i class="fa fa-search" aria-hidden="true"></i> Browse Events</a>
+              </span>
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="/index.php">Browse Events<span class="sr-only sr-only-focusable">(current)</span></a>
-              </li>
               {% if not user.is_authenticated %}
               <li class="nav-item noMobile">
                 <a class="nav-link" href="admin_user">Create Administrator Account</a>

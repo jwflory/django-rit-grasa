@@ -18,7 +18,7 @@
       </div>
       {% endif %}
       <label for="inputEmail" class="sr-only">Email Address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Organization Email Address" name="email" required autofocus>
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email Address" name="email" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
       
