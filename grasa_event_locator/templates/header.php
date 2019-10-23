@@ -3,6 +3,8 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <!--Bootstrap Style-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -85,10 +87,10 @@
               {% endif %}
               {% if not user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="admin_user">Create Administrator Account</a>
+                <a class="nav-link" href="/admin_user">Create Administrator Account</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/create_database">Wipe Events / Recreate Categories</a>
+                <a class="nav-link" href="/create_database">Wipe Events & Recreate Categories</a>
               </li>
               {% endif %}
             </ul>
