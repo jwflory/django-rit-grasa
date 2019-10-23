@@ -87,7 +87,7 @@
               {% endif %}
               {% if not user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="admin_user">Create Administrator Account</a>
+                <a class="nav-link" href="/admin_user">Create Administrator Account</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/create_database">Wipe Events / Recreate Categories</a>
