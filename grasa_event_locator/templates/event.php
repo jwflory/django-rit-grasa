@@ -10,7 +10,7 @@
                 <span class="badge badge-info card-title">{{ f }}</span>
             {% endfor %}
             </div>
-            <p>{{ event.content }}</p>
+            <p class="text-break">{{ event.content }}</p>
             <p><b>Grades: </b> {{ grades_list_pub }} </p>
             <p><b>Timing: </b> {{ timing_list_pub }}</p>
             <p><b>Gender: </b> {{ gender_list_pub }}</p>
@@ -45,6 +45,7 @@
         </div>
 
     </div>
+</div>
 </div>
 
 {% include "footer.php" %}
