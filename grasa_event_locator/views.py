@@ -348,7 +348,7 @@ def denyUser(request, userID):
                 return redirect("login_page")
 
                 
-def  approveEvent(request, eventID):
+def approveEvent(request, eventID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 p = Program.objects.get(pk=eventID)
                 p.isPending = False
