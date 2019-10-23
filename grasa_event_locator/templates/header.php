@@ -74,26 +74,29 @@
                 <a class="nav-link" href="/index.php">Browse Events<span class="sr-only sr-only-focusable">(current)</span></a>
               </li>
               {% if not user.userinfo.isAdmin %}
-              <li class="nav-item">
+              <li class="nav-item noMobile">
                 <a class="nav-link" href="/provider.php">Provider</a>
               </li>
               {% endif %}
               {% if user.userinfo.isAdmin or not user.is_authenticated %}
-                <li class="nav-item">
+                <li class="nav-item noMobile">
                 <a class="nav-link" href="/admin.php">Admin</a>
               </li>
               {% endif %}
               {% if not user.is_authenticated %}
-              <li class="nav-item">
+              <li class="nav-item noMobile">
                 <a class="nav-link" href="admin_user">Create Administrator Account</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item noMobile">
                 <a class="nav-link" href="/create_database">Wipe Events / Recreate Categories</a>
+
+              <li class="nav-item noMobile">
+                <a class="nav-link" href="admin_activate">Reactivate Administrator Account</a>
               </li>
               {% endif %}
             </ul>
           </div>
-        <span class="form-inline mt-2 mt-md-0">
+        <span class="form-inline mt-2 mt-md-0 noMobile">
         {% if user.is_authenticated %}
             {% if not user.userinfo.isAdmin and user.is_authenticated %}
                 <a class="nav-link" style="color:white;">{{ user.userinfo.org_name }}</a>

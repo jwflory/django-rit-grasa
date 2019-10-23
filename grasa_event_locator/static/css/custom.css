@@ -296,6 +296,7 @@ body{
 }
 .changeNameInput{
     visibility: hidden;
+    height: 0;
 }
 
 /*icon width fix*/
@@ -342,6 +343,9 @@ button i.fa{
 @media (max-width: 576px){
     body {
         margin-bottom: 140px;
+    }
+    .noMobile{
+        display: none;
     }
 }
 .pocFieldset{

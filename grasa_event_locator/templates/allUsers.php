@@ -9,6 +9,7 @@
                 <tr>
                   <th scope="col">Organization Name</th>
                   <th scope="col">Email</th>
+                  <th scope="col">Alternative Contact</th>
                   <th scope="col">Number of Events</th>
                   <th scope="col" class="list-header-fix">Delete</th>
                 </tr>
@@ -18,6 +19,7 @@
                 <tr>
                   <th scope="row">{{ user.org_name }}</th>
                   <td><a href="mailto:{{ user.user }}">{{ user.user }}</a></td>
+                  <td> info goes here </td>
                   <td> TBD </td>
                   <!--Set target to correct modal so it deletes the correct user-->
                   <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ user.id }}">Delete</button></td>
