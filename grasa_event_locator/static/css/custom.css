@@ -30,7 +30,12 @@ body{
     width: 100%;
     background-color: #f5f5f5;
 }
-
+.portalLink a{
+    color: white;
+}
+.portalLink a:hover{
+    color: #28a745;
+}
 
 /*Home Styles*/
 .home-container, .event-container {

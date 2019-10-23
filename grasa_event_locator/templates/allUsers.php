@@ -3,7 +3,8 @@
     <div class="col-sm-12">
         <div class="twentyblock"></div>
         <h2 class="text-center">All Providers</h2>
-        <button type="button" class="btn btn-info float-left" style="margin-bottom: 10px;" id="backBtn"> <i class="fa fa-chevron-left" aria-hidden="true" ></i> Back to Admin</button>
+        <button type="button" class="btn btn-info float-left" style="margin-bottom: 10px;" id="backBtn"> <i class="fa fa-chevron-left" aria-hidden="true" ></i> Back to Admin Portal</button>
+        <button type="button" class="btn btn-primary float-right" id="addAdmin" data-toggle="modal" data-target="#addadminModal"><i class="fa fa-paper-plane" aria-hidden="true"></i> Invite Provider</button>
         <table class="table table-bordered">
               <thead class="thead-light">
                 <tr>

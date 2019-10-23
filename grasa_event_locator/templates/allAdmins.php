@@ -3,7 +3,7 @@
     <div class="col-sm-12">
         <div class="twentyblock"></div>
         <h2 class="text-center">All Admins</h2>
-        <button type="button" class="btn btn-info float-left" style="margin-bottom: 10px;" id="backBtn"> <i class="fa fa-chevron-left" aria-hidden="true" ></i> Back to Admin</button>
+        <button type="button" class="btn btn-info float-left" style="margin-bottom: 10px;" id="backBtn"> <i class="fa fa-chevron-left" aria-hidden="true" ></i> Back to Admin Portal</button>
         
         <button type="button" class="btn btn-success float-right" id="addAdmin" data-toggle="modal" data-target="#addadminModal"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Admin</button>
         

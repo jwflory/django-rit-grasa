@@ -1,8 +1,5 @@
 {% include "header.php" %}
 <div class="container event-container">
-    <div class="changeName-alert alert alert-success alert-dismissible fade show" role="alert">
-              Organization Name Saved
-    </div>
     <div class="row">
     <!--Top Row-->
         <div class="col-sm-9 card">
@@ -20,7 +17,7 @@
                 <div class="row twentyblock"></div>
                 <div class="row">
                     <div class="col-sm-6">
-                         <h5 class="provider-info"><i class="fa fa-id-card" aria-hidden="true"></i> {{ user.userinfo.org_name }}</h5>
+                         <h5 class="provider-info"><i class="fa fa-id-card" aria-hidden="true"></i><span id="pName">{{ user.userinfo.org_name }}</span></h5>
                     </div>
                     <div class="col-sm-6">
                          <button type="button" class="btn btn-link changeNameLink">Change Name</button>
@@ -37,6 +34,7 @@
 
                 </div>
             </div>
+        </div>
         </div>
         <div class="col-sm-3">
             <p>Change Provider Logo:</p>
@@ -123,13 +121,8 @@
         changeBox.style.visibility="visible";
     }
     changeSaveBtn.onclick = function(){
-        changeLink.style.display = "block";
-        changeBox.style.display="hidden";
-        //Change Name popup
-        $(".changeName-alert").show()
-        setTimeout(function() {
-            $(".changeName-alert").hide();
-        }, 2000);
+        changeBox.style.display = "hidden";
+       // $("#pName").html(document.getElementsByName("changename")[0].value);
     }
     
 
