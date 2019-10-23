@@ -45,79 +45,71 @@
                     </div>
                   </div>
                 </div>
-                <!-- add admin modal-->
-                <div class="modal fade" id="addadminModal" tabindex="-1" role="dialog" aria-labelledby="addadminModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="addadminModalLabel">Add New Admin</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                    <form id="theForm" class="needs-validation" novalidate>
-                      <div class="modal-body">
-
-                          
-                          
-                        <div class="row">
-                            <div class="col-sm-12">
-
-                                <div class="form-group col-md-12">
-                                    <label for="resetPW">Email Address</label>
-                                    <input type="email" id="resetPW" class="form-control" name="emailAddr" placeholder="" required autofocus>
-                                    <div class="invalid-feedback">
-                                        Please provide an email your organization.
-                                    </div>
-                                    <!--<div class="invalid-feedback">
-                                        An organization with this email is already registered.
-                                    </div>-->
-                                </div>
-
-                                <div class="form-group col-md-12">
-                                    <label for="myPW">Password</label>
-                                    <input type="password" id="myPW" class="form-control" name="current" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-                                    <div class="invalid-feedback">
-                                      <p>Password must contain the following:</p>
-                                        <ul>
-                                          <li>A <b>lowercase</b> letter</li>
-                                          <li>A <b>capital (uppercase)</b> letter</li>
-                                          <li>A <b>number</b></li>
-                                          <li>Minimum <b>8 characters</b></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-12">
-                                    <label for="confirmPW">Confirm Password</label>
-
-                                    <input type="password" id="confirmPW" class="form-control" name="confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-                                    <div class="invalid-feedback">
-                                        Passwords must match.
-                                    </div>
-                                    <input id="SPcheckbox" type="checkbox" onclick="myFunction()">
-                                    <label for="SPcheckbox">&nbsp; Show Password</label>
-                                </div>
-
-                            </div>
-                        </div>
-                      </div> 
-	
-
-
-                      
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success" value="Submit">Create Admin</button>
-                      </div>
-                    </form>
-                    </div>
-                  </div>
-                </div>
 
               </tbody>
             </table>
     </div>
+</div>
+<!-- add admin modal-->
+<div class="modal fade" id="addadminModal" tabindex="-1" role="dialog" aria-labelledby="addadminModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addadminModalLabel">Add New Admin</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <form id="theForm" class="needs-validation" novalidate>
+      <div class="modal-body">
+
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="form-group col-md-12">
+                    <label for="resetPW">Email Address</label>
+                    <input type="email" id="resetPW" class="form-control" name="emailAddr" placeholder="" required autofocus>
+                    <div class="invalid-feedback">
+                        Please provide the new Admin's email.
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="myPW">Password</label>
+                    <input type="password" id="myPW" class="form-control" name="current" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                    <div class="invalid-feedback">
+                      <p>Password must contain the following:</p>
+                        <ul>
+                          <li>A <b>lowercase</b> letter</li>
+                          <li>A <b>capital (uppercase)</b> letter</li>
+                          <li>A <b>number</b></li>
+                          <li>Minimum <b>8 characters</b></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="confirmPW">Confirm Password</label>
+
+                    <input type="password" id="confirmPW" class="form-control" name="confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                    <div class="invalid-feedback">
+                        Passwords must match.
+                    </div>
+                    <input id="SPcheckbox" type="checkbox" onclick="myFunction()">
+                    <label for="SPcheckbox">&nbsp; Show Password</label>
+                </div>
+
+            </div>
+        </div>
+      </div> 
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-success" value="Submit">Create Admin</button>
+      </div>
+    </form>
+    </div>
+  </div>
 </div>
 
 
@@ -153,7 +145,7 @@
 
     }
 
-    //validation
+   //validation
     (function() {
       'use strict';
       window.addEventListener('load', function() {
@@ -172,10 +164,6 @@
             }else if (form.checkValidity() === false) {
                 event.preventDefault();
                 event.stopPropagation();
-            }else{
-                event.preventDefault();
-                event.stopPropagation();
-                $('#submitModal').modal('show');
             }
             form.classList.add('was-validated');
             
