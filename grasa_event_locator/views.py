@@ -13,6 +13,7 @@ from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
 import time
 from django.db import *
+import rebuildIndex
 
 def aboutContact(request):
         return render(request, 'aboutContact.php')
@@ -346,11 +347,15 @@ def denyUser(request, userID):
         else:
                 return redirect("login_page")
 
-def approveEvent(request, eventID):
+                
+def  approveEvent(request, eventID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 p = Program.objects.get(pk=eventID)
                 p.isPending = False
                 p.save()
+
+                rebuildIndex.rebuildWhooshIndex()
+                
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
