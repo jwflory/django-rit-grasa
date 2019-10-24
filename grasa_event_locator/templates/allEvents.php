@@ -3,7 +3,7 @@
     <div class="col-sm-12">
         <div class="twentyblock"></div>
         <h2 class="text-center">All Events</h2>
-        <button type="button" class="btn btn-info float-left" style="margin-bottom: 10px;" id="backBtn"> <i class="fa fa-chevron-left" aria-hidden="true" ></i> Back to Admin</button>
+        <button type="button" class="btn btn-info float-left" style="margin-bottom: 10px;" id="backBtn"> <i class="fa fa-chevron-left" aria-hidden="true" ></i> Back to Admin Portal</button>
         
         
         <table class="table table-bordered">
