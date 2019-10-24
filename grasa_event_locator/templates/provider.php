@@ -1,8 +1,5 @@
 {% include "header.php" %}
 <div class="container event-container">
-    <div class="changeName-alert alert alert-success alert-dismissible fade show" role="alert">
-              Organization Name Saved
-    </div>
     <div class="row">
     <!--Top Row-->
         <div class="col-sm-9 card">
@@ -20,24 +17,26 @@
                 <div class="row twentyblock"></div>
                 <div class="row">
                     <div class="col-sm-6">
-                         <h5 class="provider-info"><i class="fa fa-id-card" aria-hidden="true"></i> {{ user.userinfo.org_name }}</h5>
+                         <h5 class="provider-info"><i class="fa fa-id-card" aria-hidden="true"></i><span id="pName">{{ user.userinfo.org_name }}</span></h5>
                     </div>
                     <div class="col-sm-6">
                          <button type="button" class="btn btn-link changeNameLink">Change Name</button>
-                        <div class="input-group mb-3 changeNameInput">
+                        
                         <form action="provider.php" method="post">
                         {% csrf_token %}
-                          <input type="text" class="form-control" placeholder="Name" aria-label="{{ user.userinfo.org_name }}" aria-describedby="button-addon2" value="{{ user.userinfo.org_name }}" name="changename"></input>
+                         <div class="input-group mb-3 changeNameInput">
+                            <input type="text" class="form-control" placeholder="{{ user.userinfo.org_name }}" aria-label="{{ user.userinfo.org_name }}" value="{{ user.userinfo.org_name }}" name="changename">
                           <div class="input-group-append">
                             <button class="btn btn-outline-primary changeNameSave" type="submit" id="button-addon2">Save</button>
                           </div>
                         </form>
                           
                         </div>
+                     </form>
 
-                    </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="col-sm-3">
             <p>Change Provider Logo:</p>
@@ -83,7 +82,7 @@
               {% if myEvent.isPending == 1 %}
                 <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event" disabled>View</button></a></td>
                 <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn" disabled>Edit</button></a></td>
-                <td><button type="button" class="btn btn-outline-danger" disabled>Delete</button></td> 
+                <td><button type="button" class="btn btn-outline-danger" >Delete</button></td> 
               {% else %}
               
               <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></a></td>
@@ -124,13 +123,8 @@
         changeBox.style.visibility="visible";
     }
     changeSaveBtn.onclick = function(){
-        changeLink.style.display = "block";
-        changeBox.style.visibility="hidden";
-        //Change Name popup
-        $(".changeName-alert").show()
-        setTimeout(function() {
-            $(".changeName-alert").hide();
-        }, 2000);
+        changeBox.style.display = "hidden";
+       // $("#pName").html(document.getElementsByName("changename")[0].value);
     }
     
 

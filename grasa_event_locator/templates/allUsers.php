@@ -3,12 +3,14 @@
     <div class="col-sm-12">
         <div class="twentyblock"></div>
         <h2 class="text-center">All Providers</h2>
-        <button type="button" class="btn btn-info float-left" style="margin-bottom: 10px;" id="backBtn"> <i class="fa fa-chevron-left" aria-hidden="true" ></i> Back to Admin</button>
+        <button type="button" class="btn btn-info float-left" style="margin-bottom: 10px;" id="backBtn"> <i class="fa fa-chevron-left" aria-hidden="true" ></i> Back to Admin Portal</button>
+        <button type="button" class="btn btn-primary float-right" id="addAdmin" data-toggle="modal" data-target="#inviteModal"><i class="fa fa-paper-plane" aria-hidden="true"></i> Invite Provider</button>
         <table class="table table-bordered">
               <thead class="thead-light">
                 <tr>
                   <th scope="col">Organization Name</th>
                   <th scope="col">Email</th>
+                  <th scope="col">Alternative Contact</th>
                   <th scope="col">Number of Events</th>
                   <th scope="col" class="list-header-fix">Delete</th>
                 </tr>
@@ -18,6 +20,7 @@
                 <tr>
                   <th scope="row">{{ user.org_name }}</th>
                   <td><a href="mailto:{{ user.user }}">{{ user.user }}</a></td>
+                  <td> info goes here </td>
                   <td> TBD </td>
                   <!--Set target to correct modal so it deletes the correct user-->
                   <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ user.id }}">Delete</button></td>
@@ -49,6 +52,29 @@
               </tbody>
             </table>
     </div>
+</div>
+<!-- Invite Modal -->
+<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Invite Provider</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Send an email to an organization you would like to invite as a provider:</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email...">
+      </div>
+              <div class="twentyblock"></div>
+       <button type="submit" class="btn btn-primary w-100">Send Invite</button>
+    </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
