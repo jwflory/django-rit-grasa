@@ -77,7 +77,7 @@
             <ul class="navbar-nav mr-auto">
               {% if not user.is_authenticated %}
               <li class="nav-item noMobile">
-                <a class="nav-link" href="admin_user">Create Administrator Account</a>
+                <a class="nav-link" href="/admin_user">Create Administrator Account</a>
               </li>
               <li class="nav-item noMobile">
                 <a class="nav-link" href="/create_database">Wipe Events & Recreate Categories</a>
