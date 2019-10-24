@@ -95,15 +95,15 @@
                 </div>
             </div>
         </div>
-        </div>
+        
         <div class="col-sm-3">
             <h5 class="text-center">Logo</h5><hr>
             <div class="card event-page-card">
               <img src="https://via.placeholder.com/150" class="provider-logo-change" alt="Provider Logo">
             </div>
         </div>
-        </div>
-    
+        
+    </div>
     <div class="row">
     <!-- Bottom Row -->
         <h2 class="program-header w-100">Events and Programs<button type="button" class="btn btn-success float-right" id="createEvent"> <i class="fa fa-plus" aria-hidden="true"></i> Add New Event</button></h2>
@@ -142,8 +142,9 @@
         </table>
 
     </div>
-
 </div>
+
+
     <!-- Change Password Modal -->
     <div class="modal fade" id="changePWModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
