@@ -7,17 +7,41 @@
     <!--Top Row-->
         <div class="col-sm-9 card">
             <div class="card-body">
+                    <div class="dropdown">
+                      <a class="btn btn-link dropdown-toggle float-right " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-cogs" aria-hidden="true"></i> Settings
+                      </a>
+
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item changeEmailLink" href="#">Change Email</a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#changePWModal" href="#">Change Password</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item disabled" href="#">Change Site Logo</a>
+                          
+                      </div>
+                    </div>
                 <h2>Admin Portal</h2>
                 <hr>
                 <div class="row">
-                    <div class="col-sm-6">
-                         <h5 class="provider-info"><i class="fa fa-envelope" aria-hidden="true"></i> {{ user }} </h5>
-                    </div>
-                    <div class="col-sm-6">
-                        <button type="button" class="btn btn-link float-right" data-toggle="modal" data-target="#changePWModal">Change Password</button>
+                    <div class="col-sm-12">
+                         <!--email-->
+                         <span id="pEmail">
+                             <h5 class="provider-info">
+                                 <i class="fa fa-envelope fa-fw" aria-hidden="true"></i> {{ user }}
+                             </h5>
+                        </span>
+                        <!-- edit email-->
+                        <form>
+                            
+                             <div class="input-group mb-3 changeEmailInput">
+                                <input type="text" class="form-control" placeholder="{{ user }}" aria-label="{{ user }}" value="{{ user }}" name="changeemail">
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-primary changeEmailSave" type="button" id="button-addon2">Save</button>
+                              </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="twentyblock"></div>
                 <hr>
                 <button type="button" class="btn btn-secondary" id="allUsers"><i class="fa fa-user" aria-hidden="true"></i> View Providers</button>
                 <button type="button" class="btn btn-warning" id="allAdmins"><i class="fa fa-user-secret" aria-hidden="true"></i> View Admins</button>
@@ -26,19 +50,9 @@
             </div>
         </div>
         <div class="col-sm-3">
-            <p class="">Change Site Logo:</p>
+            <h5 class="text-center">Site Logo</h5><hr>
             <div class="card event-page-card">
-              <img src="{% static "img/grasalogo.png" %}" class="card-img-top admin-logo-change" alt="Site Logo">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01">
-                        <label class="custom-file-label" for="inputGroupFile01">Choose file...</label>
-                      </div>
-                    </div>
-                </li>
-              </ul>
+              <img src="{% static 'img/grasalogo.png' %}" class="admin-logo-change" alt="Site Logo">
             </div>
         </div>
     </div>
@@ -68,9 +82,9 @@
                     {% for pendingUser in pendingUserList %}
                       <td scope="row">{{ pendingUser.org_name }}<br>
                       <i class="fa fa-envelope" aria-hidden="true"></i> Login: <a href="mailto:{{ pendingUser.user }}">{{ pendingUser.user }}</a></td>
-                      <td><i class="fa fa-user" aria-hidden="true"></i> {{ pendingUser.contact_name }}<br>
-                      <i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:{{ pendingUser.contact_email }}">{{ pendingUser.contact_email }}</a><br>
-                      <i class="fa fa-phone" aria-hidden="true"></i> {{ pendingUser.contact_phone }}
+                      <td><i class="fa fa-user fa-fw" aria-hidden="true"></i> {{ pendingUser.contact_name }}<br>
+                      <i class="fa fa-envelope fa-fw" aria-hidden="true"></i> <a href="mailto:{{ pendingUser.contact_email }}">{{ pendingUser.contact_email }}</a><br>
+                      <i class="fa fa-phone fa-fw" aria-hidden="true"></i> {{ pendingUser.contact_phone }}
                       </td>
                       <td>Pending</td>
                       <td><a href="{% url 'approve_user' pendingUser.id %}"><button type="button" class="btn btn-outline-success">Approve</button></a></td>
@@ -220,6 +234,29 @@
     var allEventsBtn = document.getElementById('allEvents');
     allEventsBtn.onclick = function(){
         window.location = 'allEvents.php'
+    }
+    
+    //Change Email
+    addSettings('changeEmailLink', 'changeEmailSave', 'changeEmailInput', 'pEmail')
+    
+    function addSettings(editBtn, saveBtn, inputBox, label){
+        var editBtn = document.getElementsByClassName(editBtn)[0]
+        var saveBtn = document.getElementsByClassName(saveBtn)[0]
+        var inputBox = document.getElementsByClassName(inputBox)[0]
+        var label = document.getElementById(label);
+        editBtn.onclick = function(){
+            label.style.display ="none";
+            inputBox.style.visibility="visible";
+            inputBox.style.height = "auto"
+        }
+        saveBtn.onclick = function(){
+            inputBox.style.visibility = "hidden";
+            setTimeout(function(){
+                inputBox.style.height = "0px"
+                label.style.display ="block";
+            }, 500);
+
+        }
     }
     
      //confirm password extra validation

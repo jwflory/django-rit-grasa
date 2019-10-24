@@ -6,33 +6,32 @@
             <div class="card-body">
                 <div class="dropdown">
                   <a class="btn btn-link dropdown-toggle float-right " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-cog" aria-hidden="true"></i>Settings
+                    <i class="fa fa-cogs" aria-hidden="true"></i>Settings
                   </a>
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item changeNameLink" href="#">Change Name</a>
-                    <a class="dropdown-item changeNameLink" href="#">Change Logo</a>
+                    <a class="dropdown-item changeNameLink" href="#">Change Organization Name</a>
+                    <a class="dropdown-item disabled" href="#">Change Logo</a>
+                      
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Change Email</a>
-                    <a class="dropdown-item" data-toggle="modal" data-target="#changePWModal">Change Password</a>
+                      
+                    <a class="dropdown-item changeEmailLink" href="#">Change Email</a>
+                    <a class="dropdown-item" data-toggle="modal" data-target="#changePWModal" href="#">Change Password</a>
+                      
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Edit Additional Contact Info</a>
+                     
+                    <a class="dropdown-item" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">View Additional Contact Info</a>
+                    <a class="dropdown-item disabled" href="#">Edit Additional Contact Info</a>
                   </div>
                 </div>
                 <h2>Provider Portal</h2>
                 <hr>
                 <div class="row"> <!-- card body row-->
-                    <div class="col-sm-6">
-                        <!--email-->
-                         <h5 class="provider-info">
-                             <i class="fa fa-envelope" aria-hidden="true"></i>
-                             {{ user }}
-                        </h5>
-                        <div class="twentyblock"></div>
+                    <div class="col-sm-12">
                         <!--name-->
                          <span id="pName">
                              <h5 class="provider-info">
-                                 <i class="fa fa-id-card" aria-hidden="true"></i>{{ user.userinfo.org_name }}
+                                 <i class="fa fa-id-card fa-fw" aria-hidden="true"></i> {{ user.userinfo.org_name }}
                              </h5>
                         </span>
                         <!-- edit name-->
@@ -45,17 +44,60 @@
                               </div>
                             </div>
                         </form>
+                        <!--email-->
+                         <span id="pEmail">
+                             <h5 class="provider-info">
+                                 <i class="fa fa-envelope fa-fw" aria-hidden="true"></i> {{ user }}
+                             </h5>
+                        </span>
+                        <!-- edit email-->
+                        <form>
+                            
+                             <div class="input-group mb-3 changeEmailInput">
+                                <input type="text" class="form-control" placeholder="{{ user }}" aria-label="{{ user }}" value="{{ user }}" name="changeemail">
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-primary changeEmailSave" type="button" id="button-addon2">Save</button>
+                              </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="col-sm-6">
-                    
+                    <div class="collapse col-sm-12" id="collapseExample">
+                          <hr>
+                          <h5>Additional Contact Information:
+                              <button type="button" class="btn btn-link float-right regHelpBtn" data-toggle="modal" data-target="#HelpModal">What's this?</button>
+                         </h5>
+                          <i class="fa fa-user fa-fw" aria-hidden="true"></i> Name not Specified<br>
+                          <i class="fa fa-envelope fa-fw" aria-hidden="true"></i> Email Address not Specified<br>
+                          <i class="fa fa-phone fa-fw" aria-hidden="true"></i> Phone Number not Specified
+                         
+                                <!-- Help Modal -->
+                                <div class="modal fade" id="HelpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel2">Alternative Contact Information</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p>Alternative Contact Information is information for someone else in your organization. This will be used by the administrators in the event that the person who created the account is unreachable, so that the organization will still have access to their events. This information will not be shown with your events.</p>
+                                          <p>More Questions? Please contact us at <a href="mailto:johndoe@email.com">johndoe@email.com</a></p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
-            <p>Logo:</p>
+            <h5 class="text-center">Logo</h5><hr>
             <div class="card event-page-card">
-              <img src="https://via.placeholder.com/150" class="card-img-top provider-logo-change" alt="Provider Logo">
+              <img src="https://via.placeholder.com/150" class="provider-logo-change" alt="Provider Logo">
             </div>
         </div>
         </div>
@@ -180,17 +222,28 @@
     }
     
     //Change Name
-    var changeLink = document.getElementsByClassName('changeNameLink')[0];
-    var changeSaveBtn = document.getElementsByClassName('changeNameSave')[0];
-    var changeBox = document.getElementsByClassName('changeNameInput')[0];
-    var nameBox = document.getElementById('pName');
-    changeLink.onclick = function(){
-        nameBox.style.display ="none";
-        changeBox.style.visibility="visible";
-    }
-    changeSaveBtn.onclick = function(){
-        changeBox.style.display = "hidden";
-        nameBox.style.display ="block";
+    addSettings('changeNameLink', 'changeNameSave', 'changeNameInput', 'pName')
+    //Change Email
+    addSettings('changeEmailLink', 'changeEmailSave', 'changeEmailInput', 'pEmail')
+    
+    function addSettings(editBtn, saveBtn, inputBox, label){
+        var editBtn = document.getElementsByClassName(editBtn)[0]
+        var saveBtn = document.getElementsByClassName(saveBtn)[0]
+        var inputBox = document.getElementsByClassName(inputBox)[0]
+        var label = document.getElementById(label);
+        editBtn.onclick = function(){
+            label.style.display ="none";
+            inputBox.style.visibility="visible";
+            inputBox.style.height = "auto"
+        }
+        saveBtn.onclick = function(){
+            inputBox.style.visibility = "hidden";
+            setTimeout(function(){
+                inputBox.style.height = "0px"
+                label.style.display ="block";
+            }, 500);
+
+        }
     }
     
      //confirm password extra validation

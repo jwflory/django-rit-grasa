@@ -304,12 +304,15 @@ body{
     padding-left: 10px;  
     padding-bottom: 20px;
 }
-.changeNameInput{
+.changeNameInput, .changeEmailInput{
     visibility: hidden;
     height: 0;
 }
 
 /*icon width fix*/
+.event-page-card {
+    border: none;
+}
 .event-page-card i.fa, .event-container i.fa{
     width:30px;
 }
