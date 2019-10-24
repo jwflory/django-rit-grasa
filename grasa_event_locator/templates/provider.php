@@ -91,8 +91,10 @@
                                   </div>
                                 </div>
                     </div>
+
                 </div>
             </div>
+        </div>
         </div>
         <div class="col-sm-3">
             <h5 class="text-center">Logo</h5><hr>
