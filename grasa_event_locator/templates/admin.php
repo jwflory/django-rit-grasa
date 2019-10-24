@@ -57,7 +57,7 @@
                   <thead class="thead-light">
                     <tr>
                       <th scope="col">Organization Name</th>
-                      <th scope="col">Contact</th>
+                      <th scope="col">Alternative Contact</th>
                       <th scope="col">Status</th>
                       <th scope="col" class="list-header-fix">Approve</th>
                       <th scope="col" class="list-header-fix">Deny</th>

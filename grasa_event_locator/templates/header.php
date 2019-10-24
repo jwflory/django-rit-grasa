@@ -71,34 +71,34 @@
         </a>
 
           <div class="collapse navbar-collapse" id="navbarsExample02">
+              <span class="nav-item portalLink">
+                <a class="nav-link" href="/index.php"><i class="fa fa-search" aria-hidden="true"></i> Browse Events</a>
+              </span>
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="/index.php">Browse Events<span class="sr-only sr-only-focusable">(current)</span></a>
-              </li>
-              {% if not user.userinfo.isAdmin %}
-              <li class="nav-item">
-                <a class="nav-link" href="/provider.php">Provider</a>
-              </li>
-              {% endif %}
-              {% if user.userinfo.isAdmin or not user.is_authenticated %}
-                <li class="nav-item">
-                <a class="nav-link" href="/admin.php">Admin</a>
-              </li>
-              {% endif %}
               {% if not user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="/admin_user">Create Administrator Account</a>
+              <li class="nav-item noMobile">
+                <a class="nav-link" href="admin_user">Create Administrator Account</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item noMobile">
                 <a class="nav-link" href="/create_database">Wipe Events & Recreate Categories</a>
+
+              <li class="nav-item noMobile">
+                <a class="nav-link" href="admin_activate">Reactivate Administrator Account</a>
               </li>
               {% endif %}
             </ul>
           </div>
-        <span class="form-inline mt-2 mt-md-0">
+        <span class="form-inline mt-2 mt-md-0 noMobile">
         {% if user.is_authenticated %}
             {% if not user.userinfo.isAdmin and user.is_authenticated %}
-                <a class="nav-link" style="color:white;">{{ user.userinfo.org_name }}</a>
+                <span class="portalLink">
+                    <a href="/provider.php" class="nav-link" ><i class="fa fa-user" aria-hidden="true"></i> {{ user.userinfo.org_name }}</a>
+                </span>
+            {% endif %}
+            {% if user.userinfo.isAdmin or not user.is_authenticated %}
+             <span class="portalLink">
+                <a class="nav-link" href="/admin.php"><i class="fa fa-user-secret" aria-hidden="true"></i> Admin</a>
+             </span>
             {% endif %}
             <button onclick="window.location.href='/logout'" class="btn btn-outline-light my-2 my-sm-0" >Logout</button>
         {% else %}
