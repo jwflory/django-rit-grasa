@@ -344,6 +344,9 @@ button i.fa{
     overflow-y: scroll;
     max-height:200px;
 }
+label.pl-2.checkbox{
+    width:100%;
+}
 /*makes footer not cover content on mobile*/
 @media (max-width: 576px){
     body {
