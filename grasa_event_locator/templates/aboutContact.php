@@ -23,76 +23,23 @@
 				<h2 id="contact">Contact Us</h2>
 				<hr><br>
 				<div class="row">
-					<div class="col-lg-7">
-						<div class="form-contact">
-						<form action="aboutContact.php">
-							<div class="form-row">
-								
-								<div class="form-group col-md-6">
-									<label for="exampleInputName">Full Name</label>
-									<input type="text" class="form-control" placeholder="Enter full name *">
-								</div>
-								
-								<div class="form-group col-md-6">
-									<label for="exampleInputNumber">Phone Number</label>
-									<input type="number" class="form-control" placeholder="Contact Number *">
-								</div>
-								
-							</div>
-							
-							<div class="form-row">
-								<div class="form-group col-md-12">
-									<label for="exampleInputEmail1">Email address</label>
-									<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email *">
-									<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-								</div>
-							</div>
-							
-							<div class="form-row">
-								<div class="form-group col-md-12">
-									<label for="exampleInputSubject">Subject</label>
-									<input type="text" class="form-control" placeholder="Subject *">
-								</div>
-							</div>
-							
-							<div class="form-row">	
-								<div class="form-group col-md-12">
-									<label for="exampleInputMsg">Message</label>
-									<textarea class="form-control" rows="6" placeholder="Type your message for us here *"></textarea>
-								</div>
-							</div>
-								<button type="submit" class="btn btn-success">Submit</button>
-							
-							
-						</form>
-						</div>
-					</div>
 					
-					
-					<div class="col-lg-1">
-					</div>
-					<div class="col-lg-4 address">
+					<div class="col-lg-3 address">
 						
-						<h5>Call Us </h5>
-						<p><a href="tel:+5951234567"><i class="fa fa-phone" aria-hidden="true"></i> (+1) 585-123-4567 </a><br>
-						
-						</p>
-						<h5>Email</h5>
-						<p>
-							<a href="mailto:johndoe@gmail.com"><i class="fa fa-envelope"></i>
-							johndoe@gmail.com</a>
-						</p>						
-						<h5>Website</h5>
-						<p>
-							<a href="https://www.monroecounty.gov/" target="_blank"><i class="fa fa-globe"></i>
-							www.moroecounty.gov </a>							
-						</p>
 						<h5>Office Hours</h5>
 						<p>
 							Mon - Fri : 9am - 5pm <br>
 							Sat - Sun : closed
 						</p>
-						
+						<br>												
+						<h5>Website</h5>						
+							<a href="https://www.monroecounty.gov/" target="_blank"><i class="fa fa-globe"></i>
+							www.moroecounty.gov </a>							
+											
+					</div>
+					
+					<div class="col-lg-3 address">	
+					
 						<h5>Address</h5>
 						<p>
 							111 Monroe County <br>
@@ -100,8 +47,44 @@
 							
 						</p>
 					</div>
+					
+					<div class="col-lg-3 address">
+						
+						<h5 id="office">Call Us </h5>
+						
+						<h6> HR Office: </h6>
+							<a href="tel:+5951234567"><i class="fa fa-phone" aria-hidden="true"></i> (+1) 585-123-4567 </a><br>
+						
+						
+						<h6>IT Office: </h6>						
+							<a href="tel:+5951234567"><i class="fa fa-phone" aria-hidden="true"></i> (+1) 585-123-4567 </a><br>						
+						
+					</div>
+					
+					<div class="col-lg-3 address">
+						
+						<h5 id="email">Email</h5>
+						
+						<h6> HR Office: </h6>						
+							<a href="mailto:johndoe@gmail.com"><i class="fa fa-envelope"></i>
+							johndoe@gmail.com</a>
+												
+						
+						<h6> IT Office: </h6>					
+							<a href="mailto:johndoe2@gmail.com"><i class="fa fa-envelope"></i>
+							johndoe@gmail.com</a>
+						
+						
+					</div>
 				</div>
 			</div>
-		
+	
+	<div class="container social-container">
+		<div>
+			<a href="#" class="fa fa-facebook"></a>
+			<a href="#" class="fa fa-twitter"></a>
+			<a href="#" class="fa fa-linkedin"></a>
+		</div>
+	</div>
 	
 {% include "footer.php" %}
