@@ -19,6 +19,7 @@ urlpatterns = [
     path('editEvent/<eventID>', views.editEvent, name='edit_page'),
     path('event/<eventID>', views.event, name='event_page'),
     path('index.php', views.index),
+    path('', views.index),
     path('login.php', views.login, name='login_page'),
     path('provider.php', views.provider, name='provider_page'),
     path('register.php', views.register),
