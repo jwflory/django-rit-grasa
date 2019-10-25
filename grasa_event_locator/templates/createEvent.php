@@ -1,6 +1,7 @@
 {% include "header.php" %}
 <div class="container event-container">
     <h2>Create Event</h2>
+    <p class="text-muted">An event will not display in the system until it is approved by the administrators. Please put any additional information for your event in the description section.</p>
     <div class="row">
         <div class="col-12">
             <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#cancelModal">Cancel</button>
@@ -64,24 +65,51 @@
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Tell us about your program..." name="content" required></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Tell us about your program..." name="content" required></textarea>
                     <div class="invalid-feedback">
                         Please provide a description for your program.
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Location</label>
-                    <input type="text" class="form-control" id="addressInput" placeholder="Street Address..." name="address" required>
-                    <input type="hidden" id="lat" name="lat" value="0" readonly>
-                    <input type="hidden" id="lng" name="lng" value="0" readonly>
-                    <div class="invalid-feedback">
-                        Please provide your program's street address.
+                <fieldset class="pocFieldset">
+                    <legend>Event Location</legend>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                          <label for="loc1">Street Address</label>
+                          <input type="text" class="form-control" id="loc1" placeholder="Street Address" required>
+                          <div class="invalid-feedback">
+                            Please provide a Street Address.
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <label for="loc2">City</label>
+                          <input type="text" class="form-control" id="loc2" placeholder="City" required>
+                          <div class="invalid-feedback">
+                            Please provide a City.
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <label for="loc3">State</label>
+                          <input type="text" class="form-control" id="loc3" placeholder="NY" pattern="[A-Za-z]{2}" required>
+                          <div class="invalid-feedback">
+                            Please provide a valid state.
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <label for="loc4">Zip</label>
+                          <input type="text" class="form-control" id="loc4" placeholder="Zip" pattern="[0-9]{5}" required>
+                          <div class="invalid-feedback">
+                            Please provide a valid zip.
+                          </div>
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="addressInput" placeholder="Street Address..." name="address" >
+                        <input type="hidden" id="lat" name="lat" value="0" readonly>
+                        <input type="hidden" id="lng" name="lng" value="0" readonly>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Website (optional)</label>
-                    <input type="url" class="form-control" id="exampleFormControlInput1" placeholder="http://" name="website">
-                </div>
+                </fieldset>
+                
+                
                 <fieldset class="pocFieldset">
                     <legend>Point of Contact</legend>
                    <div class="form-row">
@@ -164,6 +192,10 @@
                         Please select at least one time.
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>Website (optional)</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="http://" name="website">
+                </div>
 
 
             </div>
@@ -226,6 +258,7 @@
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function(form) {
           form.addEventListener('submit', function(event) {
+            combineLocation()
             if(form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
@@ -282,6 +315,15 @@
           }, false); 
         }, false);
     })();
+    
+    function combineLocation(){
+        //put location items in hidden input val
+        var street = $('#loc1').val();
+        var city = $('#loc2').val();
+        var state = $('#loc3').val();
+        var zip = $('#loc4').val();
+        $('#addressInput').val(street+" "+city+" "+state+" "+zip)
+    }
     
     //function that geocodes the street address
     function doGeocoding(){

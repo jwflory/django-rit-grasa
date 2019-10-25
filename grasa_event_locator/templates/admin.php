@@ -66,7 +66,7 @@
             
         
         <!--New User Approval-->
-            <h4 class="top-20">Pending Users </h4>
+            <h4 class="top-20">Pending Users</h4>
                 <table class="table table-bordered">
                   <thead class="thead-light">
                     <tr>
