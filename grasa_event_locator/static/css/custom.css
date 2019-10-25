@@ -304,12 +304,15 @@ body{
     padding-left: 10px;  
     padding-bottom: 20px;
 }
-.changeNameInput{
+.changeNameInput, .changeEmailInput{
     visibility: hidden;
     height: 0;
 }
 
 /*icon width fix*/
+.event-page-card {
+    border: none;
+}
 .event-page-card i.fa, .event-container i.fa{
     width:30px;
 }
@@ -348,6 +351,12 @@ button i.fa{
 .event-container ul.multiselect-container{
     overflow-y: scroll;
     max-height:200px;
+}
+label.pl-2.checkbox{
+    width:100%;
+}
+.custom-select{
+    text-overflow: ellipsis;
 }
 /*makes footer not cover content on mobile*/
 @media (max-width: 576px){

@@ -19,11 +19,15 @@
                 {% for user in userList %}
                 <tr>
                   <th scope="row">{{ user.org_name }}</th>
-                  <td><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:{{ user.user }}">{{ user.user }}</a></td>
-                  <td><i class="fa fa-user" aria-hidden="true"></i> {{ user.contact_name }}<br>
-                  <i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:{{ user.contact_email }}">{{ user.contact_email }}</a><br>
-                  <i class="fa fa-phone" aria-hidden="true"></i> {{ user.contact_phone }}
-                  </td>
+
+                  <td><a href="mailto:{{ user.user }}">{{ user.user }}</a></td>
+                  <td> 
+                      <i class="fa fa-user fa-fw" aria-hidden="true"></i> {{         user.contact_name }}<br>
+                      <i class="fa fa-envelope fa-fw" aria-hidden="true"></i> <a href="mailto:{{ pendingUser.contact_email }}">{{ user.contact_email }}</a><br>
+                      <i class="fa fa-phone fa-fw" aria-hidden="true"></i> {{ user.contact_phone }}
+                    
+                    </td>
+
                   <td> TBD </td>
                   <!--Set target to correct modal so it deletes the correct user-->
                   <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ user.id }}">Delete</button></td>
