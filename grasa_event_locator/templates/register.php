@@ -158,7 +158,7 @@
     okBtn.onclick = function(){
         //SUBMITS the form
         $('form').submit()
-        window.location = 'index.php'
+        //window.location = 'index.php';
     }
     
     //confirm password extra validation
