@@ -460,21 +460,21 @@ span.subhead::before, span.subhead::after {
 /* Styles for Social Media icons on About & Contact page */
 
 .social-container {	
-	padding: 10px;
-	padding-top: 20px;
-	text-align: center;
+    padding: 10px;
+    padding-top: 20px;
+    text-align: center;
 }
 
-.fa {
-  padding: 20px;
+.social-container .fa {
+  padding-top: 20px;
+  padding-bottom: 20px;
   font-size: 30px;
   width: 50px;
   text-align: center;
   text-decoration: none;
   margin: 5px 2px;
 }
-
-.fa:hover {
+.social-container .fa:hover {
     opacity: 0.7;
 }
 
