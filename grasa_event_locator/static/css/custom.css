@@ -411,7 +411,6 @@ label.pl-2.checkbox{
 	text-align:center;
 	display:block;
 	position:relative;
-	
 }
 
 #about {
@@ -465,16 +464,16 @@ span.subhead::before, span.subhead::after {
 	text-align: center;
 }
 
-.fa {
-  padding: 20px;
+.social-container .fa {
+  padding-top: 20px;
+  padding-bottom: 20px;
   font-size: 30px;
   width: 50px;
   text-align: center;
   text-decoration: none;
   margin: 5px 2px;
 }
-
-.fa:hover {
+.social-container .fa:hover {
     opacity: 0.7;
 }
 
