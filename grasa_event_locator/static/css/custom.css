@@ -355,6 +355,9 @@ button i.fa{
 label.pl-2.checkbox{
     width:100%;
 }
+.custom-select{
+    text-overflow: ellipsis;
+}
 /*makes footer not cover content on mobile*/
 @media (max-width: 576px){
     body {
