@@ -1,12 +1,73 @@
 {% include "header.php" %}
 <!-- Homepage -->
 
-<div class="container home-container">
+<div class="home-container">
     <form method="get" action=".">
-    <div class="row">
-    <!-- most outer row-->
-        <div class="col-sm-3 filter-col">
-        <!-- Filter column-->
+        <div class="row search-row"><!-- search bar row-->
+            <div class="filter-alert alert alert-danger alert-dismissible fade show w-100" role="alert">
+              Filters Cleared
+            </div>
+            <div class="input-group mb-3 search-bar">
+              <div class="input-group-prepend">
+                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#filterModal">
+                <i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
+              </div>
+              {{ form.q }}
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2" aria-label="Search" value="Search"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- search results column-->
+                    <div class="row">
+                    <!-- Search Results Row-->
+                        <div id="results-box">
+                        {% for result in object_list %}
+                            <a href="{% url 'event_page' result.object.id %}"> 
+                            <div class="card w-100 event-box">
+                              <div class="card-body row">
+                                <div class="col-sm-6">
+                                    <h5 class="card-title">{{ result.object.title }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ result.object.user_id.org_name }}</h6>
+                                </div>
+                                <div class="col-sm-6 right-info">
+                                        {% for t in result.object.categories.all %}
+                                            <!--Merged from index, makes only activity categories show-->
+                                            {% if t.id <= 18 %}
+                                                <span class="badge badge-info card-title">
+                                                {{ t }}
+                                                </span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ result.object.address }}</h6>
+                                </div>
+                              </div>
+                                </div>
+                            </a>   
+                        {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            <div class="col-sm-6">
+            <!-- map column-->
+                <div id="mapid"></div>
+            </div>
+        </div> <!-- main row-->
+
+        <!--Filter Modal-->
+        <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Search Filters</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
             <div class="accordion" id="accordionExample">
                 <div class="card">
                     <div class="card-header" id="headingActivity">
@@ -73,69 +134,17 @@
                     </div>
                 </div>
             </div>
-            
-            
-            
-            <div class="row filter-btn-row">
-            <!-- button row-->
-                <div class="col-12">
-                    <div class="filter-alert alert alert-danger alert-dismissible fade show" role="alert">
-                      Filters Cleared
-                    </div>
+          </div>
+          <div class="modal-footer">
+            <div class="btn-group col-12" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-danger" id="clearFilters" data-dismiss="modal">Clear Filters</button>  
+                    <button type="button" class="btn btn-outline-success" data-dismiss="modal">Apply Filters</button>
                 </div>
-                <div class="btn-group col-12" role="group" aria-label="Basic example">
-                  <button type="button" class="btn btn-secondary btn-outline-success">Apply Filters</button>
-                  <button type="button" class="btn btn-secondary btn-outline-danger" id="clearFilters">Clear Filters</button>
-                </div>
-            </div>
+          </div>
         </div>
-        <div class="col-sm-9">
-        <!-- search results column-->
-            <div class="row">
-            <!-- search bar row-->
-                <div class="input-group mb-3 search-bar">
-                
-                  {{ form.q }}
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2" aria-label="Search" value="Search"><i class="fa fa-search" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-            </div>
-            <div class="row">
-            <!-- Search Results Row-->
-                <div id="results-box">
-                {% for result in object_list %}
-                    <a href="{% url 'event_page' result.object.id %}"> <div class="card w-100 event-box">
-                      <div class="card-body row">
-                        <div class="col-sm-6">
-                            <h5 class="card-title">{{ result.object.title }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ result.object.user_id.org_name }}</h6>
-                        </div>
-                        <div class="col-sm-6 right-info">
-                                {% for t in result.object.categories.all %}
-                                    <!--Merged from index, makes only activity categories show-->
-                                    {% if t.id <= 18 %}
-                                        <span class="badge badge-info card-title">
-                                        {{ t }}
-                                        </span>
-                                    {% endif %}
-                                {% endfor %}
-                            <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ result.object.address }}</h6>
-                        </div>
-                      </div>
-                    </div>
-                    </a>
-                {% endfor %}
-                </div>
-                
-            </div>
-        </div>
+      </div>
     </div>
     </form>
-    <div class="row">
-    <!-- map row-->
-        <div id="mapid"></div>
-    </div>
 </div>
 <!--Leaflet JS-->
 <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"

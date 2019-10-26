@@ -37,12 +37,19 @@ body{
     color: #28a745;
 }
 /*Home Styles*/
-.home-container, .event-container {
+.event-container {
     margin-top: 40px;
+}
+.home-container{
+    padding:20px;
+}
+.search-row{
+    padding-right:10px;
+    padding-left:10px;
 }
 /*Leaflet Map Styles*/
 #mapid{
-    height: 400px; 
+    height: 500px; 
     width: 100%; 
     margin-top: 20px;
     margin-bottom: 20px;
