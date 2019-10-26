@@ -89,7 +89,7 @@
                         </div>
                         <div class="col-md-2">
                           <label for="loc3">State</label>
-                          <select class="form-control" required>
+                          <select class="form-control" id ="loc3" required>
                                 <option value="AL">AL</option>
                                 <option value="AK">AK</option>
                                 <option value="AR">AR</option>	
@@ -310,7 +310,7 @@
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function(form) {
           form.addEventListener('submit', function(event) {
-            combineLocation()
+            combineLocation();
             if(form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
