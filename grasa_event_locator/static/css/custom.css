@@ -43,26 +43,11 @@ body{
 .home-container{
     padding:20px;
 }
-.search-row{
-    padding-right:10px;
-    padding-left:10px;
-}
 /*Leaflet Map Styles*/
 #mapid{
-    height: 500px; 
+    height: 600px; 
     width: 100%; 
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
-/* Google Maps Styles
-#gmap_canvas{
-    width:100%;
-    height:400px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 1px solid lightgray;
-    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
-}*/
 
 .accordion .card-header {
     width:100%;
@@ -74,10 +59,6 @@ body{
     text-decoration: none;
     color: black;
 }
-/*.accordion .card-header button.btn:focus{
-    box-shadow: 0 0 5px rgba(0, 123, 255, 1);
-    border: 1px solid rgba(0, 123, 255, 1);
-}*/
 .accordion .card-header button.btn i{
     padding: 5px;
 }
@@ -99,26 +80,55 @@ body{
 }
 .search-bar, #results-box{
     padding-left: 15px;
-    padding-right: 15px; 
-    margin-top: 15px;
+    padding-right: 15px;
 }
 #results-box a{
     color: inherit;
     text-decoration: none;
 }
-@media (min-width: 576px){
-    .filter-col {
-        padding-left: 0;  
-    }
-    .search-bar{
-        padding:0;
-        margin: 0;
-    }
-    #results-box{
-        padding:0;
-    }
+#viewBtns{
+    margin-bottom: 20px;
+}
+@media (min-width: 992px){
     .right-info{
         text-align: right !important;
+    }
+}
+@media (max-width: 992px){
+    .right-info{
+        text-align: left !important;
+    }
+}
+/*before mobile collapse*/
+#filterBtnBig{
+    display: block;
+}
+#filterBtnSmall{
+    display: none;
+}
+#viewBtns{
+    margin-top:15px;
+}
+/*styles to do on mobile collapse*/
+@media (min-width: 768px){
+    #filterBtnBig{
+        display: none;
+    }
+    #filterBtnSmall{
+        display: block;
+    }
+    #viewBtns{
+        display: none;
+    }
+}
+@media (max-width: 768px){
+    #mapid{
+        visibility: hidden;
+        height: 0;
+    }
+    .searchBtn{
+        border-bottom-right-radius: 0.25rem !important;
+        border-top-right-radius: 0.25rem !important;
     }
 }
 .distance-input{
@@ -370,6 +380,8 @@ label.pl-2.checkbox{
     body {
         margin-bottom: 140px;
     }
+}
+@media (max-width: 767px){
     .noMobile{
         display: none;
     }

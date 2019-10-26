@@ -3,55 +3,65 @@
 
 <div class="home-container">
     <form method="get" action=".">
-        <div class="row search-row"><!-- search bar row-->
-            <div class="filter-alert alert alert-danger alert-dismissible fade show w-100" role="alert">
-              Filters Cleared
-            </div>
-            <div class="input-group mb-3 search-bar">
-              <div class="input-group-prepend">
-                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#filterModal">
-                <i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
-              </div>
-              {{ form.q }}
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit" id="button-addon2" aria-label="Search" value="Search"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
-              </div>
-            </div>
-        </div>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-md-6 search-col-fix">
                 <!-- search results column-->
-                    <div class="row">
-                    <!-- Search Results Row-->
-                        <div id="results-box">
-                        {% for result in object_list %}
-                            <a href="{% url 'event_page' result.object.id %}"> 
-                            <div class="card w-100 event-box">
-                              <div class="card-body row">
-                                <div class="col-sm-6">
-                                    <h5 class="card-title">{{ result.object.title }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ result.object.user_id.org_name }}</h6>
-                                </div>
-                                <div class="col-sm-6 right-info">
-                                        {% for t in result.object.categories.all %}
-                                            <!--Merged from index, makes only activity categories show-->
-                                            {% if t.id <= 18 %}
-                                                <span class="badge badge-info card-title">
-                                                {{ t }}
-                                                </span>
-                                            {% endif %}
-                                        {% endfor %}
-                                    <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ result.object.address }}</h6>
-                                </div>
-                              </div>
-                                </div>
-                            </a>   
-                        {% endfor %}
+                <div class="row search-row"><!-- search bar row-->
+                    <div class="filter-alert alert alert-danger alert-dismissible fade show w-100" role="alert">
+                      Filters Cleared
+                    </div>
+                    <div class="input-group mb-3 search-bar">
+                      {{ form.q }}
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary searchBtn" type="submit" id="button-addon2" aria-label="Search" value="Search"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                          <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#filterModal" id="filterBtnSmall"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
+                      </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#filterModal" id="filterBtnBig">
+                        <i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
+                        <div class="btn-group w-100" id="viewBtns" role="group" >
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="viewResults">View Results</button>  
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" id="viewMap">View Map</button>
                         </div>
-
                     </div>
                 </div>
-            <div class="col-sm-6">
+                <div class="row">
+                <!-- Search Results Row-->
+                    <div id="results-box">
+                    {% for result in object_list %}
+                        <a href="{% url 'event_page' result.object.id %}"> 
+                        <div class="card w-100 event-box">
+                          <div class="card-body row">
+                            <div class="col-lg-6">
+                                <h5 class="card-title">{{ result.object.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ result.object.user_id.org_name }}</h6>
+                            </div>
+                            <div class="col-lg-6 right-info">
+                                    <!--Merged from index, makes only activity categories show-->
+                                <div class="activities-badges mb-2">
+                                    {% for t in result.object.categories.all %}
+                                        {% if t.id <= 18 %}
+                                            <span class="badge badge-info">
+                                            {{ t }}
+                                            </span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ result.object.address }}</h6>
+                            </div>
+                          </div>
+                        </div>
+                        </a>   
+                    {% endfor %}
+                    </div>
+
+                </div>
+                </div>
+            <div class="col-md-6">
             <!-- map column-->
                 <div id="mapid"></div>
             </div>
@@ -136,7 +146,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <div class="btn-group col-12" role="group" aria-label="Basic example">
+            <div class="btn-group col-12" role="group" >
                     <button type="button" class="btn btn-outline-danger" id="clearFilters" data-dismiss="modal">Clear Filters</button>  
                     <button type="button" class="btn btn-outline-success" data-dismiss="modal">Apply Filters</button>
                 </div>
@@ -175,33 +185,46 @@
         }, 2000);
     }
     
+    //View Buttons on Mobile
+    document.getElementById('viewMap').onclick = function(){
+        $("#viewMap").removeClass("btn-outline-secondary").addClass("btn-secondary");
+        $("#viewResults").removeClass("btn-secondary").addClass("btn-outline-secondary");
+        $("#results-box").css('visibility', 'hidden');
+        $("#results-box").css('height', '0px');
+        $("#mapid").css('visibility', 'visible');
+        $("#mapid").css('height', '600px');
+    }
+    
+    document.getElementById('viewResults').onclick = function(){
+         $("#viewResults").removeClass("btn-outline-secondary").addClass("btn-secondary");
+        $("#viewMap").removeClass("btn-secondary").addClass("btn-outline-secondary");
+        $("#mapid").css('visibility', 'hidden');
+        $("#mapid").css('height', '0px');
+        $("#results-box").css('visibility', 'visible');
+        $("#results-box").css('height', '600px');
+    }
+    
 
     //Leaflet Code
     //init
-    var mymap = L.map('mapid').setView([43.0846, -77.6743], 13);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox.streets',
-        accessToken: 'sk.eyJ1IjoibGRpZG9uYXRvIiwiYSI6ImNrMTdzdmN4YTFqODgzbnBrOHB4ZzJ1dzQifQ.T7D-X5eab-y3J-KIu_WTBw'
-    }).addTo(mymap);
+    function initMap(){
+        var mymap = L.map('mapid').setView([43.0846, -77.6743], 13);
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'sk.eyJ1IjoibGRpZG9uYXRvIiwiYSI6ImNrMTdzdmN4YTFqODgzbnBrOHB4ZzJ1dzQifQ.T7D-X5eab-y3J-KIu_WTBw'
+        }).addTo(mymap);
 
-    //markers
-    //testing colors https://github.com/pointhi/leaflet-color-markers
-    var greenIcon = new L.Icon({
-      iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
+        //markers
 
-    //Merged from index, plots all events on map
-    {% for lat, lng, html_string in zip_table %}
-    var marker = L.marker([{{ lat }},  {{ lng }}]).addTo(mymap);
-    marker.bindPopup("<div class='leafeventPopup'>{{ html_string | safe }}</div>").openPopup();
-    {% endfor %}
+        //Merged from index, plots all events on map
+        {% for lat, lng, html_string in zip_table %}
+        var marker = L.marker([{{ lat }},  {{ lng }}]).addTo(mymap);
+        marker.bindPopup("<div class='leafeventPopup'>{{ html_string | safe }}</div>").openPopup();
+        {% endfor %}
+    }
+    initMap();
 
 </script>
 {% include "footer.php" %}
