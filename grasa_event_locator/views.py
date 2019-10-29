@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import *
+from .functions import *
 from .models import *
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import permission_required
@@ -16,7 +17,7 @@ from django.db import *
 import rebuildIndex
 import random
 import string
-from django.core.mail import send_mail
+
 
 def aboutContact(request):
         return render(request, 'aboutContact.php')
@@ -278,6 +279,7 @@ def login(request):
                             return render(request,'login.php', context)
                         if user is not None and user.userinfo.isActive:
                                 auth_login(request, user)
+                                print(send_email([request.POST['email']], "GRASA - Successful Login", "You Logged In!"))
                                 if request.user.userinfo.isAdmin:
                                         return HttpResponseRedirect("admin.php")
                                 else:
@@ -342,19 +344,15 @@ def resetpw(request):
                         resetlink = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(15)])
                         resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink)
                         resetPWURL.save()
-                        print(send_mail(
-                                'Test',
-                                'Link at http://hleong.ddns.net:8001/changePWLogout/' + resetlink,
-                                'grasatest@yahoo.com',
-                                [request.POST['emailAddr']],
-                                fail_silently=False,
-                        ))
+                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "Link at http://hleong.ddns.net:8001/changePWLogout/" + resetlink))
+
         return render(request, 'resetPW.php')
 
 def changePWLogout(request, reset_string):
         if request.method == 'POST' and request.POST['new'] == request.POST['confirm']:
                 print(reset_string)
                 username = resetPWURLs.objects.get(reset_string=reset_string)
+                print(username)
                 user = User.objects.get(username=username.user_ID)
                 print(user)
                 user.set_password(request.POST['new'])
