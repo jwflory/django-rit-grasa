@@ -12,6 +12,7 @@ class userInfo(models.Model):
     contact_phone = models.CharField(max_length=255, default="Phone Number not Specified")
     contact_email = models.CharField(max_length=255, default="Email Address not Specified")
     image_reference = models.CharField(max_length=40, default="NOT SPECIFIED")
+    last_login = models.CharField(max_length=100, default="Has Not Logged In")
 
     def __str__(self):
         return self.org_name
