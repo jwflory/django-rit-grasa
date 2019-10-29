@@ -3,13 +3,16 @@
 FROM python:3.6-stretch
 
 WORKDIR /app
-COPY . /app
+COPY Pipfile /app
+COPY Pipfile.lock /app
 
 RUN apt-get --yes update \
     && apt-get --yes upgrade \
     && pip3 install pipenv
 
 RUN pipenv install --system --deploy --dev
+
+COPY . /app
 
 EXPOSE 8000
 
