@@ -201,11 +201,9 @@ def login(request):
                             return render(request,'login.php', context)
                         if user is not None and user.userinfo.isActive:
                                 auth_login(request, user)
-                                print(send_email([request.POST['email']], "GRASA - Successful Login", "You Logged In!"))
                                 u = userInfo.objects.get(pk=request.user.id)
                                 u.last_login = str(datetime.now())[:-7]
                                 u.save()
-                                print(u.last_login)
                                 if request.user.userinfo.isAdmin:
                                         return HttpResponseRedirect("admin.php")
                                 else:
@@ -269,7 +267,8 @@ def resetpw(request):
                         resetlink = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(15)])
                         resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink)
                         resetPWURL.save()
-                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "Link at http://hleong.ddns.net:8001/changePWLogout/" + resetlink))
+                        # Make sure to pull the hostname from config file.
+                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "Link at http://grasa.larrimore.de/changePWLogout/" + resetlink))
 
         return render(request, 'resetPW.php')
 
