@@ -43,7 +43,7 @@ def admin_activate(request):
         return HttpResponseRedirect("login.php")
 
 def admin_user(request):
-        newUser = UserAccount.objects.create_user("admin@admin.admin", "admin@admin.admin", "Password1")
+        newUser = UserAccount.objects.create_user("grasatest@yahoo.com", "grasatest@yahoo.com", "Password1")
         uInfo = userInfo(user=newUser, org_name="Administrator")
         uInfo.save()
         with connection.cursor() as cursor:
