@@ -30,14 +30,6 @@ For more information, see the `repo on GitHub <https://github.com/jwflory/django
 
     dev/*
 
-.. toctree::
-    :maxdepth: 2
-    :name: api
-    :caption: API:
-    :glob:
-
-    api/*
-
 
 ******************
 Indices and tables
