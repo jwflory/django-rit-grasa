@@ -148,7 +148,7 @@
           <div class="modal-footer">
             <div class="btn-group col-12" role="group" >
                     <button type="button" class="btn btn-outline-danger" id="clearFilters" data-dismiss="modal">Clear Filters</button>  
-                    <button type="button" class="btn btn-outline-success" data-dismiss="modal">Apply Filters</button>
+                    <button type="button" class="btn btn-outline-success" id="submitOkBtn" data-dismiss="modal" value="Search">Apply Filters</button>
                 </div>
           </div>
         </div>
@@ -183,6 +183,12 @@
         setTimeout(function() {
             $(".filter-alert").hide();
         }, 2000);
+    }
+
+    var okBtn = document.getElementById('submitOkBtn');
+    okBtn.onclick = function(){
+        //SUBMITS the form
+        $('form').submit()
     }
     
     //View Buttons on Mobile
@@ -219,12 +225,20 @@
         //markers
 
         //Merged from index, plots all events on map
-        {% for lat, lng, html_string in zip_table %}
-        var marker = L.marker([{{ lat }},  {{ lng }}]).addTo(mymap);
-        marker.bindPopup("<div class='leafeventPopup'>{{ html_string | safe }}</div>").openPopup();
+        // {% for lat, lng, html_string in zip_table %}
+        // var marker = L.marker([{{ lat }},  {{ lng }}]).addTo(mymap);
+        // marker.bindPopup("<div class='leafeventPopup'>{{ html_string | safe }}</div>").openPopup();
+        // {% endfor %}
+
+        {% for result in object_list %}
+        var marker = L.marker([{{ result.object.lat }},  {{ result.object.lng }}]).addTo(mymap);
+        marker.bindPopup("<div class='leafeventPopup'><b>{{ result.object.title }}</b><br>{{ result.object.address }}<br><a href='/event/" + {{ result.object.id }} + "'>Details</a></div>").openPopup();
         {% endfor %}
+
     }
     initMap();
+
+
 
 </script>
 {% include "footer.php" %}
