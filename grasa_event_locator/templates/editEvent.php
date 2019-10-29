@@ -1,5 +1,4 @@
 {% include "header.php" %}
-
 <div class="container event-container">
     <h2>Edit Event</h2>
     <p class="text-muted">When you edit your event it will need to be re-submited for approval by the administrators. Until the change is approved, your event will remain the same.</p>
@@ -23,12 +22,12 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nevermind</button>
                 <button type="button" class="btn btn-primary" id="cancelBtn">Confirm Cancel</button>
-
+                
               </div>
             </div>
           </div>
         </div>
-
+        
         <!--Submit Modal-->
         <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -40,19 +39,19 @@
                 </button>
               </div>
               <div class="modal-body">
-               Your event will be submitted to the administrators for approval. Until it is approved, your event will not appear in search results.
+               Looks Good! Your event will be submitted to the administrators for approval. Until it is approved, your event will not appear in search results.
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
                 <button type="button" class="btn btn-success" id="submitOkBtn"><i class="fa fa-check" aria-hidden="true"></i> Submit for Approval</button>
-
+                
               </div>
             </div>
           </div>
         </div>
-
+        
     </div>
-
+    
     <form class="needs-validation" method="post" novalidate>
     {% csrf_token %}
       <div class="form-row">
@@ -66,30 +65,109 @@
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Tell us about your program..." name="content" required>{{ event.content }}</textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Tell us about your program..." name="content" required>{{ event.content }}</textarea>
                     <div class="invalid-feedback">
                         Please provide a description for your program.
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Location</label>
-                    <input type="text" class="form-control" id="addressInput" placeholder="Street Address..." name="address" value="{{ event.address}}" required>
-                    <input type="text" id="lat" name="lat" value="0">
-                    <input type="text" id="lon" name="lon" value="0">
-                    <div class="invalid-feedback">
-                        Please provide your program's street address.
+                <fieldset class="pocFieldset">
+                    <legend>Event Location</legend>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                          <label for="loc1">Street Address</label>
+                          <input type="text" class="form-control" id="loc1" placeholder="Street Address" value="{{ event.address}}" required>
+                          <div class="invalid-feedback">
+                            Please provide a Street Address.
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <label for="loc2">City</label>
+                          <input type="text" class="form-control" id="loc2" placeholder="City" required>
+                          <div class="invalid-feedback">
+                            Please provide a City.
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <label for="loc3">State</label>
+                          <select class="form-control" id ="loc3" required>
+                                <option value="AL">AL</option>
+                                <option value="AK">AK</option>
+                                <option value="AR">AR</option>	
+                                <option value="AZ">AZ</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DC">DC</option>
+                                <option value="DE">DE</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="IA">IA</option>	
+                                <option value="ID">ID</option>
+                                <option value="IL">IL</option>
+                                <option value="IN">IN</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="MA">MA</option>
+                                <option value="MD">MD</option>
+                                <option value="ME">ME</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MO">MO</option>	
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="NC">NC</option>	
+                                <option value="NE">NE</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>			
+                                <option value="NV">NV</option>
+                                <option value="NY" selected>NY</option>
+                                <option value="ND">ND</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC</option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TN</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VT">VT</option>
+                                <option value="VA">VA</option>
+                                <option value="WA">WA</option>
+                                <option value="WI">WI</option>	
+                                <option value="WV">WV</option>
+                                <option value="WY">WY</option>
+                            </select>	
+                          <div class="invalid-feedback">
+                            Please provide a valid state.
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <label for="loc4">Zip</label>
+                          <input type="text" class="form-control" id="loc4" placeholder="Zip" pattern="[0-9]{5}" required>
+                          <div class="invalid-feedback">
+                            Please provide a valid zip.
+                          </div>
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="addressInput" placeholder="Street Address..." name="address" >
+                        <input type="hidden" id="lat" name="lat" value="0" readonly>
+                        <input type="hidden" id="lng" name="lng" value="0" readonly>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Website (optional)</label>
-                    <input type="url" class="form-control" id="exampleFormControlInput1" placeholder="{{ event.website }}" name="website">
-                </div>
+                </fieldset>
+                
+                
                 <fieldset class="pocFieldset">
                     <legend>Point of Contact</legend>
                    <div class="form-row">
                         <div class="form-group col-md-4">
                           <label for="contactname">Name</label>
-                          <input type="text" class="form-control" id="contactname" placeholder="Name..." name="contact_name" value="{{ event.contact_name }}"required>
+                          <input type="text" class="form-control" id="contactname" placeholder="Name..." name="contact_name" value="{{ event.contact_name }}" required>
                             <div class="invalid-feedback">
                                 Please provide your program's contact name.
                             </div>
@@ -103,9 +181,9 @@
                         </div>
                         <div class="form-group col-md-4">
                           <label for="phone">Phone</label>
-                          <input type="tel" class="form-control" id="phone" placeholder="Phone..." name="contact_phone" value={{ event.contact_phone }} required>
+                          <input type="tel" class="form-control" id="phone" placeholder="xxx-xxx-xxxx" name="contact_phone" pattern="^\d{3}-\d{3}-\d{4}$" value="{{ event.contact_phone }}" required>
                             <div class="invalid-feedback">
-                                Please provide your program's contact phone number.
+                                Please provide your program's contact phone number and format as xxx-xxx-xxxx.
                             </div>
                         </div>
                       </div>
@@ -123,8 +201,9 @@
                 <div class="form-group">
                     <label>Transportation</label>
                     <select class="form-control" name="transportation" required>
-                        <option name="Transportation Not Provided">Transportation Not Provided</option>
-                        <option name="Transportation Provided">Transportation Provided</option>
+                        <!--Refactored to match header and forms as well as fix duplicate search bug-->
+                        <option name="Not-Provided">Not-Provided</option>
+                        <option name="Provided">Provided</option>
                     </select>
                 </div>
                 <div class="form-group text-left multiBox">
@@ -138,9 +217,10 @@
                 <div class="form-group">
                     <label>Gender</label>
                     <select class="form-control" name="gender" required>
-                        <option name="Not Specified">Not Specific</option>
-                        <option name="Female">Female</option>
-                        <option name="Male">Male</option>
+                        <!--Refactored to match header and forms as well as fix duplicate search bug-->
+                        <option name="Non-Specific">Non-Specific</option>
+                        <option name="Female-Only">Female-Only</option>
+                        <option name="Male-Only">Male-Only</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -149,7 +229,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                       </div>
-                      <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" name="fees" required>
+                      <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" name="fees" step=".01" required>
                         <div class="invalid-feedback">
                             Please enter total amount of fees. If the program is free enter 0.00
                         </div>
@@ -163,6 +243,10 @@
                      <div class="invalid-feedback">
                         Please select at least one time.
                     </div>
+                </div>
+                <div class="form-group">
+                    <label>Website (optional)</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="http://" name="website" value="{{ event.website }}">
                 </div>
 
 
@@ -185,7 +269,6 @@
     okBtn.onclick = function(){
         //SUBMITS the form
         $('form').submit()
-        window.location = 'provider.php'
     }
 
     //fill checkbox selects
@@ -217,11 +300,6 @@
         }
     }
 
-    //geocoding
-    /*
-    $('#addressInput').focusout(function() {
-        doGeocoding()
-    });*/
 
     //Validation
     (function() {
@@ -232,13 +310,14 @@
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function(form) {
           form.addEventListener('submit', function(event) {
-            //doGeocoding()
+            combineLocation();
             if(form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
             }else{
+                event.preventDefault();
+                event.stopPropagation();
                 //IF CLIENT SIDE VALIDATION WORKS YOU END UP HERE
-                // event.preventDefault();  stops page from submitting, moved that to modal function
                 doGeocoding().then(function(results){
                     //sends an alert if something is wrong with the geocoding.
                     if(geoCheck() === false){
@@ -247,9 +326,10 @@
                         $('#submitModal').modal('show');
                     }
                 });
+                
             }
             form.classList.add('was-validated');
-
+              
             //validation style fix for multiselect
             var multiList = document.getElementsByClassName("multiBox");
             for(var i=0; i<multiList.length;i++){
@@ -270,7 +350,7 @@
                         var label = parentBtn.firstChild
                         var txt = $(label).text()
                         if(txt == "None selected"){
-                            //error make red and
+                            //error make red and 
                             $(parentBtn).css('border', 'solid 1px #dc3545')
                             $(parentBtn).find("i").remove();
                             $(parentBtn).append('<i class="fa fa-times" aria-hidden="true" style="color:#dc3545;padding-top:5px;padding-right:5px;"></i>')
@@ -284,17 +364,24 @@
                 }
             }
             });
-          }, false);
+          }, false); 
         }, false);
     })();
-
+    
+    function combineLocation(){
+        //put location items in hidden input val
+        var street = $('#loc1').val();
+        var city = $('#loc2').val();
+        var state = $('#loc3').val();
+        var zip = $('#loc4').val();
+        $('#addressInput').val(street+" "+city+" "+state+" "+zip)
+    }
+    
     //function that geocodes the street address
     function doGeocoding(){
         var streetString = $('#addressInput').val();
         var api_url = 'http://www.mapquestapi.com/geocoding/v1/address?key=nEoQhpyWJ6K3nx0wsur3eVa4oYAfhvhY&location='+streetString
-        return fetch(api_url)
-          .then((resp) => resp.json())
-          .then(function(data) {
+        return fetch(api_url).then((resp) => resp.json()).then(function(data) {
             if(data.info.statuscode === 0){
                  $('#lat').val(data.results[0].locations[0].latLng.lat)
                  $('#lng').val(data.results[0].locations[0].latLng.lng)
@@ -311,7 +398,7 @@
             return false;
         });
     }
-
+    
     //function to check if the geocoding worked
     function geoCheck(){
         if($('#lat').val() === 'nil' || $('#lng').val() === 'nil'){
@@ -320,6 +407,6 @@
             return true;
         }
     }
-
+    
 </script>
 {% include "footer.php" %}
