@@ -45,7 +45,7 @@ body{
 }
 /*Leaflet Map Styles*/
 #mapid{
-    height: 600px; 
+    height: 500px; 
     width: 100%; 
 }
 
@@ -136,7 +136,7 @@ body{
 }
 #results-box{
     width:100%;
-    height: 545px;
+    height: 445px;
     overflow-y: scroll;
 }
 #results-box .card{
