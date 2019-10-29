@@ -19,7 +19,7 @@
                 <tr>
                 {% for user in userList %}
                   <th scope="row"><a href="mailto:{{ user.user }}">{{ user.user }}</a></th>
-                  <th scope="row">time</th>
+                  <th scope="row">{{ user.last_login }}</th>
                   <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
                 </tr>
                 {% endfor %}

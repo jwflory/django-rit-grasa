@@ -17,7 +17,8 @@ from django.db import *
 import rebuildIndex
 import random
 import string
-
+import time
+from datetime import datetime
 
 def aboutContact(request):
         return render(request, 'aboutContact.php')
@@ -280,11 +281,14 @@ def login(request):
                         if user is not None and user.userinfo.isActive:
                                 auth_login(request, user)
                                 print(send_email([request.POST['email']], "GRASA - Successful Login", "You Logged In!"))
+                                u = userInfo.objects.get(pk=request.user.id)
+                                u.last_login = str(datetime.now())[:-7]
+                                u.save()
+                                print(u.last_login)
                                 if request.user.userinfo.isAdmin:
                                         return HttpResponseRedirect("admin.php")
                                 else:
                                         return HttpResponseRedirect("provider.php")
-
                         else:
                                 context = {'pendingUser' : False, 'wrongCredentials' : True}
                                 return render(request,'login.php', context)
