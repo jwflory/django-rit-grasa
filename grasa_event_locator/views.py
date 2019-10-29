@@ -14,6 +14,9 @@ from haystack.forms import SearchForm
 import time
 from django.db import *
 import rebuildIndex
+import random
+import string
+from django.core.mail import send_mail
 
 def aboutContact(request):
         return render(request, 'aboutContact.php')
@@ -331,7 +334,37 @@ def register(request):
         return render(request, 'register.php', )
 
 def resetpw(request):
+        i = 0
+        if request.method == 'POST':
+                if User.objects.filter(username=request.POST['emailAddr']).exists():
+                        with connection.cursor() as cursor:
+                                cursor.execute("DELETE FROM `grasa_event_locator_resetpwurls` WHERE `user_ID` = '" + request.POST['emailAddr'] + "';")
+                        resetlink = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(15)])
+                        resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink)
+                        resetPWURL.save()
+                        print(send_mail(
+                                'Test',
+                                'Link at http://hleong.ddns.net:8001/changePWLogout/' + resetlink,
+                                'grasatest@yahoo.com',
+                                [request.POST['emailAddr']],
+                                fail_silently=False,
+                        ))
         return render(request, 'resetPW.php')
+
+def changePWLogout(request, reset_string):
+        if request.method == 'POST' and request.POST['new'] == request.POST['confirm']:
+                print(reset_string)
+                username = resetPWURLs.objects.get(reset_string=reset_string)
+                user = User.objects.get(username=username.user_ID)
+                print(user)
+                user.set_password(request.POST['new'])
+                user.save()
+                with connection.cursor() as cursor:
+                        cursor.execute(
+                                "DELETE FROM `grasa_event_locator_resetpwurls` WHERE `user_ID` = '" + username.user_ID + "';")
+                return redirect("login_page")
+        else:
+                return render(request, 'changePWLogout.php')
 
 #Functional views, post only, need to be logged in admin, self defining names
 

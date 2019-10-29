@@ -137,3 +137,7 @@ class Program(models.Model):
     def denyProgram(self, id):
         p = self.get_by_id(id)
         p.delete()
+
+class resetPWURLs(models.Model):
+    user_ID = models.TextField(default="DEFAULT PROVIDER")
+    reset_string = models.CharField(max_length=15, default="A DEFAULTSTRING")

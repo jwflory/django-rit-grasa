@@ -14,9 +14,6 @@ CACHES = {
     }
 }
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-
 # DJANGO DEBUG TOOLBAR SETTINGS
 # https://django-debug-toolbar.readthedocs.org
 def show_toolbar(request):
