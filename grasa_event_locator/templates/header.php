@@ -81,10 +81,6 @@
               </li>
               <li class="nav-item noMobile">
                 <a class="nav-link" href="/create_database">Wipe Events & Recreate Categories</a>
-
-              <li class="nav-item noMobile">
-                <a class="nav-link" href="admin_activate">Reactivate Administrator Account</a>
-              </li>
               {% endif %}
             </ul>-->
           </div>

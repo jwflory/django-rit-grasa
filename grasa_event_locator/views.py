@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import *
+from .functions import *
 from .models import *
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import permission_required
@@ -16,7 +17,8 @@ from django.db import *
 import rebuildIndex
 import random
 import string
-from django.core.mail import send_mail
+import time
+from datetime import datetime
 
 def aboutContact(request):
         return render(request, 'aboutContact.php')
@@ -41,7 +43,7 @@ def admin_activate(request):
         return HttpResponseRedirect("login.php")
 
 def admin_user(request):
-        newUser = UserAccount.objects.create_user("admin@admin.admin", "admin@admin.admin", "Password1")
+        newUser = UserAccount.objects.create_user("grasatest@yahoo.com", "grasatest@yahoo.com", "Password1")
         uInfo = userInfo(user=newUser, org_name="Administrator")
         uInfo.save()
         with connection.cursor() as cursor:
@@ -51,86 +53,7 @@ def admin_user(request):
         return HttpResponseRedirect("index.php")
 
 def create_database(request):
-        with connection.cursor() as cursor:
-                cursor.execute("delete from grasa_event_locator_program_categories")
-                cursor.execute("delete from grasa_event_locator_program")
-                cursor.execute("delete from grasa_event_locator_category")
-                cursor.execute("ALTER TABLE grasa_event_locator_category AUTO_INCREMENT = 1")
-        table = Category(description="Academic Support")
-        table.save()
-        table = Category(description="Arts and Culture")
-        table.save()
-        table = Category(description="Career or College Readiness")
-        table.save()
-        table = Category(description="Civic Engagement")
-        table.save()
-        table = Category(description="Community Service / Service Learning")
-        table.save()
-        table = Category(description="Entrepreneurship / Leadership")
-        table.save()
-        table = Category(description="Financial Literacy")
-        table.save()
-        table = Category(description="Health & Wellness")
-        table.save()
-        table = Category(description="Media Technology")
-        table.save()
-        table = Category(description="Mentoring")
-        table.save()
-        table = Category(description="Nature & the Environment")
-        table.save()
-        table = Category(description="Play")
-        table.save()
-        table = Category(description="Public Speaking")
-        table.save()
-        table = Category(description="Social and Emotional Learning (SEL)")
-        table.save()
-        table = Category(description="Sports and Recreation")
-        table.save()
-        table = Category(description="STEM")
-        table.save()
-        table = Category(description="Tutoring")
-        table.save()
-        table = Category(description="Other")
-        table.save()
-        #Refactored to match header and forms as well as fix duplicate search bug
-        table = Category(description="Not-Provided")
-        table.save()
-        table = Category(description="Provided")
-        table.save()
-        table = Category(description="K-3rd")
-        table.save()
-        table = Category(description="K-5th")
-        table.save()
-        table = Category(description="3rd-5th")
-        table.save()
-        table = Category(description="6th-8th")
-        table.save()
-        table = Category(description="9th-12th")
-        table.save()
-        #Refactored to match header and forms
-        table = Category(description="Non-Specific")
-        table.save()
-        #Refactored to match header and forms as well as fix duplicate search bug
-        table = Category(description="Female-Only")
-        table.save()
-        #Refactored to match header and forms as well as fix duplicate search bug
-        table = Category(description="Male-Only")
-        table.save()
-        #Refactored to match header and forms as well as fix duplicate search bug
-        table = Category(description="Before-School")
-        table.save()
-        #Refactored to match header and forms as well as fix duplicate search bug
-        table = Category(description="After-School")
-        table.save()
-        table = Category(description="Evenings")
-        table.save()
-        table = Category(description="Weekends")
-        table.save()
-        table = Category(description="Summer")
-        table.save()
-        #Refactored to "Other Time" to avoid conflicts with activities "Other" as well as fix duplicate search bug
-        table = Category(description="Other-Time")
-        table.save()
+        write_categories_table()
         return HttpResponseRedirect("index.php")
 
 def allUsers(request):
@@ -278,11 +201,13 @@ def login(request):
                             return render(request,'login.php', context)
                         if user is not None and user.userinfo.isActive:
                                 auth_login(request, user)
+                                u = userInfo.objects.get(pk=request.user.id)
+                                u.last_login = str(datetime.now())[:-7]
+                                u.save()
                                 if request.user.userinfo.isAdmin:
                                         return HttpResponseRedirect("admin.php")
                                 else:
                                         return HttpResponseRedirect("provider.php")
-
                         else:
                                 context = {'pendingUser' : False, 'wrongCredentials' : True}
                                 return render(request,'login.php', context)
@@ -342,19 +267,16 @@ def resetpw(request):
                         resetlink = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(15)])
                         resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink)
                         resetPWURL.save()
-                        print(send_mail(
-                                'Test',
-                                'Link at http://hleong.ddns.net:8001/changePWLogout/' + resetlink,
-                                'grasatest@yahoo.com',
-                                [request.POST['emailAddr']],
-                                fail_silently=False,
-                        ))
+                        # Make sure to pull the hostname from config file.
+                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "Link at http://grasa.larrimore.de/changePWLogout/" + resetlink))
+
         return render(request, 'resetPW.php')
 
 def changePWLogout(request, reset_string):
         if request.method == 'POST' and request.POST['new'] == request.POST['confirm']:
                 print(reset_string)
                 username = resetPWURLs.objects.get(reset_string=reset_string)
+                print(username)
                 user = User.objects.get(username=username.user_ID)
                 print(user)
                 user.set_password(request.POST['new'])
