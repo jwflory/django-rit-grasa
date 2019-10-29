@@ -74,7 +74,7 @@
               <span class="nav-item portalLink">
                 <a class="nav-link" href="/index.php"><i class="fa fa-search" aria-hidden="true"></i> Browse Events</a>
               </span>
-            <ul class="navbar-nav mr-auto">
+            <!--<ul class="navbar-nav mr-auto">
               {% if not user.is_authenticated %}
               <li class="nav-item noMobile">
                 <a class="nav-link" href="/admin_user">Create Administrator Account</a>
@@ -82,7 +82,7 @@
               <li class="nav-item noMobile">
                 <a class="nav-link" href="/create_database">Wipe Events & Recreate Categories</a>
               {% endif %}
-            </ul>
+            </ul>-->
           </div>
         <span class="form-inline mt-2 mt-md-0 noMobile">
         {% if user.is_authenticated %}
