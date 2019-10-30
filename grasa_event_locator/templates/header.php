@@ -66,7 +66,7 @@
 </script>
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-          <a class="navbar-brand" aria-label="GRASA-Logo" href="../search/">
+          <a class="navbar-brand" aria-label="GRASA-Logo" href="/index.php">
           <img id="header-logo" src="{% static "img/grasalogo.png" %}" alt="Logo">
         </a>
 
