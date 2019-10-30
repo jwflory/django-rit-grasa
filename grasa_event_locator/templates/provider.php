@@ -66,9 +66,9 @@
                           <h5>Additional Contact Information:
                               <button type="button" class="btn btn-link float-right regHelpBtn" data-toggle="modal" data-target="#HelpModal">What's this?</button>
                          </h5>
-                          <i class="fa fa-user fa-fw" aria-hidden="true"></i> Name not Specified<br>
-                          <i class="fa fa-envelope fa-fw" aria-hidden="true"></i> Email Address not Specified<br>
-                          <i class="fa fa-phone fa-fw" aria-hidden="true"></i> Phone Number not Specified
+                          <i class="fa fa-user fa-fw" aria-hidden="true"></i> {{ user.userinfo.contact_name }}<br>
+                          <i class="fa fa-envelope fa-fw" aria-hidden="true"></i> {{ user.userinfo.contact_email }}<br>
+                          <i class="fa fa-phone fa-fw" aria-hidden="true"></i> {{ user.userinfo.contact_phone }}
                          
                                 <!-- Help Modal -->
                                 <div class="modal fade" id="HelpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
