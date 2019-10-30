@@ -33,6 +33,8 @@ def admin(request):
                 context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList}
 
                 return render(request, "admin.php", context)
+        if request.user.is_authenticated and request.user.userinfo.isAdmin == 0 and request.user.userinfo.isActive:
+                return HttpResponseRedirect('provider.php')
         else:
                 return HttpResponseRedirect("login.php")
         return render(request, 'admin.php')
@@ -235,7 +237,7 @@ def provider(request):
                 context = {'myEventList' : myEventList, 'currentUser' : currentUser}
                 return render(request, "provider.php", context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
-                return render(request, 'index.php', )
+                return HttpResponseRedirect('admin.php')
         else:
                 return HttpResponseRedirect("login.php")
 
