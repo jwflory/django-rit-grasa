@@ -223,18 +223,28 @@
         }).addTo(mymap);
 
         //markers
-
-        //Merged from index, plots all events on map
-        // {% for lat, lng, html_string in zip_table %}
-        // var marker = L.marker([{{ lat }},  {{ lng }}]).addTo(mymap);
-        // marker.bindPopup("<div class='leafeventPopup'>{{ html_string | safe }}</div>").openPopup();
-        // {% endfor %}
-
+        var dict = {};
         {% for result in object_list %}
-        var marker = L.marker([{{ result.object.lat }},  {{ result.object.lng }}]).addTo(mymap);
-        marker.bindPopup("<div class='leafeventPopup'><b>{{ result.object.title }}</b><br>{{ result.object.address }}<br><a href='/event/" + {{ result.object.id }} + "'>Details</a></div>").openPopup();
+        // For each result object we need to check if it shares an address with another result
+        // First we check if there is a matching latitude with one we've seen already
+        if("{{ result.object.lat }}" in dict){
+            // Here we have seen the latitude already, so we check to see if we've seen the longitude yet
+            if("{{ result.object.lng }}" in dict["{{ result.object.lat }}"]){
+                // Here we have seen the latitude and longitude already, so we should append to previuos event marker
+                dict["{{ result.object.lat }}"]["{{ result.object.lng }}"] = dict["{{ result.object.lat }}"]["{{ result.object.lng }}"] + "<hr><b>{{ result.object.title }}</b><br>{{ result.object.address }}<br><a href='/event/" + {{ result.object.id }} + "'>Details</a>";
+            } else {
+                dict["{{ result.object.lat }}"]["{{ result.object.lng }}"] = "<div class='leafeventPopup'><b>{{ result.object.title }}</b><br>{{ result.object.address }}<br><a href='/event/" + {{ result.object.id }} + "'>Details</a>";
+            }
+        } else{
+            dict["{{ result.object.lat }}"] = { "{{ result.object.lng }}" : "<div class='leafeventPopup'><b>{{ result.object.title }}</b><br>{{ result.object.address }}<br><a href='/event/" + {{ result.object.id }} + "'>Details</a>"};
+        }
         {% endfor %}
-
+        for(var lat in dict){
+            for(var lng in dict[lat]){
+                var marker = L.marker([parseFloat(lat), parseFloat(lng)]).addTo(mymap);
+                marker.bindPopup(dict[lat][lng]).openPopup();
+            }
+        }
     }
     initMap();
 
