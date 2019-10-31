@@ -187,7 +187,7 @@ def event(request, eventID):
 
 def login(request):
         if request.user.is_authenticated:
-                return HttpResponseRedirect("index.php")
+                return HttpResponseRedirect("search/search.html")
         if request.method == 'POST':
                         email = request.POST['email']
                         password = request.POST['password']
