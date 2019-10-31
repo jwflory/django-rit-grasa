@@ -19,6 +19,7 @@ import random
 import string
 import time
 from datetime import datetime
+from django.shortcuts import reverse
 
 def aboutContact(request):
         return render(request, 'aboutContact.php')
@@ -187,7 +188,7 @@ def event(request, eventID):
 
 def login(request):
         if request.user.is_authenticated:
-                return HttpResponseRedirect("search/search.html")
+                return HttpResponseRedirect(reverse('haystack_search'))
         if request.method == 'POST':
                         email = request.POST['email']
                         password = request.POST['password']
