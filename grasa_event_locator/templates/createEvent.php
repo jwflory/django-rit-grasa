@@ -182,7 +182,7 @@
                         <div class="form-group col-md-4">
                           <label for="phone">Phone</label>
                           <input type="tel" class="form-control" id="phone" placeholder="xxx-xxx-xxxx" name="contact_phone" pattern="^\d{3}-\d{3}-\d{4}$" required>
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback" id="contactMsg">
                                 Please provide your program's contact phone number and format as xxx-xxx-xxxx.
                             </div>
                         </div>
@@ -447,7 +447,6 @@
 	  // prevent it from going to the end
 	  // UNLESS
 	  // cursor was at the end AND a dash was added
-	 	  
 	  if (new_number.slice(-1) === '-' && restore === false
 		  && (new_number.length === 8 && selection_end === 7)
 			  || (new_number.length === 4 && selection_end === 3)) {
