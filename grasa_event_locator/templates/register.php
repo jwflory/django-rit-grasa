@@ -5,6 +5,12 @@
 		<div class="col-sm-12">
 					
 			<div class="form-register">
+
+        {% if emailTaken %}
+        <div class="alert alert-warning" role="alert">
+          An account has already been registered with this email address, please use another.
+        </div>
+        {% endif %}
   
 				<h1 class="h3 mb-3 font-weight-normal text-center top-20">Register as a Provider</h1>
                 <p class="text-muted text-center">Provider accounts must be approved by administrators before events can be made.</p>

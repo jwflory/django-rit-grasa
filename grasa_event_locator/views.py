@@ -249,21 +249,27 @@ def provider(request):
 
 def register(request):
         if request.method == 'POST' and request.POST['current'] == request.POST['confirm'] :
-                print("POST OK")
                 emailAddr = request.POST['emailAddr']
                 orgName = request.POST['orgName']
                 current = request.POST['current']
                 contact_name = request.POST['contact_name']
                 contact_email = request.POST['contact_email']
                 contact_phone = request.POST['contact_phone']
-                newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
-                uInfo = userInfo(user = newUser, org_name = orgName, contact_name = contact_name, contact_email = contact_email, contact_phone = contact_phone)
-                uInfo.save()
-                return redirect("login_page")
-                #return render(request, 'login.php')
+                #Check for Duplicate Email Entry (Email Already in Database)
+                checkInfo = UserAccount.objects.filter(email=emailAddr)
+                if(checkInfo.count() >= 1):
+                    context = {'emailTaken' : True}
+                    return render(request, 'register.php', context)
+                else:
+                    newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
+                    uInfo = userInfo(user = newUser, org_name = orgName, contact_name = contact_name, contact_email = contact_email, contact_phone = contact_phone)
+                    uInfo.save()
+                    return redirect("login_page")
         else:
-                return render(request, 'register.php', )
-        return render(request, 'register.php', )
+                context = {'emailTaken' : False}
+                return render(request, 'register.php', context)
+        context = {'emailTaken' : False}
+        return render(request, 'register.php', context)
 
 def resetpw(request):
         i = 0
