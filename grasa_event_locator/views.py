@@ -150,8 +150,12 @@ def createevent(request):
 
 def editEvent(request, eventID):
         event = Program.objects.get(pk=eventID)
-        context = {'event': event}
-        return render(request, 'editEvent.php', context)
+
+        if request.user.is_authenticated and request.user.userinfo.isActive and (request.user.userinfo.isAdmin or request.user.userinfo.id == event.user_id.id):
+            context = {'event': event}
+            return render(request, 'editEvent.php', context)
+        else:
+            return redirect("login_page")
 
 def event(request, eventID):
         event = Program.objects.get(pk=eventID)
