@@ -236,8 +236,9 @@ def provider(request):
                         change_username(request.user.username, request.POST['changeemail'] , request)
                         return render(request, 'provider.php')
                 if request.POST.get('changename'):
-                        with connection.cursor() as cursor:
-                                cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `org_name` = '" + request.POST['changename'] + "' WHERE `org_name` = '" + request.user.userinfo.org_name + "';")
+                        u = userInfo.objects.get(pk=request.user.id)
+                        u.org_name = request.POST['changename']
+                        u.save()
                         return render(request, 'provider.php')
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
