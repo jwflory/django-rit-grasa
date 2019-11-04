@@ -31,12 +31,11 @@
                              </h5>
                         </span>
                         <!-- edit email-->
-                        <form>
-                            
+                        <form method="POST" action="admin.php">{% csrf_token %}
                              <div class="input-group mb-3 changeEmailInput">
-                                <input type="text" class="form-control" placeholder="{{ user }}" aria-label="{{ user }}" value="{{ user }}" name="changeemail">
+                                <input type="text" name="changeemail" class="form-control" placeholder="{{ user }}" aria-label="{{ user }}" value="{{ user }}">
                               <div class="input-group-append">
-                                <button class="btn btn-outline-primary changeEmailSave" type="button" id="button-addon2">Save</button>
+                                <button type="submit" class="btn btn-outline-primary changeEmailSave" id="button-addon2">Save</button>
                               </div>
                             </div>
                         </form>

@@ -71,14 +71,14 @@
         </button>
       </div>
       <div class="modal-body">
-          <form>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Send an email to an organization you would like to invite as a provider:</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email...">
-      </div>
-              <div class="twentyblock"></div>
-       <button type="submit" class="btn btn-primary w-100">Send Invite</button>
-    </form>
+          <form method="post" action="allUsers.php">{% csrf_token %}
+              <div class="form-group">
+                <label for="exampleInputEmail1">Send an email to an organization you would like to invite as a provider:</label>
+                <input type="email" name="emailAddr" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email...">
+              </div>
+                      <div class="twentyblock"></div>
+               <button type="submit" class="btn btn-primary w-100">Send Invite</button>
+          </form>
       </div>
     </div>
   </div>

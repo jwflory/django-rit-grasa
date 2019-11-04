@@ -38,7 +38,7 @@
                         <form action="provider.php" method="post">
                             {% csrf_token %}
                              <div class="input-group mb-3 changeNameInput">
-                                <input type="text" class="form-control" placeholder="{{ user.userinfo.org_name }}" aria-label="{{ user.userinfo.org_name }}" value="{{ user.userinfo.org_name }}" name="changename">
+                                <input type="text" name="changename" class="form-control" placeholder="{{ user.userinfo.org_name }}" aria-label="{{ user.userinfo.org_name }}" value="{{ user.userinfo.org_name }}" name="changename">
                               <div class="input-group-append">
                                 <button class="btn btn-outline-primary changeNameSave" type="submit" id="button-addon2">Save</button>
                               </div>
@@ -51,12 +51,11 @@
                              </h5>
                         </span>
                         <!-- edit email-->
-                        <form>
-                            
+                        <form method="POST" action="provider.php">{% csrf_token %}
                              <div class="input-group mb-3 changeEmailInput">
-                                <input type="text" class="form-control" placeholder="{{ user }}" aria-label="{{ user }}" value="{{ user }}" name="changeemail">
+                                <input type="text" name="changeemail" class="form-control" placeholder="{{ user }}" aria-label="{{ user }}" value="{{ user }}">
                               <div class="input-group-append">
-                                <button class="btn btn-outline-primary changeEmailSave" type="button" id="button-addon2">Save</button>
+                                <button class="btn btn-outline-primary changeEmailSave" type="submit" id="button-addon2">Save</button>
                               </div>
                             </div>
                         </form>
