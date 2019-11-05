@@ -8,6 +8,11 @@
           An account has already been registered with this email address, please use another.
         </div>
         {% endif %}
+        {% if invalidEmail %}
+        <div class="alert alert-warning" role="alert">
+          The admin account has been created, but the email failed to send due to invalid formatting.
+        </div>
+        {% endif %}
         <button type="button" class="btn btn-info float-left" style="margin-bottom: 10px;" id="backBtn"> <i class="fa fa-chevron-left" aria-hidden="true" ></i> Back to Admin Portal</button>
         
         <button type="button" class="btn btn-success float-right" id="addAdmin" data-toggle="modal" data-target="#addadminModal"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Admin</button>
