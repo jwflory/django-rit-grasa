@@ -65,9 +65,6 @@ def write_categories_table():
     table.save()
     table = Category(description="Other")
     table.save()
-    # Refactored to match header and forms as well as fix duplicate search bug
-    table = Category(description="Not-Provided")
-    table.save()
     table = Category(description="Provided")
     table.save()
     table = Category(description="K-3rd")
@@ -79,9 +76,6 @@ def write_categories_table():
     table = Category(description="6th-8th")
     table.save()
     table = Category(description="9th-12th")
-    table.save()
-    # Refactored to match header and forms
-    table = Category(description="Non-Specific")
     table.save()
     # Refactored to match header and forms as well as fix duplicate search bug
     table = Category(description="Female-Only")

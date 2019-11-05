@@ -263,7 +263,7 @@
     //Cancel Button and Ok Button returns to provider page
     var cancelBtn = document.getElementById('cancelBtn');
     cancelBtn.onclick = function(){
-        window.location = 'provider.php'
+        window.location = '/provider.php'
     }
     var okBtn = document.getElementById('submitOkBtn');
     okBtn.onclick = function(){

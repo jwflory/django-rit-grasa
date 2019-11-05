@@ -28,7 +28,7 @@ activityList = [
     ("Tutoring", "Tutoring"),
     ("Other", "Other"),
 ]
-transportationList = [("Provided", "Provided"), ("Not-Provided", "Not-Provided")]
+transportationList = [("Provided", "Provided")]
 gradesList = [
     ("K-3rd", "K-3rd"),
     ("K-5th", "K-5th"),
@@ -39,7 +39,6 @@ gradesList = [
 genderList = [
     ("Male-Only", "Male-Only"),
     ("Female-Only", "Female-Only"),
-    ("Non-Specific", "Non-Specific"),
 ]
 feesList = [
     ("Free", "Free"),
@@ -162,7 +161,6 @@ class grasaSearchForm(SearchForm):
                 if gender[0] == selectedGender:
                     sqs = sqs.filter(content=gender[0])
 
-        # Needs changes
         selectedFees = self.cleaned_data["fees"]
         for selectedFee in selectedFees:
             # These need to be specially written since they aren't stored as a range in the DB

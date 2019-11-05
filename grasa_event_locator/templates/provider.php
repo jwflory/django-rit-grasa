@@ -121,15 +121,15 @@
               {% if myEvent.isPending == 1 %}
                 <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event" disabled>View</button></a></td>
                 <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn" disabled>Edit</button></a></td>
-                <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal" >Delete</button></td> 
+                <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ myEvent.id }}" >Delete</button></td> 
               {% else %}
               
               <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></a></td>
               <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn">Edit</button></a></td>
-              <td><button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#deleteModal">Delete</button></td>
+              <td><button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#deleteModal{{ myEvent.id }}">Delete</button></td>
               {% endif %}
               <!--Delete Modal-->
-                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                <div class="modal fade" id="deleteModal{{ myEvent.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -143,7 +143,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Never Mind</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="">Confirm Delete</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="window.location.href='{% url 'deny_event' myEvent.id %}'">Confirm Delete</button>
 
                       </div>
                     </div>

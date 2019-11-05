@@ -31,7 +31,7 @@
               <li class="list-group-item"><b>Grades: </b> {{ grades_list_pub }} </li>
               <li class="list-group-item"><b>Gender: </b> {{ gender_list_pub }}</li>
               {% if event.fees %}
-                <li class="list-group-item"><b>Fees: </b> ${{ event.fees }}</li>
+                <li class="list-group-item"><b>Fees: </b> ${{ fees }}</li>
               {% else %}
                 <li class="list-group-item"><b>Fees: </b> Free</li>
               {% endif %}

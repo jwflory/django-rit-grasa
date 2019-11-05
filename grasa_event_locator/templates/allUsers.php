@@ -28,7 +28,7 @@
                     
                     </td>
 
-                  <td> TBD </td>
+                  <td>{{ user.program_set.count }} </td>
                   <!--Set target to correct modal so it deletes the correct user-->
                   <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ user.id }}">Delete</button></td>
                 </tr>
