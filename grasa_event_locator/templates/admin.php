@@ -5,7 +5,7 @@
 
 	<div class="row">
     <!--Top Row-->
-        <div class="col-sm-9 card">
+        <div class="col-sm-12 card">
             <div class="card-body">
                     <div class="dropdown">
                       <a class="btn btn-link dropdown-toggle float-right " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -15,8 +15,6 @@
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item changeEmailLink" href="#">Change Email</a>
                         <a class="dropdown-item" data-toggle="modal" data-target="#changePWModal" href="#">Change Password</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item disabled" href="#">Change Site Logo</a>
                           
                       </div>
                     </div>
@@ -46,12 +44,6 @@
                 <button type="button" class="btn btn-warning" id="allAdmins"><i class="fa fa-user-secret" aria-hidden="true"></i> View Admins</button>
                 <button type="button" class="btn btn-info float-right" id="allEvents"><i class="fa fa-calendar" aria-hidden="true"></i> View All Events</button>
                 
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <h5 class="text-center">Site Logo</h5><hr>
-            <div class="card event-page-card">
-              <img src="{% static 'img/grasalogo.png' %}" class="admin-logo-change" alt="Site Logo">
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
 <div class="container event-container">
     <div class="row">
     <!--Top Row-->
-        <div class="col-sm-9 card">
+        <div class="col-sm-12 card">
             <div class="card-body">
                 <div class="dropdown">
                   <a class="btn btn-link dropdown-toggle float-right " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -11,7 +11,6 @@
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item changeNameLink" href="#">Change Organization Name</a>
-                    <a class="dropdown-item disabled" href="#">Change Logo</a>
                       
                     <div class="dropdown-divider"></div>
                       
@@ -20,8 +19,8 @@
                       
                     <div class="dropdown-divider"></div>
                      
-                    <a class="dropdown-item" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">View Additional Contact Info</a>
-                    <a class="dropdown-item disabled" href="#">Edit Additional Contact Info</a>
+                    <a class="dropdown-item" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">View Alternative Contact Info</a>
+                    <a class="dropdown-item disabled" href="#">Edit Alternative Contact Info</a>
                   </div>
                 </div>
                 <h2>Provider Portal</h2>
@@ -62,7 +61,7 @@
                     </div>
                     <div class="collapse col-sm-12" id="collapseExample">
                           <hr>
-                          <h5>Additional Contact Information:
+                          <h5>Alternative Contact Information:
                               <button type="button" class="btn btn-link float-right regHelpBtn" data-toggle="modal" data-target="#HelpModal">What's this?</button>
                          </h5>
                           <i class="fa fa-user fa-fw" aria-hidden="true"></i> {{ user.userinfo.contact_name }}<br>
@@ -93,13 +92,6 @@
                     </div>
 
                 </div>
-            </div>
-        </div>
-        
-        <div class="col-sm-3">
-            <h5 class="text-center">Logo</h5><hr>
-            <div class="card event-page-card">
-              <img src="https://via.placeholder.com/150" class="provider-logo-change" alt="Provider Logo">
             </div>
         </div>
         
