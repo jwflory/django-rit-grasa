@@ -25,7 +25,7 @@ def aboutContact(request):
         return render(request, 'aboutContact.php')
 
 def admin(request):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isPending == False:
                 pendingUserList = userInfo.objects.filter(isPending=True)
                 pendingEventList = Program.objects.filter(isPending=True).filter(editOf=0)
                 pendingEditList = Program.objects.filter(isPending=True).exclude(editOf=0)
@@ -33,25 +33,16 @@ def admin(request):
                 if request.method == "POST":
                         change_username(request.user.username, request.POST['changeemail'] , request)
                 return render(request, "admin.php", context)
-        if request.user.is_authenticated and request.user.userinfo.isAdmin == 0 and request.user.userinfo.isActive:
+        if request.user.is_authenticated and request.user.userinfo.isAdmin == False:
                 return HttpResponseRedirect('provider.php')
         else:
                 return HttpResponseRedirect("login.php")
         return render(request, 'admin.php')
 
-def admin_activate(request):
-        with connection.cursor() as cursor:
-                cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isActive` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
-        return HttpResponseRedirect("login.php")
-
 def admin_user(request):
         newUser = UserAccount.objects.create_user("grasatest@yahoo.com", "grasatest@yahoo.com", "Password1")
-        uInfo = userInfo(user=newUser, org_name="Administrator")
+        uInfo = userInfo(user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
         uInfo.save()
-        with connection.cursor() as cursor:
-                cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isAdmin` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
-                cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isPending` = '0' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
-                cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isActive` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
         return HttpResponseRedirect("index.php")
 
 def create_database(request):
@@ -59,37 +50,45 @@ def create_database(request):
         return HttpResponseRedirect("index.php")
 
 def allUsers(request):
-        userList = userInfo.objects.filter(isActive=True).filter(isAdmin=False)
+    if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
+        userList = userInfo.objects.filter(isPending=False).filter(isAdmin=False)
         context = {'userList': userList}
 
         if request.method == 'POST':
                 print(send_email([request.POST.get('emailAddr')], "GRASA - Event Locator Registration", "You've been invited to sign up for the GRASA Event Locator! Register at http://grasa.larrimore.de/register.php"))
         return render(request, 'allUsers.php', context)
+    return HttpResponseRedirect("index.php")
 
 def allAdmins(request):
+    if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
         userList = userInfo.objects.filter(isAdmin=True)
-        context = {'userList': userList}
-        if request.method == 'POST' and request.POST['confirm'] == request.POST['confirm']:
-                emailAddr = request.POST['emailAddr']
+        if request.method == 'POST' and request.POST['current'] == request.POST['confirm']:
+            #Check for Duplicate Email Entry (Email Already in Database)
+            emailAddr = request.POST['emailAddr']
+            checkInfo = UserAccount.objects.filter(email=emailAddr)
+            if(checkInfo.count() >= 1):
+                context = {'userList': userList, 'emailTaken' : True}
+                return render(request, 'allAdmins.php', context)
+            else:
                 current = request.POST['current']
                 newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
-                uInfo = userInfo(user=newUser, org_name="Administrator")
+                uInfo = userInfo(user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
                 uInfo.save()
-                with connection.cursor() as cursor:
-                        cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isAdmin` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
-                        cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isPending` = '0' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
-                        cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isActive` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
                 print(send_email([emailAddr], "GRASA - Administrator Account Created", "You've now been designated an Administrator at the GRASA Event Locator! Please consult GRASA for login information, if you have not already received it."))
-                return redirect("allAdmins.php")
-                #return render(request, 'login.php')
+                context = {'userList': userList, 'emailTaken' : False}
+                return render(request, 'allAdmins.php', context)
         else:
+                context = {'userList': userList, 'emailTaken' : False}
                 return render(request, 'allAdmins.php', context)
         return render(request, 'allAdmins.php', context)
+    return HttpResponseRedirect("index.php")
 
 def allEvents(request):
-        userList = userInfo.objects.filter(isActive=True)
-        context = {'userList': userList}
+    if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
+        programList = Program.objects.filter(isPending=False)
+        context = {'programList': programList}
         return render(request, 'allEvents.php', context)
+    return HttpResponseRedirect("index.php")
 
 def changepw(request):
         if request.user.is_authenticated:
@@ -119,6 +118,7 @@ def createevent(request):
                         i= i + 1
                 i = 0
                 for tag in request.POST.getlist('transportation'):
+                    if str(request.POST.getlist('transportation')[i]) != "Not-Provided":
                         var = Category.objects.get(description=str(request.POST.getlist('transportation')[i]))
                         var.save()
                         program.categories.add(var)
@@ -131,6 +131,7 @@ def createevent(request):
                         i = i + 1
                 i = 0
                 for tag in request.POST.getlist('gender'):
+                    if str(request.POST.getlist('gender')[i]) != "Non-Specific":
                         var = Category.objects.get(description=str(request.POST.getlist('gender')[i]))
                         var.save()
                         program.categories.add(var)
@@ -150,7 +151,7 @@ def createevent(request):
 def editEvent(request, eventID):
         event = Program.objects.get(pk=eventID)
 
-        if request.user.is_authenticated and request.user.userinfo.isActive and (request.user.userinfo.isAdmin or request.user.userinfo.id == event.user_id.id):
+        if request.user.is_authenticated and request.user.userinfo.isPending == False and (request.user.userinfo.isAdmin or request.user.userinfo.id == event.user_id.id):
             context = {'event': event}
             return render(request, 'editEvent.php', context)
         else:
@@ -163,30 +164,34 @@ def event(request, eventID):
         gender_list_pub = ""
         transportation_list_pub = ""
         topic_list = event.categories.filter(id__lte=18)
-        grades_list = event.categories.filter(id__gte=21)
-        grades_list = grades_list.filter(id__lte=25)
+        grades_list = event.categories.filter(id__gte=20)
+        grades_list = grades_list.filter(id__lte=24)
         for g in grades_list:
                 grades_list_pub = grades_list_pub + str(g) + ", "
         grades_list_pub = grades_list_pub[:-2]
 
-        timing_list = event.categories.filter(id__gte=29)
-        timing_list = timing_list.filter(id__lte=34)
+        timing_list = event.categories.filter(id__gte=27)
+        timing_list = timing_list.filter(id__lte=32)
         for t in timing_list:
                 timing_list_pub = timing_list_pub + str(t) + ", "
         timing_list_pub = timing_list_pub[:-2]
 
-        gender_list = event.categories.filter(id__gte=26)
-        gender_list = gender_list.filter(id__lte=28)
+        gender_list = event.categories.filter(id__gte=25)
+        gender_list = gender_list.filter(id__lte=26)
         for g in gender_list:
                 gender_list_pub = gender_list_pub + str(g) + ", "
         gender_list_pub = gender_list_pub[:-2]
+        if gender_list.count() == 0:
+                gender_list_pub = "Any Gender"
 
         transportation_list = event.categories.filter(id__gte=19)
-        transportation_list = transportation_list.filter(id__lte=20)
+        transportation_list = transportation_list.filter(id__lte=19)
         for t in transportation_list:
                 transportation_list_pub = transportation_list_pub + str(t)
+        if transportation_list.count() == 0:
+                transportation_list_pub = "Not Provided"
 
-        context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub}
+        context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
         return render(request, 'event.php', context)
 
 def login(request):
@@ -196,16 +201,16 @@ def login(request):
                         email = request.POST['email']
                         password = request.POST['password']
                         user = authenticate(request, username=email, password=password)
-                        #This will check that the user is active, if not
+                        #This will check that the user is approved, if not
                         #(say and un-approved account) it will not let them
                         #log in. Same if no email/password match a row in the
                         #database, but will log them in and cause .is_authenticated
                         #to return true otherwise.
-                        if user is not None and not user.userinfo.isActive:
+                        if user is not None and user.userinfo.isPending:
                             #Logic to see if the user is pending or doesn't exist
                             context = {'pendingUser' : True, 'wrongCredentials' : False}
                             return render(request,'login.php', context)
-                        if user is not None and user.userinfo.isActive:
+                        if user is not None and not user.userinfo.isPending:
                                 auth_login(request, user)
                                 u = userInfo.objects.get(pk=request.user.id)
                                 u.last_login = str(datetime.now())[:-7]
@@ -234,18 +239,17 @@ def provider(request):
         if request.method == 'POST':
                 if request.POST.get('changeemail'):
                         change_username(request.user.username, request.POST['changeemail'] , request)
-                        return render(request, 'provider.php')
                 if request.POST.get('changename'):
                         u = userInfo.objects.get(pk=request.user.id)
                         u.org_name = request.POST['changename']
                         u.save()
-                        return render(request, 'provider.php')
-        if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+                        rebuildIndex.rebuildWhooshIndex()
+        if request.user.is_authenticated and not request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
                 context = {'myEventList' : myEventList, 'currentUser' : currentUser}
                 return render(request, "provider.php", context)
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 return HttpResponseRedirect('admin.php')
         else:
                 return HttpResponseRedirect("login.php")
@@ -308,10 +312,9 @@ def changePWLogout(request, reset_string):
 #Functional views, post only, need to be logged in admin, self defining names
 
 def approveUser(request, userID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 u = userInfo.objects.get(pk=userID)
                 u.isPending = False
-                u.isActive = True
                 u.save()
                 print(send_email([u.contact_email], "GRASA - Alternate Contact", "You are the alternative contact for " + u.org_name + " in the GRASA Event Locator. Please contact them for further details."))
                 return redirect("admin_page")
@@ -319,21 +322,20 @@ def approveUser(request, userID):
                 return redirect("login_page")
 
 def denyUser(request, userID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 u = userInfo.objects.get(pk=userID)
                 #for program in u.program_set.all():
                 #    program.delete()
                 #^^^^^works but breaks page unless rebuild_index run
-                u.isPending = False
-                u.isActive = False
-                u.save()
+                u.delete()
+                rebuildIndex.rebuildWhooshIndex()
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
 
                 
 def approveEvent(request, eventID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 p = Program.objects.get(pk=eventID)
                 p.isPending = False
                 p.save()
@@ -344,16 +346,17 @@ def approveEvent(request, eventID):
                 return redirect("login_page")
 
 def denyEvent(request, eventID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
-                p = Program.objects.get(pk=eventID)
+        p = Program.objects.get(pk=eventID)
+        if request.user.is_authenticated and request.user.userinfo.isPending == False and (request.user.userinfo.isAdmin or request.user.userinfo.id == p.user_id.id):
+                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Denied/Deleted", "Your event -"+ str(p.title) +"- has been denied or deleted. Contact GRASA for details."))
                 p.delete()
-                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Denied", "Your event has been denied. Contact GRASA for details."))
+                rebuildIndex.rebuildWhooshIndex()
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
 
 def approveEdit(request, editID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 p = Program.objects.get(pk=editID)
                 oldP = Program.objects.get(pk=p.editOf)
                 #Strange issue here, I get no errors but editOf won't switch to 0 and oldP wont delete
@@ -367,7 +370,7 @@ def approveEdit(request, editID):
                 return redirect("login_page")
 
 def denyEdit(request, editID):
-        if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
+        if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 p = Program.objects.get(pk=editID)
                 p.delete()
                 print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Denied", "Your edited event has been denied. Contact GRASA for details."))

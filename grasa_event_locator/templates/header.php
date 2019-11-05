@@ -44,17 +44,17 @@
 
         //Transportation
         //Refactored to match header and forms as well as fix duplicate search bug
-        var transportationList = ["Provided", "Not-Provided"]
+        var transportationList = ["Provided"]
 
         //Grades Served
         var gradesList = ["K-3rd", "K-5th", "3rd-5th", "6th-8th", "9th-12th"]
 
         //Gender
         //Refactored to match header and forms as well as fix duplicate search bug
-        var genderList = ["Male-Only", "Female-Only", "Non-Specific"]
+        var genderList = ["Male-Only", "Female-Only"]
 
         //Distance
-        var distanceList = ["0-5 miles", "6-10 miles", "11-15 miles", "16-20 miles", "20+ miles"]
+        //var distanceList = ["0-5 miles", "6-10 miles", "11-15 miles", "16-20 miles", "20+ miles"]
 
         //Fees
         var feesList = ["Free", "$1-$25", "$26-$50", "$51-$75", "$75+"]

@@ -24,7 +24,7 @@
               <img src="https://via.placeholder.com/150" class="card-img-top" alt="Provider Logo">
               <ul class="list-group list-group-flush">
                 {% if event.fees %}
-                <li class="list-group-item"><i class="fa fa-money fa-fw" aria-hidden="true"></i> ${{ event.fees }}</li>
+                <li class="list-group-item"><i class="fa fa-money fa-fw" aria-hidden="true"></i> ${{ fees }}</li>
                 {% else %}
                 <li class="list-group-item"><i class="fa fa-money fa-fw" aria-hidden="true"></i> Not Provided </li>
                 {% endif %}

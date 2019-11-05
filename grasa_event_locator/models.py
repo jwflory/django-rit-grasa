@@ -6,7 +6,6 @@ class userInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     org_name = models.CharField(max_length=255)
     isAdmin = models.BooleanField(default=False)
-    isActive = models.BooleanField(default=False)
     isPending = models.BooleanField(default=True)
     contact_name = models.CharField(max_length=255, default="Name not Specified")
     contact_phone = models.CharField(max_length=255, default="Phone Number not Specified")
