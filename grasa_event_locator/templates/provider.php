@@ -19,8 +19,8 @@
                       
                     <div class="dropdown-divider"></div>
                      
-                    <a class="dropdown-item" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">View Additional Contact Info</a>
-                    <a class="dropdown-item disabled" href="#">Edit Additional Contact Info</a>
+                    <a class="dropdown-item" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">View Alternative Contact Info</a>
+                    <a class="dropdown-item disabled" href="#">Edit Alternative Contact Info</a>
                   </div>
                 </div>
                 <h2>Provider Portal</h2>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="collapse col-sm-12" id="collapseExample">
                           <hr>
-                          <h5>Additional Contact Information:
+                          <h5>Alternative Contact Information:
                               <button type="button" class="btn btn-link float-right regHelpBtn" data-toggle="modal" data-target="#HelpModal">What's this?</button>
                          </h5>
                           <i class="fa fa-user fa-fw" aria-hidden="true"></i> {{ user.userinfo.contact_name }}<br>
