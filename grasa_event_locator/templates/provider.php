@@ -2,7 +2,7 @@
 <div class="container event-container">
     <div class="row">
     <!--Top Row-->
-        <div class="col-sm-9 card">
+        <div class="col-sm-12 card">
             <div class="card-body">
                 <div class="dropdown">
                   <a class="btn btn-link dropdown-toggle float-right " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -11,7 +11,6 @@
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item changeNameLink" href="#">Change Organization Name</a>
-                    <a class="dropdown-item disabled" href="#">Change Logo</a>
                       
                     <div class="dropdown-divider"></div>
                       
@@ -93,13 +92,6 @@
                     </div>
 
                 </div>
-            </div>
-        </div>
-        
-        <div class="col-sm-3">
-            <h5 class="text-center">Logo</h5><hr>
-            <div class="card event-page-card">
-              <img src="https://via.placeholder.com/150" class="provider-logo-change" alt="Provider Logo">
             </div>
         </div>
         
