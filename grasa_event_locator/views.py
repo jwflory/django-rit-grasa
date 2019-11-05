@@ -40,7 +40,12 @@ def admin(request):
         return render(request, 'admin.php')
 
 def admin_user(request):
-        newUser = UserAccount.objects.create_user("grasatest@yahoo.com", "grasatest@yahoo.com", "Password1")
+        newUser = UserAccount.objects.create_superuser("grasatest@yahoo.com", "grasatest@yahoo.com", "Password1")
+        newUser.save()
+        newUser.isStaff = True
+        newUser.save()
+        newUser.is_admin = True
+        newUser.save()
         uInfo = userInfo(user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
         uInfo.save()
         return HttpResponseRedirect("index.php")
@@ -71,7 +76,7 @@ def allAdmins(request):
                 return render(request, 'allAdmins.php', context)
             else:
                 current = request.POST['current']
-                newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
+                newUser = UserAccount.objects.create_superuser(emailAddr, emailAddr, current)
                 uInfo = userInfo(user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
                 uInfo.save()
                 print(send_email([emailAddr], "GRASA - Administrator Account Created", "You've now been designated an Administrator at the GRASA Event Locator! Please consult GRASA for login information, if you have not already received it."))
@@ -324,10 +329,12 @@ def approveUser(request, userID):
 def denyUser(request, userID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 u = userInfo.objects.get(pk=userID)
+                v = User.objects.get(id = userID)
                 #for program in u.program_set.all():
                 #    program.delete()
                 #^^^^^works but breaks page unless rebuild_index run
                 u.delete()
+                v.delete()
                 rebuildIndex.rebuildWhooshIndex()
                 return redirect("admin_page")
         else:
