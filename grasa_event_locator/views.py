@@ -25,14 +25,20 @@ def aboutContact(request):
         return render(request, 'aboutContact.php')
 
 def admin(request):
-
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 pendingUserList = userInfo.objects.filter(isPending=True)
                 pendingEventList = Program.objects.filter(isPending=True).filter(editOf=0)
                 pendingEditList = Program.objects.filter(isPending=True).exclude(editOf=0)
-
                 context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList}
-
+                if request.method == "POST":
+                        if request.POST.get('changeemail'):
+                                change_username(request.user.username, request.POST['changeemail'] , request)
+                        if request.POST['current'] and request.POST['new'] and request.POST['confirm']:
+                                current = request.POST['current']
+                                new = request.POST['new']
+                                if request.user.check_password(current):
+                                        request.user.set_password(new)
+                                        request.user.save()
                 return render(request, "admin.php", context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin == 0 and request.user.userinfo.isActive:
                 return HttpResponseRedirect('provider.php')
@@ -233,9 +239,22 @@ def index(request):
 
 def provider(request):
         if request.method == 'POST':
-                 with connection.cursor() as cursor:
-                        cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `org_name` = '" + request.POST['changename'] + "' WHERE `org_name` = '" + request.user.userinfo.org_name + "';")
-                 return render(request, 'provider.php', )
+                if request.POST.get('changeemail'):
+                        change_username(request.user.username, request.POST['changeemail'], request)
+                        return render(request, 'provider.php')
+                if request.POST.get('changename'):
+                        u = userInfo.objects.get(pk=request.user.id)
+                        u.org_name = request.POST['changename']
+                        u.save()
+                        return render(request, 'provider.php')
+                if request.POST['current'] and request.POST['new'] and request.POST['confirm']:
+                        print(request.POST['current'])
+                        print(request.POST['new'])
+                        current = request.POST['current']
+                        new = request.POST['new']
+                        if request.user.check_password(current):
+                                request.user.set_password(new)
+                                request.user.save()
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
