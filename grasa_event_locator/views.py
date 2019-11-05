@@ -347,7 +347,7 @@ def denyEvent(request, eventID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 p = Program.objects.get(pk=eventID)
                 p.delete()
-                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Denied", "Your edited event has been denied. Contact GRASA for details."))
+                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Denied", "Your event has been denied. Contact GRASA for details."))
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
