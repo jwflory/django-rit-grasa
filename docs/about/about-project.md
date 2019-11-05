@@ -6,22 +6,23 @@ About this project
     This makes git diffs easier to read in PRs.
 -->
 
-The GRASA Events Locator is an events locator system to better connect Monroe County families to out-of-school programs in the Greater Rochester area.
-This application was created for the [Greater Rochester After-School Alliance](https://www.racf.org/About/Giving-Circles-Initiatives-and-Partnerships/Greater-Rochester-After-School-Alliance) by Team Platypus at the [Rochester Institute of Technology](https://www.rit.edu/).
+The GRASA Event Locator is an event locator system to connect Monroe County families to out-of-school programs in the Greater Rochester area.
+This application was created for the [Greater Rochester After-School Alliance](https://www.racf.org/About/Giving-Circles-Initiatives-and-Partnerships/Greater-Rochester-After-School-Alliance) and Monroe County, New York by [Team Platypus](#project-team) at the [Rochester Institute of Technology](https://www.rit.edu/).
 
 
 ## High level project description
 
-This takes the form of a web page containing a map that can be searched for programs.
-The user can then be presented with further information and registration options.
-This information was originally delivered via the [Explore Monroe website](http://exploremonroeny.com/calendar) as well as a physical book, the “[Adult Guide to Youth Services](https://www2.monroecounty.gov/files/youth/Adult_Guide%202011.pdf)”, both which GRASA and the Monroe County government wish to retire due to a lack of maintenance.
-Representatives from the sponsor have presented Team Platypus with several examples, including [Newark Thrives](http://youthprogramlocator.newark-thrives.org/) and the [Dallas After-School Network](http://dasn.force.com/dapf/ProgramFinder) as examples of what the final deliverable should look and function similarly to.
+This takes the form of a web page containing a map that can be searched for after-school events.
+Users are presented with further information and registration options.
+This information was originally delivered via the [Explore Monroe website](http://exploremonroeny.com/calendar) as well as a physical book, the “[Adult Guide to Youth Services](https://www2.monroecounty.gov/files/youth/Adult_Guide%202011.pdf)”, both which GRASA and the Monroe County government wish to retire due to lack of maintenance.
+GRASA representatives presented Team Platypus with several examples, including [Newark Thrives](http://youthprogramlocator.newark-thrives.org/) and the [Dallas After-School Network](http://dasn.force.com/dapf/ProgramFinder) as examples of final deliverables.
 
-The main highlight of the Resource Locator is the map.
-Similar to the [Newark Thrives Youth Program Locator](http://youthprogramlocator.newark-thrives.org/), the end user will use a search box, filter categories, and interact with the map to locate programs.
-These will be added to the site by the providers via an account system. An administrator from GRASA and the Monroe County government will approve these accounts, as well as creation and revisions of new programs.
-GRASA and Monroe County administrators can also add resources to a fixed Resources page.
-For the purposes of this project, the Resource Locator is not supported for programs beyond Monroe County.
+The main highlight of the GRASA Event Locator is the map.
+Similar to the [Newark Thrives Youth Program Locator](http://youthprogramlocator.newark-thrives.org/), the end user uses a search box with various filters and an interactive map to locate programs.
+Evemts are added to the site by providers via an account system.
+An administrator from GRASA and the Monroe County government approves these accounts, as well as creation and edits of an event.
+
+For the purposes of this project, the Event Locator does not support programs and events beyond Monroe County.
 
 
 ## Objectives
