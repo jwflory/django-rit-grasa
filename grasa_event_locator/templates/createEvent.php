@@ -447,7 +447,6 @@
 	  // prevent it from going to the end
 	  // UNLESS
 	  // cursor was at the end AND a dash was added
-	 	  
 	  if (new_number.slice(-1) === '-' && restore === false
 		  && (new_number.length === 8 && selection_end === 7)
 			  || (new_number.length === 4 && selection_end === 3)) {
