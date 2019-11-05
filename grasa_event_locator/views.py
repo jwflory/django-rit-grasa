@@ -39,6 +39,7 @@ def admin(request):
                                 if request.user.check_password(current):
                                         request.user.set_password(new)
                                         request.user.save()
+                        change_username(request.user.username, request.POST['changeemail'] , request)
                 return render(request, "admin.php", context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin == 0 and request.user.userinfo.isActive:
                 return HttpResponseRedirect('provider.php')
@@ -68,16 +69,15 @@ def create_database(request):
 def allUsers(request):
         userList = userInfo.objects.filter(isActive=True).filter(isAdmin=False)
         context = {'userList': userList}
+
+        if request.method == 'POST':
+                print(send_email([request.POST.get('emailAddr')], "GRASA - Event Locator Registration", "You've been invited to sign up for the GRASA Event Locator! Register at http://grasa.larrimore.de/register.php"))
         return render(request, 'allUsers.php', context)
 
 def allAdmins(request):
         userList = userInfo.objects.filter(isAdmin=True)
         context = {'userList': userList}
-
         if request.method == 'POST' and request.POST['confirm'] == request.POST['confirm']:
-                print(request.POST['emailAddr'])
-                print(request.POST['current'])
-                print(request.POST['confirm'])
                 emailAddr = request.POST['emailAddr']
                 current = request.POST['current']
                 newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
@@ -87,6 +87,7 @@ def allAdmins(request):
                         cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isAdmin` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
                         cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isPending` = '0' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
                         cursor.execute("UPDATE `grasa_event_locator_userinfo` SET `isActive` = '1' WHERE `grasa_event_locator_userinfo`.`org_name` = 'Administrator';")
+                print(send_email([emailAddr], "GRASA - Administrator Account Created", "You've now been designated an Administrator at the GRASA Event Locator! Please consult GRASA for login information, if you have not already received it."))
                 return redirect("allAdmins.php")
                 #return render(request, 'login.php')
         else:
@@ -300,7 +301,7 @@ def resetpw(request):
                         resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink)
                         resetPWURL.save()
                         # Make sure to pull the hostname from config file.
-                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "Link at http://grasa.larrimore.de/changePWLogout/" + resetlink))
+                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this linnk: http://grasa.larrimore.de/changePWLogout/" + resetlink))
 
         return render(request, 'resetPW.php')
 
@@ -328,6 +329,7 @@ def approveUser(request, userID):
                 u.isPending = False
                 u.isActive = True
                 u.save()
+                print(send_email([u.contact_email], "GRASA - Alternate Contact", "You are the alternative contact for " + u.org_name + " in the GRASA Event Locator. Please contact them for further details."))
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
@@ -351,9 +353,8 @@ def approveEvent(request, eventID):
                 p = Program.objects.get(pk=eventID)
                 p.isPending = False
                 p.save()
-
                 rebuildIndex.rebuildWhooshIndex()
-                
+                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Approved!", "Your event has been approved! See it at http://grasa.larrimore.de/event/" + str(p.id)))
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
@@ -362,6 +363,7 @@ def denyEvent(request, eventID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 p = Program.objects.get(pk=eventID)
                 p.delete()
+                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Denied", "Your event has been denied. Contact GRASA for details."))
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
@@ -375,6 +377,7 @@ def approveEdit(request, editID):
                 p.editOf = 0
                 p.isPending = False
                 p.save()
+                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Approved!", "Your edited event has been approved! See it at http://grasa.larrimore.de/event/" + str(p.id)))
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
@@ -383,6 +386,7 @@ def denyEdit(request, editID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isActive:
                 p = Program.objects.get(pk=editID)
                 p.delete()
+                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Denied", "Your edited event has been denied. Contact GRASA for details."))
                 return redirect("admin_page")
         else:
                 return redirect("login_page")

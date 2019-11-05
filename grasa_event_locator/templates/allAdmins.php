@@ -60,7 +60,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-    <form id="theForm" class="needs-validation" novalidate>
+    <form method="POST" action="allAdmins.php" id="theForm" class="needs-validation" novalidate>{% csrf_token %}
       <div class="modal-body">
 
         <div class="row">
@@ -101,7 +101,7 @@
 
             </div>
         </div>
-      </div> 
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
         <button type="submit" class="btn btn-success" value="Submit">Create Admin</button>

@@ -1,5 +1,5 @@
-How to: Add new dependencies / libraries?
-=========================================
+How to: Add new dependencies / libraries
+========================================
 
 If we use a new library or framework, we need to **install it as a dependency** in the project.
 Dependencies are specific versions of third-party software we want to use in the project.
@@ -55,10 +55,10 @@ The second command updates the `Pipfile.lock` file with your changes and ensures
 
 ### When testing dependencies, should `pip` or `pip3` be run?
 
-If in doubt, use them exactly as written in the step.
+If in doubt, use them exactly as written above.
 
-When you install `pipenv`, this guide assumes you are running Python 3 on your base operating system.
+When you install `pipenv`, this guide assumes you are running Python 3.
 `pip3` is an explicit process call to your system's installed Python 3 interpreter.
-If you do not have Python 2 installed, `pip` probably works the same too.
+If you do not have Python 2 installed, `pip` probably does the same thing.
 Later, after opening a `pipenv shell`, the Python virtualenv rewrites the meaning of `pip` to whatever the specified `python_version` is in `Pipfile`.
 So long as you are in the shell, `pip` will _always_ mean the same thing as `pip3`.
