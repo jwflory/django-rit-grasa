@@ -38,7 +38,7 @@
                         <form action="provider.php" method="post">
                             {% csrf_token %}
                              <div class="input-group mb-3 changeNameInput">
-                                <input type="text" name="changename" class="form-control" placeholder="{{ user.userinfo.org_name }}" aria-label="{{ user.userinfo.org_name }}" value="{{ user.userinfo.org_name }}" name="changename">
+                                <input type="text" name="changename" class="form-control" placeholder="{{ user.userinfo.org_name }}" aria-label="{{ user.userinfo.org_name }}" value="{{ user.userinfo.org_name }}">
                               <div class="input-group-append">
                                 <button class="btn btn-outline-primary changeNameSave" type="submit" id="button-addon2">Save</button>
                               </div>
