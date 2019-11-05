@@ -20,6 +20,7 @@ import string
 import time
 from datetime import datetime
 from django.shortcuts import reverse
+from smtplib import *
 
 def aboutContact(request):
         return render(request, 'aboutContact.php')
@@ -79,7 +80,12 @@ def allAdmins(request):
                 newUser = UserAccount.objects.create_superuser(emailAddr, emailAddr, current)
                 uInfo = userInfo(user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
                 uInfo.save()
-                print(send_email([emailAddr], "GRASA - Administrator Account Created", "You've now been designated an Administrator at the GRASA Event Locator! Please consult GRASA for login information, if you have not already received it."))
+                try:
+                    print(send_email([emailAddr], "GRASA - Administrator Account Created", "You've now been designated an Administrator at the GRASA Event Locator! Please consult GRASA for login information, if you have not already received it."))
+                except SMTPRecipientsRefused:
+                    print("Email not sent due to a formatting error.")
+                    context = {'invalidEmail': True, 'userList': userList}
+                    return render(request, 'allAdmins.php', context)
                 context = {'userList': userList, 'emailTaken' : False}
                 return render(request, 'allAdmins.php', context)
         else:
