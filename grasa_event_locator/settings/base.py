@@ -186,6 +186,16 @@ LOGGING = {
     }
 }
 
+
+# HAYSTACK
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
+
+
 EMAIL_HOST = "smtp.mail.yahoo.com"
 EMAIL_USE_SSL = True
 EMAIL_PORT = 465
