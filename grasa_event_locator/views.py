@@ -282,13 +282,11 @@ def register(request):
                     newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
                     uInfo = userInfo(user = newUser, org_name = orgName, contact_name = contact_name, contact_email = contact_email, contact_phone = contact_phone)
                     uInfo.save()
-                    try:
-                        if int(uInfo.id) != int(uInfo.user_id):
-                            uInfo.id = int(uInfo.user_id)
-                            uInfo.save()
-                    except IntegrityError:
-                        return redirect("login_page")
-                    return redirect("login_page")
+                    if int(uInfo.id) != int(uInfo.user_id):
+                        uInfo.delete()
+                        uInfo2 = userInfo(pk=int(uInfo.user_id),user=newUser, org_name=orgName, contact_name=contact_name, contact_email=contact_email, contact_phone=contact_phone)
+                        uInfo2.save()
+                return redirect("login_page")
         else:
                 context = {'emailTaken' : False}
                 return render(request, 'register.php', context)
