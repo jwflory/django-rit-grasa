@@ -31,7 +31,6 @@ urlpatterns = [
     path('deny_event/<eventID>', views.denyEvent, name='deny_event'),
     path('approve_edit/<editID>', views.approveEdit, name='approve_edit'),
     path('deny_edit/<editID>', views.denyEdit, name='deny_edit'),
-    path('changePWLogout/<reset_string>', views.changePWLogout, name='changePW_logout'),
+    path('resetPWForm/<reset_string>', views.resetPWForm, name='resetpw_form'),
     url(r'^search//?$', views.programSearchView.as_view(), name='search'),
 ]
-

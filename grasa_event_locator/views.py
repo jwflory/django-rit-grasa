@@ -32,7 +32,16 @@ def admin(request):
                 pendingEditList = Program.objects.filter(isPending=True).exclude(editOf=0)
                 context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList}
                 if request.method == "POST":
-                        change_username(request.user.username, request.POST['changeemail'] , request)
+                        if request.POST.get('changeemail'):
+                            change_username(request.user.username, request.POST['changeemail'] , request)
+                        if request.POST.get('current') and (request.POST.get('new') == request.POST.get('confirm')):
+                            current = request.POST['current']
+                            new = request.POST['new']
+                            if request.user.check_password(current):
+                                request.user.set_password(new)
+                                request.user.save()
+                            else:
+                                return render(request, "admin.php", context)
                 return render(request, "admin.php", context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin == False:
                 return HttpResponseRedirect('provider.php')
@@ -258,6 +267,17 @@ def provider(request):
                         u.org_name = request.POST['changename']
                         u.save()
                         rebuildIndex.rebuildWhooshIndex()
+                if request.POST.get('current') and (request.POST.get('new') == request.POST.get('confirm')):
+                    current = request.POST['current']
+                    new = request.POST['new']
+                    if request.user.check_password(current):
+                        request.user.set_password(new)
+                        request.user.save()
+                    else:
+                        currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
+                        myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
+                        context = {'myEventList': myEventList, 'currentUser': currentUser}
+                        return render(request, "admin.php", context)
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
@@ -303,11 +323,11 @@ def resetpw(request):
                         resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink)
                         resetPWURL.save()
                         # Make sure to pull the hostname from config file.
-                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this linnk: http://grasa.larrimore.de/changePWLogout/" + resetlink))
+                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this linnk: http://grasa.larrimore.de/resetPWForm/" + resetlink))
 
         return render(request, 'resetPW.php')
 
-def changePWLogout(request, reset_string):
+def resetPWForm(request, reset_string):
         if request.method == 'POST' and request.POST['new'] == request.POST['confirm']:
                 print(reset_string)
                 username = resetPWURLs.objects.get(reset_string=reset_string)
@@ -321,7 +341,7 @@ def changePWLogout(request, reset_string):
                                 "DELETE FROM `grasa_event_locator_resetpwurls` WHERE `user_ID` = '" + username.user_ID + "';")
                 return redirect("login_page")
         else:
-                return render(request, 'changePWLogout.php')
+                return render(request, 'resetPWForm.php')
 
 #Functional views, post only, need to be logged in admin, self defining names
 
