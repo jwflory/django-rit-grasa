@@ -83,7 +83,6 @@ def allAdmins(request):
                 try:
                     print(send_email([emailAddr], "GRASA - Administrator Account Created", "You've now been designated an Administrator at the GRASA Event Locator! Please consult GRASA for login information, if you have not already received it."))
                 except SMTPRecipientsRefused:
-                    print("Email not sent due to a formatting error.")
                     context = {'invalidEmail': True, 'userList': userList}
                     return render(request, 'allAdmins.php', context)
                 context = {'userList': userList, 'emailTaken' : False}
