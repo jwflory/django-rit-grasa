@@ -49,6 +49,10 @@ def admin_user(request):
         newUser.save()
         uInfo = userInfo(user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
         uInfo.save()
+        if int(uInfo.id) != int(uInfo.user_id):
+            uInfo2 = userInfo(pk=int(uInfo.user_id), user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
+            uInfo.delete()
+            uInfo2.save()
         return HttpResponseRedirect("index.php")
 
 def create_database(request):
@@ -283,8 +287,8 @@ def register(request):
                     uInfo = userInfo(user = newUser, org_name = orgName, contact_name = contact_name, contact_email = contact_email, contact_phone = contact_phone)
                     uInfo.save()
                     if int(uInfo.id) != int(uInfo.user_id):
-                        uInfo.delete()
                         uInfo2 = userInfo(pk=int(uInfo.user_id),user=newUser, org_name=orgName, contact_name=contact_name, contact_email=contact_email, contact_phone=contact_phone)
+                        uInfo.delete()
                         uInfo2.save()
                 return redirect("login_page")
         else:
