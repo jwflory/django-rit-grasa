@@ -37,7 +37,7 @@
               {% endif %}
               <li class="list-group-item"><b>Timing: </b> {{ timing_list_pub }}</li>
                   {% if event.website %}
-                  <li class="list-group-item"><a target="_blank" href="{{ event.website }}"><i class="fa fa-globe fa-fw" aria-hidden="true"></i> {{ event.website }}</a>
+                  <li class="list-group-item"><a target="_blank" href="//{{ event.website }}"><i class="fa fa-globe fa-fw" aria-hidden="true"></i> {{ event.website }}</a>
                 </li>
                   {% else %}
                     <li class="list-group-item ">
