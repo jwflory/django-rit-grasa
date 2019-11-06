@@ -1,13 +1,22 @@
 %YAML 1.2
 ---
 
+#                           ##### admin_email #####
+# Specify an email address for the first admin user. A user with admin
+# capabilities will be created with the specified email address and a default
+# password if and ONLY if no other admin users exist in the database. Make sure
+# to change the password from the default after logging in.
+
+admin_email: "admin@example.com"
+
+#                            ##### database #####
+# Edit database connectivity settings. Default config in example uses the
+# docker-compose defaults for local development. For local development, keep
+# these values as specified. For a production installation, change these to
+# point at your hosted database. See install documentation for more details.
 database:
   host: "db"
   port: "3306"
   username: "grasaadmin"
   password: "djangoGrasa2019"
   db: "grasa_event_locator"
-
-users:
-  admins:
-    - "admin@example.com"
