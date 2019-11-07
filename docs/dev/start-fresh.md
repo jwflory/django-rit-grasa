@@ -22,6 +22,7 @@ This page explains how to do a full reset and start with a fresh environment:
 - Run the command `docker exec -it [containerID for the django container] /bin/bash`.
 - Run `python3 manage.py makemigrations`
 - Run `python3 manage.py migrate`
+- Run `python3 manage.py rebuild_index`
 - Visit [localhost:8000](http://localhost:8000) in a browser
 
 ## Initial app configuration
