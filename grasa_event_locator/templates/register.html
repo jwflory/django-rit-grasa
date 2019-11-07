@@ -1,9 +1,9 @@
-{% include "header.php" %}
+{% include "header.html" %}
 
 <div class="container register-container">
 	<div class="row">
 		<div class="col-sm-12">
-					
+
 			<div class="form-register">
 
         {% if emailTaken %}
@@ -11,11 +11,11 @@
           An account has already been registered with this email address, please use another.
         </div>
         {% endif %}
-  
+
 				<h1 class="h3 mb-3 font-weight-normal text-center top-20">Register as a Provider</h1>
                 <p class="text-muted text-center">Provider accounts must be approved by administrators before events can be made.</p>
-                
-				<form id="theForm" action="register.php" method="post" class="needs-validation" novalidate>
+
+				<form id="theForm" action="register.html" method="post" class="needs-validation" novalidate>
 				{% csrf_token %}
                     <div class="row">
                         <div class="col-sm-6">
@@ -23,7 +23,7 @@
                                 <label for="name">Organization Name</label>
                                 <input type="text" id="resetPW" class="form-control" name="orgName" required placeholder="Organization Name..." autofocus>
                                 <div class="invalid-feedback">
-                                    Please provide the name of your organization. 
+                                    Please provide the name of your organization.
                                 </div>
                                 <!--<div class="invalid-feedback">
                                     An organization with this name is already registered.
@@ -40,7 +40,7 @@
                                     An organization with this email is already registered.
                                 </div>-->
                             </div>
-                            
+
                             <div class="form-group col-md-12">
                                 <label for="myPW">Password</label>
                                 <input type="password" id="myPW" class="form-control" name="current" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
@@ -122,12 +122,12 @@
                             <div class="col-12 registerBtnRow">
                                 <button type="submit" class="btn btn-lg btn-success btn-block top-20" id="submitBtn">Submit</button>
                                 <div class="text-center top-20">
-                                  <p>Already have an account?<br><a href="login.php">Return to Login</a></p>
+                                  <p>Already have an account?<br><a href="login.html">Return to Login</a></p>
                                 </div>
                             </div>
-                            
-                        
-                        
+
+
+
                             <!--Ok Modal-->
                             <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
@@ -150,23 +150,23 @@
                               </div>
                             </div>
                         </div>
-	
+
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-	
-			
+
+
 <script>
     //ok on submit
     var okBtn = document.getElementById('okBtn');
     okBtn.onclick = function(){
         //SUBMITS the form
         $('form').submit()
-        //window.location = 'index.php';
+        //window.location = '/search/search.html';
     }
-    
+
     //confirm password extra validation
     $('#confirmPW').keyup(function() {
       if ( document.getElementById("confirmPW").value != document.getElementById("myPW").value ) {
@@ -177,8 +177,8 @@
           }
       }
     });
-    
-   
+
+
     //password validation - Lei
     function myFunction() {
       var x = document.getElementById("myPW");
@@ -193,7 +193,7 @@
 
     }
 
-	
+
     //validation
     (function() {
       'use strict';
@@ -209,7 +209,7 @@
                 event.stopPropagation();
                 $('#confirmPW').addClass( "is-invalid" );
                 $('#confirmPW').css('border', 'solid 1px #dc3545')
-                $('#confirmPW').css('background-image', 'none'); 
+                $('#confirmPW').css('background-image', 'none');
             }else if (form.checkValidity() === false) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -219,13 +219,13 @@
                 $('#submitModal').modal('show');
             }
             form.classList.add('was-validated');
-            
+
           }, false);
         });
       }, false);
     })();
-	
-	
+
+
 	//password validation check mark
 	var myInput = document.getElementById("myPW");
 	var letter = document.getElementById("letter");
@@ -247,17 +247,17 @@
 	myInput.onkeyup = function() {
 	  // Validate lowercase letters
 	  var lowerCaseLetters = /[a-z]/g;
-	  if(myInput.value.match(lowerCaseLetters)) {  
+	  if(myInput.value.match(lowerCaseLetters)) {
 		letter.classList.remove("invalid");
 		letter.classList.add("valid");
 	  } else {
 		letter.classList.remove("valid");
 		letter.classList.add("invalid");
 	  }
-	  
+
 	  // Validate capital letters
 	  var upperCaseLetters = /[A-Z]/g;
-	  if(myInput.value.match(upperCaseLetters)) {  
+	  if(myInput.value.match(upperCaseLetters)) {
 		capital.classList.remove("invalid");
 		capital.classList.add("valid");
 	  } else {
@@ -267,14 +267,14 @@
 
 	  // Validate numbers
 	  var numbers = /[0-9]/g;
-	  if(myInput.value.match(numbers)) {  
+	  if(myInput.value.match(numbers)) {
 		number.classList.remove("invalid");
 		number.classList.add("valid");
 	  } else {
 		number.classList.remove("valid");
 		number.classList.add("invalid");
 	  }
-	  
+
 	  // Validate length
 	  if(myInput.value.length >= 8) {
 		length.classList.remove("invalid");
@@ -284,7 +284,7 @@
 		length.classList.add("invalid");
 	  }
 	}
-	
+
 	//phone number auto-format
 	//the dashes between phone numbers will auto fill while typing
 	function phone_formatting(ele,restore) {
@@ -292,7 +292,7 @@
 		  selection_start = ele.selectionStart,
 		  selection_end = ele.selectionEnd,
 		  number = ele.value.replace(/\D/g,'');
-	  
+
 	  // automatically add dashes
 	  if (number.length > 2) {
 		// matches: 123 || 123-4 || 123-45
@@ -313,17 +313,17 @@
 	  else {
 		new_number = number;
 	  }
-	  
+
 	  // if value is heigher than 12, last number is dropped
 	  // if inserting a number before the last character, numbers
 	  // are shifted right, only 12 characters will show
 	  ele.value =  (new_number.length > 12) ? new_number.substring(0,12) : new_number;
-	  
+
 	  // restore cursor selection,
 	  // prevent it from going to the end
 	  // UNLESS
 	  // cursor was at the end AND a dash was added
-	  
+
 	  if (new_number.slice(-1) === '-' && restore === false
 		  && (new_number.length === 8 && selection_end === 7)
 			  || (new_number.length === 4 && selection_end === 3)) {
@@ -337,7 +337,7 @@
 	  ele.setSelectionRange(selection_start, selection_end);
 
 	}
-	  
+
 	function phone_number_check(field,e) {
 	  var key_code = e.keyCode,
 		  key_string = String.fromCharCode(key_code),
@@ -346,12 +346,12 @@
 		  delete_key = [8,46],
 		  direction_key = [33,34,35,36,37,38,39,40],
 		  selection_end = field.selectionEnd;
-	  
+
 	  // delete key was pressed
 	  if (delete_key.indexOf(key_code) > -1) {
 		press_delete = true;
 	  }
-	  
+
 	  // only force formatting is a number or delete key was pressed
 	  if (key_string.match(/^\d+$/) || press_delete) {
 		phone_formatting(field,press_delete);
@@ -384,4 +384,4 @@
 
 </script>
 
-{% include "footer.php" %}
+{% include "footer.html" %}

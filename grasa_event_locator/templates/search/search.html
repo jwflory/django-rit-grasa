@@ -1,4 +1,4 @@
-{% include "header.php" %}
+{% include "header.html" %}
 <!-- Homepage -->
 
 <div class="home-container">
@@ -17,14 +17,14 @@
                           <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#filterModal" id="filterBtnSmall"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
                       </div>
                     </div>
-                    
+
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#filterModal" id="filterBtnBig">
                         <i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
                         <div class="btn-group w-100" id="viewBtns" role="group" >
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="viewResults">View Results</button>  
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="viewResults">View Results</button>
                             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" id="viewMap">View Map</button>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                 <!-- Search Results Row-->
                     <div id="results-box">
                     {% for result in object_list %}
-                        <a href="{% url 'event_page' result.object.id %}"> 
+                        <a href="{% url 'event_page' result.object.id %}">
                         <div class="card w-100 event-box">
                           <div class="card-body row">
                             <div class="col-lg-6">
@@ -55,7 +55,7 @@
                             </div>
                           </div>
                         </div>
-                        </a>   
+                        </a>
                     {% endfor %}
                     </div>
 
@@ -147,7 +147,7 @@
           </div>
           <div class="modal-footer">
             <div class="btn-group col-12" role="group" >
-                    <button type="button" class="btn btn-outline-danger" id="clearFilters" data-dismiss="modal">Clear Filters</button>  
+                    <button type="button" class="btn btn-outline-danger" id="clearFilters" data-dismiss="modal">Clear Filters</button>
                     <button type="button" class="btn btn-outline-success" id="submitOkBtn" data-dismiss="modal" value="Search">Apply Filters</button>
                 </div>
           </div>
@@ -168,7 +168,7 @@
        function(){ $(this).addClass('border-info') },
        function(){ $(this).removeClass('border-info') }
     ).click(function() {
-      window.location = "index.php"
+      window.location = "/search/search.html"
     });
     //Filter Buttons
     var clearBtn = document.getElementById('clearFilters');
@@ -190,7 +190,7 @@
         //SUBMITS the form
         $('form').submit()
     }
-    
+
     //View Buttons on Mobile
     document.getElementById('viewMap').onclick = function(){
         $("#viewMap").removeClass("btn-outline-secondary").addClass("btn-secondary");
@@ -200,7 +200,7 @@
         $("#mapid").css('visibility', 'visible');
         $("#mapid").css('height', '600px');
     }
-    
+
     document.getElementById('viewResults').onclick = function(){
          $("#viewResults").removeClass("btn-outline-secondary").addClass("btn-secondary");
         $("#viewMap").removeClass("btn-secondary").addClass("btn-outline-secondary");
@@ -209,7 +209,7 @@
         $("#results-box").css('visibility', 'visible');
         $("#results-box").css('height', '600px');
     }
-    
+
 
     //Leaflet Code
     //init
@@ -251,4 +251,4 @@
 
 
 </script>
-{% include "footer.php" %}
+{% include "footer.html" %}

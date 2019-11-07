@@ -1,4 +1,4 @@
-{% include "header.php" %}
+{% include "header.html" %}
 {% load static %}
 
 <div class="container home-container">
@@ -15,7 +15,7 @@
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item changeEmailLink" href="#">Change Email</a>
                         <a class="dropdown-item" data-toggle="modal" data-target="#changePWModal" href="#">Change Password</a>
-                          
+
                       </div>
                     </div>
                 <h2>Admin Portal</h2>
@@ -29,7 +29,7 @@
                              </h5>
                         </span>
                         <!-- edit email-->
-                        <form method="POST" action="admin.php">{% csrf_token %}
+                        <form method="POST" action="admin.html">{% csrf_token %}
                              <div class="input-group mb-3 changeEmailInput">
                                 <input type="text" name="changeemail" class="form-control" placeholder="{{ user }}" aria-label="{{ user }}" value="{{ user }}">
                               <div class="input-group-append">
@@ -43,19 +43,19 @@
                 <button type="button" class="btn btn-secondary" id="allUsers"><i class="fa fa-user" aria-hidden="true"></i> View Providers</button>
                 <button type="button" class="btn btn-warning" id="allAdmins"><i class="fa fa-user-secret" aria-hidden="true"></i> View Admins</button>
                 <button type="button" class="btn btn-info float-right" id="allEvents"><i class="fa fa-calendar" aria-hidden="true"></i> View All Events</button>
-                
+
             </div>
         </div>
     </div>
-    
+
 
 	<div class="twentyblock"></div>
 	<div class="row">
         <div class="col-sm-12">
         <h2 class="row col-sm-12 top-20">Approval Requests</h2>
             <hr>
-            
-        
+
+
         <!--New User Approval-->
             <h4 class="top-20">Pending Users</h4>
                 <table class="table table-bordered">
@@ -141,7 +141,7 @@
         </div><!-- col-->
     </div><!--row-->
     <div class="twentyblock"></div>
-    
+
     <!-- Change Password Modal -->
     <div class="modal fade" id="changePWModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -152,7 +152,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-              <form id="theForm" method="POST" action="admin.php" class="needs-validation" novalidate>{% csrf_token %}
+              <form id="theForm" method="POST" action="admin.html" class="needs-validation" novalidate>{% csrf_token %}
                   <div class="modal-body">
 
                     <div class="row">
@@ -203,33 +203,33 @@
         </div>
       </div>
     </div>
-	
+
 </div>
 <script>
     var viewBtns = document.getElementsByClassName('view-event')
     for(var i=0; i<viewBtns.length; i++){
         viewBtns[i].onclick = function(){
-            window.location = 'event.php'
+            window.location = 'event.html'
         }
     }
-    
+
     //Toolbar Links
     var allUsersBtn = document.getElementById('allUsers');
     allUsersBtn.onclick = function(){
-        window.location = 'allUsers.php'
+        window.location = 'allUsers.html'
     }
     var allUsersBtn = document.getElementById('allAdmins');
     allUsersBtn.onclick = function(){
-        window.location = 'allAdmins.php'
+        window.location = 'allAdmins.html'
     }
     var allEventsBtn = document.getElementById('allEvents');
     allEventsBtn.onclick = function(){
-        window.location = 'allEvents.php'
+        window.location = 'allEvents.html'
     }
-    
+
     //Change Email
     addSettings('changeEmailLink', 'changeEmailSave', 'changeEmailInput', 'pEmail')
-    
+
     function addSettings(editBtn, saveBtn, inputBox, label){
         var editBtn = document.getElementsByClassName(editBtn)[0]
         var saveBtn = document.getElementsByClassName(saveBtn)[0]
@@ -249,7 +249,7 @@
 
         }
     }
-    
+
      //confirm password extra validation
     $('#confirmPW').keyup(function() {
       if ( document.getElementById("confirmPW").value != document.getElementById("myPW").value ) {
@@ -260,8 +260,8 @@
           }
       }
     });
-    
-   
+
+
     //password validation - Lei
     function myFunction() {
       var x = document.getElementById("myPW");
@@ -291,18 +291,18 @@
                 event.stopPropagation();
                 $('#confirmPW').addClass( "is-invalid" );
                 $('#confirmPW').css('border', 'solid 1px #dc3545')
-                $('#confirmPW').css('background-image', 'none'); 
+                $('#confirmPW').css('background-image', 'none');
             }else if (form.checkValidity() === false) {
                 event.preventDefault();
                 event.stopPropagation();
             }
             form.classList.add('was-validated');
-            
+
           }, false);
         });
       }, false);
     })();
-    
+
 </script>
-		
-{% include "footer.php" %}
+
+{% include "footer.html" %}

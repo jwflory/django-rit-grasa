@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!--Bootstrap Style-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -66,13 +66,13 @@
 </script>
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-          <a class="navbar-brand" aria-label="GRASA-Logo" href="/index.php">
+          <a class="navbar-brand" aria-label="GRASA-Logo" href="/search/search.html">
           <img id="header-logo" src="{% static "img/grasalogo.png" %}" alt="Logo">
         </a>
 
           <div class="collapse navbar-collapse" id="navbarsExample02">
               <span class="nav-item portalLink">
-                <a class="nav-link" href="/index.php"><i class="fa fa-search" aria-hidden="true"></i> Browse Events</a>
+                <a class="nav-link" href="/search/search.html"><i class="fa fa-search" aria-hidden="true"></i> Browse Events</a>
               </span>
             <ul class="navbar-nav mr-auto">
               {% if not user.is_authenticated %}
@@ -88,17 +88,17 @@
         {% if user.is_authenticated %}
             {% if not user.userinfo.isAdmin and user.is_authenticated %}
                 <span class="portalLink">
-                    <a href="/provider.php" class="nav-link" ><i class="fa fa-user" aria-hidden="true"></i> {{ user.userinfo.org_name }}</a>
+                    <a href="/provider.html" class="nav-link" ><i class="fa fa-user" aria-hidden="true"></i> {{ user.userinfo.org_name }}</a>
                 </span>
             {% endif %}
             {% if user.userinfo.isAdmin or not user.is_authenticated %}
              <span class="portalLink">
-                <a class="nav-link" href="/admin.php"><i class="fa fa-user-secret" aria-hidden="true"></i> Admin</a>
+                <a class="nav-link" href="/admin.html"><i class="fa fa-user-secret" aria-hidden="true"></i> Admin</a>
              </span>
             {% endif %}
             <button onclick="window.location.href='/logout'" class="btn btn-outline-light my-2 my-sm-0" >Logout</button>
         {% else %}
-            <button onclick="window.location.href='/login.php'" class="btn btn-outline-light my-2 my-sm-0" >Login</button>
+            <button onclick="window.location.href='/login.html'" class="btn btn-outline-light my-2 my-sm-0" >Login</button>
         {% endif %}
         </span>
     </nav>

@@ -21,7 +21,7 @@ body{
     height: 70px;
 }
 .footer-nav{
-    float: none; 
+    float: none;
     margin: 0 auto;
 }
 .footer {
@@ -45,8 +45,8 @@ body{
 }
 /*Leaflet Map Styles*/
 #mapid{
-    height: 74vh; 
-    width: 100%; 
+    height: 74vh;
+    width: 100%;
 }
 
 .accordion .card-header {
@@ -63,13 +63,13 @@ body{
     padding: 5px;
 }
 .accordion .card-header button.btn:after {
-    font-family: 'FontAwesome';  
+    font-family: 'FontAwesome';
     content: "\f068";
-    float: right; 
+    float: right;
 }
 .accordion .card-header button.btn.collapsed:after {
     /* symbol for "collapsed" panels */
-    content: "\f067"; 
+    content: "\f067";
 }
 .accordion .form-check-label{
     padding-bottom: 5px;
@@ -240,7 +240,7 @@ body{
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  
+
   background-color: #4CAF50;
   color: white;
 }
@@ -307,7 +307,7 @@ body{
 }
 .program-header{
     padding-top:50px;
-    padding-left: 10px;  
+    padding-left: 10px;
     padding-bottom: 20px;
 }
 .changeNameInput, .changeEmailInput{
@@ -393,9 +393,9 @@ label.pl-2.checkbox{
 
 /*Styles for About section*/
 .about-container {
-	text-align: left;    
+	text-align: left;
 	border-radius: 5px;
-	background-color: #EFFBEF;      
+	background-color: #EFFBEF;
     padding-left:20px;
 	padding-right:20px;
 	padding-top:20px;
@@ -412,14 +412,14 @@ label.pl-2.checkbox{
 
 .about-row {
 	background: #EFFBEF;
-	
+
 }
 .about-row span.subhead {
 	font-size:1.5em;
 	text-align:center;
 	display:block;
 	position:relative;
-	
+
 }
 
 #about {
@@ -467,7 +467,7 @@ span.subhead::before, span.subhead::after {
 
 /* Styles for Social Media icons on About & Contact page */
 
-.social-container {	
+.social-container {
     padding: 10px;
     padding-top: 20px;
     text-align: center;
@@ -518,9 +518,9 @@ span.subhead::before, span.subhead::after {
 	text-align:center;
 }
 
-/*Styles for alert messages for register.php and login.php*/
+/*Styles for alert messages for register.html and login.html*/
 .alert-msg {
-	
+
 	color: red;
 	padding-top: none;
 }
@@ -540,7 +540,7 @@ span.subhead::before, span.subhead::after {
 	margin-top:40px;
 }
 
-.register-contact-body{	
+.register-contact-body{
     padding-left:50px;
 	padding-right:20px;
 	padding-top:20px;

@@ -22,8 +22,10 @@ from datetime import datetime
 from django.shortcuts import reverse
 from smtplib import *
 
+
 def aboutContact(request):
-        return render(request, 'aboutContact.php')
+    return render(request, reverse('about_contact'))
+
 
 def admin(request):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and request.user.userinfo.isPending == False:
@@ -33,13 +35,13 @@ def admin(request):
                 context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList}
                 if request.method == "POST":
                         # This line checks whether the changeemail field (which is the input field on the html page containing the new email address of
-                        # the admin user [name=changeemail in the html]), exists. If so, perform change_username. 
+                        # the admin user [name=changeemail in the html]), exists. If so, perform change_username.
                         # It takes the current username, the new username (changeemail), and the request (the logged in user object),
                         # and changes the current username to the new username. See functions.py for that function.
                         if request.POST.get('changeemail'):
                             change_username(request.user.username, request.POST['changeemail'] , request)
-                        # The way we have the page coded, when a POST submit occurs, 
-                        # either the above situation happens in order to change the username, 
+                        # The way we have the page coded, when a POST submit occurs,
+                        # either the above situation happens in order to change the username,
                         # or this bottom situation, where the user has filled out the password modal, occurs.
                         # current is the current password field in the modal. new is the new password field. confirm is the confirm new password field.
                         # This checks whether the current password exists (that should be enough to determine if the modal has been filled out).
@@ -54,14 +56,14 @@ def admin(request):
                                 request.user.set_password(new)
                                 request.user.save()
                             else:
-                                # If not, return to admin.php (will need to replace this with a "wrong password message, actually".
-                                return render(request, "admin.php", context)
-                return render(request, "admin.php", context)
+                                # If not, return to admin_page (will need to replace this with a "wrong password message, actually".
+                                return render(request, reverse('admin_page'), context)
+                return render(request, reverse('admin_page'), context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin == False:
-                return HttpResponseRedirect('provider.php')
+                return HttpResponseRedirect(reverse('provider_page'))
         else:
-                return HttpResponseRedirect("login.php")
-        return render(request, 'admin.php')
+                return HttpResponseRedirect(reverse('login_page'))
+        return render(request, reverse('admin_page'))
 
 def admin_user(request):
     userList = userInfo.objects.filter(isAdmin=True)
@@ -88,8 +90,11 @@ def allUsers(request):
         context = {'userList': userList}
 
         if request.method == 'POST':
-                print(send_email([request.POST.get('emailAddr')], "GRASA - Event Locator Registration", "You've been invited to sign up for the GRASA Event Locator! Register at http://grasa.larrimore.de/register.php"))
-        return render(request, 'allUsers.php', context)
+                #TODO: Change to hostname config value here later...
+                print(send_email(
+                    [request.POST.get('emailAddr')],
+                    "GRASA - Event Locator Registration","You've been invited to sign up for the GRASA Event Locator! Register at http://grasa.larrimore.de/register.html"))
+        return render(request, reverse('all_users'), context)
     return HttpResponseRedirect(reverse('search'))
 
 def allAdmins(request):
@@ -101,7 +106,7 @@ def allAdmins(request):
             checkInfo = UserAccount.objects.filter(email=emailAddr)
             if(checkInfo.count() >= 1):
                 context = {'userList': userList, 'emailTaken' : True}
-                return render(request, 'allAdmins.php', context)
+                return render(request, reverse('all_admins'), context)
             else:
                 current = request.POST['current']
                 newUser = UserAccount.objects.create_superuser(emailAddr, emailAddr, current)
@@ -111,20 +116,20 @@ def allAdmins(request):
                     print(send_email([emailAddr], "GRASA - Administrator Account Created", "You've now been designated an Administrator at the GRASA Event Locator! Please consult GRASA for login information, if you have not already received it."))
                 except SMTPRecipientsRefused:
                     context = {'invalidEmail': True, 'userList': userList}
-                    return render(request, 'allAdmins.php', context)
+                    return render(request, reverse('all_admins'), context)
                 context = {'userList': userList, 'emailTaken' : False}
-                return render(request, 'allAdmins.php', context)
+                return render(request, reverse('all_admins'), context)
         else:
                 context = {'userList': userList, 'emailTaken' : False}
-                return render(request, 'allAdmins.php', context)
-        return render(request, 'allAdmins.php', context)
+                return render(request, reverse('all_admins'), context)
+        return render(request, reverse('all_admins'), context)
     return HttpResponseRedirect(reverse('search'))
 
 def allEvents(request):
     if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
         programList = Program.objects.filter(isPending=False)
         context = {'programList': programList}
-        return render(request, 'allEvents.php', context)
+        return render(request, reverse('all_events'), context)
     return HttpResponseRedirect(reverse('search'))
 
 def changepw(request):
@@ -139,7 +144,7 @@ def changepw(request):
                             print("No")
         else:
             return HttpResponseRedirect(reverse('search'))
-        return render(request, 'changePW.php')
+        return render(request, reverse('change_password'))
 
 def createevent(request):
         if request.method == 'POST':
@@ -179,11 +184,11 @@ def createevent(request):
                         var.save()
                         program.categories.add(var)
                         i = i + 1
-                return HttpResponseRedirect("provider.php")
+                return HttpResponseRedirect(reverse('provider_page'))
         else:
                 print("No")
-                return render(request, 'createEvent.php')
-        return render(request, 'createEvent.php')
+                return render(request, reverse('create_event'))
+        return render(request, reverse('create_event'))
 
 def editEvent(request, eventID):
         event = Program.objects.get(pk=eventID)
@@ -227,9 +232,9 @@ def editEvent(request, eventID):
                         i = i + 1
                 return redirect("provider_page")
             context = {'event': event}
-            return render(request, 'editEvent.php', context)
+            return render(request, reverse('edit_event'), context)
         else:
-            return redirect("login_page")
+            return redirect('login_page')
 
 def event(request, eventID):
         event = Program.objects.get(pk=eventID)
@@ -266,7 +271,7 @@ def event(request, eventID):
                 transportation_list_pub = "Not Provided"
 
         context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
-        return render(request, 'event.php', context)
+        return render(request, reverse('event_page'), context)
 
 def login(request):
         if request.user.is_authenticated:
@@ -283,21 +288,27 @@ def login(request):
                         if user is not None and user.userinfo.isPending:
                             #Logic to see if the user is pending or doesn't exist
                             context = {'pendingUser' : True, 'wrongCredentials' : False}
-                            return render(request,'login.php', context)
+                            return render(request, reverse('login_page'), context)
                         if user is not None and not user.userinfo.isPending:
                                 auth_login(request, user)
                                 if request.user.userinfo.isAdmin:
-                                        return HttpResponseRedirect("admin.php")
+                                        return HttpResponseRedirect(reverse('admin_page'))
                                 else:
-                                        return HttpResponseRedirect("provider.php")
+                                        return HttpResponseRedirect(reverse('provider_page'))
                         else:
-                                context = {'pendingUser' : False, 'wrongCredentials' : True}
-                                return render(request,'login.php', context)
+                                context = {
+                                        'pendingUser' : False,
+                                        'wrongCredentials' : True
+                                }
+                                return render(request, reverse('login_page'), context)
         else:
                 context = {'pendingUser' : False, 'wrongCredentials' : False}
-                return render(request, 'login.php', context)
-        context = {'pendingUser' : False, 'wrongCredentials' : False}
-        return render(request, 'login.php', context)
+                return render(request, reverse('login_page'), context)
+        context = {
+                'pendingUser' : False,
+                'wrongCredentials' : False
+        }
+        return render(request, reverse('login_page'), context)
 
 def logout_view(request):
         logout(request)
@@ -325,16 +336,16 @@ def provider(request):
                         currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                         myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
                         context = {'myEventList': myEventList, 'currentUser': currentUser}
-                        return render(request, "admin.php", context)
+                        return render(request, reverse('admin_page'), context)
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
                 context = {'myEventList' : myEventList, 'currentUser' : currentUser}
-                return render(request, "provider.php", context)
+                return render(request, reverse('provider_page'), context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
-                return HttpResponseRedirect('admin.php')
+                return HttpResponseRedirect(reverse('admin_page'))
         else:
-                return HttpResponseRedirect("login.php")
+                return HttpResponseRedirect(reverse('login_page'))
 
 
 def register(request):
@@ -349,17 +360,17 @@ def register(request):
                 checkInfo = UserAccount.objects.filter(email=emailAddr)
                 if(checkInfo.count() >= 1):
                     context = {'emailTaken' : True}
-                    return render(request, 'register.php', context)
+                    return render(request, reverse('register'), context)
                 else:
                     newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
                     uInfo = userInfo(user = newUser, org_name = orgName, contact_name = contact_name, contact_email = contact_email, contact_phone = contact_phone)
                     uInfo.save()
-                    return redirect("login_page")
+                    return redirect('login_page')
         else:
                 context = {'emailTaken' : False}
-                return render(request, 'register.php', context)
+                return render(request, reverse('register'), context)
         context = {'emailTaken' : False}
-        return render(request, 'register.php', context)
+        return render(request, reverse('register'), context)
 
 def resetpw(request):
         i = 0
@@ -373,7 +384,7 @@ def resetpw(request):
                         # Make sure to pull the hostname from config file.
                         print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this linnk: http://grasa.larrimore.de/resetPWForm/" + resetlink))
 
-        return render(request, 'resetPW.php')
+        return render(request, reverse('resetpw_page'))
 
 def resetPWForm(request, reset_string):
         if request.method == 'POST' and request.POST['new'] == request.POST['confirm']:
@@ -389,7 +400,7 @@ def resetPWForm(request, reset_string):
                                 "DELETE FROM `grasa_event_locator_resetpwurls` WHERE `user_ID` = '" + username.user_ID + "';")
                 return redirect("login_page")
         else:
-                return render(request, 'resetPWForm.php')
+                return render(request, reverse('resetpw_form'))
 
 #Functional views, post only, need to be logged in admin, self defining names
 

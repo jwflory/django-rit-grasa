@@ -64,7 +64,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'grasa_event_locator.wsgi.application'
-LOGIN_REDIRECT_URL = '/grasa_event_locator/templates/index.php'
+LOGIN_REDIRECT_URL = '/grasa_event_locator/templates/search/search.html'
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
