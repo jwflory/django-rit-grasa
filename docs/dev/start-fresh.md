@@ -14,14 +14,15 @@ This page explains how to do a full reset and start with a fresh environment:
 - The site is now viewable at [localhost:8000](http://localhost:8000), but wait!
 - In a separate shell window, run `docker ps`, which shows all running containers. They should be _mariadb_ and _django-rit-grasa_.
     - If for some reason, they are not both there, use `docker ps -a` to get the name of the list of all containers, including the non running ones, then `docker start [containerID]` to start them.
-- Run the command `docker exec -it [containerID for the mariadb container]`
+- Run the command `docker exec -it [containerID for the mariadb container] /bin/bash`
 - Run `mysql -u grasaadmin -p`.
 - Password is `djangoGrasa2019`.
 - In mySQL, `DROP DATABASE grasa_event_locator`, and `CREATE DATABASE grasa_event_locator`.
 - Type `exit;` to exit mySQL, and `exit` again to leave the mariadb container.
-- Run the command `docker exec -it [containerID for the django container]`.
-- Run `python3 manage.py makemigratons`
+- Run the command `docker exec -it [containerID for the django container] /bin/bash`.
+- Run `python3 manage.py makemigrations`
 - Run `python3 manage.py migrate`
+- Run `python3 manage.py rebuild_index`
 - Visit [localhost:8000](http://localhost:8000) in a browser
 
 ## Initial app configuration
