@@ -32,15 +32,29 @@ def admin(request):
                 pendingEditList = Program.objects.filter(isPending=True).exclude(editOf=0)
                 context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList}
                 if request.method == "POST":
+                        # This line checks whether the changeemail field (which is the input field on the html page containing the new email address of
+                        # the admin user [name=changeemail in the html]), exists. If so, perform change_username. 
+                        # It takes the current username, the new username (changeemail), and the request (the logged in user object),
+                        # and changes the current username to the new username. See functions.py for that function.
                         if request.POST.get('changeemail'):
                             change_username(request.user.username, request.POST['changeemail'] , request)
+                        # The way we have the page coded, when a POST submit occurs, 
+                        # either the above situation happens in order to change the username, 
+                        # or this bottom situation, where the user has filled out the password modal, occurs.
+                        # current is the current password field in the modal. new is the new password field. confirm is the confirm new password field.
+                        # This checks whether the current password exists (that should be enough to determine if the modal has been filled out).
+                        # It also checks whether new = confirm (in other words, do the new password fields match).
+                        # If so, it writes the old password and new password to variables as seen below:
                         if request.POST.get('current') and (request.POST.get('new') == request.POST.get('confirm')):
                             current = request.POST['current']
                             new = request.POST['new']
+                            # Checks if the password is actually right (check_password)
                             if request.user.check_password(current):
+                                # If it is, set the password to new, and save the user.
                                 request.user.set_password(new)
                                 request.user.save()
                             else:
+                                # If not, return to admin.php (will need to replace this with a "wrong password message, actually".
                                 return render(request, "admin.php", context)
                 return render(request, "admin.php", context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin == False:
