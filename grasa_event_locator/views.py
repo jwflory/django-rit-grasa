@@ -249,9 +249,6 @@ def login(request):
                             return render(request,'login.php', context)
                         if user is not None and not user.userinfo.isPending:
                                 auth_login(request, user)
-                                u = userInfo.objects.get(pk=request.user.id)
-                                u.last_login = str(datetime.now())[:-7]
-                                u.save()
                                 if request.user.userinfo.isAdmin:
                                         return HttpResponseRedirect("admin.php")
                                 else:
