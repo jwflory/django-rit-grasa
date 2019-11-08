@@ -41,6 +41,10 @@ def admin(request):
         return render(request, 'admin.php')
 
 def admin_user(request):
+    userList = userInfo.objects.filter(isAdmin=True)
+    if (userList):
+        return HttpResponseRedirect(reverse('search'))
+    else:
         newUser = UserAccount.objects.create_superuser("grasatest@yahoo.com", "grasatest@yahoo.com", "Password1")
         newUser.save()
         newUser.isStaff = True
