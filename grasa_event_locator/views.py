@@ -49,11 +49,11 @@ def admin_user(request):
         newUser.save()
         uInfo = userInfo(user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
         uInfo.save()
-        return HttpResponseRedirect("index.php")
+        return HttpResponseRedirect(reverse('search'))
 
 def create_database(request):
         write_categories_table()
-        return HttpResponseRedirect("index.php")
+        return HttpResponseRedirect(reverse('search'))
 
 def allUsers(request):
     if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
@@ -63,7 +63,7 @@ def allUsers(request):
         if request.method == 'POST':
                 print(send_email([request.POST.get('emailAddr')], "GRASA - Event Locator Registration", "You've been invited to sign up for the GRASA Event Locator! Register at http://grasa.larrimore.de/register.php"))
         return render(request, 'allUsers.php', context)
-    return HttpResponseRedirect("index.php")
+    return HttpResponseRedirect(reverse('search'))
 
 def allAdmins(request):
     if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
@@ -91,14 +91,14 @@ def allAdmins(request):
                 context = {'userList': userList, 'emailTaken' : False}
                 return render(request, 'allAdmins.php', context)
         return render(request, 'allAdmins.php', context)
-    return HttpResponseRedirect("index.php")
+    return HttpResponseRedirect(reverse('search'))
 
 def allEvents(request):
     if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
         programList = Program.objects.filter(isPending=False)
         context = {'programList': programList}
         return render(request, 'allEvents.php', context)
-    return HttpResponseRedirect("index.php")
+    return HttpResponseRedirect(reverse('search'))
 
 def changepw(request):
         if request.user.is_authenticated:
@@ -111,7 +111,7 @@ def changepw(request):
                     else:
                             print("No")
         else:
-            return HttpResponseRedirect("index.php")
+            return HttpResponseRedirect(reverse('search'))
         return render(request, 'changePW.php')
 
 def createevent(request):
@@ -206,7 +206,7 @@ def event(request, eventID):
 
 def login(request):
         if request.user.is_authenticated:
-                return HttpResponseRedirect(reverse('haystack_search'))
+                return HttpResponseRedirect(reverse('search'))
         if request.method == 'POST':
                         email = request.POST['email']
                         password = request.POST['password']
@@ -240,10 +240,10 @@ def login(request):
 
 def logout_view(request):
         logout(request)
-        return HttpResponseRedirect("index.php")
+        return HttpResponseRedirect(reverse('search'))
 
 def index(request):
-        return redirect("haystack_search")
+        return redirect('search')
 
 def provider(request):
         if request.method == 'POST':
@@ -345,7 +345,7 @@ def denyUser(request, userID):
         else:
                 return redirect("login_page")
 
-                
+
 def approveEvent(request, eventID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 p = Program.objects.get(pk=eventID)
