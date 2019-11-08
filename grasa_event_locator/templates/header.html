@@ -66,13 +66,13 @@
 </script>
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-          <a class="navbar-brand" aria-label="GRASA-Logo" href="/search/search.html">
+          <a class="navbar-brand" aria-label="GRASA-Logo" href="/search/">
           <img id="header-logo" src="{% static "img/grasalogo.png" %}" alt="Logo">
         </a>
 
           <div class="collapse navbar-collapse" id="navbarsExample02">
               <span class="nav-item portalLink">
-                <a class="nav-link" href="/search/search.html"><i class="fa fa-search" aria-hidden="true"></i> Browse Events</a>
+                <a class="nav-link" href="/search/"><i class="fa fa-search" aria-hidden="true"></i> Browse Events</a>
               </span>
             <ul class="navbar-nav mr-auto">
               {% if not user.is_authenticated %}

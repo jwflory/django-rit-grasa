@@ -24,7 +24,7 @@ from smtplib import *
 
 
 def aboutContact(request):
-    return render(request, reverse('about_contact'))
+    return render(request, 'aboutContact.html')
 
 
 def admin(request):
@@ -57,13 +57,13 @@ def admin(request):
                                 request.user.save()
                             else:
                                 # If not, return to admin_page (will need to replace this with a "wrong password message, actually".
-                                return render(request, reverse('admin_page'), context)
-                return render(request, reverse('admin_page'), context)
+                                return render(request, 'admin.html', context)
+                return render(request, 'admin.html', context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin == False:
                 return HttpResponseRedirect(reverse('provider_page'))
         else:
                 return HttpResponseRedirect(reverse('login_page'))
-        return render(request, reverse('admin_page'))
+        return render(request, 'admin.html')
 
 def admin_user(request):
     userList = userInfo.objects.filter(isAdmin=True)
@@ -94,7 +94,7 @@ def allUsers(request):
                 print(send_email(
                     [request.POST.get('emailAddr')],
                     "GRASA - Event Locator Registration","You've been invited to sign up for the GRASA Event Locator! Register at http://grasa.larrimore.de/register.html"))
-        return render(request, reverse('all_users'), context)
+        return render(request, 'allUsers.html', context)
     return HttpResponseRedirect(reverse('search'))
 
 def allAdmins(request):
@@ -106,7 +106,7 @@ def allAdmins(request):
             checkInfo = UserAccount.objects.filter(email=emailAddr)
             if(checkInfo.count() >= 1):
                 context = {'userList': userList, 'emailTaken' : True}
-                return render(request, reverse('all_admins'), context)
+                return render(request, 'allAdmins.html', context)
             else:
                 current = request.POST['current']
                 newUser = UserAccount.objects.create_superuser(emailAddr, emailAddr, current)
@@ -116,20 +116,20 @@ def allAdmins(request):
                     print(send_email([emailAddr], "GRASA - Administrator Account Created", "You've now been designated an Administrator at the GRASA Event Locator! Please consult GRASA for login information, if you have not already received it."))
                 except SMTPRecipientsRefused:
                     context = {'invalidEmail': True, 'userList': userList}
-                    return render(request, reverse('all_admins'), context)
+                    return render(request, 'allAdmins.html', context)
                 context = {'userList': userList, 'emailTaken' : False}
-                return render(request, reverse('all_admins'), context)
+                return render(request, 'allAdmins.html', context)
         else:
                 context = {'userList': userList, 'emailTaken' : False}
-                return render(request, reverse('all_admins'), context)
-        return render(request, reverse('all_admins'), context)
+                return render(request, 'allAdmins.html', context)
+        return render(request, 'allAdmins.html', context)
     return HttpResponseRedirect(reverse('search'))
 
 def allEvents(request):
     if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
         programList = Program.objects.filter(isPending=False)
         context = {'programList': programList}
-        return render(request, reverse('all_events'), context)
+        return render(request, 'allEvents.html', context)
     return HttpResponseRedirect(reverse('search'))
 
 def changepw(request):
@@ -144,7 +144,7 @@ def changepw(request):
                             print("No")
         else:
             return HttpResponseRedirect(reverse('search'))
-        return render(request, reverse('change_password'))
+        return render(request, 'changePW.html')
 
 def createevent(request):
         if request.method == 'POST':
@@ -187,8 +187,8 @@ def createevent(request):
                 return HttpResponseRedirect(reverse('provider_page'))
         else:
                 print("No")
-                return render(request, reverse('create_event'))
-        return render(request, reverse('create_event'))
+                return render(request, 'createEvent.html')
+        return render(request, 'createEvent.html')
 
 def editEvent(request, eventID):
         event = Program.objects.get(pk=eventID)
@@ -232,7 +232,7 @@ def editEvent(request, eventID):
                         i = i + 1
                 return redirect("provider_page")
             context = {'event': event}
-            return render(request, reverse('edit_event'), context)
+            return render(request, 'editEvent.html', context)
         else:
             return redirect('login_page')
 
@@ -271,7 +271,7 @@ def event(request, eventID):
                 transportation_list_pub = "Not Provided"
 
         context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
-        return render(request, reverse('event_page'), context)
+        return render(request, 'event.html', context)
 
 def login(request):
         if request.user.is_authenticated:
@@ -288,7 +288,7 @@ def login(request):
                         if user is not None and user.userinfo.isPending:
                             #Logic to see if the user is pending or doesn't exist
                             context = {'pendingUser' : True, 'wrongCredentials' : False}
-                            return render(request, reverse('login_page'), context)
+                            return render(request, 'login.html', context)
                         if user is not None and not user.userinfo.isPending:
                                 auth_login(request, user)
                                 if request.user.userinfo.isAdmin:
@@ -300,15 +300,15 @@ def login(request):
                                         'pendingUser' : False,
                                         'wrongCredentials' : True
                                 }
-                                return render(request, reverse('login_page'), context)
+                                return render(request, 'login.html', context)
         else:
                 context = {'pendingUser' : False, 'wrongCredentials' : False}
-                return render(request, reverse('login_page'), context)
+                return render(request, 'login.html', context)
         context = {
                 'pendingUser' : False,
                 'wrongCredentials' : False
         }
-        return render(request, reverse('login_page'), context)
+        return render(request, 'login.html', context)
 
 def logout_view(request):
         logout(request)
@@ -336,12 +336,12 @@ def provider(request):
                         currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                         myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
                         context = {'myEventList': myEventList, 'currentUser': currentUser}
-                        return render(request, reverse('admin_page'), context)
+                        return render(request, 'admin.html', context)
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
                 context = {'myEventList' : myEventList, 'currentUser' : currentUser}
-                return render(request, reverse('provider_page'), context)
+                return render(request, 'provider.html', context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 return HttpResponseRedirect(reverse('admin_page'))
         else:
@@ -360,7 +360,7 @@ def register(request):
                 checkInfo = UserAccount.objects.filter(email=emailAddr)
                 if(checkInfo.count() >= 1):
                     context = {'emailTaken' : True}
-                    return render(request, reverse('register'), context)
+                    return render(request, 'register.html', context)
                 else:
                     newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
                     uInfo = userInfo(user = newUser, org_name = orgName, contact_name = contact_name, contact_email = contact_email, contact_phone = contact_phone)
@@ -368,9 +368,9 @@ def register(request):
                     return redirect('login_page')
         else:
                 context = {'emailTaken' : False}
-                return render(request, reverse('register'), context)
+                return render(request, 'register.html', context)
         context = {'emailTaken' : False}
-        return render(request, reverse('register'), context)
+        return render(request, 'register.html', context)
 
 def resetpw(request):
         i = 0
@@ -384,7 +384,7 @@ def resetpw(request):
                         # Make sure to pull the hostname from config file.
                         print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this linnk: http://grasa.larrimore.de/resetPWForm/" + resetlink))
 
-        return render(request, reverse('resetpw_page'))
+        return render(request, 'resetPW.html')
 
 def resetPWForm(request, reset_string):
         if request.method == 'POST' and request.POST['new'] == request.POST['confirm']:
@@ -400,7 +400,7 @@ def resetPWForm(request, reset_string):
                                 "DELETE FROM `grasa_event_locator_resetpwurls` WHERE `user_ID` = '" + username.user_ID + "';")
                 return redirect("login_page")
         else:
-                return render(request, reverse('resetpw_form'))
+                return render(request, 'resetPWForm.html')
 
 #Functional views, post only, need to be logged in admin, self defining names
 
