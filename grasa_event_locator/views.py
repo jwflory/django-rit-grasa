@@ -32,7 +32,30 @@ def admin(request):
                 pendingEditList = Program.objects.filter(isPending=True).exclude(editOf=0)
                 context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList}
                 if request.method == "POST":
-                        change_username(request.user.username, request.POST['changeemail'] , request)
+                        # This line checks whether the changeemail field (which is the input field on the html page containing the new email address of
+                        # the admin user [name=changeemail in the html]), exists. If so, perform change_username. 
+                        # It takes the current username, the new username (changeemail), and the request (the logged in user object),
+                        # and changes the current username to the new username. See functions.py for that function.
+                        if request.POST.get('changeemail'):
+                            change_username(request.user.username, request.POST['changeemail'] , request)
+                        # The way we have the page coded, when a POST submit occurs, 
+                        # either the above situation happens in order to change the username, 
+                        # or this bottom situation, where the user has filled out the password modal, occurs.
+                        # current is the current password field in the modal. new is the new password field. confirm is the confirm new password field.
+                        # This checks whether the current password exists (that should be enough to determine if the modal has been filled out).
+                        # It also checks whether new = confirm (in other words, do the new password fields match).
+                        # If so, it writes the old password and new password to variables as seen below:
+                        if request.POST.get('current') and (request.POST.get('new') == request.POST.get('confirm')):
+                            current = request.POST['current']
+                            new = request.POST['new']
+                            # Checks if the password is actually right (check_password)
+                            if request.user.check_password(current):
+                                # If it is, set the password to new, and save the user.
+                                request.user.set_password(new)
+                                request.user.save()
+                            else:
+                                # If not, return to admin.php (will need to replace this with a "wrong password message, actually".
+                                return render(request, "admin.php", context)
                 return render(request, "admin.php", context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin == False:
                 return HttpResponseRedirect('provider.php')
@@ -258,6 +281,17 @@ def provider(request):
                         u.org_name = request.POST['changename']
                         u.save()
                         rebuildIndex.rebuildWhooshIndex()
+                if request.POST.get('current') and (request.POST.get('new') == request.POST.get('confirm')):
+                    current = request.POST['current']
+                    new = request.POST['new']
+                    if request.user.check_password(current):
+                        request.user.set_password(new)
+                        request.user.save()
+                    else:
+                        currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
+                        myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
+                        context = {'myEventList': myEventList, 'currentUser': currentUser}
+                        return render(request, "admin.php", context)
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
@@ -303,11 +337,11 @@ def resetpw(request):
                         resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink)
                         resetPWURL.save()
                         # Make sure to pull the hostname from config file.
-                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this linnk: http://grasa.larrimore.de/changePWLogout/" + resetlink))
+                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this linnk: http://grasa.larrimore.de/resetPWForm/" + resetlink))
 
         return render(request, 'resetPW.php')
 
-def changePWLogout(request, reset_string):
+def resetPWForm(request, reset_string):
         if request.method == 'POST' and request.POST['new'] == request.POST['confirm']:
                 print(reset_string)
                 username = resetPWURLs.objects.get(reset_string=reset_string)
@@ -321,7 +355,7 @@ def changePWLogout(request, reset_string):
                                 "DELETE FROM `grasa_event_locator_resetpwurls` WHERE `user_ID` = '" + username.user_ID + "';")
                 return redirect("login_page")
         else:
-                return render(request, 'changePWLogout.php')
+                return render(request, 'resetPWForm.php')
 
 #Functional views, post only, need to be logged in admin, self defining names
 

@@ -152,54 +152,54 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-              <form id="theForm" class="needs-validation" novalidate>
-      <div class="modal-body">
+              <form id="theForm" method="POST" action="admin.php" class="needs-validation" novalidate>{% csrf_token %}
+                  <div class="modal-body">
 
-        <div class="row">
-            <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
 
-                <div class="form-group col-md-12">
-                    <label for="resetPW">Current Password</label>
-                    <input type="password" id="currPW" class="form-control" name="emailAddr" placeholder="" required autofocus>
-                    <div class="invalid-feedback">
-                        For security purposes please provide your current password.
+                            <div class="form-group col-md-12">
+                                <label for="resetPW">Current Password</label>
+                                <input type="password" id="currPW" class="form-control" name="current" placeholder="" required autofocus>
+                                <div class="invalid-feedback">
+                                    For security purposes please provide your current password.
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="myPW">New Password</label>
+                                <input type="password" id="myPW" class="form-control" name="new" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                                <div class="invalid-feedback">
+                                  <p>Password must contain the following:</p>
+                                    <ul>
+                                      <li>A <b>lowercase</b> letter</li>
+                                      <li>A <b>capital (uppercase)</b> letter</li>
+                                      <li>A <b>number</b></li>
+                                      <li>Minimum <b>8 characters</b></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="confirmPW">Confirm New Password</label>
+
+                                <input type="password" id="confirmPW" class="form-control" name="confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                <div class="invalid-feedback">
+                                    Passwords must match.
+                                </div>
+                                <input id="SPcheckbox" type="checkbox" onclick="myFunction()">
+                                <label for="SPcheckbox">&nbsp; Show Password</label>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+                  </div>
 
-                <div class="form-group col-md-12">
-                    <label for="myPW">New Password</label>
-                    <input type="password" id="myPW" class="form-control" name="current" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-                    <div class="invalid-feedback">
-                      <p>Password must contain the following:</p>
-                        <ul>
-                          <li>A <b>lowercase</b> letter</li>
-                          <li>A <b>capital (uppercase)</b> letter</li>
-                          <li>A <b>number</b></li>
-                          <li>Minimum <b>8 characters</b></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="form-group col-md-12">
-                    <label for="confirmPW">Confirm New Password</label>
-
-                    <input type="password" id="confirmPW" class="form-control" name="confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-                    <div class="invalid-feedback">
-                        Passwords must match.
-                    </div>
-                    <input id="SPcheckbox" type="checkbox" onclick="myFunction()">
-                    <label for="SPcheckbox">&nbsp; Show Password</label>
-                </div>
-
-            </div>
-        </div>
-      </div> 
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" value="Submit">Save Changes</button>
-      </div>
-    </form>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" value="Submit">Save Changes</button>
+                  </div>
+                </form>
         </div>
       </div>
     </div>
