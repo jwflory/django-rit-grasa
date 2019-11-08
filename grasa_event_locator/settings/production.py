@@ -8,26 +8,15 @@ DEBUG = False
 # environment variable and set it with:
 # export SECRET_KEY="phil-dunphy98!-bananas12"
 # https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/#secret-key
-SECRET_KEY = os.environ['SECRET_KEY']
-
-# WSGI SETTINGS
-# https://docs.djangoproject.com/en/2.2/ref/settings/#wsgi-application
-WSGI_APPLICATION = 'grasa_event_locator.wsgi.application'
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # NOTIFICATIONS
 # A tuple that lists people who get code error notifications.
 # https://docs.djangoproject.com/en/2.2/ref/settings/#admins
-ADMINS = (
-         ('Your Name', 'your_email@example.com'),
-)
+ADMINS = (("Your Name", "your_email@example.com"),)
 MANAGERS = ADMINS
 
 ## DJANGO-COMPRESSOR SETTINGS
-#STATICFILES_FINDERS = STATICFILES_FINDERS + (
+# STATICFILES_FINDERS = STATICFILES_FINDERS + (
 #    'compressor.finders.CompressorFinder',
-#)
-
-try:
-    from local_settings import * # noqa
-except ImportError:
-    pass
+# )
