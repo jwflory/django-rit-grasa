@@ -1,4 +1,4 @@
-{% include "header.php" %}
+{% include "header.html" %}
 <div class="container event-container">
     <div class="row">
     <!--Top Row-->
@@ -11,14 +11,14 @@
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item changeNameLink" href="#">Change Organization Name</a>
-                      
+
                     <div class="dropdown-divider"></div>
-                      
+
                     <a class="dropdown-item changeEmailLink" href="#">Change Email</a>
                     <a class="dropdown-item" data-toggle="modal" data-target="#changePWModal" href="#">Change Password</a>
-                      
+
                     <div class="dropdown-divider"></div>
-                     
+
                     <a class="dropdown-item" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">View Alternative Contact Info</a>
                     <a class="dropdown-item disabled" href="#">Edit Alternative Contact Info</a>
                   </div>
@@ -34,7 +34,7 @@
                              </h5>
                         </span>
                         <!-- edit name-->
-                        <form action="provider.php" method="post">
+                        <form action="provider.html" method="post">
                             {% csrf_token %}
                              <div class="input-group mb-3 changeNameInput">
                                 <input type="text" name="changename" class="form-control" placeholder="{{ user.userinfo.org_name }}" aria-label="{{ user.userinfo.org_name }}" value="{{ user.userinfo.org_name }}">
@@ -50,7 +50,7 @@
                              </h5>
                         </span>
                         <!-- edit email-->
-                        <form method="POST" action="provider.php">{% csrf_token %}
+                        <form method="POST" action="provider.html">{% csrf_token %}
                              <div class="input-group mb-3 changeEmailInput">
                                 <input type="text" name="changeemail" class="form-control" placeholder="{{ user }}" aria-label="{{ user }}" value="{{ user }}">
                               <div class="input-group-append">
@@ -67,7 +67,7 @@
                           <i class="fa fa-user fa-fw" aria-hidden="true"></i> {{ user.userinfo.contact_name }}<br>
                           <i class="fa fa-envelope fa-fw" aria-hidden="true"></i> {{ user.userinfo.contact_email }}<br>
                           <i class="fa fa-phone fa-fw" aria-hidden="true"></i> {{ user.userinfo.contact_phone }}
-                         
+
                                 <!-- Help Modal -->
                                 <div class="modal fade" id="HelpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
@@ -88,13 +88,13 @@
                                     </div>
                                   </div>
                                 </div>
-    
+
                     </div>
 
                 </div>
             </div>
         </div>
-        
+
     </div>
     <div class="row">
     <!-- Bottom Row -->
@@ -121,9 +121,9 @@
               {% if myEvent.isPending == 1 %}
                 <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event" disabled>View</button></a></td>
                 <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn" disabled>Edit</button></a></td>
-                <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ myEvent.id }}" >Delete</button></td> 
+                <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ myEvent.id }}" >Delete</button></td>
               {% else %}
-              
+
               <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></a></td>
               <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn">Edit</button></a></td>
               <td><button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#deleteModal{{ myEvent.id }}">Delete</button></td>
@@ -153,7 +153,7 @@
             {% endfor %}
           </tbody>
         </table>
-        
+
 
     </div>
 </div>
@@ -169,7 +169,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-              <form id="theForm" method="POST" action="provider.php" class="needs-validation" novalidate>{% csrf_token %}
+              <form id="theForm" method="POST" action="provider.html" class="needs-validation" novalidate>{% csrf_token %}
                   `<div class="modal-body">
 
                     <div class="row">
@@ -224,7 +224,7 @@
     //create new event button
     var createBtn = document.getElementById('createEvent');
     createBtn.onclick = function(){
-        window.location = 'createEvent.php'
+        window.location = 'createEvent.html'
     }
 
     //edit event button
@@ -233,16 +233,16 @@
         //check for disabled button
         if(!$(editBtns[i]).hasClass("disabled")){
             editBtns[i].onclick = function(){
-                window.location = 'editEvent.php'
+                window.location = 'editEvent.html'
             }
         }
     }
-    
+
     //Change Name
     addSettings('changeNameLink', 'changeNameSave', 'changeNameInput', 'pName')
     //Change Email
     addSettings('changeEmailLink', 'changeEmailSave', 'changeEmailInput', 'pEmail')
-    
+
     function addSettings(editBtn, saveBtn, inputBox, label){
         var editBtn = document.getElementsByClassName(editBtn)[0]
         var saveBtn = document.getElementsByClassName(saveBtn)[0]
@@ -262,7 +262,7 @@
 
         }
     }
-    
+
      //confirm password extra validation
     $('#confirmPW').keyup(function() {
       if ( document.getElementById("confirmPW").value != document.getElementById("myPW").value ) {
@@ -273,8 +273,8 @@
           }
       }
     });
-    
-   
+
+
     //password validation - Lei
     function myFunction() {
       var x = document.getElementById("myPW");
@@ -304,17 +304,17 @@
                 event.stopPropagation();
                 $('#confirmPW').addClass( "is-invalid" );
                 $('#confirmPW').css('border', 'solid 1px #dc3545')
-                $('#confirmPW').css('background-image', 'none'); 
+                $('#confirmPW').css('background-image', 'none');
             }else if (form.checkValidity() === false) {
                 event.preventDefault();
                 event.stopPropagation();
             }
             form.classList.add('was-validated');
-            
+
           }, false);
         });
       }, false);
     })();
 
 </script>
-{% include "footer.php" %}
+{% include "footer.html" %}

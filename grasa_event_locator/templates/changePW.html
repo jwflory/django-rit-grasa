@@ -1,8 +1,8 @@
-{% include "header.php" %}
+{% include "header.html" %}
 
 
   <div class="form-changePW">
-	<form action="changePW.php" method="post">
+	<form action="changePW.html" method="post">
 	{% csrf_token %}
 		<label for="currentPW">Current Password</label>
 		<input type="password" id="currentPW" class="form-control" name="current" required autofocus>
@@ -11,8 +11,8 @@
 		<input type="password" id="newPW" class="form-control" name="new" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 		<input type="checkbox" onclick="myFunction()"> &nbsp; Show Password
 		</br>
-		
-				
+
+
 	<!--Pop-up confirmation page after clicking submit button on Registration form-->
 	<div class="row">
         <div class="col-12">
@@ -30,15 +30,15 @@
               </div>
               <div class="modal-body">
                <p>Your Password has been changed!</p>
-			   
-			   Please <a href="login.php">click here to login</a>
+
+			   Please <a href="login.html">click here to login</a>
               </div>
-              
+
             </div>
           </div>
         </div>
 	</div>
-		
+
 	</form>
   </div>
 
@@ -48,9 +48,9 @@
 //Ok Button returns to provider page
     var cancelBtn = document.getElementById('cancelBtn');
     cancelBtn.onclick = function(){
-        window.location = 'provider.php'
+        window.location = 'provider.html'
     }
-	
+
 function myFunction() {
   var x = document.getElementById("currentPW");
   var y = document.getElementById("newPW");
@@ -64,5 +64,5 @@ function myFunction() {
 }
 </script>
 
-{% include "footer.php" %}
+{% include "footer.html" %}
 

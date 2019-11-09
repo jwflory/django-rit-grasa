@@ -1,9 +1,9 @@
-{% include "header.php" %}
+{% include "header.html" %}
 {% load static %}
-	
+
     <form class="form-signin" method="post">{% csrf_token %}
-      
-    
+
+
       <h1 class="h3 mb-3 font-weight-normal text-center">GRASA Programs Login</h1>
       <p class="text-muted text-center">You do not need an account to browse events, only if you would like to add your own event.</p>
       <!-- These are used to check for pending users or failed logins and give feedback -->
@@ -22,14 +22,14 @@
 
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-      
+
       <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
         <div class="twentyblock"></div>
       <div class="text-center">
-          <p><a href="resetPW.php">Forgot Password?</a></p>
-          <p>Don't have an account?<br><a href="register.php">Register</a></p>
+          <p><a href="resetPW.html">Forgot Password?</a></p>
+          <p>Don't have an account?<br><a href="register.html">Register</a></p>
       </div>
     </form>
- 
 
-{% include "footer.php" %}
+
+{% include "footer.html" %}

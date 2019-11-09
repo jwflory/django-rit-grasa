@@ -1,4 +1,4 @@
-{% include "header.php" %}
+{% include "header.html" %}
 <div class="container event-container">
     <h2>Edit Event</h2>
     <p class="text-muted">When you edit your event it will need to be re-submited for approval by the administrators. Until the change is approved, your event will remain the same.</p>
@@ -22,12 +22,12 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nevermind</button>
                 <button type="button" class="btn btn-primary" id="cancelBtn">Confirm Cancel</button>
-                
+
               </div>
             </div>
           </div>
         </div>
-        
+
         <!--Submit Modal-->
         <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -44,14 +44,14 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
                 <button type="button" class="btn btn-success" id="submitOkBtn"><i class="fa fa-check" aria-hidden="true"></i> Submit for Approval</button>
-                
+
               </div>
             </div>
           </div>
         </div>
-        
+
     </div>
-    
+
     <form class="needs-validation" method="post" novalidate>
     {% csrf_token %}
       <div class="form-row">
@@ -92,7 +92,7 @@
                           <select class="form-control" id ="loc3" required>
                                 <option value="AL">AL</option>
                                 <option value="AK">AK</option>
-                                <option value="AR">AR</option>	
+                                <option value="AR">AR</option>
                                 <option value="AZ">AZ</option>
                                 <option value="CA">CA</option>
                                 <option value="CO">CO</option>
@@ -102,7 +102,7 @@
                                 <option value="FL">FL</option>
                                 <option value="GA">GA</option>
                                 <option value="HI">HI</option>
-                                <option value="IA">IA</option>	
+                                <option value="IA">IA</option>
                                 <option value="ID">ID</option>
                                 <option value="IL">IL</option>
                                 <option value="IN">IN</option>
@@ -114,14 +114,14 @@
                                 <option value="ME">ME</option>
                                 <option value="MI">MI</option>
                                 <option value="MN">MN</option>
-                                <option value="MO">MO</option>	
+                                <option value="MO">MO</option>
                                 <option value="MS">MS</option>
                                 <option value="MT">MT</option>
-                                <option value="NC">NC</option>	
+                                <option value="NC">NC</option>
                                 <option value="NE">NE</option>
                                 <option value="NH">NH</option>
                                 <option value="NJ">NJ</option>
-                                <option value="NM">NM</option>			
+                                <option value="NM">NM</option>
                                 <option value="NV">NV</option>
                                 <option value="NY" selected>NY</option>
                                 <option value="ND">ND</option>
@@ -138,10 +138,10 @@
                                 <option value="VT">VT</option>
                                 <option value="VA">VA</option>
                                 <option value="WA">WA</option>
-                                <option value="WI">WI</option>	
+                                <option value="WI">WI</option>
                                 <option value="WV">WV</option>
                                 <option value="WY">WY</option>
-                            </select>	
+                            </select>
                           <div class="invalid-feedback">
                             Please provide a valid state.
                           </div>
@@ -160,8 +160,8 @@
                         <input type="hidden" id="lng" name="lng" value="0" readonly>
                     </div>
                 </fieldset>
-                
-                
+
+
                 <fieldset class="pocFieldset">
                     <legend>Point of Contact</legend>
                    <div class="form-row">
@@ -263,7 +263,7 @@
     //Cancel Button and Ok Button returns to provider page
     var cancelBtn = document.getElementById('cancelBtn');
     cancelBtn.onclick = function(){
-        window.location = '/provider.php'
+        window.location = '/provider.html'
     }
     var okBtn = document.getElementById('submitOkBtn');
     okBtn.onclick = function(){
@@ -326,10 +326,10 @@
                         $('#submitModal').modal('show');
                     }
                 });
-                
+
             }
             form.classList.add('was-validated');
-              
+
             //validation style fix for multiselect
             var multiList = document.getElementsByClassName("multiBox");
             for(var i=0; i<multiList.length;i++){
@@ -350,7 +350,7 @@
                         var label = parentBtn.firstChild
                         var txt = $(label).text()
                         if(txt == "None selected"){
-                            //error make red and 
+                            //error make red and
                             $(parentBtn).css('border', 'solid 1px #dc3545')
                             $(parentBtn).find("i").remove();
                             $(parentBtn).append('<i class="fa fa-times" aria-hidden="true" style="color:#dc3545;padding-top:5px;padding-right:5px;"></i>')
@@ -364,10 +364,10 @@
                 }
             }
             });
-          }, false); 
+          }, false);
         }, false);
     })();
-    
+
     function combineLocation(){
         //put location items in hidden input val
         var street = $('#loc1').val();
@@ -376,7 +376,7 @@
         var zip = $('#loc4').val();
         $('#addressInput').val(street+" "+city+" "+state+" "+zip)
     }
-    
+
     //function that geocodes the street address
     function doGeocoding(){
         var streetString = $('#addressInput').val();
@@ -398,7 +398,7 @@
             return false;
         });
     }
-    
+
     //function to check if the geocoding worked
     function geoCheck(){
         if($('#lat').val() === 'nil' || $('#lng').val() === 'nil'){
@@ -407,8 +407,8 @@
             return true;
         }
     }
-    
-	
+
+
 	//phone number auto-format
 	//the dashes between phone numbers will auto fill while typing
 	function phone_formatting(ele,restore) {
@@ -416,7 +416,7 @@
 		  selection_start = ele.selectionStart,
 		  selection_end = ele.selectionEnd,
 		  number = ele.value.replace(/\D/g,'');
-	  
+
 	  // automatically add dashes
 	  if (number.length > 2) {
 		// matches: 123 || 123-4 || 123-45
@@ -437,17 +437,17 @@
 	  else {
 		new_number = number;
 	  }
-	  
+
 	  // if value is heigher than 12, last number is dropped
 	  // if inserting a number before the last character, numbers
 	  // are shifted right, only 12 characters will show
 	  ele.value =  (new_number.length > 12) ? new_number.substring(0,12) : new_number;
-	  
+
 	  // restore cursor selection,
 	  // prevent it from going to the end
 	  // UNLESS
 	  // cursor was at the end AND a dash was added
-	  
+
 	  if (new_number.slice(-1) === '-' && restore === false
 		  && (new_number.length === 8 && selection_end === 7)
 			  || (new_number.length === 4 && selection_end === 3)) {
@@ -461,7 +461,7 @@
 	  ele.setSelectionRange(selection_start, selection_end);
 
 	}
-	  
+
 	function phone_number_check(field,e) {
 	  var key_code = e.keyCode,
 		  key_string = String.fromCharCode(key_code),
@@ -470,12 +470,12 @@
 		  delete_key = [8,46],
 		  direction_key = [33,34,35,36,37,38,39,40],
 		  selection_end = field.selectionEnd;
-	  
+
 	  // delete key was pressed
 	  if (delete_key.indexOf(key_code) > -1) {
 		press_delete = true;
 	  }
-	  
+
 	  // only force formatting is a number or delete key was pressed
 	  if (key_string.match(/^\d+$/) || press_delete) {
 		phone_formatting(field,press_delete);
@@ -505,6 +505,6 @@
 	document.getElementById('phone').onkeyup = function(e) {
 	  phone_number_check(this,e);
 	}
-	
+
 </script>
-{% include "footer.php" %}
+{% include "footer.html" %}

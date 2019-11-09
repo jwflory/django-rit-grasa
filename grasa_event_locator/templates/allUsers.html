@@ -1,4 +1,4 @@
-{% include "header.php" %}
+{% include "header.html" %}
 <div class="row allUsersContainer">
     <div class="col-sm-12">
         <div class="twentyblock"></div>
@@ -21,11 +21,11 @@
                   <th scope="row">{{ user.org_name }}</th>
 
                   <td><a href="mailto:{{ user.user }}">{{ user.user }}</a></td>
-                  <td> 
+                  <td>
                       <i class="fa fa-user fa-fw" aria-hidden="true"></i> {{         user.contact_name }}<br>
                       <i class="fa fa-envelope fa-fw" aria-hidden="true"></i> <a href="mailto:{{ pendingUser.contact_email }}">{{ user.contact_email }}</a><br>
                       <i class="fa fa-phone fa-fw" aria-hidden="true"></i> {{ user.contact_phone }}
-                    
+
                     </td>
 
                   <td>{{ user.program_set.count }} </td>
@@ -71,7 +71,7 @@
         </button>
       </div>
       <div class="modal-body">
-          <form method="post" action="allUsers.php">{% csrf_token %}
+          <form method="post" action="allUsers.html">{% csrf_token %}
               <div class="form-group">
                 <label for="exampleInputEmail1">Send an email to an organization you would like to invite as a provider:</label>
                 <input type="email" name="emailAddr" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email...">
@@ -87,8 +87,8 @@
 <script>
     var backBtn = document.getElementById('backBtn');
     backBtn.onclick = function(){
-        window.location = 'admin.php'
+        window.location = 'admin.html'
     }
 
 </script>
-{% include "footer.php" %}
+{% include "footer.html" %}

@@ -1,4 +1,4 @@
-{% include "header.php" %}
+{% include "header.html" %}
 <div class="container event-container">
     <div class="row">
 
@@ -11,7 +11,7 @@
             {% endfor %}
             </div>
             <p class="text-break">{{ event.content }}</p>
-            
+
             <h4>Location:</h4>
             <p>
             {% if event.address %}
@@ -20,7 +20,7 @@
                 <a>Location Not Provided</a>
             {% endif %}
             </p>
-            
+
             <p><h4>Contact Information: </h4><p><i class="fa fa-user fa-fw" aria-hidden="true"></i> {{ event.contact_name }} <br><i class="fa fa-envelope fa-fw" aria-hidden="true"></i> {{ event.contact_email }} <br><i class="fa fa-phone fa-fw" aria-hidden="true"></i> {{ event.contact_phone }}</p>
 
 
@@ -43,7 +43,7 @@
                     <li class="list-group-item ">
                         <i class="fa fa-globe fa-fw" aria-hidden="true"></i> Website Not Provided
                     </li>
-                  {% endif %}  
+                  {% endif %}
             </ul>
         </div>
 
@@ -51,4 +51,4 @@
 </div>
 
 
-{% include "footer.php" %}
+{% include "footer.html" %}
