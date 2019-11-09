@@ -114,18 +114,22 @@
             <tr>
               <th scope="row">{{ myEvent.title }}</th>
               {% if myEvent.isPending == 1 %}
-              <td>Submitted for Approval</td>
+                {% if myEvent.editOf != 0 %}
+                <td>Edit Awaiting Approval</td>
+                {% else %}
+                <td>Submitted for Approval</td>
+                {% endif %}
               {% else %}
               <td>Approved</td>
               {% endif %}
               {% if myEvent.isPending == 1 %}
                 <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event" disabled>View</button></a></td>
-                <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn" disabled>Edit</button></a></td>
+                <td><a href="{% url 'edit_event' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn" disabled>Edit</button></a></td>
                 <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ myEvent.id }}" >Delete</button></td>
               {% else %}
 
               <td><a href="{% url 'event_page' myEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></a></td>
-              <td><a href="{% url 'edit_page' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn">Edit</button></a></td>
+              <td><a href="{% url 'edit_event' myEvent.id %}"><button type="button" class="btn btn-outline-info editBtn">Edit</button></a></td>
               <td><button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#deleteModal{{ myEvent.id }}">Delete</button></td>
               {% endif %}
               <!--Delete Modal-->
