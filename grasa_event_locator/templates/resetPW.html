@@ -3,6 +3,11 @@
 
   <div class="form-reset">
 	<h1 class="h3 mb-3 font-weight-normal text-center">Reset Password</h1>
+        {% if email_sent %}
+        <div class="alert alert-warning" role="alert">
+          If this email address is associated with a provider account, an email has been sent with a link to reset the password.
+        </div>
+        {% endif %}
 	<form action="resetPW.html" method="post">
 	{% csrf_token %}
 		<label for="resetPW" class="sr-only">Email address</label>
