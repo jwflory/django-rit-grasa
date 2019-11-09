@@ -578,27 +578,36 @@ def denyEvent(request, eventID):
 def approveEdit(request, editID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 p = Program.objects.get(pk=editID)
-                oldP = Program.objects.get(pk=p.editOf)
-
-
-                oldP.title = p.title
-                oldP.content = p.content
-                oldP.address = p.address
-                oldP.lat = p.lat
-                oldP.lng = p.lng
-                oldP.website = p.website
-                oldP.fees = p.fees
-                oldP.contact_name = p.contact_name
-                oldP.contact_email = p.contact_email
-                oldP.contact_phone = p.contact_phone
-                for category in oldP.categories.all():
-                    oldP.categories.remove(category)
-                for category2 in p.categories.all():
-                    oldP.categories.add(category2)
-                oldP.save()
-                p.delete()
+                #Check if oldP still exists (may have been deleted)
+                oldP = Program.objects.filter(pk=p.editOf)
+                if(oldP.count() >= 1):
+                    oldP = Program.objects.get(pk=p.editOf)
+                    oldP.title = p.title
+                    oldP.content = p.content
+                    oldP.address = p.address
+                    oldP.lat = p.lat
+                    oldP.lng = p.lng
+                    oldP.website = p.website
+                    oldP.fees = p.fees
+                    oldP.contact_name = p.contact_name
+                    oldP.contact_email = p.contact_email
+                    oldP.contact_phone = p.contact_phone
+                    for category in oldP.categories.all():
+                        oldP.categories.remove(category)
+                    for category2 in p.categories.all():
+                        oldP.categories.add(category2)
+                    oldP.save()
+                    p.delete()
+                    print("inside if")
+                    print(send_email([str(User.objects.get(pk=oldP.user_id.user_id))], "GRASA - Event Edit Approved!", "Your edited event has been approved! See it at http://grasa.larrimore.de/event/" + str(oldP.id)))
+                else:
+                    #It didn't still exist, so just make the edit it's own new event
+                    p.isPending = False
+                    p.editOf = 0
+                    p.save()
+                    print("inside else")
+                    print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Approved!", "Your edited event has been approved! See it at http://grasa.larrimore.de/event/" + str(p.id)))
                 rebuildIndex.rebuildWhooshIndex()
-                print(send_email([str(User.objects.get(pk=oldP.user_id.user_id))], "GRASA - Event Edit Approved!", "Your edited event has been approved! See it at http://grasa.larrimore.de/event/" + str(oldP.id)))
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
