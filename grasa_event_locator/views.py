@@ -187,8 +187,45 @@ def createevent(request):
 
 def editEvent(request, eventID):
         event = Program.objects.get(pk=eventID)
-
         if request.user.is_authenticated and request.user.userinfo.isPending == False and (request.user.userinfo.isAdmin or request.user.userinfo.id == event.user_id.id):
+            if request.method == 'POST':
+                g = (str(request.user.userinfo.id))
+                #Only change was to set fees to fees=float(request.POST['fees']) so that the value gets stored in DB as float
+                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=float(request.POST['fees']), contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lng=request.POST['lng'], editOf=eventID)
+                program.save()
+                i = 0
+                for tag in request.POST.getlist('activity'):
+                        var = Category.objects.get(description=str(request.POST.getlist('activity')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i= i + 1
+                i = 0
+                for tag in request.POST.getlist('transportation'):
+                    if str(request.POST.getlist('transportation')[i]) != "Not-Provided":
+                        var = Category.objects.get(description=str(request.POST.getlist('transportation')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
+                i = 0
+                for tag in request.POST.getlist('grades'):
+                        var = Category.objects.get(description=str(request.POST.getlist('grades')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
+                i = 0
+                for tag in request.POST.getlist('gender'):
+                    if str(request.POST.getlist('gender')[i]) != "Non-Specific":
+                        var = Category.objects.get(description=str(request.POST.getlist('gender')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
+                i = 0
+                for tag in request.POST.getlist('timing'):
+                        var = Category.objects.get(description=str(request.POST.getlist('timing')[i]))
+                        var.save()
+                        program.categories.add(var)
+                        i = i + 1
+                return redirect("provider_page")
             context = {'event': event}
             return render(request, 'editEvent.php', context)
         else:
@@ -406,21 +443,35 @@ def approveEdit(request, editID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 p = Program.objects.get(pk=editID)
                 oldP = Program.objects.get(pk=p.editOf)
-                #Strange issue here, I get no errors but editOf won't switch to 0 and oldP wont delete
-                oldP.delete()
-                p.editOf = 0
-                p.isPending = False
-                p.save()
-                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Approved!", "Your edited event has been approved! See it at http://grasa.larrimore.de/event/" + str(p.id)))
+
+
+                oldP.title = p.title
+                oldP.content = p.content
+                oldP.address = p.address
+                oldP.lat = p.lat
+                oldP.lng = p.lng
+                oldP.website = p.website
+                oldP.fees = p.fees
+                oldP.contact_name = p.contact_name
+                oldP.contact_email = p.contact_email
+                oldP.contact_phone = p.contact_phone
+                for category in oldP.categories.all():
+                    oldP.categories.remove(category)
+                for category2 in p.categories.all():
+                    oldP.categories.add(category2)
+                oldP.save()
+                p.delete()
+                rebuildIndex.rebuildWhooshIndex()
+                print(send_email([str(User.objects.get(pk=oldP.user_id.user_id))], "GRASA - Event Edit Approved!", "Your edited event has been approved! See it at http://grasa.larrimore.de/event/" + str(oldP.id)))
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
 
 def denyEdit(request, editID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
+                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Denied", "Your edited event has been denied. Contact GRASA for details."))
                 p = Program.objects.get(pk=editID)
                 p.delete()
-                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Denied", "Your edited event has been denied. Contact GRASA for details."))
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
