@@ -132,8 +132,8 @@
                       <td>{{ pendingEdit.user_id.org_name }}</td>
                       <td>Pending</td>
                       <td><a href="{% url 'event_page' pendingEdit.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></a></td>
-                      <td><a href="{% url 'approve_event' pendingEdit.id %}"><button type="button" class="btn btn-outline-success">Approve</button></a></td>
-                      <td><a href="{% url 'deny_event' pendingEdit.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></a></td>
+                      <td><a href="{% url 'approve_edit' pendingEdit.id %}"><button type="button" class="btn btn-outline-success">Approve</button></a></td>
+                      <td><a href="{% url 'deny_edit' pendingEdit.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></a></td>
                     </tr>
                     {% endfor %}
                   </tbody>
