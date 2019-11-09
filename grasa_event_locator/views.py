@@ -376,7 +376,6 @@ def resetpw(request):
         i = 0
         if request.method == 'POST':
                 if User.objects.filter(username=request.POST['emailAddr']).exists():
-                        context = {'email_sent': True}
                         with connection.cursor() as cursor:
                                 cursor.execute("DELETE FROM `grasa_event_locator_resetpwurls` WHERE `user_ID` = '" + request.POST['emailAddr'] + "';")
                         resetlink = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(15)])
@@ -384,8 +383,8 @@ def resetpw(request):
                         resetPWURL.save()
                         # Make sure to pull the hostname from config file.
                         print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this linnk: http://grasa.larrimore.de/resetPWForm/" + resetlink))
-        context = {'email_sent': True}
-        return render(request, 'resetPW.html', context)
+
+        return render(request, 'resetPW.html')
 
 def resetPWForm(request, reset_string):
         if request.method == 'POST' and request.POST['new'] == request.POST['confirm']:
@@ -410,8 +409,7 @@ def approveUser(request, userID):
                 u = userInfo.objects.get(pk=userID)
                 u.isPending = False
                 u.save()
-                print(send_email([str(u.user)], "GRASA - Account Approved", "Your account for " + u.org_name + " at the GRASA Event Locator has been approved! Please login at http://grasa.larrimore.de/login.php to add events."))
-                print(send_email([u.contact_email], "GRASA - Alternate Contact", "You are the alternative contact for " + u.org_name + " at the GRASA Event Locator. Please contact them for further details."))
+                print(send_email([u.contact_email], "GRASA - Alternate Contact", "You are the alternative contact for " + u.org_name + " in the GRASA Event Locator. Please contact them for further details."))
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
