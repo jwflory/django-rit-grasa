@@ -15,7 +15,7 @@
             <h4>Location:</h4>
             <p>
             {% if event.address %}
-                <a target="_blank" href="https://maps.google.com/?q={{ event.address }}">{{ event.address }} <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                <a target="_blank" href="https://maps.google.com/?q={{ event.address }}">{% for i in address %}{{ i }}{% endfor %} <i class="fa fa-external-link" aria-hidden="true"></i></a>
             {% else %}
                 <a>Location Not Provided</a>
             {% endif %}

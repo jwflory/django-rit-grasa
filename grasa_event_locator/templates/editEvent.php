@@ -1,4 +1,4 @@
-{% include "header.html" %}
+{% include "header.php" %}
 <div class="container event-container">
     <h2>Edit Event</h2>
     <p class="text-muted">When you edit your event it will need to be re-submited for approval by the administrators. Until the change is approved, your event will remain the same.</p>
@@ -22,12 +22,12 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"> Nevermind</button>
                 <button type="button" class="btn btn-primary" id="cancelBtn">Confirm Cancel</button>
-
+                
               </div>
             </div>
           </div>
         </div>
-
+        
         <!--Submit Modal-->
         <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -44,14 +44,14 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
                 <button type="button" class="btn btn-success" id="submitOkBtn"><i class="fa fa-check" aria-hidden="true"></i> Submit for Approval</button>
-
+                
               </div>
             </div>
           </div>
         </div>
-
+        
     </div>
-
+    
     <form class="needs-validation" method="post" novalidate>
     {% csrf_token %}
       <div class="form-row">
@@ -90,58 +90,58 @@
                         <div class="col-md-2">
                           <label for="loc3">State</label>
                           <select class="form-control" id ="loc3" required>
-                                <option value="AL" >AL</option>
-                                <option value="AK">AK</option>
-                                <option value="AR">AR</option>
-                                <option value="AZ">AZ</option>
-                                <option value="CA">CA</option>
-                                <option value="CO">CO</option>
-                                <option value="CT">CT</option>
-                                <option value="DC">DC</option>
+                                <option value="AL"{% ifequal address.2.strip "AL" %} selected{% endifequal %} >AL</option>
+                                <option value="AK"{% ifequal address.2.strip "AK" %} selected{% endifequal %}>AK</option>
+                                <option value="AR"{% ifequal address.2.strip "AR" %} selected{% endifequal %}>AR</option>	
+                                <option value="AZ"{% ifequal address.2.strip "AZ" %} selected{% endifequal %}>AZ</option>
+                                <option value="CA"{% ifequal address.2.strip "CA" %} selected{% endifequal %}>CA</option>
+                                <option value="CO"{% ifequal address.2.strip "CO" %} selected{% endifequal %}>CO</option>
+                                <option value="CT"{% ifequal address.2.strip "CT" %} selected{% endifequal %}>CT</option>
+                                <option value="DC"{% ifequal address.2.strip "DC" %} selected{% endifequal %}>DC</option>
                                 <option value="DE"{% ifequal address.2.strip "DE" %} selected{% endifequal %}>DE</option>
-                                <option value="FL">FL</option>
-                                <option value="GA">GA</option>
-                                <option value="HI">HI</option>
-                                <option value="IA">IA</option>
-                                <option value="ID">ID</option>
-                                <option value="IL">IL</option>
-                                <option value="IN">IN</option>
-                                <option value="KS">KS</option>
-                                <option value="KY">KY</option>
-                                <option value="LA">LA</option>
-                                <option value="MA">MA</option>
-                                <option value="MD">MD</option>
-                                <option value="ME">ME</option>
-                                <option value="MI">MI</option>
-                                <option value="MN">MN</option>
-                                <option value="MO">MO</option>
-                                <option value="MS">MS</option>
-                                <option value="MT">MT</option>
-                                <option value="NC">NC</option>
-                                <option value="NE">NE</option>
-                                <option value="NH">NH</option>
-                                <option value="NJ">NJ</option>
-                                <option value="NM">NM</option>
-                                <option value="NV">NV</option>
-                                <option value="NY" {% ifequal address.2.strip "NY" %} selected{% endifequal %}>NY</option>
-                                <option value="ND">ND</option>
-                                <option value="OH">OH</option>
-                                <option value="OK">OK</option>
-                                <option value="OR">OR</option>
-                                <option value="PA">PA</option>
-                                <option value="RI">RI</option>
-                                <option value="SC">SC</option>
-                                <option value="SD">SD</option>
-                                <option value="TN">TN</option>
-                                <option value="TX">TX</option>
-                                <option value="UT">UT</option>
-                                <option value="VT">VT</option>
-                                <option value="VA">VA</option>
-                                <option value="WA">WA</option>
-                                <option value="WI">WI</option>
-                                <option value="WV">WV</option>
-                                <option value="WY">WY</option>
-                            </select>
+                                <option value="FL"{% ifequal address.2.strip "Fl" %} selected{% endifequal %}>FL</option>
+                                <option value="GA"{% ifequal address.2.strip "GA" %} selected{% endifequal %}>GA</option>
+                                <option value="HI"{% ifequal address.2.strip "HI" %} selected{% endifequal %}>HI</option>
+                                <option value="IA"{% ifequal address.2.strip "IA" %} selected{% endifequal %}>IA</option>	
+                                <option value="ID"{% ifequal address.2.strip "ID" %} selected{% endifequal %}>ID</option>
+                                <option value="IL"{% ifequal address.2.strip "IL" %} selected{% endifequal %}>IL</option>
+                                <option value="IN"{% ifequal address.2.strip "IN" %} selected{% endifequal %}>IN</option>
+                                <option value="KS"{% ifequal address.2.strip "KS" %} selected{% endifequal %}>KS</option>
+                                <option value="KY"{% ifequal address.2.strip "KY" %} selected{% endifequal %}>KY</option>
+                                <option value="LA"{% ifequal address.2.strip "LA" %} selected{% endifequal %}>LA</option>
+                                <option value="MA"{% ifequal address.2.strip "MA" %} selected{% endifequal %}>MA</option>
+                                <option value="MD"{% ifequal address.2.strip "MD" %} selected{% endifequal %}>MD</option>
+                                <option value="ME"{% ifequal address.2.strip "ME" %} selected{% endifequal %}>ME</option>
+                                <option value="MI"{% ifequal address.2.strip "MI" %} selected{% endifequal %}>MI</option>
+                                <option value="MN"{% ifequal address.2.strip "MN" %} selected{% endifequal %}>MN</option>
+                                <option value="MO"{% ifequal address.2.strip "MO" %} selected{% endifequal %}>MO</option>	
+                                <option value="MS"{% ifequal address.2.strip "MS" %} selected{% endifequal %}>MS</option>
+                                <option value="MT"{% ifequal address.2.strip "MT" %} selected{% endifequal %}>MT</option>
+                                <option value="NC"{% ifequal address.2.strip "NC" %} selected{% endifequal %}>NC</option>	
+                                <option value="NE"{% ifequal address.2.strip "NE" %} selected{% endifequal %}>NE</option>
+                                <option value="NH"{% ifequal address.2.strip "NH" %} selected{% endifequal %}>NH</option>
+                                <option value="NJ"{% ifequal address.2.strip "NJ" %} selected{% endifequal %}>NJ</option>
+                                <option value="NM"{% ifequal address.2.strip "NM" %} selected{% endifequal %}>NM</option>			
+                                <option value="NV"{% ifequal address.2.strip "NV" %} selected{% endifequal %}>NV</option>
+                                <option value="NY"{% ifequal address.2.strip "NY" %} selected{% endifequal %}>NY</option>
+                                <option value="ND"{% ifequal address.2.strip "ND" %} selected{% endifequal %}>ND</option>
+                                <option value="OH"{% ifequal address.2.strip "OH" %} selected{% endifequal %}>OH</option>
+                                <option value="OK"{% ifequal address.2.strip "OK" %} selected{% endifequal %}>OK</option>
+                                <option value="OR"{% ifequal address.2.strip "OR" %} selected{% endifequal %}>OR</option>
+                                <option value="PA"{% ifequal address.2.strip "PA" %} selected{% endifequal %}>PA</option>
+                                <option value="RI"{% ifequal address.2.strip "RI" %} selected{% endifequal %}>RI</option>
+                                <option value="SC"{% ifequal address.2.strip "SC" %} selected{% endifequal %}>SC</option>
+                                <option value="SD"{% ifequal address.2.strip "SD" %} selected{% endifequal %}>SD</option>
+                                <option value="TN"{% ifequal address.2.strip "TN" %} selected{% endifequal %}>TN</option>
+                                <option value="TX"{% ifequal address.2.strip "TX" %} selected{% endifequal %}>TX</option>
+                                <option value="UT"{% ifequal address.2.strip "UT" %} selected{% endifequal %}>UT</option>
+                                <option value="VT"{% ifequal address.2.strip "VT" %} selected{% endifequal %}>VT</option>
+                                <option value="VA"{% ifequal address.2.strip "VA" %} selected{% endifequal %}>VA</option>
+                                <option value="WA"{% ifequal address.2.strip "WA" %} selected{% endifequal %}>WA</option>
+                                <option value="WI"{% ifequal address.2.strip "WI" %} selected{% endifequal %}>WI</option>	
+                                <option value="WV"{% ifequal address.2.strip "WV" %} selected{% endifequal %}>WV</option>
+                                <option value="WY"{% ifequal address.2.strip "WY" %} selected{% endifequal %}>WY</option>
+                            </select>	
                           <div class="invalid-feedback">
                             Please provide a valid state.
                           </div>
@@ -160,8 +160,8 @@
                         <input type="hidden" id="lng" name="lng" value="0" readonly>
                     </div>
                 </fieldset>
-
-
+                
+                
                 <fieldset class="pocFieldset">
                     <legend>Point of Contact</legend>
                    <div class="form-row">
@@ -263,7 +263,7 @@
     //Cancel Button and Ok Button returns to provider page
     var cancelBtn = document.getElementById('cancelBtn');
     cancelBtn.onclick = function(){
-        window.location = '/provider.html'
+        window.location = '/provider.php'
     }
     var okBtn = document.getElementById('submitOkBtn');
     okBtn.onclick = function(){
@@ -338,10 +338,10 @@
                         $('#submitModal').modal('show');
                     }
                 });
-
+                
             }
             form.classList.add('was-validated');
-
+              
             //validation style fix for multiselect
             var multiList = document.getElementsByClassName("multiBox");
             for(var i=0; i<multiList.length;i++){
@@ -362,7 +362,7 @@
                         var label = parentBtn.firstChild
                         var txt = $(label).text()
                         if(txt == "None selected"){
-                            //error make red and
+                            //error make red and 
                             $(parentBtn).css('border', 'solid 1px #dc3545')
                             $(parentBtn).find("i").remove();
                             $(parentBtn).append('<i class="fa fa-times" aria-hidden="true" style="color:#dc3545;padding-top:5px;padding-right:5px;"></i>')
@@ -376,10 +376,10 @@
                 }
             }
             });
-          }, false);
+          }, false); 
         }, false);
     })();
-
+    
     function combineLocation(){
         //put location items in hidden input val
         var street = $('#loc1').val();
@@ -388,7 +388,7 @@
         var zip = $('#loc4').val();
         $('#addressInput').val(street+"+ "+city+"+ "+state+"+ "+zip)
     }
-
+    
     //function that geocodes the street address
     function doGeocoding(){
         var streetString = $('#addressInput').val();
@@ -410,7 +410,7 @@
             return false;
         });
     }
-
+    
     //function to check if the geocoding worked
     function geoCheck(){
         if($('#lat').val() === 'nil' || $('#lng').val() === 'nil'){
@@ -419,8 +419,8 @@
             return true;
         }
     }
-
-
+    
+	
 	//phone number auto-format
 	//the dashes between phone numbers will auto fill while typing
 	function phone_formatting(ele,restore) {
@@ -428,7 +428,7 @@
 		  selection_start = ele.selectionStart,
 		  selection_end = ele.selectionEnd,
 		  number = ele.value.replace(/\D/g,'');
-
+	  
 	  // automatically add dashes
 	  if (number.length > 2) {
 		// matches: 123 || 123-4 || 123-45
@@ -449,17 +449,17 @@
 	  else {
 		new_number = number;
 	  }
-
+	  
 	  // if value is heigher than 12, last number is dropped
 	  // if inserting a number before the last character, numbers
 	  // are shifted right, only 12 characters will show
 	  ele.value =  (new_number.length > 12) ? new_number.substring(0,12) : new_number;
-
+	  
 	  // restore cursor selection,
 	  // prevent it from going to the end
 	  // UNLESS
 	  // cursor was at the end AND a dash was added
-
+	  
 	  if (new_number.slice(-1) === '-' && restore === false
 		  && (new_number.length === 8 && selection_end === 7)
 			  || (new_number.length === 4 && selection_end === 3)) {
@@ -473,7 +473,7 @@
 	  ele.setSelectionRange(selection_start, selection_end);
 
 	}
-
+	  
 	function phone_number_check(field,e) {
 	  var key_code = e.keyCode,
 		  key_string = String.fromCharCode(key_code),
@@ -482,12 +482,12 @@
 		  delete_key = [8,46],
 		  direction_key = [33,34,35,36,37,38,39,40],
 		  selection_end = field.selectionEnd;
-
+	  
 	  // delete key was pressed
 	  if (delete_key.indexOf(key_code) > -1) {
 		press_delete = true;
 	  }
-
+	  
 	  // only force formatting is a number or delete key was pressed
 	  if (key_string.match(/^\d+$/) || press_delete) {
 		phone_formatting(field,press_delete);
@@ -517,6 +517,6 @@
 	document.getElementById('phone').onkeyup = function(e) {
 	  phone_number_check(this,e);
 	}
-
+	
 </script>
-{% include "footer.html" %}
+{% include "footer.php" %}

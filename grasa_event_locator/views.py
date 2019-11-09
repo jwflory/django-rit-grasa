@@ -150,6 +150,8 @@ def createevent(request):
         if request.method == 'POST':
                 g = (str(request.user.userinfo.id))
                 #Only change was to set fees to fees=float(request.POST['fees']) so that the value gets stored in DB as float
+
+
                 program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=float(request.POST['fees']), contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lng=request.POST['lng'])
                 program.save()
                 i = 0
@@ -189,6 +191,52 @@ def createevent(request):
                 print("No")
                 return render(request, 'createEvent.html')
         return render(request, 'createEvent.html')
+
+
+def getEventInfo(eventID):
+        event = Program.objects.get(pk=eventID)
+        grades_list_pub = ""
+        timing_list_pub = ""
+        gender_list_pub = ""
+        transportation_list_pub = ""
+        topic_list = event.categories.filter(id__lte=18)
+        grades_list = event.categories.filter(id__gte=20)
+        grades_list = grades_list.filter(id__lte=24)
+        for g in grades_list:
+                grades_list_pub = grades_list_pub + str(g) + ", "
+        grades_list_pub = grades_list_pub[:-2]
+
+        timing_list = event.categories.filter(id__gte=27)
+        timing_list = timing_list.filter(id__lte=32)
+        for t in timing_list:
+                timing_list_pub = timing_list_pub + str(t) + ", "
+        timing_list_pub = timing_list_pub[:-2]
+
+        gender_list = event.categories.filter(id__gte=25)
+        gender_list = gender_list.filter(id__lte=26)
+        for g in gender_list:
+                gender_list_pub = gender_list_pub + str(g) + ", "
+        gender_list_pub = gender_list_pub[:-2]
+        if gender_list.count() == 0:
+                gender_list_pub = "Any Gender"
+
+        transportation_list = event.categories.filter(id__gte=19)
+        transportation_list = transportation_list.filter(id__lte=19)
+        for t in transportation_list:
+                transportation_list_pub = transportation_list_pub + str(t)
+        if transportation_list.count() == 0:
+                transportation_list_pub = "Not Provided"
+
+        context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
+
+        address = context['event'].address.split('+')
+        context['address'] = address
+
+        return context
+
+def event(request, eventID):
+        context = getEventInfo(eventID)
+        return render(request, 'event.php', context)
 
 def editEvent(request, eventID):
         event = Program.objects.get(pk=eventID)
@@ -231,24 +279,35 @@ def editEvent(request, eventID):
                         program.categories.add(var)
                         i = i + 1
                 return redirect("provider_page")
-            context = {'event': event}
-            return render(request, 'editEvent.html', context)
+
+            elif request.method == 'GET':
+                context = getEventInfo(eventID)
+                activities = []
+                for activity in context['topic_list']:
+                        activities.append(str(activity))
+                context['topic_list'] = activities
+
+                timing1 = context['timing_list_pub'].split(',')
+                timing2 = []
+
+                for time in timing1:
+                        timing2.append(time.strip())
+                context['timing_list_pub'] = timing2
+
+                grades1 = context['grades_list_pub'].split(',')
+                grades2 = []
+
+                for grade in grades1:
+                        grades2.append(grade.strip())
+                context['grades_list_pub'] = grades2
+
+                return render(request, 'editEvent.php', context)
+
         else:
             return redirect('login_page')
 
-def event(request, eventID):
-        event = Program.objects.get(pk=eventID)
-        grades_list_pub = ""
-        timing_list_pub = ""
-        gender_list_pub = ""
-        transportation_list_pub = ""
-        topic_list = event.categories.filter(id__lte=18)
-        grades_list = event.categories.filter(id__gte=20)
-        grades_list = grades_list.filter(id__lte=24)
-        for g in grades_list:
-                grades_list_pub = grades_list_pub + str(g) + ", "
-        grades_list_pub = grades_list_pub[:-2]
 
+<<<<<<< HEAD
         timing_list = event.categories.filter(id__gte=27)
         timing_list = timing_list.filter(id__lte=32)
         for t in timing_list:
@@ -272,6 +331,8 @@ def event(request, eventID):
 
         context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
         return render(request, 'event.html', context)
+=======
+>>>>>>> auto fill editevent page
 
 def login(request):
         if request.user.is_authenticated:
