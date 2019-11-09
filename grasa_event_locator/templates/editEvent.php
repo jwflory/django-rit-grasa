@@ -75,14 +75,14 @@
                     <div class="form-row">
                         <div class="col-md-4">
                           <label for="loc1">Street Address</label>
-                          <input type="text" class="form-control" id="loc1" placeholder="Street Address" value="{{ event.address}}" required>
+                          <input type="text" class="form-control" id="loc1" placeholder="Street Address" value="{{ address.0 }}" required>
                           <div class="invalid-feedback">
                             Please provide a Street Address.
                           </div>
                         </div>
                         <div class="col-md-3">
                           <label for="loc2">City</label>
-                          <input type="text" class="form-control" id="loc2" placeholder="City" required>
+                          <input type="text" class="form-control" id="loc2" placeholder="City" value ='{{ address.1 }}' required>
                           <div class="invalid-feedback">
                             Please provide a City.
                           </div>
@@ -90,7 +90,7 @@
                         <div class="col-md-2">
                           <label for="loc3">State</label>
                           <select class="form-control" id ="loc3" required>
-                                <option value="AL">AL</option>
+                                <option value="AL" >AL</option>
                                 <option value="AK">AK</option>
                                 <option value="AR">AR</option>	
                                 <option value="AZ">AZ</option>
@@ -98,7 +98,7 @@
                                 <option value="CO">CO</option>
                                 <option value="CT">CT</option>
                                 <option value="DC">DC</option>
-                                <option value="DE">DE</option>
+                                <option value="DE"{% ifequal address.2.strip "DE" %} selected{% endifequal %}>DE</option>
                                 <option value="FL">FL</option>
                                 <option value="GA">GA</option>
                                 <option value="HI">HI</option>
@@ -123,7 +123,7 @@
                                 <option value="NJ">NJ</option>
                                 <option value="NM">NM</option>			
                                 <option value="NV">NV</option>
-                                <option value="NY" selected>NY</option>
+                                <option value="NY" {% ifequal address.2.strip "NY" %} selected{% endifequal %}>NY</option>
                                 <option value="ND">ND</option>
                                 <option value="OH">OH</option>
                                 <option value="OK">OK</option>
@@ -148,7 +148,7 @@
                         </div>
                         <div class="col-md-3">
                           <label for="loc4">Zip</label>
-                          <input type="text" class="form-control" id="loc4" placeholder="Zip" pattern="[0-9]{5}" required>
+                          <input type="text" class="form-control" id="loc4" placeholder="Zip" pattern="[0-9]{5}" value='{{ address.3 }}' required>
                           <div class="invalid-feedback">
                             Please provide a valid zip.
                           </div>
@@ -200,10 +200,10 @@
                 </div>
                 <div class="form-group">
                     <label>Transportation</label>
-                    <select class="form-control" name="transportation" required>
+                    <select class="form-control" name="transportation"  required>
                         <!--Refactored to match header and forms as well as fix duplicate search bug-->
-                        <option name="Not-Provided">Not-Provided</option>
-                        <option name="Provided">Provided</option>
+                        <option value="Not-Provided" {% if 'Not-Provided' == transportation_list_pub %} selected{% endif %}>Not-Provided</option>
+                        <option value="Provided" {% if 'Provided' == transportation_list_pub %} selected{% endif %}>Provided</option>
                     </select>
                 </div>
                 <div class="form-group text-left multiBox">
@@ -217,10 +217,10 @@
                 <div class="form-group">
                     <label>Gender</label>
                     <select class="form-control" name="gender" required>
-                        <!--Refactored to match header and forms as well as fix duplicate search bug-->
-                        <option name="Non-Specific">Non-Specific</option>
-                        <option name="Female-Only">Female-Only</option>
-                        <option name="Male-Only">Male-Only</option>
+                        <!--Refactored to match header and forms as well as fix duplicate search bug-->gender_list_pub
+                        <option name="Non-Specific" {% if 'Non-Specific' == gender_list_pub %} selected{% endif %}>Non-Specific</option>
+                        <option name="Female-Only" {% if 'Female-Only' == gender_list_pub %} selected{% endif %}>Female-Only</option>
+                        <option name="Male-Only" {% if 'Male-Only' == gender_list_pub %} selected{% endif %}>Male-Only</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -229,7 +229,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                       </div>
-                      <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" name="fees" step=".01" required>
+                      <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.00" name="fees" step=".01" value='{{ fees }}' required>
                         <div class="invalid-feedback">
                             Please enter total amount of fees. If the program is free enter 0.00
                         </div>
@@ -287,7 +287,15 @@
 
     //fill helper function
     function fillCheckboxSelects(list, location){
-        for(var i=0; i<list.length; i++){
+      var selected = [];
+      if(location == "activitySelect"){
+        selected = {{ topic_list|safe }};
+      }else if(location == "gradesSelect"){
+        selected = {{ grades_list_pub|safe }};
+      }else if(location == "timingSelect"){
+        selected = {{ timing_list_pub|safe }};
+      }
+      for(var i=0; i<list.length; i++){
             //check for name with spaces
             var words = list[i].split(" ")
             if(words.length > 1){
@@ -296,7 +304,11 @@
             }else{
                 var name = list[i]
             }
-            $( "."+location).append( "<option value=\""+list[i]+"\">"+list[i]+"</option>" );
+            var selectedText = ''
+            if (selected.includes(list[i])){
+              selectedText=' selected'
+            }
+            $( "."+location).append( "<option value=\""+list[i]+"\""+selectedText+">"+list[i]+"</option>" );
         }
     }
 
@@ -374,7 +386,7 @@
         var city = $('#loc2').val();
         var state = $('#loc3').val();
         var zip = $('#loc4').val();
-        $('#addressInput').val(street+" "+city+" "+state+" "+zip)
+        $('#addressInput').val(street+"+ "+city+"+ "+state+"+ "+zip)
     }
     
     //function that geocodes the street address

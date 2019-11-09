@@ -374,7 +374,7 @@
         var city = $('#loc2').val();
         var state = $('#loc3').val();
         var zip = $('#loc4').val();
-        $('#addressInput').val(street+" "+city+" "+state+" "+zip)
+        $('#addressInput').val(street+"+ "+city+"+ "+state+"+ "+zip)
     }
     
     //function that geocodes the street address
