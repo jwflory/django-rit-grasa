@@ -323,28 +323,17 @@ def editEvent(request, eventID):
                         program.categories.add(var)
                         i = i + 1
                 return redirect("provider_page")
-<<<<<<< HEAD
 
-=======
-
->>>>>>> 2067247a257fafad50c7c934fb7209dba98304ab
             elif request.method == 'GET':
                 context = getEventInfo(eventID)
                 activities = []
                 for activity in context['topic_list']:
                         activities.append(str(activity))
                 context['topic_list'] = activities
-<<<<<<< HEAD
 
                 timing1 = context['timing_list_pub'].split(',')
                 timing2 = []
 
-=======
-
-                timing1 = context['timing_list_pub'].split(',')
-                timing2 = []
-
->>>>>>> 2067247a257fafad50c7c934fb7209dba98304ab
                 for time in timing1:
                         timing2.append(time.strip())
                 context['timing_list_pub'] = timing2
@@ -357,16 +346,10 @@ def editEvent(request, eventID):
                 context['grades_list_pub'] = grades2
 
                 return render(request, 'editEvent.php', context)
-<<<<<<< HEAD
-
-=======
->>>>>>> 2067247a257fafad50c7c934fb7209dba98304ab
         else:
             return redirect('login_page')
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         timing_list = event.categories.filter(id__gte=27)
         timing_list = timing_list.filter(id__lte=32)
         for t in timing_list:
@@ -390,10 +373,6 @@ def editEvent(request, eventID):
 
         context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
         return render(request, 'event.html', context)
-=======
->>>>>>> auto fill editevent page
-=======
->>>>>>> 2067247a257fafad50c7c934fb7209dba98304ab
 
 def login(request):
         if request.user.is_authenticated:
