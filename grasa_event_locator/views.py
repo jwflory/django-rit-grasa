@@ -234,7 +234,7 @@ def getEventInfo(eventID):
 
 def event(request, eventID):
         context = getEventInfo(eventID)
-        return render(request, 'event.php', context)
+        return render(request, 'event.html', context)
 
 
 def getEventInfo(eventID):
@@ -280,7 +280,7 @@ def getEventInfo(eventID):
 
 def event(request, eventID):
         context = getEventInfo(eventID)
-        return render(request, 'event.php', context)
+        return render(request, 'event.html', context)
 
 def editEvent(request, eventID):
         event = Program.objects.get(pk=eventID)
@@ -345,7 +345,7 @@ def editEvent(request, eventID):
                         grades2.append(grade.strip())
                 context['grades_list_pub'] = grades2
 
-                return render(request, 'editEvent.php', context)
+                return render(request, 'editEvent.html', context)
         else:
             return redirect('login_page')
 
@@ -512,7 +512,7 @@ def approveUser(request, userID):
                 u = userInfo.objects.get(pk=userID)
                 u.isPending = False
                 u.save()
-                print(send_email([str(u.user)], "GRASA - Account Approved", "Your account for " + u.org_name + " at the GRASA Event Locator has been approved! Please login at http://grasa.larrimore.de/login.php to add events."))
+                print(send_email([str(u.user)], "GRASA - Account Approved", "Your account for " + u.org_name + " at the GRASA Event Locator has been approved! Please login at http://grasa.larrimore.de/login.html to add events."))
                 print(send_email([u.contact_email], "GRASA - Alternate Contact", "You are the alternative contact for " + u.org_name + " at the GRASA Event Locator. Please contact them for further details."))
                 return redirect("admin_page")
         else:
