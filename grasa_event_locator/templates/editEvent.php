@@ -1,4 +1,4 @@
-{% include "header.html" %}
+{% include "header.php" %}
 <div class="container event-container">
     <h2>Edit Event</h2>
     <p class="text-muted">When you edit your event it will need to be re-submited for approval by the administrators. Until the change is approved, your event will remain the same.</p>
@@ -263,7 +263,7 @@
     //Cancel Button and Ok Button returns to provider page
     var cancelBtn = document.getElementById('cancelBtn');
     cancelBtn.onclick = function(){
-        window.location = '/provider.html'
+        window.location = '/provider.php'
     }
     var okBtn = document.getElementById('submitOkBtn');
     okBtn.onclick = function(){
@@ -519,4 +519,4 @@
 	}
 
 </script>
-{% include "footer.html" %}
+{% include "footer.php" %}
