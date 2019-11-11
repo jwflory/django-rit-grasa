@@ -20,7 +20,7 @@ import string
 import time
 from datetime import datetime
 from django.shortcuts import reverse
-from smtplib import *
+from smtplib import SMTPRecipientsRefused
 
 
 def aboutContact(request):
