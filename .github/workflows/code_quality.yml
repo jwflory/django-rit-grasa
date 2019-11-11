@@ -12,3 +12,4 @@ jobs:
     - uses: actions/checkout@v1
     - name: Reformat Python code with Black code formatter. https://github.com/psf/black
       uses: lgeiger/black-action@master
+      args: "."
