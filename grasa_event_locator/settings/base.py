@@ -180,6 +180,15 @@ LOGGING = {"version": 1, "loggers": {"grasa_event_locator": {"level": "DEBUG"}}}
 WSGI_APPLICATION = "grasa_event_locator.wsgi.application"
 
 
+# SMTP EMAIL SETTINGS
+# Used for outgoing email. Managed by config.yml.
+EMAIL_HOST = config["outgoing_smtp"]["host"]
+EMAIL_USE_SSL = True
+EMAIL_PORT = config["outgoing_smtp"]["port"]
+EMAIL_HOST_USER = config["outgoing_smtp"]["username"]
+EMAIL_HOST_PASSWORD = config["outgoing_smtp"]["password"]
+
+
 # MISC. SETTINGS
 HAYSTACK_CONNECTIONS = {
     "default": {
@@ -189,10 +198,3 @@ HAYSTACK_CONNECTIONS = {
 }
 
 LOGIN_REDIRECT_URL = "/grasa_event_locator/templates/search/search.html"
-
-
-EMAIL_HOST = "smtp.mail.yahoo.com"
-EMAIL_USE_SSL = True
-EMAIL_PORT = 465
-EMAIL_HOST_USER = "grasatest@yahoo.com"
-EMAIL_HOST_PASSWORD = "duhnsentqrxgadfh"

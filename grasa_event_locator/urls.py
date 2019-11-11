@@ -6,7 +6,7 @@ from django.urls import path
 from django.contrib import admin
 
 urlpatterns = [
-    path('aboutContact.html', views.aboutContact, name='about_contact'),
+    path('about.html', views.aboutContact, name='about_contact'),
     path('admin.html', views.admin, name='admin_page'),
     path('create_database', views.create_database, name='create_database'),
     path('allUsers.html', views.allUsers, name='all_users'),

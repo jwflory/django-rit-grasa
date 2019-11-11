@@ -14,9 +14,22 @@ admin_email: "admin@example.com"
 # docker-compose defaults for local development. For local development, keep
 # these values as specified. For a production installation, change these to
 # point at your hosted database. See install documentation for more details.
+
 database:
   host: "db"
   port: "3306"
   username: "grasaadmin"
   password: "djangoGrasa2019"
   db: "grasa_event_locator"
+
+#                          ##### outgoing_smtp #####
+# Edit settings for outgoing SMTP mail server. All emails sent by this web
+# application will be sent through this mail server. For production, this
+# should be a production SMTP server. For development, this can be the
+# credentials for a personal email account that supports SSL/TLS.
+
+outgoing_smtp:
+  host: "smtp.mail.yahoo.com"
+  port: 465
+  username: "grasatest@yahoo.com"
+  password: "duhnsentqrxgadfh"

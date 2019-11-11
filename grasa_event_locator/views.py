@@ -24,7 +24,7 @@ from smtplib import *
 
 
 def aboutContact(request):
-    return render(request, 'aboutContact.html')
+    return render(request, 'about.html')
 
 
 def admin(request):
