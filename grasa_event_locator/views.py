@@ -186,7 +186,6 @@ def createevent(request):
                         i = i + 1
                 return HttpResponseRedirect(reverse('provider_page'))
         else:
-                return()
                 return render(request, 'createEvent.html')
         return render(request, 'createEvent.html')
 
