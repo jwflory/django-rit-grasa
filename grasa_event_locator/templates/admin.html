@@ -125,7 +125,7 @@
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                              <form class="" novalidate>
+                              <form class="" novalidate method="POST" action="admin.html">{% csrf_token %}
                               <div class="modal-body">
 
                                 <div class="row">
@@ -133,17 +133,18 @@
 
                                         <div class="form-group col-md-12">
                                             <label for="reason">Please explain your reason for denying <b>{{ pendingEvent.title }}</b>:</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="" name="reason" required></textarea>
+                                            <textarea name="reason" class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="" required></textarea>
                                             <div class="invalid-feedback">
                                                 Please provide an explanation.
                                             </div>
+                                            <input type="hidden" id="userid" name="userid" value={{ user.id }} readonly>
                                             <div class="text-muted form-text">This will be sent to {{ pendingEvent.user_id.org_name }}.</div>
                                         </div>
-                                        
+
 
                                     </div>
                                 </div>
-                              </div> 
+                              </div>
 
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
