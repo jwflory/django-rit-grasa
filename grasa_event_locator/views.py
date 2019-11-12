@@ -273,9 +273,13 @@ def getEventInfo(eventID):
 
         context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
 
-        address = context['event'].address.split('+')
+        tempAddress = context['event'].address.split('+')
+        address = []
+        for i in range(0,len(tempAddress)):
+                address.append(tempAddress[i].strip())
+        
         context['address'] = address
-
+        
         return context
 
 def event(request, eventID):
