@@ -59,9 +59,9 @@ def admin(request):
                                 return render(request, 'admin.html', context)
                         if request.POST.get('reason'):
                             print(request.POST.get('reason'))
-                            print(request.POST.get('userid'))
+                            print(request.POST.get('eventid'))
                             context = {'pendingUserList': pendingUserList, 'pendingEventList': pendingEventList, 'pendingEditList': pendingEditList}
-                            denyEvent(request, request.POST.get('userid'), request.POST.get('reason'))
+                            denyEvent(request, request.POST.get('eventid'), request.POST.get('reason'))
                         return render(request, 'admin.html', context)
                 return render(request, 'admin.html', context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin == False:
