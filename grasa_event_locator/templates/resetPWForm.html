@@ -1,9 +1,21 @@
 {% include "header.php" %}
 
-
   <div class="form-changePW">
+		{% if expired %}
+		 <div class="alert alert-warning" role="alert">
+		  This password reset link has expired, please generate a new one <a href="/resetPW.html">here.</a>
+		</div>
+		{% endif %}
+		{% if pwdmatch %}
+		<div class="alert alert-warning" role="alert">
+		  Please confirm that the inputted passwords match.
+		</div>
+		{% endif %}
 	<form method="post">
 	{% csrf_token %}
+
+		{% if valid_string %}
+
 		<label for="newPW">New Password</label>
 		<input type="password" id="newPW" class="form-control" name="new" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter,and at least 8 or more characters" required autofocus>
 			<div>
@@ -16,12 +28,20 @@
 				</ul>
 			</div>
 
+
 		</br>
 		<label for="confirmPW">Confirm Password</label>
 		<input type="password" id="confirmPW" class="form-control" name="confirm" required>	
 		
 		<input id="SPcheckbox" type="checkbox" onclick="myFunction()">
         <label for="SPcheckbox">&nbsp; Show Password</label>
+
+		<label for="confirmPW">Confirm Password</label>
+		<input type="password" id="confirmPW" class="form-control" name="confirm" required>
+
+		<input id="SPcheckbox" type="checkbox" onclick="myFunction()">
+		<label for="SPcheckbox">&nbsp; Show Password</label>
+
 			<div class="invalid-feedback">
 				Passwords must match.
 			</div>
@@ -30,11 +50,17 @@
 
 	<!--Pop-up confirmation page after clicking submit button on Registration form-->
 	<div class="row">
+
         <div class="col-12">
             <button type="submit" class="btn btn-lg btn-primary btn-block" id="submitBtn">Submit</button>
         </div>
-	</div>
 
+		<div class="col-12">
+			<button type="submit" class="btn btn-lg btn-primary btn-block" id="submitBtn">Submit</button>
+		</div>
+
+	</div>
+		{% endif %}
 	</form>
   </div>
 
@@ -105,6 +131,72 @@
       }, false);
     })();
 
+	//ok on submit
+	var submitBtn = document.getElementById('submitBtn');
+	submitBtn.onclick = function(){
+		//SUBMITS the form
+		$('form').submit()
+		//window.location = '/search/';
+	}
+
+	//confirm password extra validation
+	$('#confirmPW').keyup(function() {
+	  if ( document.getElementById("confirmPW").value != document.getElementById("newPW").value ) {
+		  if(document.getElementById("theForm").classList.contains('was-validated')){
+			  $('#confirmPW').removeClass( "is-invalid" );
+			  $('#confirmPW').addClass( "is-valid" );
+			  $('#confirmPW').css('border', 'solid 1px #28a745');
+		  }
+	  }
+	});
+
+
+	//password validation - Lei
+	function myFunction() {
+	  var x = document.getElementById("newPW");
+	  var y = document.getElementById("confirmPW");
+	  if (x.type === "password" || y.type === "password") {
+		x.type = "text";
+		y.type = "text";
+	  } else {
+		x.type = "password";
+		y.type = "password";
+	  }
+
+	}
+
+
+	//validation
+	(function() {
+	  'use strict';
+	  window.addEventListener('load', function() {
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		var forms = document.getElementsByClassName('needs-validation');
+		// Loop over them and prevent submission
+		var validation = Array.prototype.filter.call(forms, function(form) {
+		  form.addEventListener('submit', function(event) {
+			if ( document.getElementById("confirmPW").value != document.getElementById("newPW").value ) {
+				//if passwords don't match
+				event.preventDefault();
+				event.stopPropagation();
+				$('#confirmPW').addClass( "is-invalid" );
+				$('#confirmPW').css('border', 'solid 1px #dc3545')
+				$('#confirmPW').css('background-image', 'none');
+			}else if (form.checkValidity() === false) {
+				event.preventDefault();
+				event.stopPropagation();
+			}else{
+				event.preventDefault();
+				event.stopPropagation();
+				$('#submitModal').modal('show');
+			}
+			form.classList.add('was-validated');
+
+		  }, false);
+		});
+	  }, false);
+	})();
+
 
 	//password validation check mark
 	var myInput = document.getElementById("newPW");
@@ -165,7 +257,7 @@
 	  }
 	}
 
-	
+
 </script>
 
 {% include "footer.php" %}
