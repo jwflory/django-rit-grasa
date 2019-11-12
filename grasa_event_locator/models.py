@@ -141,3 +141,4 @@ class Program(models.Model):
 class resetPWURLs(models.Model):
     user_ID = models.TextField(default="DEFAULT PROVIDER")
     reset_string = models.CharField(max_length=15, default="A DEFAULTSTRING")
+    expiry_time =  models.CharField(max_length=26, default="NO TIMESTAMP")
