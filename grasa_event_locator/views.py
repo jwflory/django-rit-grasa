@@ -3,18 +3,14 @@ import random
 import string
 
 from .forms import *
-from .functions import *
-from .models import *
+from .helpers import change_username, send_email, write_categories_table
+from .models import userInfo, Category, Program, resetPWURLs
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import permission_required
-from django.contrib.auth import logout
 from django.contrib.auth.models import User as UserAccount
-from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import redirect
 from django.db import connection
-from django.db import *
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse
 from django.template.loader import render_to_string
@@ -24,7 +20,9 @@ from smtplib import SMTPRecipientsRefused
 
 
 def aboutContact(request):
-    return render(request, 'about.html')
+    return render(request, 'about.html', context={
+        "config": settings.CONFIG,
+    })
 
 
 def admin(request):
@@ -66,7 +64,7 @@ def admin(request):
                             denyEvent(request, request.POST.get('eventid'), request.POST.get('reason'))
                         return render(request, 'admin.html', context)
                 return render(request, 'admin.html', context)
-        if request.user.is_authenticated and request.user.userinfo.isAdmin == False:
+        if request.user.is_authenticated and request.user.userinfo.isAdmin is False:
                 return HttpResponseRedirect(reverse('provider_page'))
         else:
                 return HttpResponseRedirect(reverse('login_page'))

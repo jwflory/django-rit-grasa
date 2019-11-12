@@ -1,3 +1,10 @@
+"""Miscellaneous helper functions used across grasa_event_locator.
+
+This file includes various functions used across different parts of the Django
+application. Additional code should only be added to this file if there is not a more
+suitable place somewhere else.
+"""
+
 from django.core.mail import send_mail
 from django.db import connection
 from django.template.loader import render_to_string
@@ -25,7 +32,7 @@ def change_username(old_email, new_email, request):
             "new_email": new_email,
         })
     )
-    return 0
+    return
 
 
 def write_categories_table():
