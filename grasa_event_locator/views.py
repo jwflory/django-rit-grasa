@@ -55,6 +55,7 @@ def admin(request):
                                 request.user.save()
                             else:
                                 # If not, return to admin_page (will need to replace this with a "wrong password message, actually".
+                                context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList, 'incorrect_password' : True}
                                 return render(request, 'admin.html', context)
                 return render(request, 'admin.html', context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin == False:
@@ -89,9 +90,9 @@ def allUsers(request):
 
         if request.method == 'POST':
                 #TODO: Change to hostname config value here later...
-                print(send_email(
+                send_email(
                     [request.POST.get('emailAddr')],
-                    "GRASA - Event Locator Registration","You've been invited to sign up for the GRASA Event Locator! Register at http://grasa.larrimore.de/register.html"))
+                    "GRASA - Event Locator Registration","You've been invited to sign up for the GRASA Event Locator! Register at http://grasa.larrimore.de/register.html")
         return render(request, 'allUsers.html', context)
     return HttpResponseRedirect(reverse('search'))
 
@@ -111,7 +112,7 @@ def allAdmins(request):
                 uInfo = userInfo(user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
                 uInfo.save()
                 try:
-                    print(send_email([emailAddr], "GRASA - Administrator Account Created", "You've now been designated an Administrator at the GRASA Event Locator! Please consult GRASA for login information, if you have not already received it."))
+                    send_email([emailAddr], "GRASA - Administrator Account Created", "You've now been designated an Administrator at the GRASA Event Locator! Please consult GRASA for login information, if you have not already received it.")
                 except SMTPRecipientsRefused:
                     context = {'invalidEmail': True, 'userList': userList}
                     return render(request, 'allAdmins.html', context)
@@ -139,7 +140,7 @@ def changepw(request):
                             request.user.set_password(new)
                             request.user.save()
                     else:
-                            print("No")
+                            return
         else:
             return HttpResponseRedirect(reverse('search'))
         return render(request, 'changePW.html')
@@ -184,7 +185,6 @@ def createevent(request):
                         i = i + 1
                 return HttpResponseRedirect(reverse('provider_page'))
         else:
-                print("No")
                 return render(request, 'createEvent.html')
         return render(request, 'createEvent.html')
 
@@ -438,8 +438,8 @@ def provider(request):
                     else:
                         currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                         myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
-                        context = {'myEventList': myEventList, 'currentUser': currentUser}
-                        return render(request, 'admin.html', context)
+                        context = {'myEventList': myEventList, 'currentUser': currentUser, 'incorrect_password' : True}
+                        return render(request, 'provider.html', context)
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
@@ -488,7 +488,7 @@ def resetpw(request):
                         resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink, expiry_time= (datetime.now() + timedelta(minutes = 60)))
                         resetPWURL.save()
                         # Make sure to pull the hostname from config file.
-                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this link: http://grasa.larrimore.de/resetPWForm/" + resetlink + ". This link expires in an hour."))
+                        send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this linnk: http://grasa.larrimore.de/resetPWForm/" + resetlink)
                 context = {'email_submitted': True}
                 return render(request, 'resetPW.html', context)
         else:
@@ -536,8 +536,8 @@ def approveUser(request, userID):
                 u = userInfo.objects.get(pk=userID)
                 u.isPending = False
                 u.save()
-                print(send_email([str(u.user)], "GRASA - Account Approved", "Your account for " + u.org_name + " at the GRASA Event Locator has been approved! Please login at http://grasa.larrimore.de/login.html to add events."))
-                print(send_email([u.contact_email], "GRASA - Alternate Contact", "You are the alternative contact for " + u.org_name + " at the GRASA Event Locator. Please contact them for further details."))
+                send_email([str(u.user)], "GRASA - Account Approved", "Your account for " + u.org_name + " at the GRASA Event Locator has been approved! Please login at http://grasa.larrimore.de/login.html to add events.")
+                send_email([u.contact_email], "GRASA - Alternate Contact", "You are the alternative contact for " + u.org_name + " at the GRASA Event Locator. Please contact them for further details.")
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
@@ -563,7 +563,7 @@ def approveEvent(request, eventID):
                 p.isPending = False
                 p.save()
                 rebuildIndex.rebuildWhooshIndex()
-                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Approved!", "Your event has been approved! See it at http://grasa.larrimore.de/event/" + str(p.id)))
+                send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Approved!", "Your event has been approved! See it at http://grasa.larrimore.de/event/" + str(p.id))
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
@@ -571,7 +571,7 @@ def approveEvent(request, eventID):
 def denyEvent(request, eventID):
         p = Program.objects.get(pk=eventID)
         if request.user.is_authenticated and request.user.userinfo.isPending == False and (request.user.userinfo.isAdmin or request.user.userinfo.id == p.user_id.id):
-                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Denied/Deleted", "Your event -"+ str(p.title) +"- has been denied or deleted. Contact GRASA for details."))
+                send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Denied/Deleted", "Your event -"+ str(p.title) +"- has been denied or deleted. Contact GRASA for details.")
                 p.delete()
                 rebuildIndex.rebuildWhooshIndex()
                 return redirect("admin_page")
@@ -601,15 +601,13 @@ def approveEdit(request, editID):
                         oldP.categories.add(category2)
                     oldP.save()
                     p.delete()
-                    print("inside if")
                     print(send_email([str(User.objects.get(pk=oldP.user_id.user_id))], "GRASA - Event Edit Approved!", "Your edited event has been approved! See it at http://grasa.larrimore.de/event/" + str(oldP.id)))
                 else:
                     #It didn't still exist, so just make the edit it's own new event
                     p.isPending = False
                     p.editOf = 0
                     p.save()
-                    print("inside else")
-                    print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Approved!", "Your edited event has been approved! See it at http://grasa.larrimore.de/event/" + str(p.id)))
+                    send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Approved!", "Your edited event has been approved! See it at http://grasa.larrimore.de/event/" + str(p.id))
                 rebuildIndex.rebuildWhooshIndex()
                 return redirect("admin_page")
         else:
@@ -617,7 +615,7 @@ def approveEdit(request, editID):
 
 def denyEdit(request, editID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
-                print(send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Denied", "Your edited event has been denied. Contact GRASA for details."))
+                send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Denied", "Your edited event has been denied. Contact GRASA for details.")
                 p = Program.objects.get(pk=editID)
                 p.delete()
                 return redirect("admin_page")
