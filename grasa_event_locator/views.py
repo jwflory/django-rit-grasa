@@ -435,8 +435,8 @@ def provider(request):
                     else:
                         currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                         myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
-                        context = {'myEventList': myEventList, 'currentUser': currentUser}
-                        return render(request, 'admin.html', context)
+                        context = {'myEventList': myEventList, 'currentUser': currentUser, 'incorrect_password' : True}
+                        return render(request, 'provider.html', context)
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
