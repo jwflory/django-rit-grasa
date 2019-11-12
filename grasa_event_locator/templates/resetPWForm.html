@@ -13,6 +13,7 @@
         {% endif %}
 	<form method="post">
 	{% csrf_token %}
+        {% if valid_string %}
 		<label for="newPW">New Password</label>
 		<input type="password" id="newPW" class="form-control" name="new" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter,and at least 8 or more characters" required autofocus>
 			<div>
@@ -25,10 +26,9 @@
 				</ul>
 			</div>
 
-		</br>
 		<label for="confirmPW">Confirm Password</label>
-		<input type="password" id="confirmPW" class="form-control" name="confirm" required>	
-		
+		<input type="password" id="confirmPW" class="form-control" name="confirm" required>
+
 		<input id="SPcheckbox" type="checkbox" onclick="myFunction()">
         <label for="SPcheckbox">&nbsp; Show Password</label>
 			<div class="invalid-feedback">
@@ -174,7 +174,7 @@
 	  }
 	}
 
-	
+
 </script>
 
 {% include "footer.html" %}
