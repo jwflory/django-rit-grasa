@@ -12,13 +12,11 @@ from django.shortcuts import redirect
 from django.db import connection
 from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
-import time
 from django.db import *
 import rebuildIndex
 import random
 import string
-import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.shortcuts import reverse
 from smtplib import SMTPRecipientsRefused
 
@@ -277,9 +275,9 @@ def getEventInfo(eventID):
         address = []
         for i in range(0,len(tempAddress)):
                 address.append(tempAddress[i].strip())
-        
+
         context['address'] = address
-        
+
         return context
 
 def event(request, eventID):
@@ -483,27 +481,56 @@ def resetpw(request):
                 if User.objects.filter(username=request.POST['emailAddr']).exists():
                         resetPWURLs.objects.get(user_ID = request.POST['emailAddr']).delete()
                         resetlink = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(15)])
-                        resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink)
+                        resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink, expiry_time= (datetime.now() + timedelta(minutes = 10)))
                         resetPWURL.save()
                         # Make sure to pull the hostname from config file.
-                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this linnk: http://grasa.larrimore.de/resetPWForm/" + resetlink))
+                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this link: http://grasa.larrimore.de/resetPWForm/" + resetlink + ". This link expires in 10 minutes."))
                 context = {'email_submitted': True}
                 return render(request, 'resetPW.html', context)
         else:
             return render(request, 'resetPW.html')
 
 def resetPWForm(request, reset_string):
-        if request.method == 'POST' and request.POST['new'] == request.POST['confirm']:
-                print(reset_string)
-                username = resetPWURLs.objects.get(reset_string=reset_string)
-                print(username)
-                user = User.objects.get(username=username.user_ID)
-                print(user)
-                user.set_password(request.POST['new'])
-                user.save()
-                resetPWURLs.objects.get(user_ID = username.user_ID).delete()
-                return redirect("login_page")
+        try:
+            #Check if the current time is greater than the timestamp in the table (which is 10 minutes after submission)
+            if datetime.now() > datetime.strptime(resetPWURLs.objects.get(reset_string=reset_string).expiry_time, '%Y-%m-%d %H:%M:%S.%f'):
+                #If so, show the expired message, hide the form.
+                context = {'expired': True, "valid_string" : False}
+                # Then delete the associated table entry that's out of date.
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "DELETE FROM `grasa_event_locator_resetpwurls` WHERE `user_ID` = '" + resetPWURLs.objects.get(
+                            reset_string=reset_string).user_ID + "';")
+                return render(request, 'resetPWForm.html', context)
+            # This is the most typical situation, where the form has a reset_string with a valid time.
+            else:
+                # The form should be showing if valid
+                context = {"valid_string" : True}
+                # If a post went through (check for the time again!), and the input was valid, change the password.
+                if request.method == 'POST':
+                    if request.POST['new'] == request.POST['confirm']:
+                        print(reset_string)
+                        username = resetPWURLs.objects.get(reset_string=reset_string)
+                        user = User.objects.get(username=username.user_ID)
+                        user.set_password(request.POST['new'])
+                        user.save()
+                        # And remove the associated table entry.
+                        with connection.cursor() as cursor:
+                            cursor.execute(
+                                "DELETE FROM `grasa_event_locator_resetpwurls` WHERE `user_ID` = '" + resetPWURLs.objects.get(
+                                    reset_string=reset_string).user_ID + "';")
+                        return redirect("login_page")
+                    else:
+                        # If the inputted passwords do not match, bring up the "confirm match" message, and continue to show the form.
+                        context = {'pwdmatch' : True, 'valid_string' : True}
+                        return render(request, 'resetPWForm.html', context)
+                return render(request, 'resetPWForm.html', context)
+        except resetPWURLs.DoesNotExist:
+            # If the entry is not found, hide the resetPW form and show the "link expired message".
+            context = {'expired': True, "valid_string" : False}
+            return render(request, 'resetPWForm.html', context)
         else:
+                #This is only triggered when no reset string is present. Note that this situation cannot happen without editing the URL file.
                 return render(request, 'resetPWForm.html')
 
 #Functional views, post only, need to be logged in admin, self defining names
