@@ -475,8 +475,7 @@ def resetpw(request):
         i = 0
         if request.method == 'POST':
                 if User.objects.filter(username=request.POST['emailAddr']).exists():
-                        with connection.cursor() as cursor:
-                                cursor.execute("DELETE FROM `grasa_event_locator_resetpwurls` WHERE `user_ID` = '" + request.POST['emailAddr'] + "';")
+                        resetPWURLs.objects.get(user_ID = request.POST['emailAddr']).delete()
                         resetlink = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(15)])
                         resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink, expiry_time= (datetime.now() + timedelta(minutes = 60)))
                         resetPWURL.save()
