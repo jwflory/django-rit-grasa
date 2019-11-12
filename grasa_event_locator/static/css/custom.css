@@ -202,47 +202,12 @@ body{
   background-color: #4CAF50;
 }
 
-/*Reset Password page styles*/
-
-.form-reset {
-  width: 50%;
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-
-.form-reset .form-control:focus {
-  z-index: 2;
-}
-
-/*Change Password page styles*/
-
-.form-changePW {
-  width: 50%;
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-
-.form-changePW .form-control:focus {
-  z-index: 2;
-}
-
-.form-changePW input[type="password"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-
-/* Style the submit button */
-.form-changePW button[type=submit] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-
-  background-color: #4CAF50;
-  color: white;
+/*reset password*/
+.form-changePW{
+    padding: 10px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
 }
 
 /* The message box is shown when the user clicks on the password field */

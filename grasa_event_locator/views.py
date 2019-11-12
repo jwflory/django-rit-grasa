@@ -509,7 +509,7 @@ def resetPWForm(request, reset_string):
                 context = {"valid_string" : True}
                 # If a post went through (check for the time again!), and the input was valid, change the password.
                 if request.method == 'POST':
-                    if request.POST['new'] == request.POST['confirm']:
+                    if request.POST.get('new') == request.POST.get('confirm'):
                         print(reset_string)
                         username = resetPWURLs.objects.get(reset_string=reset_string)
                         user = User.objects.get(username=username.user_ID)
