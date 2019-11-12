@@ -271,7 +271,11 @@ def getEventInfo(eventID):
 
         context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
 
-        address = context['event'].address.split('+')
+        tempAddress = context['event'].address.split('+')
+        address = []
+        for i in range(0,len(tempAddress)):
+                address.append(tempAddress[i].strip())
+
         context['address'] = address
 
         return context
@@ -491,7 +495,6 @@ def resetpw(request):
             return render(request, 'resetPW.html')
 
 def resetPWForm(request, reset_string):
-        test_var = "reverse('change_password')"
         try:
             #Check if the current time is greater than the timestamp in the table (which is 60 minutes after submission)
             if datetime.now() > datetime.strptime(resetPWURLs.objects.get(reset_string=reset_string).expiry_time, '%Y-%m-%d %H:%M:%S.%f'):
@@ -523,9 +526,8 @@ def resetPWForm(request, reset_string):
             # If the entry is not found, hide the resetPW form and show the "link expired message".
             context = {'expired': True, "valid_string" : False}
             return render(request, 'resetPWForm.html', context)
-        else:
-                #This is only triggered when no reset string is present. Note that this situation cannot happen without editing the URL file.
-                return render(request, 'resetPWForm.html')
+            #This is only triggered when no reset string is present. Note that this situation cannot happen without editing the URL file.
+        return render(request, 'resetPWForm.html')
 
 #Functional views, post only, need to be logged in admin, self defining names
 
