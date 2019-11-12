@@ -1,9 +1,19 @@
 {% include "header.html" %}
 
-
   <div class="form-changePW">
+	    {% if expired %}
+	     <div class="alert alert-warning" role="alert">
+          This password reset link has expired, please generate a new one <a href="/resetPW.html">here.</a>
+        </div>
+	  	{% endif %}
+        {% if pwdmatch %}
+        <div class="alert alert-warning" role="alert">
+          Please confirm that the inputted passwords match.
+        </div>
+        {% endif %}
 	<form method="post">
 	{% csrf_token %}
+		{% if valid_string %}
 		<label for="currentPW">New Password</label>
 		<input type="password" id="currentPW" class="form-control" name="new" required autofocus>
 		</br>
@@ -19,7 +29,7 @@
             <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
         </div>
 	</div>
-
+		{% endif %}
 	</form>
   </div>
 
