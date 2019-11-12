@@ -111,8 +111,48 @@
                       <td>Pending</td>
                       <td><a href="{% url 'event_page' pendingEvent.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></a></td>
                       <td><a href="{% url 'approve_event' pendingEvent.id %}"><button type="button" class="btn btn-outline-success">Approve</button></a></td>
-                      <td><a href="{% url 'deny_event' pendingEvent.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></a></td>
+                      <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#denyEventModal">Deny</button></td>
                     </tr>
+                    
+                      
+                       <!--Deny New Event Modal-->
+                    <div class="modal fade" id="denyEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel2">Deny Event</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                              <form class="" novalidate>
+                              <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                        <div class="form-group col-md-12">
+                                            <label for="reason">Please explain your reason for denying <b>{{ pendingEvent.title }}</b>:</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="" name="reason" required></textarea>
+                                            <div class="invalid-feedback">
+                                                Please provide an explanation.
+                                            </div>
+                                            <div class="text-muted form-text">This will be sent to {{ pendingEvent.user_id.org_name }}.</div>
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+                              </div> 
+
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger" value="Submit">Deny Event</button>
+                              </div>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
                     {% endfor %}
                   </tbody>
                 </table>
