@@ -478,7 +478,7 @@ def resetpw(request):
                         with connection.cursor() as cursor:
                                 cursor.execute("DELETE FROM `grasa_event_locator_resetpwurls` WHERE `user_ID` = '" + request.POST['emailAddr'] + "';")
                         resetlink = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(15)])
-                        resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink, expiry_time= (datetime.now() + timedelta(minutes = 10)))
+                        resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink, expiry_time= (datetime.now() + timedelta(minutes = 60)))
                         resetPWURL.save()
                         # Make sure to pull the hostname from config file.
                         print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this link: http://grasa.larrimore.de/resetPWForm/" + resetlink + ". This link expires in 10 minutes."))
