@@ -142,7 +142,7 @@ def changepw(request):
                             request.user.set_password(new)
                             request.user.save()
                     else:
-                            return()
+                            return
         else:
             return HttpResponseRedirect(reverse('search'))
         return render(request, 'changePW.html')
