@@ -279,9 +279,7 @@ def getEventInfo(eventID):
                 address.append(tempAddress[i].strip())
         
         context['address'] = address
-
         
-
         return context
 
 def event(request, eventID):
