@@ -615,8 +615,8 @@ def approveEdit(request, editID):
 
 def denyEdit(request, editID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
-                send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Denied", "Your edited event has been denied. Contact GRASA for details.")
                 p = Program.objects.get(pk=editID)
+                send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Edit Denied", "Your edited event has been denied. Contact GRASA for details.")
                 p.delete()
                 return redirect("admin_page")
         else:
