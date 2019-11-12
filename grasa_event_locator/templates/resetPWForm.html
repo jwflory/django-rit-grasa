@@ -11,10 +11,11 @@
 		  Please confirm that the inputted passwords match.
 		</div>
 		{% endif %}
-      <h1 class="h3 mb-3 font-weight-normal text-center top-20">Reset Password</h1>
-	<form id="theForm" method="post" class="needs-validation" novalidate >
+      
 	{% csrf_token %}
 		{% if valid_string %}
+      <h1 class="h3 mb-3 font-weight-normal text-center top-20">Reset Password</h1>
+	<form id="theForm" method="post" class="needs-validation" novalidate >
         <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group col-md-12">

@@ -257,7 +257,7 @@ body{
 
 .form-reset, .form-signin{
     padding-top: 50px;
-     margin: 0 auto;
+    margin: 0 auto;
     width: 100%;
     max-width: 330px;
 }
