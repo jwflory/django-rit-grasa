@@ -481,7 +481,7 @@ def resetpw(request):
                         resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= resetlink, expiry_time= (datetime.now() + timedelta(minutes = 60)))
                         resetPWURL.save()
                         # Make sure to pull the hostname from config file.
-                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this link: http://grasa.larrimore.de/resetPWForm/" + resetlink + ". This link expires in 10 minutes."))
+                        print(send_email([request.POST['emailAddr']], "GRASA - Reset Password", "You've requested a password reset at the GRASA Event Locator. Please visit this link: http://grasa.larrimore.de/resetPWForm/" + resetlink + ". This link expires in an hour."))
                 context = {'email_submitted': True}
                 return render(request, 'resetPW.html', context)
         else:
@@ -489,7 +489,7 @@ def resetpw(request):
 
 def resetPWForm(request, reset_string):
         try:
-            #Check if the current time is greater than the timestamp in the table (which is 10 minutes after submission)
+            #Check if the current time is greater than the timestamp in the table (which is 60 minutes after submission)
             if datetime.now() > datetime.strptime(resetPWURLs.objects.get(reset_string=reset_string).expiry_time, '%Y-%m-%d %H:%M:%S.%f'):
                 #If so, show the expired message, hide the form.
                 context = {'expired': True, "valid_string" : False}
