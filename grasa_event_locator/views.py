@@ -57,6 +57,7 @@ def admin(request):
                                 request.user.save()
                             else:
                                 # If not, return to admin_page (will need to replace this with a "wrong password message, actually".
+                                context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList, 'incorrect_password' : True}
                                 return render(request, 'admin.html', context)
                 return render(request, 'admin.html', context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin == False:
