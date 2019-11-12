@@ -1,7 +1,7 @@
 from django.core.mail import send_mail
 from django.db import connection
 
-from .models import Category
+from .models import Category, Program
 
 
 def send_email(address, subject, message):
@@ -31,10 +31,10 @@ def change_username(old_email, new_email, request):
 
 
 def write_categories_table():
+    Program.objects.all().delete()
+    Category.objects.all().delete()
+    #Had to leave this in but there's no way for someone to inject SQL here
     with connection.cursor() as cursor:
-        cursor.execute("delete from grasa_event_locator_program_categories")
-        cursor.execute("delete from grasa_event_locator_program")
-        cursor.execute("delete from grasa_event_locator_category")
         cursor.execute("ALTER TABLE grasa_event_locator_category AUTO_INCREMENT = 1")
     table = Category(description="Academic Support")
     table.save()
