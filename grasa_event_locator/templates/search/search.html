@@ -51,7 +51,7 @@
                                         {% endif %}
                                     {% endfor %}
                                 </div>
-                                <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ result.object.address }}</h6>
+                                <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i><span class="addressFix"> {{ result.object.address }}</span></h6>
                             </div>
                           </div>
                         </div>
@@ -231,12 +231,12 @@
             // Here we have seen the latitude already, so we check to see if we've seen the longitude yet
             if("{{ result.object.lng }}" in dict["{{ result.object.lat }}"]){
                 // Here we have seen the latitude and longitude already, so we should append to previuos event marker
-                dict["{{ result.object.lat }}"]["{{ result.object.lng }}"] = dict["{{ result.object.lat }}"]["{{ result.object.lng }}"] + "<hr><b>{{ result.object.title }}</b><br>{{ result.object.address }}<br><a href='/event/" + {{ result.object.id }} + "'>Details</a>";
+                dict["{{ result.object.lat }}"]["{{ result.object.lng }}"] = dict["{{ result.object.lat }}"]["{{ result.object.lng }}"] + "<hr><b>{{ result.object.title }}</b><br><span class='addressFix'>{{ result.object.address }}</span><br><a href='/event/" + {{ result.object.id }} + "'>Details</a>";
             } else {
-                dict["{{ result.object.lat }}"]["{{ result.object.lng }}"] = "<div class='leafeventPopup'><b>{{ result.object.title }}</b><br>{{ result.object.address }}<br><a href='/event/" + {{ result.object.id }} + "'>Details</a>";
+                dict["{{ result.object.lat }}"]["{{ result.object.lng }}"] = "<div class='leafeventPopup'><b>{{ result.object.title }}</b><br><span class='addressFix'>{{ result.object.address }}</span><br><a href='/event/" + {{ result.object.id }} + "'>Details</a>";
             }
         } else{
-            dict["{{ result.object.lat }}"] = { "{{ result.object.lng }}" : "<div class='leafeventPopup'><b>{{ result.object.title }}</b><br>{{ result.object.address }}<br><a href='/event/" + {{ result.object.id }} + "'>Details</a>"};
+            dict["{{ result.object.lat }}"] = { "{{ result.object.lng }}" : "<div class='leafeventPopup'><b>{{ result.object.title }}</b><br><span class='addressFix'>{{ result.object.address }}</span><br><a href='/event/" + {{ result.object.id }} + "'>Details</a>"};
         }
         {% endfor %}
         for(var lat in dict){
@@ -247,6 +247,12 @@
         }
     }
     initMap();
+    
+    //replaces the + in an address with a space
+    $(".addressFix").each(function() {
+        var text = $(this).text();
+        $(this).text(text.replace(/\+/g, ' ')); 
+    });
 
 
 
