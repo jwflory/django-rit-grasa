@@ -329,6 +329,9 @@ label.pl-2.checkbox{
 .custom-select{
     text-overflow: ellipsis;
 }
+.dropdown-toggle{
+    white-space: normal !important;
+}
 /*makes footer not cover content on mobile*/
 @media (max-width: 576px){
     body {
