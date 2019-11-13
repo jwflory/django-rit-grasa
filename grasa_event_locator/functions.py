@@ -1,6 +1,6 @@
 from django.core.mail import send_mail
 from django.db import connection
-from models import Category, Program
+from .models import Category, Program
 
 
 def send_email(address, subject, message):
