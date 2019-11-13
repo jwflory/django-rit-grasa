@@ -1,7 +1,6 @@
 from django.core.mail import send_mail
 from django.db import connection
-
-from .models import Category, Program
+from models import Category, Program
 
 
 def send_email(address, subject, message):
@@ -33,77 +32,44 @@ def change_username(old_email, new_email, request):
 def write_categories_table():
     Program.objects.all().delete()
     Category.objects.all().delete()
-    #Had to leave this in but there's no way for someone to inject SQL here
+    categories = [
+        "Academic Support",
+        "Arts and Culture",
+        "Career or College Readiness",
+        "Civic Engagement",
+        "Community Service / Service Learning",
+        "Entrepreneurship / Leadership",
+        "Financial Literacy",
+        "Health and Wellness",
+        "Media Technology",
+        "Mentoring",
+        "Nature / Environment",
+        "Play",
+        "Public Speaking",
+        "Social and Emotional Learning (SEL)",
+        "Sports and Recreation",
+        "Science, Tech, Engineering, Math (STEM)",
+        "Tutoring",
+        "Other",
+        "Provided",
+        "K-3rd",
+        "K-5th",
+        "3rd-5th",
+        "6th-8th",
+        "9th-12th",
+        "Female-Only",
+        "Male-Only",
+        "Before-School",
+        "After-School",
+        "Evenings",
+        "Weekends",
+        "Summer",
+        "Other-Time"
+    ]
+    # Had to leave this in but there's no way for someone to inject SQL here
     with connection.cursor() as cursor:
         cursor.execute("ALTER TABLE grasa_event_locator_category AUTO_INCREMENT = 1")
-    table = Category(description="Academic Support")
-    table.save()
-    table = Category(description="Arts and Culture")
-    table.save()
-    table = Category(description="Career or College Readiness")
-    table.save()
-    table = Category(description="Civic Engagement")
-    table.save()
-    table = Category(description="Community Service / Service Learning")
-    table.save()
-    table = Category(description="Entrepreneurship / Leadership")
-    table.save()
-    table = Category(description="Financial Literacy")
-    table.save()
-    table = Category(description="Health & Wellness")
-    table.save()
-    table = Category(description="Media Technology")
-    table.save()
-    table = Category(description="Mentoring")
-    table.save()
-    table = Category(description="Nature & the Environment")
-    table.save()
-    table = Category(description="Play")
-    table.save()
-    table = Category(description="Public Speaking")
-    table.save()
-    table = Category(description="Social and Emotional Learning (SEL)")
-    table.save()
-    table = Category(description="Sports and Recreation")
-    table.save()
-    table = Category(description="STEM")
-    table.save()
-    table = Category(description="Tutoring")
-    table.save()
-    table = Category(description="Other")
-    table.save()
-    table = Category(description="Provided")
-    table.save()
-    table = Category(description="K-3rd")
-    table.save()
-    table = Category(description="K-5th")
-    table.save()
-    table = Category(description="3rd-5th")
-    table.save()
-    table = Category(description="6th-8th")
-    table.save()
-    table = Category(description="9th-12th")
-    table.save()
-    # Refactored to match header and forms as well as fix duplicate search bug
-    table = Category(description="Female-Only")
-    table.save()
-    # Refactored to match header and forms as well as fix duplicate search bug
-    table = Category(description="Male-Only")
-    table.save()
-    # Refactored to match header and forms as well as fix duplicate search bug
-    table = Category(description="Before-School")
-    table.save()
-    # Refactored to match header and forms as well as fix duplicate search bug
-    table = Category(description="After-School")
-    table.save()
-    table = Category(description="Evenings")
-    table.save()
-    table = Category(description="Weekends")
-    table.save()
-    table = Category(description="Summer")
-    table.save()
-    # Refactored to "Other Time" to avoid conflicts with activities "Other" as
-    # well as fix duplicate search bug
-    table = Category(description="Other-Time")
-    table.save()
-    return table
+
+    for filter in categories:
+        table = Category(description=filter)
+        table.save()
