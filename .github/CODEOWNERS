@@ -1,0 +1,59 @@
+# This is a comment.
+# Each line is a file pattern followed by one or more owners. Order is
+# important; the last matching pattern takes the most precedence.
+
+# These owners will be the default owners for everything in the repo. Unless a
+# later match takes precedence, @jwflory will be requested for review when
+# someone opens a pull request.
+*       @jwflory
+
+############################# Filetype catch-alls #############################
+*.css                                               @ldidonato @leiyinmon
+*.html                                              @ldidonato @leiyinmon
+*.js                                                @ldidonato @leiyinmon
+*.py                                                @eguy006 @leong96
+*.sh                                                @jwflory @nlMeminger
+###############################################################################
+
+############################ System-focused checks ############################
+# Base system
+/config.yml.example                                 @jwflory @nlMeminger @eguy006 @leong96
+/grasa_event_locator/settings/                      @jwflory @nlMeminger
+/grasa_event_locator/static/                        @ldidonato @leiyinmon
+/grasa_event_locator/templates/about.html           @leiyinmon
+/grasa_event_locator/templates/changePW.html        @leong96 @ldidonato @leiyinmon
+/grasa_event_locator/templates/changePWLogout.html  @leong96 @ldidonato @leiyinmon
+/grasa_event_locator/templates/login.html           @leong96 @ldidonato @leiyinmon
+/grasa_event_locator/templates/register.html        @leong96 @ldidonato @leiyinmon
+/grasa_event_locator/templates/resetPW.html         @leong96 @ldidonato @leiyinmon
+/grasa_event_locator/templates/resetPWForm.html     @leong96 @ldidonato @leiyinmon
+
+# Event Curation System
+/grasa_event_locator/templates/allAdmins.html       @eguy006 @ldidonato
+/grasa_event_locator/templates/allEvents.html       @eguy006 @ldidonato
+/grasa_event_locator/templates/allUsers.html        @eguy006 @ldidonato
+/grasa_event_locator/templates/createEvent.html     @eguy006 @ldidonato
+/grasa_event_locator/templates/editEvent.html       @nlMeminger @ldidonato
+/grasa_event_locator/templates/event.html           @eguy006 @ldidonato
+
+# Search System
+/grasa_event_locator/templates/search/              @eguy006 @ldidonato
+/grasa_event_locator/rebuildIndex.py                @nlMeminger
+/grasa_event_locator/search_indexes.py              @eguy006
+###############################################################################
+
+############################### Infrastructure ################################
+/.travis.yml                                        @jwflory
+/code_lint.sh                                       @jwflory
+/docker-compose.yml                                 @jwflory @nlMeminger
+/Dockerfile                                         @jwflory @nlMeminger
+/manage.py                                          @jwflory
+/Pipfile                                            @jwflory @nlMeminger
+###############################################################################
+
+############### Documentation and project management resources ################
+/.github/                                           @jwflory
+/docs/                                              @jwflory
+/README.md                                          @jwflory
+/LICENSE.txt                                        @jwflory
+###############################################################################
