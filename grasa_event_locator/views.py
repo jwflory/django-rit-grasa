@@ -57,6 +57,12 @@ def admin(request):
                                 # If not, return to admin_page (will need to replace this with a "wrong password message, actually".
                                 context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList, 'incorrect_password' : True}
                                 return render(request, 'admin.html', context)
+                        if request.POST.get('reason'):
+                            print(request.POST.get('reason'))
+                            print(request.POST.get('eventid'))
+                            context = {'pendingUserList': pendingUserList, 'pendingEventList': pendingEventList, 'pendingEditList': pendingEditList}
+                            denyEvent(request, request.POST.get('eventid'), request.POST.get('reason'))
+                        return render(request, 'admin.html', context)
                 return render(request, 'admin.html', context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin == False:
                 return HttpResponseRedirect(reverse('provider_page'))
@@ -568,10 +574,10 @@ def approveEvent(request, eventID):
         else:
                 return redirect("login_page")
 
-def denyEvent(request, eventID):
+def denyEvent(request, eventID, reason):
         p = Program.objects.get(pk=eventID)
         if request.user.is_authenticated and request.user.userinfo.isPending == False and (request.user.userinfo.isAdmin or request.user.userinfo.id == p.user_id.id):
-                send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Denied/Deleted", "Your event -"+ str(p.title) +"- has been denied or deleted. Contact GRASA for details.")
+                send_email([str(User.objects.get(pk=p.user_id.user_id))], "GRASA - Event Denied/Deleted", "Your event -"+ str(p.title) +"- has been denied or deleted because '" + reason + "'. Contact GRASA for details.")
                 p.delete()
                 rebuildIndex.rebuildWhooshIndex()
                 return redirect("admin_page")
