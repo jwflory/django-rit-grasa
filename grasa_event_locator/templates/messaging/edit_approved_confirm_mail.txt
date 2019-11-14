@@ -1,0 +1,5 @@
+Hello,
+
+The edit to your event, "{{ program.title }}", is approved! See it live below:
+
+http://grasa.larrimore.de/event/{{ event_id }}

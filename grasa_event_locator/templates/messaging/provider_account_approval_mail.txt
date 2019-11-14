@@ -1,0 +1,6 @@
+Hello,
+
+Your account for {{ user.org_name }} at the GRASA Event Locator is approved!
+Please login below to start adding events:
+
+http://grasa.larrimore.de/login.html

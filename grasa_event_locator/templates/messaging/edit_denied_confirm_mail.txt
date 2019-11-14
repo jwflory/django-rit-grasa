@@ -1,0 +1,4 @@
+Hello,
+
+The edit to your event, "{{ program.title }}", was rejected. Contact an admin
+({{ config.admin_email }}) for more details.
