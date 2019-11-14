@@ -1,0 +1,7 @@
+Hello,
+
+Your event, "{{ program.title }}", was denied for the following reason:
+
+"{{ denied_reason }}"
+
+Contact an admin for additional details: {{ config.admin_email }}

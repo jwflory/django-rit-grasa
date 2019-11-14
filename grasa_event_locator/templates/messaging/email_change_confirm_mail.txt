@@ -1,0 +1,11 @@
+Hi {{ request.user.userinfo.org_name }},
+
+Your email in the GRASA Event Locator has changed! The original email was:
+
+{{ old_email }}
+
+The new email is:
+
+{{ new_email }}
+
+This email was sent as a notification to both addresses.

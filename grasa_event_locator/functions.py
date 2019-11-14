@@ -1,5 +1,6 @@
 from django.core.mail import send_mail
 from django.db import connection
+from django.template.loader import render_to_string
 from .models import Category, Program
 
 
@@ -17,14 +18,12 @@ def change_username(old_email, new_email, request):
     new_email = request.user.username
     send_email(
         [old_email, new_email],
-        "GRASA - Email Changed",
-        "The email for the "
-        + request.user.userinfo.org_name
-        + " account has changed from "
-        + old_email
-        + " to "
-        + new_email
-        + ". This email is being sent as a notification to both addresses.",
+        render_to_string("messaging/email_change_confirm_subject.txt"),
+        render_to_string("messaging/email_change_confirm_mail.txt", context={
+            "request": request,
+            "old_email": old_email,
+            "new_email": new_email,
+        })
     )
     return 0
 

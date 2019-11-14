@@ -1,0 +1,8 @@
+Hello,
+
+This email address is designated as the alternate contact for
+{{ user.org_name }} at the GRASA Event Locator. This email will be used for
+notifications for account changes or periodic reminders about updating events
+in the Event Locator.
+
+Contact a site admin or the owner of the primary account for more information.

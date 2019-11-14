@@ -18,7 +18,7 @@ path.append(BASE_DIR)
 
 # CONFIGURATION
 # Load configuration from disk
-config = yaml.safe_load(os.environ.get("CONFIGPATH", open("config.yml")))
+CONFIG = yaml.safe_load(os.environ.get("CONFIGPATH", open("config.yml")))
 
 # Path of the top level directory.
 # This directory contains the django project, apps, libs, etc...
@@ -69,11 +69,11 @@ PASSWORD_HASHERS = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": config["database"]["db"],
-        "USER": config["database"]["username"],
-        "PASSWORD": config["database"]["password"],
-        "HOST": config["database"]["host"],
-        "PORT": config["database"]["port"],
+        "NAME": CONFIG["database"]["db"],
+        "USER": CONFIG["database"]["username"],
+        "PASSWORD": CONFIG["database"]["password"],
+        "HOST": CONFIG["database"]["host"],
+        "PORT": CONFIG["database"]["port"],
         "OPTIONS": {
             "charset": "utf8mb4",
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
@@ -182,11 +182,11 @@ WSGI_APPLICATION = "grasa_event_locator.wsgi.application"
 
 # SMTP EMAIL SETTINGS
 # Used for outgoing email. Managed by config.yml.
-EMAIL_HOST = config["outgoing_smtp"]["host"]
+EMAIL_HOST = CONFIG["outgoing_smtp"]["host"]
 EMAIL_USE_SSL = True
-EMAIL_PORT = config["outgoing_smtp"]["port"]
-EMAIL_HOST_USER = config["outgoing_smtp"]["username"]
-EMAIL_HOST_PASSWORD = config["outgoing_smtp"]["password"]
+EMAIL_PORT = CONFIG["outgoing_smtp"]["port"]
+EMAIL_HOST_USER = CONFIG["outgoing_smtp"]["username"]
+EMAIL_HOST_PASSWORD = CONFIG["outgoing_smtp"]["password"]
 
 
 # MISC. SETTINGS
