@@ -1,6 +1,9 @@
 %YAML 1.2
 ---
 
+# Note: The example config file ships a working config for local development
+# in Docker Compose only.
+
 #                           ##### admin_email #####
 # Specify an email address for the first admin user. A user with admin
 # capabilities will be created with the specified email address and a default
@@ -33,3 +36,10 @@ outgoing_smtp:
   port: 465
   username: "grasatest@yahoo.com"
   password: "duhnsentqrxgadfh"
+
+#                           ##### site_name #####
+# Set the hostname of the website universally. The hostname set here will
+# reappear multiple times across the project. It is important for this to be an
+# existing DNS record.
+
+site_name: "localhost"
