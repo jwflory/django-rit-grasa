@@ -15,17 +15,10 @@ def show_toolbar(request):
     return not request.is_ajax() and request.user and request.user.is_superuser
 
 
-# MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware", ]
-# INSTALLED_APPS += ["debug_toolbar", ]
-MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-]
+MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+INSTALLED_APPS += (
+    'debug_toolbar',
+)
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
