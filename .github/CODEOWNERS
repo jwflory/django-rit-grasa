@@ -11,13 +11,13 @@
 *.css                                               @ldidonato @leiyinmon
 *.html                                              @ldidonato @leiyinmon
 *.js                                                @ldidonato @leiyinmon
-*.py                                                @eguy006 @leong96
+*.py                                                @R-Eli-Levasseur @leong96
 *.sh                                                @jwflory @nlMeminger
 ###############################################################################
 
 ############################ System-focused checks ############################
 # Base system
-/config.yml.example                                 @jwflory @nlMeminger @eguy006 @leong96
+/config.yml.example                                 @jwflory @nlMeminger @R-Eli-Levasseur @leong96
 /grasa_event_locator/settings/                      @jwflory @nlMeminger
 /grasa_event_locator/static/                        @ldidonato @leiyinmon
 /grasa_event_locator/templates/about.html           @leiyinmon
@@ -29,17 +29,17 @@
 /grasa_event_locator/templates/resetPWForm.html     @leong96 @ldidonato @leiyinmon
 
 # Event Curation System
-/grasa_event_locator/templates/allAdmins.html       @eguy006 @ldidonato
-/grasa_event_locator/templates/allEvents.html       @eguy006 @ldidonato
-/grasa_event_locator/templates/allUsers.html        @eguy006 @ldidonato
-/grasa_event_locator/templates/createEvent.html     @eguy006 @ldidonato
+/grasa_event_locator/templates/allAdmins.html       @R-Eli-Levasseur @ldidonato
+/grasa_event_locator/templates/allEvents.html       @R-Eli-Levasseur @ldidonato
+/grasa_event_locator/templates/allUsers.html        @R-Eli-Levasseur @ldidonato
+/grasa_event_locator/templates/createEvent.html     @R-Eli-Levasseur @ldidonato
 /grasa_event_locator/templates/editEvent.html       @nlMeminger @ldidonato
-/grasa_event_locator/templates/event.html           @eguy006 @ldidonato
+/grasa_event_locator/templates/event.html           @R-Eli-Levasseur @ldidonato
 
 # Search System
-/grasa_event_locator/templates/search/              @eguy006 @ldidonato
+/grasa_event_locator/templates/search/              @R-Eli-Levasseur @ldidonato
 /grasa_event_locator/rebuildIndex.py                @nlMeminger
-/grasa_event_locator/search_indexes.py              @eguy006
+/grasa_event_locator/search_indexes.py              @R-Eli-Levasseur
 ###############################################################################
 
 ############################### Infrastructure ################################
