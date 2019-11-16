@@ -1,9 +1,8 @@
-from django import forms
 from .forms import *
-from haystack.forms import SearchForm
-
+from django import forms
 from haystack import connections
 from haystack.constants import DEFAULT_ALIAS
+from haystack.forms import SearchForm
 from haystack.query import EmptySearchQuerySet, SearchQuerySet
 from haystack.utils import get_model_ct
 from haystack.utils.app_loading import haystack_get_model

@@ -1,19 +1,19 @@
 {% include "header.html" %}
 
-	<div class="container about-container">
+    <div class="container about-container">
 
-		<div class="about-row">
+        <div class="about-row">
             <br>
-			<h2 id="about">About Us</h2>
-			<span class="subhead">EVENT LOCATOR</span>
+            <h2 id="about">About Us</h2>
+            <span class="subhead">EVENT LOCATOR</span>
 
-			<p class="main-content">
+            <p class="main-content">
             The GRASA Event Locator is an event locator system to connect Monroe County families to out-of-school programs in the Greater Rochester area. This application was created for the <a href="https://www.racf.org/About/Giving-Circles-Initiatives-and-Partnerships/Greater-Rochester-After-School-Alliance" target="_blank">Greater Rochester After-School Alliance</a> and Monroe County, New York by <a href="https://django-rit-grasa.readthedocs.io/en/latest/about/about-project/#project-team" target="_blank">Team Platypus</a> at the <a href="https://www.rit.edu/" target="_blank">Rochester Institute of Technology</a>.
             </p>
 
             <p>
             This takes the form of a web page containing a map that can be searched for after-school events. Users are presented with further information and registration options. This information was originally delivered via the <a href="http://exploremonroeny.com/calendar" target="_blank">Explore Monroe website</a> as well as a physical book, the “<a href="https://www2.monroecounty.gov/files/youth/Adult_Guide%202011.pdf" target="_blank">Adult Guide to Youth Services</a>”, both which GRASA and the Monroe County government wish to retire due to lack of maintenance. GRASA representatives presented Team Platypus with several examples, including <a href="http://youthprogramlocator.newark-thrives.org/" target="_blank">Newark Thrives</a> and the <a href="http://dasn.force.com/dapf/ProgramFinder" target="_blank">Dallas After-School Network</a> as examples of final deliverables.
-			</p>
+            </p>
 
             <p>
             The main highlight of the GRASA Event Locator is the map. Similar to the <a href="http://youthprogramlocator.newark-thrives.org/" target="_blank">Newark Thrives Youth Program Locator</a>, the end user uses a search box with various filters and an interactive map to locate programs. Evemts are added to the site by providers via an account system. An administrator from GRASA and the Monroe County government approves these accounts, as well as creation and edits of an event.
@@ -22,76 +22,60 @@
             <p>
             For the purposes of this project, the Event Locator does not support programs and events beyond Monroe County.
             </p>
-		</div>
+        </div>
 
-	</div>
-	<div class="container contact-container">
+    </div>
+    <div class="container contact-container">
 
-				<h2 id="contact">Contact Us</h2>
-				<hr><br>
-				<div class="row">
+                <h2 id="contact">Contact Us</h2>
+                <hr><br>
+                <div class="row">
 
-					<div class="col-lg-3 address">
+                    <div class="col-lg-3 address">
+                        <h5>Office Hours</h5>
+                        <p>
+                            Mon - Fri : {{ config.organization_contact.hours.weekdays }} <br>
+                            Sat - Sun : {{ config.organization_contact.hours.weekends }}
+                        </p>
+                        <br>
+                        <h5>Website</h5>
+                            <a href="{{ config.organization_contact.website }}" target="_blank"><i class="fa fa-globe"></i>
+                            {{ config.organization_contact.website }}</a>
+                    </div>
 
-						<h5>Office Hours</h5>
-						<p>
-							Mon - Fri : 9am - 5pm <br>
-							Sat - Sun : closed
-						</p>
-						<br>
-						<h5>Website</h5>
-							<a href="https://www.monroecounty.gov/" target="_blank"><i class="fa fa-globe"></i>
-							www.moroecounty.gov </a>
+                    <div class="col-lg-3 address">
 
-					</div>
+                        <h5>Address</h5>
+                        <p>
+                            {{ config.organization_contact.address.street_num }} {{ config.organization_contact.address.street_name }} <br>
+                            {{ config.organization_contact.address.city }}, {{ config.organization_contact.address.state }} {{ config.organization_contact.address.zip }}
+                        </p>
+                    </div>
 
-					<div class="col-lg-3 address">
+                    <div class="col-lg-3 address">
 
-						<h5>Address</h5>
-						<p>
-							111 Monroe County <br>
-							New York 14623
+                        <h5 id="office">Call Us </h5>
+                        <a href="tel:+5951234567"><i class="fa fa-phone" aria-hidden="true"></i>
+                        (+1) {{ config.organization_contact.phone_num }} </a><br>
 
-						</p>
-					</div>
+                    </div>
 
-					<div class="col-lg-3 address">
+                    <div class="col-lg-3 address">
 
-						<h5 id="office">Call Us </h5>
+                        <h5 id="email">Email</h5>
+                        <a href="mailto:{{ config.admin_email }}"><i class="fa fa-envelope"></i>
+                        {{ config.admin_email }}</a>
 
-						<h6> HR Office: </h6>
-							<a href="tel:+5951234567"><i class="fa fa-phone" aria-hidden="true"></i> (+1) 585-123-4567 </a><br>
+                    </div>
+                </div>
+            </div>
 
-
-						<h6>IT Office: </h6>
-							<a href="tel:+5951234567"><i class="fa fa-phone" aria-hidden="true"></i> (+1) 585-123-4567 </a><br>
-
-					</div>
-
-					<div class="col-lg-3 address">
-
-						<h5 id="email">Email</h5>
-
-						<h6> HR Office: </h6>
-							<a href="mailto:johndoe@gmail.com"><i class="fa fa-envelope"></i>
-							johndoe@gmail.com</a>
-
-
-						<h6> IT Office: </h6>
-							<a href="mailto:johndoe2@gmail.com"><i class="fa fa-envelope"></i>
-							johndoe@gmail.com</a>
-
-
-					</div>
-				</div>
-			</div>
-
-	<div class="container social-container">
-		<div>
-			<a href="#" class="fa fa-facebook"></a>
-			<a href="#" class="fa fa-twitter"></a>
-			<a href="#" class="fa fa-linkedin"></a>
-		</div>
-	</div>
+    <div class="container social-container">
+        <div>
+            <a href="{{ config.organization_contact.social_media.facebook }}" class="fa fa-facebook"></a>
+            <a href="{{ config.organization_contact.social_media.twitter }}" class="fa fa-twitter"></a>
+            <a href="{{ config.organization_contact.social_media.linkedin }}" class="fa fa-linkedin"></a>
+        </div>
+    </div>
 
 {% include "footer.html" %}

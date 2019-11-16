@@ -12,6 +12,28 @@
 
 admin_email: "admin@example.com"
 
+#                      ##### organization_contact #####
+# Change the contact information for the organization in the footer of the
+# website. This information should always remain accurate and correct.
+
+organization_contact:
+  address:
+    street_num: "500"
+    street_name: "East Ave"
+    city: "Rochester"
+    state: "NY"
+    zip: "14607"
+  hours:
+    weekdays: "9am – 5pm"
+    weekends: "closed"
+  phone_num: "(585) 271-4100"
+  email: "racf@racf.org"
+  social_media:
+    facebook: "https://www.facebook.com/GreaterRochesterAfterSchoolAlliance/"
+    twitter: "https://twitter.com/GRASArochester"
+    linkedin: "https://www.linkedin.com/company/rochester-area-community-foundation/"
+  website: "https://www.monroecounty.gov"
+
 #                            ##### database #####
 # Edit database connectivity settings. Default config in example uses the
 # docker-compose defaults for local development. For local development, keep
