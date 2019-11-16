@@ -1,0 +1,5 @@
+Hello,
+
+Your account for {{ user.org_name }} at the GRASA Event Locator was rejected.
+There may have been an issue with your account registration. Please contact an
+admin ({{ config.admin_email }}) for more information.
