@@ -595,9 +595,16 @@ def denyUser(request, userID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 u = userInfo.objects.get(pk=userID)
                 v = User.objects.get(id = userID)
-                #for program in u.program_set.all():
-                #    program.delete()
-                #^^^^^works but breaks page unless rebuild_index run
+                send_email(
+                    [str(u.user)],
+                    render_to_string("messaging/provider_account_denied_subject.txt"),
+                    render_to_string(
+                        "messaging/provider_account_denied_mail.txt",
+                        context={
+                            "config": settings.CONFIG,
+                            "user": u,
+                        })
+                )
                 u.delete()
                 v.delete()
                 rebuildIndex.rebuildWhooshIndex()
