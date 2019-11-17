@@ -5,7 +5,7 @@ the GRASA Event Locator!
 
 Finish setting up your account with this email here:
 
-http://grasa.larrimore.de/register.html
+{{ config.site_name.prefix }}{{ config.site_name.fqdn }}/register.html
 
 - Greater Rochester After-School Alliance (GRASA)
   Monroe County, NY
