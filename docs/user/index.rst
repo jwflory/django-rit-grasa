@@ -26,7 +26,7 @@ Other pages are available for you to navigate and explore below.
 
 .. toctree::
     :maxdepth: 2
-    :name: search
+    :name: searching
     :caption: Search System:
     :glob:
 
