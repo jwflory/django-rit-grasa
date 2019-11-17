@@ -23,7 +23,7 @@ activityList = [
     ("Public Speaking", "Public Speaking"),
     ("Social and Emotional Learning (SEL)", "Social and Emotional Learning (SEL)"),
     ("Sports and Recreation", "Sports and Recreation"),
-    ("STEM", "STEM"),
+    ("Science, Tech, Engineering, Math (STEM)", "Science, Tech, Engineering, Math (STEM)"),
     ("Tutoring", "Tutoring"),
     ("Other", "Other"),
 ]
