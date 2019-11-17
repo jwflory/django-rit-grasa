@@ -1,5 +1,5 @@
-Create a local development environment
-======================================
+Create new dev environment
+==========================
 
 <!--
     Please write each sentence on its own line.
@@ -8,7 +8,7 @@ Create a local development environment
       https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line
   -->
 
-This page explains how to set up a local development environment to test the GRASA Event Locator system.
+This page explains how to set up a new, local development environment to test the GRASA Event Locator system.
 
 
 ## Requirements
