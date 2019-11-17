@@ -1,5 +1,5 @@
-Start with a fresh environment
-==============================
+Refresh existing dev environment
+================================
 
 **Document owner**: Harrison Leong ([@leong96](https://github.com/leong96))
 

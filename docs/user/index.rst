@@ -32,11 +32,3 @@ Other pages are available for you to navigate and explore below.
 
     search/*
 
-
-******************
-Indices and tables
-******************
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
