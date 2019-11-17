@@ -3,4 +3,4 @@ Hello,
 Your account for {{ user.org_name }} at the GRASA Event Locator is approved!
 Please login below to start adding events:
 
-{{ config.site_name.prefix }}{{ config.site_name.fqdn }}/login.html
+http{% if config.https %}s{% endif %}://{{ config.site_name }}/login.html
