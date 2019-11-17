@@ -1,5 +1,7 @@
 Hello,
 
-Your account for {{ user.org_name }} at the GRASA Event Locator was rejected.
-There may have been an issue with your account registration. Please contact an
-admin ({{ config.admin_email }}) for more information.
+Your account for {{ user.org_name }} at the GRASA Event Locator was rejected for the following reason:
+
+"{{ denied_reason }}"
+
+Please contact an admin ({{ config.admin_email }}) for more information.
