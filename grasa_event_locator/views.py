@@ -7,7 +7,11 @@ from .helpers import change_username, send_email, write_categories_table
 from .models import userInfo, Category, Program, resetPWURLs
 from datetime import datetime, timedelta
 from django.conf import settings
-from django.contrib.auth import authenticate, login as auth_login, logout
+from django.contrib.auth import \
+    authenticate, \
+    login as auth_login, \
+    logout, \
+    update_session_auth_hash
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import User as UserAccount
 from django.http import HttpResponseRedirect
@@ -16,6 +20,7 @@ from django.template.loader import render_to_string
 from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
 from smtplib import SMTPRecipientsRefused
+
 
 def aboutContact(request):
     return render(request, 'about.html', context={
@@ -34,8 +39,12 @@ def admin(request):
                         # the admin user [name=changeemail in the html]), exists. If so, perform change_username.
                         # It takes the current username, the new username (changeemail), and the request (the logged in user object),
                         # and changes the current username to the new username. See functions.py for that function.
-                        if request.POST.get('changeemail'):
-                            change_username(request.user.username, request.POST['changeemail'] , request)
+                        if request.POST.get('changeemail') and (request.user.username != request.POST['changeemail']):
+                            if UserAccount.objects.filter(username=request.POST['changeemail']).exists():
+                                context = {'pendingUserList': pendingUserList, 'pendingEventList': pendingEventList,
+                                           'pendingEditList': pendingEditList, 'user_exists' : True}
+                            else:
+                                change_username(request.user.username, request.POST['changeemail'] , request)
                         # The way we have the page coded, when a POST submit occurs,
                         # either the above situation happens in order to change the username,
                         # or this bottom situation, where the user has filled out the password modal, occurs.
@@ -51,6 +60,7 @@ def admin(request):
                                 # If it is, set the password to new, and save the user.
                                 request.user.set_password(new)
                                 request.user.save()
+                                update_session_auth_hash(request, request.user)
                             else:
                                 context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList, 'incorrect_password' : True}
                                 return render(request, 'admin.html', context)
@@ -100,14 +110,19 @@ def allUsers(request):
     if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
         userList = userInfo.objects.filter(isPending=False).filter(isAdmin=False)
         context = {'userList': userList}
-
         if request.method == 'POST':
-                #TODO: Change to hostname config value here later...
-
-                send_email(
-                    [request.POST.get('emailAddr')],
-                    render_to_string("messaging/invite_provider_subject.txt"),
-                    render_to_string("messaging/invite_provider_mail.txt"))
+                if request.POST.get('emailAddr'):
+                    try:
+                        # TODO: Change to hostname config value in email later...
+                        send_email(
+                            [request.POST.get('emailAddr')],
+                            render_to_string("messaging/invite_provider_subject.txt"),
+                            render_to_string("messaging/invite_provider_mail.txt"))
+                        context = {'userList': userList, 'sent_invite': True}
+                    except SMTPRecipientsRefused:
+                        context = {'userList': userList, 'invite_failure': True}
+                if request.POST.get('delete'):
+                    deleteUser(request, request.POST.get('delete'))
         return render(request, 'allUsers.html', context)
     return HttpResponseRedirect(reverse('search'))
 
@@ -115,32 +130,37 @@ def allUsers(request):
 def allAdmins(request):
     if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
         userList = userInfo.objects.filter(isAdmin=True)
-        if request.method == 'POST' and request.POST['current'] == request.POST['confirm']:
-            #Check for Duplicate Email Entry (Email Already in Database)
-            emailAddr = request.POST['emailAddr']
-            checkInfo = UserAccount.objects.filter(email=emailAddr)
-            if(checkInfo.count() >= 1):
-                context = {'userList': userList, 'emailTaken' : True}
-                return render(request, 'allAdmins.html', context)
-            else:
-                current = request.POST['current']
-                newUser = UserAccount.objects.create_superuser(emailAddr, emailAddr, current)
-                uInfo = userInfo(user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
-                uInfo.save()
-                try:
-                    send_email(
-                        [emailAddr],
-                        render_to_string("messaging/invite_admin_subject.txt"),
-                        render_to_string("messaging/invite_admin_mail.txt"))
-                except SMTPRecipientsRefused:
-                    context = {'invalidEmail': True, 'userList': userList}
-                    return render(request, 'allAdmins.html', context)
-                context = {'userList': userList, 'emailTaken' : False}
+        if request.method == 'POST':
+            if request.POST.get('current') or request.POST.get('confirm'):
+                if (request.POST.get('current') == request.POST.get('confirm')):
+                    #Check for Duplicate Email Entry (Email Already in Database)
+                    emailAddr = request.POST['emailAddr']
+                    checkInfo = UserAccount.objects.filter(email=emailAddr)
+                    if(checkInfo.count() >= 1):
+                        context = {'userList': userList, 'emailTaken' : True}
+                        return render(request, 'allAdmins.html', context)
+                    else:
+                        current = request.POST['current']
+                        newUser = UserAccount.objects.create_superuser(emailAddr, emailAddr, current)
+                        uInfo = userInfo(user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
+                        uInfo.save()
+                        try:
+                            send_email(
+                                [emailAddr],
+                                render_to_string("messaging/invite_admin_subject.txt"),
+                                render_to_string("messaging/invite_admin_mail.txt"))
+                        except SMTPRecipientsRefused:
+                            context = {'invalidEmail': True, 'userList': userList}
+                            return render(request, 'allAdmins.html', context)
+                        context = {'userList': userList, 'emailTaken' : False}
+                        return render(request, 'allAdmins.html', context)
+            if request.POST.get('delete'):
+                deleteUser(request, request.POST.get('delete'))
+                context = {'userList': userList}
                 return render(request, 'allAdmins.html', context)
         else:
                 context = {'userList': userList, 'emailTaken' : False}
                 return render(request, 'allAdmins.html', context)
-        return render(request, 'allAdmins.html', context)
     return HttpResponseRedirect(reverse('search'))
 
 
@@ -433,10 +453,6 @@ def login(request):
         else:
                 context = {'pendingUser' : False, 'wrongCredentials' : False}
                 return render(request, 'login.html', context)
-        context = {
-                'pendingUser' : False,
-                'wrongCredentials' : False
-        }
         return render(request, 'login.html', context)
 
 
@@ -450,25 +466,34 @@ def index(request):
 
 
 def provider(request):
+        currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
+        myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
         if request.method == 'POST':
-                if request.POST.get('changeemail'):
-                        change_username(request.user.username, request.POST['changeemail'] , request)
-                if request.POST.get('changename'):
-                        u = userInfo.objects.get(pk=request.user.id)
-                        u.org_name = request.POST['changename']
-                        u.save()
-                        rebuildIndex.rebuildWhooshIndex()
-                if request.POST.get('current') and (request.POST.get('new') == request.POST.get('confirm')):
-                    current = request.POST['current']
-                    new = request.POST['new']
-                    if request.user.check_password(current):
-                        request.user.set_password(new)
-                        request.user.save()
-                    else:
-                        currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
-                        myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
-                        context = {'myEventList': myEventList, 'currentUser': currentUser, 'incorrect_password' : True}
-                        return render(request, 'provider.html', context)
+            if request.POST.get('changeemail') and (request.user.username != request.POST['changeemail']):
+                if UserAccount.objects.filter(username=request.POST['changeemail']).exists():
+                    context = {'myEventList': myEventList, 'currentUser': currentUser, 'user_exists' : True}
+                    return render(request, 'provider.html', context)
+                else:
+                    change_username(request.user.username, request.POST.get('changeemail'), request)
+            if request.POST.get('changename'):
+                    u = userInfo.objects.get(pk=request.user.id)
+                    u.org_name = request.POST['changename']
+                    u.save()
+                    rebuildIndex.rebuildWhooshIndex()
+            if request.POST.get('current') and (request.POST.get('new') == request.POST.get('confirm')):
+                current = request.POST['current']
+                new = request.POST['new']
+                if request.user.check_password(current):
+                    request.user.set_password(new)
+                    request.user.save()
+                    currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
+                    myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
+                    update_session_auth_hash(request, request.user)
+                else:
+                    currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
+                    myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
+                    context = {'myEventList': myEventList, 'currentUser': currentUser, 'incorrect_password' : True}
+                    return render(request, 'provider.html', context)
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
@@ -614,6 +639,18 @@ def denyUser(request, userID, deny_user_reason):
                 return redirect("admin_page")
         else:
                 return redirect("login_page")
+
+
+def deleteUser(request, userID):
+    if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
+        u = userInfo.objects.get(pk=userID)
+        v = UserAccount.objects.get(id=userID)
+        u.delete()
+        v.delete()
+        rebuildIndex.rebuildWhooshIndex()
+        return redirect("admin_page")
+    else:
+        return redirect("login_page")
 
 
 def approveEvent(request, eventID):

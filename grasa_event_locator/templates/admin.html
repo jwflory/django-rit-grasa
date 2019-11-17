@@ -8,7 +8,14 @@
             <div class="alert alert-warning" role="alert">
                 Inputted password is incorrect; please try again.
             </div>
-{% endif %}
+        {% endif %}
+
+            {% if user_exists %}
+                <div class="alert alert-warning" role="alert">
+                    The email address you inputted is already associated with an account. Please try again.
+                </div>
+        {% endif %}
+
     <!--Top Row-->
         <div class="col-sm-12 card">
             <div class="card-body">
