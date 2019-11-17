@@ -7,17 +7,16 @@ from .helpers import change_username, send_email, write_categories_table
 from .models import userInfo, Category, Program, resetPWURLs
 from datetime import datetime, timedelta
 from django.conf import settings
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import User as UserAccount
 from django.db import connection
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, redirect
 from django.template.loader import render_to_string
 from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
 from smtplib import SMTPRecipientsRefused
-
 
 def aboutContact(request):
     return render(request, 'about.html', context={
@@ -54,14 +53,20 @@ def admin(request):
                                 request.user.set_password(new)
                                 request.user.save()
                             else:
-                                # If not, return to admin_page (will need to replace this with a "wrong password message, actually".
                                 context = {'pendingUserList' : pendingUserList, 'pendingEventList' : pendingEventList, 'pendingEditList' : pendingEditList, 'incorrect_password' : True}
                                 return render(request, 'admin.html', context)
-                        if request.POST.get('reason'):
-                            print(request.POST.get('reason'))
-                            print(request.POST.get('eventid'))
+                        if request.POST.get('deny_user_reason'):
+                            context = {'pendingUserList': pendingUserList, 'pendingEventList': pendingEventList,
+                                       'pendingEditList': pendingEditList}
+                            denyUser(request, request.POST.get('userid'), request.POST.get('deny_user_reason'))
+                        if request.POST.get('deny_event_reason'):
                             context = {'pendingUserList': pendingUserList, 'pendingEventList': pendingEventList, 'pendingEditList': pendingEditList}
-                            denyEvent(request, request.POST.get('eventid'), request.POST.get('reason'))
+                            denyEvent(request, request.POST.get('eventid'), request.POST.get('deny_event_reason'))
+                        if request.POST.get('edit_event_reason'):
+                            print(request.POST.get('edit_event_reason'))
+                            context = {'pendingUserList': pendingUserList, 'pendingEventList': pendingEventList,
+                                       'pendingEditList': pendingEditList}
+                            denyEdit(request, request.POST.get('editeventid'), request.POST.get('edit_event_reason'))
                         return render(request, 'admin.html', context)
                 return render(request, 'admin.html', context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin is False:
@@ -394,7 +399,7 @@ def editEvent(request, eventID):
         if transportation_list.count() == 0:
                 transportation_list_pub = "Not Provided"
 
-        context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
+        context = {'event' : event, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
         return render(request, 'event.html', context)
 
 
@@ -504,7 +509,7 @@ def register(request):
 def resetpw(request):
         i = 0
         if request.method == 'POST':
-                if User.objects.filter(username=request.POST['emailAddr']).exists():
+                if UserAccount.objects.filter(username=request.POST['emailAddr']).exists():
                         try:
                             # This line attempts to delete any existing entry in the reset URL table for the user so the user cannot generate multiple reset links.
                             resetPWURLs.objects.get(user_ID = request.POST['emailAddr']).delete()
@@ -546,7 +551,7 @@ def resetPWForm(request, reset_string):
                     if request.POST.get('new') == request.POST.get('confirm'):
                         print(reset_string)
                         username = resetPWURLs.objects.get(reset_string=reset_string)
-                        user = User.objects.get(username=username.user_ID)
+                        user = UserAccount.objects.get(username=username.user_ID)
                         user.set_password(request.POST['new'])
                         user.save()
                         resetPWURLs.objects.get(reset_string=reset_string).delete()
@@ -589,10 +594,10 @@ def approveUser(request, userID):
                 return redirect("login_page")
 
 
-def denyUser(request, userID):
+def denyUser(request, userID, deny_user_reason):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 u = userInfo.objects.get(pk=userID)
-                v = User.objects.get(id = userID)
+                v = UserAccount.objects.get(id=userID)
                 send_email(
                     [str(u.user)],
                     render_to_string("messaging/provider_account_denied_subject.txt"),
@@ -600,6 +605,7 @@ def denyUser(request, userID):
                         "messaging/provider_account_denied_mail.txt",
                         context={
                             "config": settings.CONFIG,
+                            "denied_reason": deny_user_reason,
                             "user": u,
                         })
                 )
@@ -623,7 +629,7 @@ def approveEvent(request, eventID):
                     "program": p,
                 }
                 send_email(
-                    [str(User.objects.get(pk=p.user_id.user_id))],
+                    [str(UserAccount.objects.get(pk=p.user_id.user_id))],
                     render_to_string(
                         "messaging/event_approved_confirm_subject.txt",
                         context=email_context),
@@ -636,28 +642,28 @@ def approveEvent(request, eventID):
                 return redirect("login_page")
 
 
-def denyEvent(request, eventID, reason):
-        p = Program.objects.get(pk=eventID)
-        if request.user.is_authenticated and request.user.userinfo.isPending == False and (request.user.userinfo.isAdmin or request.user.userinfo.id == p.user_id.id):
-                email_context = {
-                    "config": settings.CONFIG,
-                    "denied_reason": reason,
-                    "program": p,
-                }
-                send_email(
-                    [str(User.objects.get(pk=p.user_id.user_id))],
-                    render_to_string(
-                        "messaging/event_denied_confirm_subject.txt",
-                        context=email_context),
-                    render_to_string(
-                        "messaging/event_denied_confirm_mail.txt",
-                        context=email_context)
-                )
-                p.delete()
-                rebuildIndex.rebuildWhooshIndex()
-                return redirect("admin_page")
-        else:
-                return redirect("login_page")
+def denyEvent(request, eventID, deny_event_reason):
+    p = Program.objects.get(pk=eventID)
+    if request.user.is_authenticated and request.user.userinfo.isPending is False and (request.user.userinfo.isAdmin or request.user.userinfo.id is p.user_id.id):
+        email_context = {
+            "config": settings.CONFIG,
+            "denied_reason": deny_event_reason,
+            "program": p,
+        }
+        send_email(
+            [str(UserAccount.objects.get(pk=p.user_id.user_id))],
+            render_to_string(
+                "messaging/event_denied_confirm_subject.txt",
+                context=email_context),
+            render_to_string(
+                "messaging/event_denied_confirm_mail.txt",
+                context=email_context)
+        )
+        p.delete()
+        rebuildIndex.rebuildWhooshIndex()
+        return redirect("admin_page")
+    else:
+        return redirect("login_page")
 
 
 def approveEdit(request, editID):
@@ -684,7 +690,7 @@ def approveEdit(request, editID):
                     oldP.save()
                     p.delete()
                     send_email(
-                        [str(User.objects.get(pk=oldP.user_id.user_id))],
+                        [str(UserAccount.objects.get(pk=oldP.user_id.user_id))],
                         render_to_string(
                             "messaging/edit_approved_confirm_subject.txt",
                             context={"program": oldP}),
@@ -701,7 +707,7 @@ def approveEdit(request, editID):
                     p.editOf = 0
                     p.save()
                     send_email(
-                        [str(User.objects.get(pk=p.user_id.user_id))],
+                        [str(UserAccount.objects.get(pk=p.user_id.user_id))],
                         render_to_string(
                             "messaging/edit_approved_confirm_subject.txt",
                             context={"program": p}),
@@ -718,15 +724,16 @@ def approveEdit(request, editID):
                 return redirect("login_page")
 
 
-def denyEdit(request, editID):
+def denyEdit(request, editID, deny_edit_reason):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 p = Program.objects.get(pk=editID)
                 email_context = {
                     "config": settings.CONFIG,
                     "program": p,
+                    "denied_reason" : deny_edit_reason
                 }
                 send_email(
-                    [str(User.objects.get(pk=p.user_id.user_id))],
+                    [str(UserAccount.objects.get(pk=p.user_id.user_id))],
                     render_to_string(
                         "messaging/edit_denied_confirm_subject.txt",
                         context=email_context),
@@ -741,5 +748,5 @@ def denyEdit(request, editID):
 
 
 class programSearchView(SearchView):
-        template_name = 'search/search.html'
-        form_class = grasaSearchForm
+    template_name = 'search/search.html'
+    form_class = grasaSearchForm
