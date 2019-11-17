@@ -7,6 +7,13 @@
                 Inputted password is incorrect; please try again.
             </div>
         {% endif %}
+
+        {% if user_exists %}
+            <div class="alert alert-warning" role="alert">
+                The email address you inputted is already associated with an account. Please try again.
+            </div>
+        {% endif %}
+
     <!--Top Row-->
         <div class="col-sm-12 card">
             <div class="card-body">
@@ -184,7 +191,6 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-
                             <div class="form-group col-md-12">
                                 <label for="resetPW">Current Password</label>
                                 <input type="password" id="currPW" class="form-control" name="current" placeholder="" required autofocus>

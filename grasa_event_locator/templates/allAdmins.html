@@ -30,12 +30,11 @@
                 {% for user in userList %}
                   <th scope="row"><a href="mailto:{{ user.user }}">{{ user.user }}</a></th>
                   <th scope="row">{{ user.user.last_login }}</th>
-                  <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
+                  <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ user.id }}">Delete</button></td>
                 </tr>
-                {% endfor %}
 
                 <!--Delete Modal-->
-                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -44,17 +43,20 @@
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
+                    <form method="post" action="allAdmins.html">{% csrf_token %}
                       <div class="modal-body">
                        Are you sure you want to delete this Admin? This cannot be undone.
                       </div>
                       <div class="modal-footer">
+                          <input type="hidden" name="delete" value="{{ user.id }}" readonly>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Never Mind</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="">Confirm Delete</button>
-
+                        <button type="submit" class="btn btn-danger" value="Submit">Confirm Delete</button>
                       </div>
+                    </form>
                     </div>
                   </div>
                 </div>
+                {% endfor %}
 
               </tbody>
             </table>
