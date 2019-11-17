@@ -64,6 +64,11 @@ outgoing_smtp:
 # name set here reappears multiple times across the project. It is important
 # for this to be an existing DNS record.
 
-site_name:
-  prefix: "http://"
-  fqdn: "localhost:8000"
+site_name: "localhost:8000"
+
+# #### https #####
+# Whether external URLs (e.g. used in emails) write emails with "http://" or
+# "https://" prefixes. Set to yes for HTTPS, no for HTTP. Default is no.
+
+https: no
+

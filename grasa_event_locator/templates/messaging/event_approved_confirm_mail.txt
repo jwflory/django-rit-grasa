@@ -2,4 +2,4 @@ Hello,
 
 Your event, "{{ program.title }}", is approved! See it live below:
 
-{{ config.site_name.prefix }}{{ config.site_name.fqdn }}/event/{{ event_id }}
+http{% if config.https %}s{% endif %}://{{ config.site_name }}/event/{{ event_id }}
