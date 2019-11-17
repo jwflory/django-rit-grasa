@@ -84,7 +84,7 @@
                       </td>
                       <td>Pending</td>
                       <td><a href="{% url 'approve_user' pendingUser.id %}"><button type="button" class="btn btn-outline-success">Approve</button></a></td>
-                      <td><a href="{% url 'deny_user' pendingUser.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></a></td>
+                      <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#denyUserModal{{pendingUser.id}}">Deny</button></td>
                     </tr>
 
                     <!--Deny User Modal-->
@@ -215,7 +215,7 @@
                       <td>Pending</td>
                       <td><a href="{% url 'event_page' pendingEdit.id %}"><button type="button" class="btn btn-outline-info view-event">View</button></a></td>
                       <td><a href="{% url 'approve_edit' pendingEdit.id %}"><button type="button" class="btn btn-outline-success">Approve</button></a></td>
-                      <td><a href="{% url 'deny_edit' pendingEdit.id %}"><button type="button" class="btn btn-outline-danger">Deny</button></a></td>
+                      <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#denyeditEventModal{{pendingEdit.id}}">Deny</button></td>
                     </tr>
 
                     <!--Deny Edit Event Modal-->
