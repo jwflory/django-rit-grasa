@@ -60,8 +60,10 @@ outgoing_smtp:
   password: "duhnsentqrxgadfh"
 
 #                           ##### site_name #####
-# Set the hostname of the website universally. The hostname set here will
-# reappear multiple times across the project. It is important for this to be an
-# existing DNS record.
+# Creates a resolveable hostname used across the website universally. The site
+# name set here reappears multiple times across the project. It is important
+# for this to be an existing DNS record.
 
-site_name: "localhost"
+site_name:
+  prefix: "http://"
+  fqdn: "localhost:8000"

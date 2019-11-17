@@ -117,7 +117,10 @@ def allUsers(request):
                         send_email(
                             [request.POST.get('emailAddr')],
                             render_to_string("messaging/invite_provider_subject.txt"),
-                            render_to_string("messaging/invite_provider_mail.txt"))
+                            render_to_string(
+                                "messaging/invite_provider_mail.txt",
+                                context={"config": settings.CONFIG, })
+                        )
                         context = {'userList': userList, 'sent_invite': True}
                     except SMTPRecipientsRefused:
                         context = {'userList': userList, 'invite_failure': True}
@@ -542,13 +545,16 @@ def resetpw(request):
                         reset_link = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(15)])
                         resetPWURL = resetPWURLs(user_ID = request.POST['emailAddr'], reset_string= reset_link, expiry_time= (datetime.now() + timedelta(minutes = 60)))
                         resetPWURL.save()
-                        # Make sure to pull the hostname from config file.
+                        email_context = {
+                            "config": settings.CONFIG,
+                            "reset_link": reset_link,
+                        }
                         send_email(
                             [request.POST['emailAddr']],
                             render_to_string("messaging/reset_password_subject.txt"),
                             render_to_string(
                                 "messaging/reset_password_mail.txt",
-                                context={"reset_link": reset_link})
+                                context=email_context)
                         )
                 return render(request, 'resetPW.html', context={
                     'email_submitted': True
@@ -599,19 +605,23 @@ def approveUser(request, userID):
                 u = userInfo.objects.get(pk=userID)
                 u.isPending = False
                 u.save()
+                email_context = {
+                    "config": settings.CONFIG,
+                    "user": u,
+                }
                 send_email(
                     [str(u.user)],
                     render_to_string("messaging/provider_account_approval_subject.txt"),
                     render_to_string(
                         "messaging/provider_account_approval_mail.txt",
-                        context={"user": u})
+                        context=email_context)
                 )
                 send_email(
                     [str(u.contact_email)],
                     render_to_string("messaging/alternate_contact_confirm_subject.txt"),
                     render_to_string(
                         "messaging/alternate_contact_confirm_mail.txt",
-                        context={"user": u})
+                        context=email_context)
                 )
                 return redirect("admin_page")
         else:
@@ -661,6 +671,7 @@ def approveEvent(request, eventID):
                 rebuildIndex.rebuildWhooshIndex()
 
                 email_context = {
+                    "config": settings.CONFIG,
                     "event_id": eventID,
                     "program": p,
                 }
@@ -750,6 +761,7 @@ def approveEdit(request, editID):
                         render_to_string(
                             "messaging/edit_approved_confirm_mail.txt",
                             context={
+                                "config": settings.CONFIG,
                                 "event_id": str(p.id),
                                 "program": p,
                             })
