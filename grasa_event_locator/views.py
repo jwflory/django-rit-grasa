@@ -10,9 +10,8 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import User as UserAccount
-from django.db import connection
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import redirect, render, reverse
 from django.template.loader import render_to_string
 from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
