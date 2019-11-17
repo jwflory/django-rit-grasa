@@ -15,6 +15,13 @@ For more information, see the `repo on GitHub <https://github.com/jwflory/django
     about/*
 
 .. toctree::
+    :maxdepth: 1
+    :name: user
+    :caption: User Documentation:
+
+    user/index.rst
+
+.. toctree::
     :maxdepth: 2
     :name: development
     :caption: Development:
