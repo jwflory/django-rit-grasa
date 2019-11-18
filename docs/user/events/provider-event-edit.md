@@ -28,6 +28,9 @@ While your edit awaits review, you will see two copies of your Event, both with 
 
 ![Example of an Event with an edit awaiting review by an Administrator: Even though two appear, only one Event exists](../../_static/user/events/event-edit-awaiting-approval.png "Example of an Event with an edit awaiting review by an Administrator: Even though two appear, only one Event exists")
 
-It is _not_ recommended to edit an event again while another event edit is pending.
+It is _not_ recommended to edit an Event again while an edit is pending approval.
+While it is possible to edit an Event more than once, changes are not preserved across multiple edits.
+The full contents of the final edit approved (by an Administrator) is always the published version.
+
 Once an edit is reviewed by an Administrator (_admins_: see "[How to review edits to existing Events](admin-review-event-edit)"), the Provider receives an email notification of the status change.
 If approved, the Event edit is immediately displayed in the public site.
