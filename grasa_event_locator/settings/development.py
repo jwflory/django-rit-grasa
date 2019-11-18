@@ -2,8 +2,6 @@ from .base import *  # noqa
 
 DEBUG = True
 
-SECRET_KEY = "secret"
-
 ALLOWED_HOSTS = ["*"]
 
 CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}

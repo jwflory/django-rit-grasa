@@ -24,6 +24,10 @@ CONFIG = yaml.safe_load(os.environ.get("CONFIGPATH", open("config.yml")))
 # This directory contains the django project, apps, libs, etc...
 PROJECT_ROOT = os.path.dirname(BASE_DIR)
 
+# IMPORTANT!:
+# You must keep this secret. Control this in your config.yml file.
+# https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/#secret-key
+SECRET_KEY = CONFIG["secret_key"]
 
 # SITE SETTINGS
 # https://docs.djangoproject.com/en/2.2/ref/settings/#site-id
