@@ -12,6 +12,14 @@
 
 admin_email: "admin@example.com"
 
+#                         ##### sysadmin_email #####
+# Specify an email address for logging notifications and error messages. This
+# address is intended for receipt of technical debugging information related to
+# the site. It is not recommended to set this to an individual person's email
+# inbox.
+
+sysadmin_email: "logging@example.com"
+
 #                      ##### organization_contact #####
 # Change the contact information for the organization in the footer of the
 # website. This information should always remain accurate and correct.
