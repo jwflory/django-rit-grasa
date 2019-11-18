@@ -16,7 +16,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 ADMINS = (("Your Name", "your_email@example.com"),)
 MANAGERS = ADMINS
 
-## DJANGO-COMPRESSOR SETTINGS
+# DJANGO-COMPRESSOR SETTINGS
 # STATICFILES_FINDERS = STATICFILES_FINDERS + (
 #    'compressor.finders.CompressorFinder',
 # )
