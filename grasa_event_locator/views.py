@@ -171,6 +171,9 @@ def allEvents(request):
     if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
         programList = Program.objects.filter(isPending=False)
         context = {'programList': programList}
+        if request.method == 'POST':
+            if request.POST.get('delete'):
+                deleteEvent(request, request.POST.get('delete'))
         return render(request, 'allEvents.html', context)
     return HttpResponseRedirect(reverse('search'))
 
@@ -497,6 +500,8 @@ def provider(request):
                     myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
                     context = {'myEventList': myEventList, 'currentUser': currentUser, 'incorrect_password' : True}
                     return render(request, 'provider.html', context)
+            if request.POST.get('delete'):
+                deleteEvent(request, request.POST.get('delete'))
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
@@ -689,6 +694,11 @@ def approveEvent(request, eventID):
                 return redirect("login_page")
 
 
+def deleteEvent(request, eventID):
+    p = Program.objects.get(pk=eventID)
+    p.delete()
+    rebuildIndex.rebuildWhooshIndex()
+
 def denyEvent(request, eventID, deny_event_reason):
     p = Program.objects.get(pk=eventID)
     if request.user.is_authenticated and request.user.userinfo.isPending is False and (request.user.userinfo.isAdmin or request.user.userinfo.id is p.user_id.id):
@@ -711,7 +721,6 @@ def denyEvent(request, eventID, deny_event_reason):
         return redirect("admin_page")
     else:
         return redirect("login_page")
-
 
 def approveEdit(request, editID):
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
