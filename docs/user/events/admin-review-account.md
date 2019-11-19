@@ -7,11 +7,13 @@ New account registrations are either Approved or Denied.
 
 ## View pending accounts
 
-If there are pending accounts awaiting review, they appear on the **Provider Panel**:
+If there are pending accounts awaiting review, they appear on the **Admin Panel**:
 
 ![Screenshot of a user pending review by an Administrator](../../_static/user/events/admin-review-pending-account.png "A user pending review by an Administrator")
 
-The **Provider Panel** is accessed by clicking the organization name next to the _Logout_ button:
+The **Admin Panel** is accessed by clicking the organization name next to the _Logout_ button:
+
+![Screenshot of buttons to access Admin Panel and logout](../../_static/user/events/admin-panel-logout.png "Screenshot of buttons to access Admin Panel and logout")
 
 
 ## Approve an account
