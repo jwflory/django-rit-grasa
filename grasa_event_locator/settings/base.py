@@ -34,7 +34,7 @@ SECRET_KEY = CONFIG["secret_key"]
 SITE_ID = 1
 
 # https://docs.djangoproject.com/en/2.2/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [CONFIG["site_name"]]
 
 # https://docs.djangoproject.com/en/2.2/ref/settings/#installed-apps
 INSTALLED_APPS = [
