@@ -143,8 +143,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'django-rit-grasa.tex', 'django-rit-grasa Documentation',
-     'Justin W. Flory', 'manual'),
+    (master_doc, 'django-rit-grasa.tex', 'GRASA Event Locator Documentation',
+     'Team Platypus', 'manual'),
 ]
 
 
@@ -153,7 +153,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'django-rit-grasa', 'django-rit-grasa Documentation',
+    (master_doc, 'django-rit-grasa', 'GRASA Event Locator Documentation',
      [author], 1)
 ]
 
@@ -164,8 +164,11 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'django-rit-grasa', 'django-rit-grasa Documentation',
-     author, 'django-rit-grasa', 'One line description of project.',
+    (master_doc, 'django-rit-grasa', 'GRASA Event Locator Documentation',
+     author, 'django-rit-grasa',
+             'Django web application used by Greater Rochester After-School '
+             + 'Alliance (GRASA) to improve access to after-school programs '
+             + 'in Monroe County, NY',
      'Miscellaneous'),
 ]
 
