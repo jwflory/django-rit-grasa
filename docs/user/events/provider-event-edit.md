@@ -32,5 +32,5 @@ It is _not_ recommended to edit an Event again while an edit is pending approval
 While it is possible to edit an Event more than once, changes are not preserved across multiple edits.
 The full contents of the final edit approved (by an Administrator) is always the published version.
 
-Once an edit is reviewed by an Administrator (_admins_: see "[How to review edits to existing Events](admin-review-event-edit)"), the Provider receives an email notification of the status change.
+Once an edit is reviewed by an Administrator, the Provider receives an email notification of the status change.
 If approved, the Event edit is immediately displayed in the public site.
