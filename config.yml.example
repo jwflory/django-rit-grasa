@@ -4,6 +4,13 @@
 # Note: The example config file ships a working config for local development
 # in Docker Compose only.
 
+# ##### secret_key #####
+# Specify a secret key to be used for encryption. This string should be
+# randomly generated and kept secure.
+# https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECRET_KEY
+
+secret_key: "TeamPlatypus2191"
+
 #                           ##### admin_email #####
 # Specify an email address for the first admin user. A user with admin
 # capabilities will be created with the specified email address and a default
@@ -11,6 +18,14 @@
 # to change the password from the default after logging in.
 
 admin_email: "admin@example.com"
+
+#                         ##### sysadmin_email #####
+# Specify an email address for logging notifications and error messages. This
+# address is intended for receipt of technical debugging information related to
+# the site. It is not recommended to set this to an individual person's email
+# inbox.
+
+sysadmin_email: "logging@example.com"
 
 #                      ##### organization_contact #####
 # Change the contact information for the organization in the footer of the

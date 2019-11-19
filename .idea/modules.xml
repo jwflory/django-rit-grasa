@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/django-rit-grasa.iml" filepath="$PROJECT_DIR$/.idea/django-rit-grasa.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/django-rit-grasa-master/.idea/django-rit-grasa-master.iml" filepath="$USER_HOME$/Downloads/django-rit-grasa-master/.idea/django-rit-grasa-master.iml" />
-    </modules>
-  </component>
-</project>

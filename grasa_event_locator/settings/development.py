@@ -2,8 +2,6 @@ from .base import *  # noqa
 
 DEBUG = True
 
-SECRET_KEY = "secret"
-
 ALLOWED_HOSTS = ["*"]
 
 CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
@@ -15,10 +13,8 @@ def show_toolbar(request):
     return not request.is_ajax() and request.user and request.user.is_superuser
 
 
-MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-INSTALLED_APPS += (
-    'debug_toolbar',
-)
+MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+INSTALLED_APPS += ("debug_toolbar",)
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
@@ -52,8 +48,3 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
-
-try:
-    from local_settings import *  # noqa
-except ImportError:
-    pass
