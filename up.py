@@ -48,7 +48,7 @@ def start():
     print(results[2])
 
 def stop():
-    results = cmd_run("docker stop grasa_event_locator")
+    results = cmd_run("docker stop {}".format(containerName))
     print(results[2])
 
 if args.setup:
