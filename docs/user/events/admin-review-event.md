@@ -8,13 +8,13 @@ Since the process is identical, these instructions work for both new Events and 
 
 ## View pending Events
 
-If there are pending Events awaiting review, they appear on the **Provider Panel**:
+If there are pending Events awaiting review, they appear on the **Admin Panel**:
 
 ![Screenshot of Events pending review by an Administrator](../../_static/user/events/admin-pending-events.png "Events pending review by an Administrator")
 
-The **Provider Panel** is accessed by clicking the organization name next to the _Logout_ button:
+The **Admin Panel** is accessed by clicking the organization name next to the _Logout_ button:
 
-![Screenshot of buttons to access Provider Panel and logout](../../_static/user/events/provider-panel-logout.png "Screenshot of buttons to access Provider Panel and logout")
+![Screenshot of buttons to access Admin Panel and logout](../../_static/user/events/admin-panel-logout.png "Screenshot of buttons to access Admin Panel and logout")
 
 
 ## Approve an Event
