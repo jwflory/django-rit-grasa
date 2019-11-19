@@ -22,6 +22,8 @@ from haystack.forms import SearchForm
 from smtplib import SMTPRecipientsRefused
 
 
+
+
 def aboutContact(request):
     return render(request, 'about.html', context={
         "config": settings.CONFIG,
@@ -86,25 +88,20 @@ def admin(request):
 
 
 def admin_user(request):
+    config = settings.CONFIG
     userList = userInfo.objects.filter(isAdmin=True)
-    if (userList):
-        return HttpResponseRedirect(reverse('search'))
-    else:
-        newUser = UserAccount.objects.create_superuser("grasatest@yahoo.com", "grasatest@yahoo.com", "Password1")
-        newUser.save()
+    if (not userList):
+        newUser = UserAccount.objects.create_superuser(config['admin_email'], config['admin_email'], "Password1")
         newUser.isStaff = True
-        newUser.save()
         newUser.is_admin = True
         newUser.save()
         uInfo = userInfo(user=newUser, org_name="Administrator", isAdmin=True, isPending=False)
         uInfo.save()
-        return HttpResponseRedirect(reverse('search'))
-
-
-def create_database(request):
+    categoryList = Category.objects.all()
+    if (not categoryList):
         write_categories_table()
-        return HttpResponseRedirect(reverse('search'))
-
+    return HttpResponseRedirect(reverse('search'))
+    
 
 def allUsers(request):
     if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
