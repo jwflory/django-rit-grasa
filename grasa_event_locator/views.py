@@ -191,6 +191,7 @@ def changepw(request):
 
 
 def createevent(request):
+        context = {"config": settings.CONFIG, }
         if request.method == 'POST':
                 g = (str(request.user.userinfo.id))
                 #Only change was to set fees to fees=float(request.POST['fees']) so that the value gets stored in DB as float
@@ -230,8 +231,8 @@ def createevent(request):
                         i = i + 1
                 return HttpResponseRedirect(reverse('provider_page'))
         else:
-                return render(request, 'createEvent.html')
-        return render(request, 'createEvent.html')
+                return render(request, 'createEvent.html', context)
+        return render(request, 'createEvent.html', context)
 
 
 def getEventInfo(eventID):
@@ -287,7 +288,6 @@ def getEventInfo(eventID):
         timing_list_pub = ""
         gender_list_pub = ""
         transportation_list_pub = ""
-        topic_list = event.categories.filter(id__lte=18)
         grades_list = event.categories.filter(id__gte=20)
         grades_list = grades_list.filter(id__lte=24)
         for g in grades_list:
@@ -315,7 +315,16 @@ def getEventInfo(eventID):
         if transportation_list.count() == 0:
                 transportation_list_pub = "Not Provided"
 
-        context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
+        context = {
+            'config': settings.CONFIG,
+            'event': event,
+            'fees': "{:0.2f}".format(event.fees),
+            'gender_list_pub': gender_list_pub,
+            'grades_list_pub': grades_list_pub,
+            'timing_list_pub': timing_list_pub,
+            'topic_list': event.categories.filter(id__lte=18),
+            'transportation_list_pub': transportation_list_pub,
+        }
 
         tempAddress = context['event'].address.split('+')
         address = []
