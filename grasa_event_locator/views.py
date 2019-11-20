@@ -474,7 +474,12 @@ def provider(request):
         if request.method == 'POST':
             if request.POST.get('changeemail') and (request.user.username != request.POST['changeemail']):
                 if UserAccount.objects.filter(username=request.POST['changeemail']).exists():
-                    context = {'myEventList': myEventList, 'currentUser': currentUser, 'user_exists' : True}
+                    context = {
+                        'config': settings.CONFIG,
+                        'currentUser': currentUser,
+                        'myEventList': myEventList,
+                        'user_exists': True
+                    }
                     return render(request, 'provider.html', context)
                 else:
                     change_username(request.user.username, request.POST.get('changeemail'), request)
@@ -495,14 +500,23 @@ def provider(request):
                 else:
                     currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                     myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
-                    context = {'myEventList': myEventList, 'currentUser': currentUser, 'incorrect_password' : True}
+                    context = {
+                        'config': settings.CONFIG,
+                        'currentUser': currentUser,
+                        'myEventList': myEventList,
+                        'incorrect_password': True,
+                    }
                     return render(request, 'provider.html', context)
             if request.POST.get('delete'):
                 deleteEvent(request, request.POST.get('delete'))
         if request.user.is_authenticated and not request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
                 myEventList = Program.objects.filter(user_id = request.user.userinfo.id)
-                context = {'myEventList' : myEventList, 'currentUser' : currentUser}
+                context = {
+                    'config': settings.CONFIG,
+                    'currentUser': currentUser,
+                    'myEventList': myEventList,
+                }
                 return render(request, 'provider.html', context)
         if request.user.is_authenticated and request.user.userinfo.isAdmin and not request.user.userinfo.isPending:
                 return HttpResponseRedirect(reverse('admin_page'))
@@ -521,7 +535,10 @@ def register(request):
                 #Check for Duplicate Email Entry (Email Already in Database)
                 checkInfo = UserAccount.objects.filter(email=emailAddr)
                 if(checkInfo.count() >= 1):
-                    context = {'emailTaken' : True}
+                    context = {
+                        'config': settings.CONFIG,
+                        'emailTaken': True,
+                    }
                     return render(request, 'register.html', context)
                 else:
                     newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
@@ -529,9 +546,15 @@ def register(request):
                     uInfo.save()
                     return redirect('login_page')
         else:
-                context = {'emailTaken' : False}
+                context = {
+                    'config': settings.CONFIG,
+                    'emailTaken': False,
+                }
                 return render(request, 'register.html', context)
-        context = {'emailTaken' : False}
+        context = {
+            'config': settings.CONFIG,
+            'emailTaken': False,
+        }
         return render(request, 'register.html', context)
 
 
