@@ -87,7 +87,7 @@ def admin(request):
         return render(request, 'admin.html')
 
 
-def admin_user(request):
+def initial_setup(request):
     config = settings.CONFIG
     userList = userInfo.objects.filter(isAdmin=True)
     if (not userList):
