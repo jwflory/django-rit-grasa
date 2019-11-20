@@ -392,7 +392,7 @@
     //function that geocodes the street address
     function doGeocoding(){
         var streetString = $('#addressInput').val();
-        var api_url = 'http://www.mapquestapi.com/geocoding/v1/address?key=nEoQhpyWJ6K3nx0wsur3eVa4oYAfhvhY&location='+streetString
+        var api_url = 'http://www.mapquestapi.com/geocoding/v1/address?key={{ config.mapquest_api_key }}&location='+streetString
         return fetch(api_url).then((resp) => resp.json()).then(function(data) {
             if(data.info.statuscode === 0){
                  $('#lat').val(data.results[0].locations[0].latLng.lat)

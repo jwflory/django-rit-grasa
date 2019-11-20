@@ -26,6 +26,15 @@ database:
   password: "djangoGrasa2019"
   db: "grasa_event_locator"
 
+#                        ##### mapquest_api_key #####
+# MapQuest Geocoding API key. This must be requested from the MapQuest API.
+# Note there are limitations to what is permitted under the Free Tier. As more
+# search queries are run, be aware of the free limitations of this resource.
+#
+# https://business.mapquest.com/products/geocoding-api/
+
+mapquest_api_key: "nEoQhpyWJ6K3nx0wsur3eVa4oYAfhvhY"
+
 #                          ##### outgoing_smtp #####
 # Edit settings for outgoing SMTP mail server. All emails sent by this web
 # application will be sent through this mail server. For production, this
