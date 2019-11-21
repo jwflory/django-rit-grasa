@@ -31,7 +31,7 @@
                   <th scope="row"><a href="mailto:{{ user.user }}">{{ user.user }}</a></th>
                   <th scope="row">{{ user.user.last_login }}</th>
                     {% if user.id == request.user.id %}
-                 <td>Current User</td>
+                    <td><button style="color:#dc3545;opacity:1;" type="button" class="btn btn-link disabled">--</button></td>
                     {% else %}
                     <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ user.id }}">Delete</button></td>
                     {% endif %}
