@@ -774,17 +774,21 @@ def approveEdit(request, editID):
                         oldP.categories.add(category2)
                     oldP.save()
                     p.delete()
+                    email_context = {
+                        "config": settings.CONFIG,
+                        "event_id": str(oldP.id),
+                        "program": oldP,
+                    }
                     send_email(
                         [str(UserAccount.objects.get(pk=oldP.user_id.user_id))],
                         render_to_string(
                             "messaging/edit_approved_confirm_subject.txt",
-                            context={"program": oldP}),
+                            context= email_context
+                            ),
                         render_to_string(
                             "messaging/edit_approved_confirm_mail.txt",
-                            context={
-                                "event_id": str(oldP.id),
-                                "program": oldP,
-                            })
+                            context= email_context
+                            )
                     )
                 else:
                     # It didn't exist, so make edit its own new event
