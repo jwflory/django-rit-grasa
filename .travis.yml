@@ -5,7 +5,7 @@ jobs:
       install:
         - pip install pipenv
         - pipenv install --dev
-      script: docs/test-docs.sh
+      script: docs/build_docs.sh
 
     - language: ruby
       services:

@@ -19,7 +19,7 @@ These steps are mostly intended for local development or to force a index rebuil
 ## Pre-requirements
 
 If running the project as a container, use `docker exec` to open a shell inside the web app container.
-See the [How to: Exec into a container](/howto/exec-container) doc for more info of how to do this.
+See the [How to: Exec into a container](/dev/exec-container) doc for more info of how to do this.
 
 If not running the project as a container, get to the environment where your Python 3 + Django installation exists.
 
