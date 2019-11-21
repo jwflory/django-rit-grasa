@@ -18,24 +18,28 @@ For more information, see the `repo on GitHub <https://github.com/jwflory/django
     :maxdepth: 1
     :name: user
     :caption: User Documentation:
+    :glob:
 
     user/index.rst
+    user/base/*
+    user/events/*
+    user/search/*
+
+.. toctree::
+    :maxdepth: 2
+    :name: admin
+    :caption: Admin Documentation:
+    :glob:
+
+    admin/*
 
 .. toctree::
     :maxdepth: 2
     :name: development
-    :caption: Development:
+    :caption: Developer Documentation:
     :glob:
 
     dev/*
-
-.. toctree::
-    :maxdepth: 2
-    :name: howto
-    :caption: How-to knowledgebase:
-    :glob:
-
-    howto/*
 
 
 ******************
