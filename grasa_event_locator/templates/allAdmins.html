@@ -30,7 +30,11 @@
                 {% for user in userList %}
                   <th scope="row"><a href="mailto:{{ user.user }}">{{ user.user }}</a></th>
                   <th scope="row">{{ user.user.last_login }}</th>
-                  <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ user.id }}">Delete</button></td>
+                    {% if user.id == request.user.id %}
+                    <td><button style="color:#dc3545;opacity:1;" type="button" class="btn btn-link disabled">--</button></td>
+                    {% else %}
+                    <td><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ user.id }}">Delete</button></td>
+                    {% endif %}
                 </tr>
 
                 <!--Delete Modal-->
