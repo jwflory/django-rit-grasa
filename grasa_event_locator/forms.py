@@ -131,7 +131,8 @@ class grasaSearchForm(SearchForm):
             print("q = something")
             sqs = super(grasaSearchForm, self).search()
             print(sqs.count())
-
+            
+        sqs = sqs.order_by('title')
         selectedActivities = self.cleaned_data["activities"]
         for activity in activityList:
             for selectedActivity in selectedActivities:
