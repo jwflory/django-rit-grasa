@@ -192,95 +192,49 @@ def changepw(request):
 
 def createevent(request):
         context = {"config": settings.CONFIG, }
-        if request.method == 'POST':
-                g = (str(request.user.userinfo.id))
-                #Only change was to set fees to fees=float(request.POST['fees']) so that the value gets stored in DB as float
-                program = Program(user_id_id = g, title=request.POST['title'], content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=float(request.POST['fees']), contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lng=request.POST['lng'])
-                program.save()
-                i = 0
-                for tag in request.POST.getlist('activity'):
-                        var = Category.objects.get(description=str(request.POST.getlist('activity')[i]))
-                        var.save()
-                        program.categories.add(var)
-                        i= i + 1
-                i = 0
-                for tag in request.POST.getlist('transportation'):
-                    if str(request.POST.getlist('transportation')[i]) != "Not-Provided":
-                        var = Category.objects.get(description=str(request.POST.getlist('transportation')[i]))
-                        var.save()
-                        program.categories.add(var)
-                        i = i + 1
-                i = 0
-                for tag in request.POST.getlist('grades'):
-                        var = Category.objects.get(description=str(request.POST.getlist('grades')[i]))
-                        var.save()
-                        program.categories.add(var)
-                        i = i + 1
-                i = 0
-                for tag in request.POST.getlist('gender'):
-                    if str(request.POST.getlist('gender')[i]) != "Non-Specific":
-                        var = Category.objects.get(description=str(request.POST.getlist('gender')[i]))
-                        var.save()
-                        program.categories.add(var)
-                        i = i + 1
-                i = 0
-                for tag in request.POST.getlist('timing'):
-                        var = Category.objects.get(description=str(request.POST.getlist('timing')[i]))
-                        var.save()
-                        program.categories.add(var)
-                        i = i + 1
-                return HttpResponseRedirect(reverse('provider_page'))
+        if request.user.is_authenticated and request.user.userinfo.isPending == False:
+            if request.method == 'POST':
+                    g = (str(request.user.userinfo.id))
+                    # .title() sets the first letter of each word to be uppercase, this fixes the sorting issue where capital letters would appear on top
+                    program = Program(user_id_id = g, title=(request.POST['title']).title(), content=request.POST['content'], address=request.POST['address'], website=request.POST['website'], fees=float(request.POST['fees']), contact_name=request.POST['contact_name'], contact_email=request.POST['contact_email'], contact_phone=request.POST['contact_phone'], lat=request.POST['lat'], lng=request.POST['lng'])
+                    program.save()
+                    i = 0
+                    for tag in request.POST.getlist('activity'):
+                            var = Category.objects.get(description=str(request.POST.getlist('activity')[i]))
+                            var.save()
+                            program.categories.add(var)
+                            i= i + 1
+                    i = 0
+                    for tag in request.POST.getlist('transportation'):
+                        if str(request.POST.getlist('transportation')[i]) != "Not-Provided":
+                            var = Category.objects.get(description=str(request.POST.getlist('transportation')[i]))
+                            var.save()
+                            program.categories.add(var)
+                            i = i + 1
+                    i = 0
+                    for tag in request.POST.getlist('grades'):
+                            var = Category.objects.get(description=str(request.POST.getlist('grades')[i]))
+                            var.save()
+                            program.categories.add(var)
+                            i = i + 1
+                    i = 0
+                    for tag in request.POST.getlist('gender'):
+                        if str(request.POST.getlist('gender')[i]) != "Non-Specific":
+                            var = Category.objects.get(description=str(request.POST.getlist('gender')[i]))
+                            var.save()
+                            program.categories.add(var)
+                            i = i + 1
+                    i = 0
+                    for tag in request.POST.getlist('timing'):
+                            var = Category.objects.get(description=str(request.POST.getlist('timing')[i]))
+                            var.save()
+                            program.categories.add(var)
+                            i = i + 1
+                    return HttpResponseRedirect(reverse('provider_page'))
+            else:
+                    return render(request, 'createEvent.html', context)
         else:
-                return render(request, 'createEvent.html', context)
-        return render(request, 'createEvent.html', context)
-
-
-def getEventInfo(eventID):
-        event = Program.objects.get(pk=eventID)
-        grades_list_pub = ""
-        timing_list_pub = ""
-        gender_list_pub = ""
-        transportation_list_pub = ""
-        topic_list = event.categories.filter(id__lte=18)
-        grades_list = event.categories.filter(id__gte=20)
-        grades_list = grades_list.filter(id__lte=24)
-        for g in grades_list:
-                grades_list_pub = grades_list_pub + str(g) + ", "
-        grades_list_pub = grades_list_pub[:-2]
-
-        timing_list = event.categories.filter(id__gte=27)
-        timing_list = timing_list.filter(id__lte=32)
-        for t in timing_list:
-                timing_list_pub = timing_list_pub + str(t) + ", "
-        timing_list_pub = timing_list_pub[:-2]
-
-        gender_list = event.categories.filter(id__gte=25)
-        gender_list = gender_list.filter(id__lte=26)
-        for g in gender_list:
-                gender_list_pub = gender_list_pub + str(g) + ", "
-        gender_list_pub = gender_list_pub[:-2]
-        if gender_list.count() == 0:
-                gender_list_pub = "Any Gender"
-
-        transportation_list = event.categories.filter(id__gte=19)
-        transportation_list = transportation_list.filter(id__lte=19)
-        for t in transportation_list:
-                transportation_list_pub = transportation_list_pub + str(t)
-        if transportation_list.count() == 0:
-                transportation_list_pub = "Not Provided"
-
-        context = {'event' : event, 'topic_list' : topic_list, 'grades_list_pub' : grades_list_pub, 'timing_list_pub' : timing_list_pub, 'gender_list_pub' : gender_list_pub, 'transportation_list_pub' : transportation_list_pub, 'fees' : "{:0.2f}".format(event.fees)}
-
-        address = context['event'].address.split('+')
-        context['address'] = address
-
-        return context
-
-
-def event(request, eventID):
-        context = getEventInfo(eventID)
-        return render(request, 'event.html', context)
-
+                return HttpResponseRedirect(reverse('search'))
 
 def getEventInfo(eventID):
         event = Program.objects.get(pk=eventID)
@@ -337,6 +291,13 @@ def getEventInfo(eventID):
 
 
 def event(request, eventID):
+        event = Program.objects.get(pk=eventID)
+        if event.isPending:
+            if request.user.is_authenticated and request.user.userinfo.isPending == False and (request.user.userinfo.isAdmin or request.user.userinfo.id == event.user_id.id):
+                context = getEventInfo(eventID)
+                return render(request, 'event.html', context)
+            else:
+                return HttpResponseRedirect(reverse('search'))
         context = getEventInfo(eventID)
         return render(request, 'event.html', context)
 
