@@ -39,6 +39,13 @@ def checkResults(results):
         print(results[2])
         exit(1)
 
+def checkPort():
+    if not args.port:
+        print('please specify the local port to run the container on using the -p/--port flag.')
+        exit(1)
+    else:
+        return True
+
 def setup():
     print('building container:')
     results = cmd_run('docker build -t {} .'.format(imageName))
@@ -50,14 +57,9 @@ def setup():
 
     print('Successfully build the container.')
 
-def start():
-
-    if not args.port:
-        print('please specify the local port to run the container on using the -p/--port flag.')
-        exit(1)
-
+def start(port_number):
     print('starting...')
-    command = "docker run --rm --name {name} -d -p {port}:8000 {uuid}".format(name=containerName, port=args.port, uuid=imageName)
+    command = "docker run --rm --name {name} -d -p {port}:8000 {uuid}".format(name=containerName, port=port_number, uuid=imageName)
     results = cmd_run(command)
     checkResults(results)
 
@@ -85,13 +87,13 @@ def stop():
 
 def restart():
     stop()
-    start()
+    start(args.port)
 
 if args.setup:
     setup()
-elif args.start:
-    start()
+elif args.start and checkPort():
+    start(args.port)
 elif args.stop:
     stop()
-elif args.restart:
+elif args.restart and checkPort():
     restart()

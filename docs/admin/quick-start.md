@@ -42,10 +42,13 @@ Edit the config file to your preferences (see [`config.yml.example`](https://git
 
 ## Container host set-up
 
+We need to build the container with all the code and config file changes, and to do that use this command:
+
 ```sh
 up.py --setup
 ```
 
+What this does is build the container from the Dockerfile.production file and migrates the database so that it will have all the necessary tables when the container is started.
 
 ## Start Event Locator
 
@@ -54,7 +57,7 @@ Choose the port to run the app on (useful for HTTP vs. HTTPS):
 ```sh
 up.py --start -p <port number>
 ```
-
+This command starts the container, and then queries the database to load any already submitted events.
 
 ### Run initialization script
 
@@ -85,3 +88,10 @@ If you need to stop the app for any reason, this can be done with this command:
 ```sh
 up.py --stop
 ```
+
+## Restart Event Locator
+
+If for any reason you need to restart the container without rebuilding, you can use this command:
+
+```sh
+up.py --restart -p <port number>
