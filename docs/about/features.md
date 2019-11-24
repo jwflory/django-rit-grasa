@@ -1,20 +1,17 @@
-Features
-========
+Features and Systems
+====================
 
-This page references our application features based off system requirements.
-All application features are identified by the following:
+This page explains features across all three systems of the Event Locator:
 
-```
-* **Status**:
-    * Confirmed: Successfully tested items
-    * Unconfirmed: Items not yet successfully tested
-    * Skipped: "Old hat" items
-* **Technology decision**
-* **Summary of approach**
-* **Completion criteria**
-```
+1. Base System
+2. Event Curation System
+3. Search System
 
-Features are organized below by user groups.
+Features are grouped together by which one of the three user groups they impact:
+
+* Families
+* Program Providers
+* GRASA and Monroe County Staff
 
 
 ## Families
@@ -32,7 +29,7 @@ Features are organized below by user groups.
 ### Apply filters to better discover events that interest a user.
 
 * **Status**: Implemented
-* **Technology decision**: [Haystack](https://haystacksearch.org/), [Django Forms](https://docs.djangoproject.com/en/2.2/topics/forms/), [Jinja](https://palletsprojects.com/p/jinja/), YAML config files
+* **Technology decision**: [Haystack](https://haystacksearch.org/), [Django Forms](https://docs.djangoproject.com/en/2.2/topics/forms/), [Jinja](https://palletsprojects.com/p/jinja/)
 * **Relevant domain(s)**: Database
 * **Summary of approach**: Create Haystack search filters that mirror metadata we save in our database.
 * **Completion criteria**:
@@ -50,7 +47,7 @@ Features are organized below by user groups.
     * Any user can share a direct link to event page details with another user.
 
 
-## Program providers
+## Program Providers
 
 ### Add new events with specific metadata into system for approval by administrators.
 
@@ -62,13 +59,16 @@ Features are organized below by user groups.
     * Provider is able to log into application.
     * Provider submits new event for review with required details:
         * Title
+        * Description
         * Website
         * Address
         * Suggested age groups
+        * Activity type
+        * Etc.
 
 ### Update information for existing events in system for approval by administrators.
 
-* **Status**: In progress
+* **Status**: Implemented
 * **Technology decision**: [User authentication modules](https://docs.djangoproject.com/en/2.2/topics/auth/) provided in Django, [Django Forms](https://docs.djangoproject.com/en/2.2/topics/forms/) for basic user input
 * **Relevant domain(s)**: Full stack
 * **Summary of approach**: Allow an authenticated user to edit Forms for events they themselves have created.
@@ -78,7 +78,7 @@ Features are organized below by user groups.
     * Event re-enters review queue for admin users.
 
 
-## GRASA and Monroe County staff
+## GRASA and Monroe County Staff
 
 ### Review and approve submitted events.
 
