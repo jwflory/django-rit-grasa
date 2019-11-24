@@ -18,12 +18,10 @@ For more information, see the `repo on GitHub <https://github.com/jwflory/django
     :maxdepth: 1
     :name: user
     :caption: User Documentation:
-    :glob:
 
-    user/index.rst
-    user/base/*
-    user/events/*
-    user/search/*
+    user/base-system
+    user/events-system
+    user/search-system
 
 .. toctree::
     :maxdepth: 2
