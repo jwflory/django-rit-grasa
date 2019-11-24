@@ -62,11 +62,4 @@ Visit [localhost:8000](http://localhost:8000/) to view the site running locally.
 
 ## Troubleshooting
 
-### Q: On Fedora, `pipenv install` fails with an error: `OSError: mysql_config not found`
 
-Install the `mariadb-connector-c-devel` package.
-It includes the `mysql_config`/`mariadb_config` binary needed to install the `mysqlclient` library.
-
-```sh
-sudo dnf install -y mariadb-connector-c-devel
-```

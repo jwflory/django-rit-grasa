@@ -9,18 +9,37 @@ Troubleshooting
 This page is a collection of miscellaneous tips, tricks, and other tidbits of info to make it easier to do troubleshooting on the application.
 
 
-## Database change issues
+## Q: On Fedora, Pipenv fails with MySQL config error
 
-Occasionally, you'll get an error that comes from the database changing (field not found, category matching query does not exist).
-You may be able to check for this by going to GitHub Desktop and seeing if `models.py` was changed in the recent commits.
+On Fedora, `pipenv install` may fail with the following error:
 
-The first thing to try is click the _Wipe Events and Recreate Categories_ button in the header.
-See if this helps.
-If not, then in a Terminal window, run `python3 manage.py makemigrations`, and `python3 manage.py migrate`.
+```python
+OSError: mysql_config not found
+```
+
+Install the `mariadb-connector-c-devel` package.
+It includes the `mysql_config`/`mariadb_config` binary needed to install the `mysqlclient` library.
+
+On Fedora:
+
+```sh
+sudo dnf install -y mariadb-connector-c-devel
+```
+
+
+## Database changes during development
+
+Occasionally, you get an error from the database changing (field not found, category matching query does not exist).
+You can check this by checking if `models.py` was changed recently.
+
+Open a shell to the Django container by [exec'ing into the app container](/dev/exec-container).
+Run the following commands:
+
+```sh
+python manage.py makemigrations
+python manage.py migrate
+```
+
 Try the task again.
-
-If that doesn't work, go into the mySQL container, drop the database, create it again.
-Then in the django container, go to the migrations folder with `cd`, and delete all files/folders using `rm` and `rm -r` except for `__init.py__`.
-Run `python3 manage.py makemigrations` and `python3 manage.py migrate`, which should work.
-Go to the website, click the _Create Administrator_ header button and _Wipe Events and Recreate Categories_.
-This gives you a fresh start.
+If it works, make sure the generated database migration script is committed to the git repository along with your other changes.
+If it does not work, try [refreshing your development environment](/dev/start-fresh).
