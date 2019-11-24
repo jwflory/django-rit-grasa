@@ -236,6 +236,7 @@ def createevent(request):
         else:
                 return HttpResponseRedirect(reverse('search'))
 
+
 def getEventInfo(eventID):
         event = Program.objects.get(pk=eventID)
         grades_list_pub = ""
