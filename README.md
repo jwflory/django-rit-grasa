@@ -12,14 +12,14 @@ Django web application used by Greater Rochester After-School Alliance (GRASA) t
 The GRASA Events Locator is an events locator system to better connect Monroe County families to out-of-school programs in the Greater Rochester area.
 This application was created for the [Greater Rochester After-School Alliance](https://www.racf.org/About/Giving-Circles-Initiatives-and-Partnerships/Greate) by Team Platypus at the [Rochester Institute of Technology](https://www.rit.edu/).
 
-Read more about the project [in our documentation](https://django-rit-grasa.readthedocs.io/en/latest/about/about-project/ "About this project – django-rit-grasa")
+Read more about the project [in our documentation](https://django-rit-grasa.readthedocs.io/en/latest/about/about-project/ "About this project – django-rit-grasa").
 
-[![Screenshot of main search page](https://i.imgur.com/uK3ChK0.png)](https://i.imgur.com/uK3ChK0.png "Screenshot of main search page")
+[![Screenshot of Event Locator home page](https://i.imgur.com/UtzuVO5.png)](https://i.imgur.com/UtzuVO5.png "Screenshot of Event Locator home page")
 
 
 ## Documentation
 
-[**django-rit-grasa.readthedocs.io**](https://django-rit-grasa.readthedocs.io/)
+### [**django-rit-grasa.readthedocs.io**](https://django-rit-grasa.readthedocs.io/)
 
 [Project documentation](https://django-rit-grasa.readthedocs.io/) is hosted on ReadTheDocs.
 If you are starting to work on the project, review the [_Create a development environment_](https://django-rit-grasa.readthedocs.io/en/latest/dev/howto-setup-dev-environment/) page for help on getting started.
