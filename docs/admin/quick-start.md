@@ -45,7 +45,7 @@ Edit the config file to your preferences (see [`config.yml.example`](https://git
 We need to build the container with all the code and config file changes, and to do that use this command:
 
 ```sh
-up.py --setup
+python3 up.py --setup
 ```
 
 What this does is build the container from the Dockerfile.production file and migrates the database so that it will have all the necessary tables when the container is started.
