@@ -18,7 +18,9 @@ The following scenarios are examples of where data may or may not be deleted:
 - Removing columns from an existing table.
     Obvious data loss here, a whole column is being removed.
 - Adding columns to an existing table.
-    Adding some types of columns to a table will force you to also specify a default value (ie contact_name = models.CharField(max_length=255, default="Name not Specified")). Some will not (ie models.TextField). No data is lost, though if a column that requires a default is added to a table, existing entries will now have that default value in the column post-migration.
+    Adding some types of columns to a table will force you to also specify a default value (ie contact_name = models.CharField(max_length=255, default="Name not Specified")). 
+    Some will not (ie models.TextField). 
+    No data is lost, though if a column that requires a default is added to a table, existing entries will now have that default value in the column post-migration.
 
 It is recommended to start a new database alongside your current database and update your config file with the new database information.  
 Then you can copy your old data over. 
