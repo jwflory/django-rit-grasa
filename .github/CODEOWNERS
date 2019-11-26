@@ -11,7 +11,7 @@
 *.css                                               @ldidonato @leiyinmon
 *.html                                              @ldidonato @leiyinmon
 *.js                                                @ldidonato @leiyinmon
-*.py                                                @R-Eli-Levasseur @leong96
+*.py                                                @jwflory @nlMeminger @R-Eli-Levasseur @leong96
 *.sh                                                @jwflory @nlMeminger
 ###############################################################################
 
@@ -49,6 +49,7 @@
 /Dockerfile                                         @jwflory @nlMeminger
 /manage.py                                          @jwflory
 /Pipfile                                            @jwflory @nlMeminger
+/up.py                                              @nlMeminger
 ###############################################################################
 
 ############### Documentation and project management resources ################
