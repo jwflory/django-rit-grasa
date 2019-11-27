@@ -1,8 +1,8 @@
-# Local development container.
-# Includes development dependencies. Django runs with development settings.
+# Production container.
+# Does not install development dependencies. Runs Django with prod settings.
 FROM python:3.6-stretch
 
-ENV DJANGO_SETTINGS_MODULE=grasa_event_locator.settings.development
+ENV DJANGO_SETTINGS_MODULE=grasa_event_locator.settings.production
 
 RUN mkdir /app
 WORKDIR /app
@@ -13,7 +13,7 @@ RUN apt-get --yes update \
     && apt-get --yes upgrade \
     && pip3 install pipenv
 
-RUN pipenv install --system --deploy --dev
+RUN pipenv install --system --deploy
 
 COPY . /app
 
