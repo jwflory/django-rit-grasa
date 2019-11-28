@@ -26,11 +26,14 @@ def change_username(old_email, new_email, request):
     send_email(
         [old_email, new_email],
         render_to_string("messaging/email_change_confirm_subject.txt"),
-        render_to_string("messaging/email_change_confirm_mail.txt", context={
-            "request": request,
-            "old_email": old_email,
-            "new_email": new_email,
-        })
+        render_to_string(
+            "messaging/email_change_confirm_mail.txt",
+            context={
+                "request": request,
+                "old_email": old_email,
+                "new_email": new_email,
+            },
+        ),
     )
     return
 
@@ -70,7 +73,7 @@ def write_categories_table():
         "Evenings",
         "Weekends",
         "Summer",
-        "Other-Time"
+        "Other-Time",
     ]
     # Had to leave this in but there's no way for someone to inject SQL here
     with connection.cursor() as cursor:

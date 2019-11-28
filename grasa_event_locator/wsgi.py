@@ -23,8 +23,9 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__) + "../../")
 # import sys
 # sys.path.append(PROJECT_ROOT)
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                      "grasa_event_locator.settings.production")
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE", "grasa_event_locator.settings.production"
+)
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION

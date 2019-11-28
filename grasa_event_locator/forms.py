@@ -23,7 +23,10 @@ activityList = [
     ("Public Speaking", "Public Speaking"),
     ("Social and Emotional Learning (SEL)", "Social and Emotional Learning (SEL)"),
     ("Sports and Recreation", "Sports and Recreation"),
-    ("Science, Tech, Engineering, Math (STEM)", "Science, Tech, Engineering, Math (STEM)"),
+    (
+        "Science, Tech, Engineering, Math (STEM)",
+        "Science, Tech, Engineering, Math (STEM)",
+    ),
     ("Tutoring", "Tutoring"),
     ("Other", "Other"),
 ]
@@ -52,7 +55,7 @@ timingList = [
     ("Evenings", "Evenings"),
     ("Weekends", "Weekends"),
     ("Summer", "Summer"),
-    #Refactored to "Other Time" to avoid conflicts with activities "Other"
+    # Refactored to "Other Time" to avoid conflicts with activities "Other"
     ("Other-Time", "Other-Time"),
 ]
 
@@ -131,8 +134,8 @@ class grasaSearchForm(SearchForm):
             print("q = something")
             sqs = super(grasaSearchForm, self).search()
             print(sqs.count())
-            
-        sqs = sqs.order_by('title')
+
+        sqs = sqs.order_by("title")
         selectedActivities = self.cleaned_data["activities"]
         for activity in activityList:
             for selectedActivity in selectedActivities:
@@ -144,7 +147,7 @@ class grasaSearchForm(SearchForm):
         for transportation in transportationList:
             for selectedTransportation in selectedTransportations:
                 if transportation[0] == selectedTransportation:
-                    print('inside transport filter')
+                    print("inside transport filter")
                     print(transportation[0])
                     print(selectedTransportation)
                     sqs = sqs.filter(content=transportation[0])
