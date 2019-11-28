@@ -4,6 +4,9 @@ import string
 
 from .forms import *
 from .helpers import change_username, send_email, write_categories_table
+# UserInfo is the class from the models.py folder. userinfo is the table name in SQL.
+# Use UserInfo if you need info from the table for multiple users/unauthenticated users (via userInfo.objects...)
+# Use userinfo if you need info from the table for the current user (via request.user.userinfo)
 from .models import userInfo, Category, Program, resetPWURLs
 from datetime import datetime, timedelta
 from django.conf import settings
@@ -22,16 +25,15 @@ from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
 from smtplib import SMTPRecipientsRefused
 
-
+# View for about.html
 def aboutContact(request):
     return render(request, "about.html", context={"config": settings.CONFIG,})
 
-
+# View for admin.html
 def admin(request):
     if (
         request.user.is_authenticated
         and request.user.userinfo.isAdmin
-        and request.user.userinfo.isPending == False
     ):
         pendingUserList = userInfo.objects.filter(isPending=True)
         pendingEventList = Program.objects.filter(isPending=True).filter(editOf=0)
