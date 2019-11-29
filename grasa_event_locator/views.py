@@ -36,6 +36,9 @@ def admin(request):
         and request.user.userinfo.isAdmin
     ):
         pendingUserList = userInfo.objects.filter(isPending=True)
+        # editOf refers to the ID number of an event, not 0/1.
+        # pendingEventList filters on pending events with an editOf of 0 (meaning they are not edits)
+        # pendingEditList filters on pending events that do not have an editof of 0 (meaning that they are edits of somethign)
         pendingEventList = Program.objects.filter(isPending=True).filter(editOf=0)
         pendingEditList = Program.objects.filter(isPending=True).exclude(editOf=0)
         context = {
@@ -44,13 +47,12 @@ def admin(request):
             "pendingEditList": pendingEditList,
         }
         if request.method == "POST":
-            # This line checks whether the changeemail field (which is the input field on the html page containing the new email address of
-            # the admin user [name=changeemail in the html]), exists. If so, perform change_username.
-            # It takes the current username, the new username (changeemail), and the request (the logged in user object),
-            # and changes the current username to the new username. See functions.py for that function.
+            # Change email/username. Checks that the new email is not the same as the old one.
             if request.POST.get("changeemail") and (
                 request.user.username != request.POST["changeemail"]
             ):
+                # Checks that the email does not already exist, if it does, add user_exists to the context,
+                # which will display the appropriate message in the template.
                 if UserAccount.objects.filter(
                     username=request.POST["changeemail"]
                 ).exists():
@@ -61,17 +63,14 @@ def admin(request):
                         "user_exists": True,
                     }
                 else:
+                    # If the email does not exists, and it passed the first check (old email != new email),
+                    # change the username.
                     change_username(
                         request.user.username, request.POST["changeemail"], request
                     )
-            # The way we have the page coded, when a POST submit occurs,
-            # either the above situation happens in order to change the username,
-            # or this bottom situation, where the user has filled out the password modal, occurs.
-            # current is the current password field in the modal. new is the new password field. confirm is the confirm new password field.
-            # This checks whether the current password exists (that should be enough to determine if the modal has been filled out).
-            # It also checks whether new = confirm (in other words, do the new password fields match).
-            # If so, it writes the old password and new password to variables as seen below:
-            if request.POST.get("current") and (
+            # Change password, check that all three fields are filled out,
+            # and that the new/confirm matches (validation also handles this).
+            if (request.POST.get("current") and request.POST.get("new") and request.POST.get("confirm")) and (
                 request.POST.get("new") == request.POST.get("confirm")
             ):
                 current = request.POST["current"]
@@ -81,8 +80,11 @@ def admin(request):
                     # If it is, set the password to new, and save the user.
                     request.user.set_password(new)
                     request.user.save()
+                    # Keep user logged in after the password change.
                     update_session_auth_hash(request, request.user)
                 else:
+                    # If the password check fails (is not the current password, pass incorrect_password to the context
+                    # to display the appropriate message in the template)
                     context = {
                         "pendingUserList": pendingUserList,
                         "pendingEventList": pendingEventList,
@@ -90,28 +92,35 @@ def admin(request):
                         "incorrect_password": True,
                     }
                     return render(request, "admin.html", context)
+            # Check if a deny_user_reason (from the deny modal) exists.
             if request.POST.get("deny_user_reason"):
                 context = {
                     "pendingUserList": pendingUserList,
                     "pendingEventList": pendingEventList,
                     "pendingEditList": pendingEditList,
                 }
+                # userid is a hidden field in the modal form. It needs to get passed to the denyUser function
+                # to indicate which user to deny.
                 denyUser(
                     request,
                     request.POST.get("userid"),
                     request.POST.get("deny_user_reason"),
                 )
+            # Check if a deny_event_reason (from the deny modal) exists.
             if request.POST.get("deny_event_reason"):
                 context = {
                     "pendingUserList": pendingUserList,
                     "pendingEventList": pendingEventList,
                     "pendingEditList": pendingEditList,
                 }
+                # eventid is a hidden field in the modal form. It needs to get passed to the denyUser function
+                # to indicate which edit to deny.
                 denyEvent(
                     request,
                     request.POST.get("eventid"),
                     request.POST.get("deny_event_reason"),
                 )
+            # Check if a edit_event_reason (from the deny modal) exists.
             if request.POST.get("edit_event_reason"):
                 print(request.POST.get("edit_event_reason"))
                 context = {
@@ -119,6 +128,8 @@ def admin(request):
                     "pendingEventList": pendingEventList,
                     "pendingEditList": pendingEditList,
                 }
+                # editevent is a hidden field in the modal form. It needs to get passed to the denyUser function
+                # to indicate which edit to deny.
                 denyEdit(
                     request,
                     request.POST.get("editeventid"),
@@ -132,39 +143,46 @@ def admin(request):
         return HttpResponseRedirect(reverse("login_page"))
     return render(request, "admin.html")
 
-
+# View for initial_setup, which creates a superuser and writes categories to the table.
 def initial_setup(request):
     config = settings.CONFIG
+    # Check if the there are any admins. If not, then begin the process of creating an admin user.
     userList = userInfo.objects.filter(isAdmin=True)
     if not userList:
+        # Create the Django user.
         newUser = UserAccount.objects.create_superuser(
             config["admin_email"], config["admin_email"], "Password1"
         )
-        newUser.isStaff = True
-        newUser.is_admin = True
         newUser.save()
+        # Create the userInfo table user. Keep in mind, the table is linked to the Django user's table
+        # for easy cross-referencing.
         uInfo = userInfo(
             user=newUser, org_name="Administrator", isAdmin=True, isPending=False
         )
         uInfo.save()
+    # Check if there are any categories.
     categoryList = Category.objects.all()
     if not categoryList:
         write_categories_table()
     return HttpResponseRedirect(reverse("search"))
 
-
+# View for allUsers.html (actually only displays all providers)
 def allUsers(request):
     if (
         request.user.is_authenticated
         and request.user.userinfo.isAdmin
         and not request.user.userinfo.isPending
     ):
+        # userList contains users that are not pending, and not admins.
         userList = userInfo.objects.filter(isPending=False).filter(isAdmin=False)
         context = {"userList": userList}
         if request.method == "POST":
             if request.POST.get("emailAddr"):
+                # Try block is here to catch invalid email addresses,
+                # which would normally throw an exception.
+                # We want any exception here to be caught and the user made known
+                # the email was invalid.
                 try:
-                    # TODO: Change to hostname config value in email later...
                     send_email(
                         [request.POST.get("emailAddr")],
                         render_to_string("messaging/invite_provider_subject.txt"),
@@ -173,36 +191,46 @@ def allUsers(request):
                             context={"config": settings.CONFIG,},
                         ),
                     )
+                    # Message to indicate that sent_invite was successful.
                     context = {"userList": userList, "sent_invite": True}
                 except SMTPRecipientsRefused:
+                    # Message to indicate that the invite failed (note that the user will still be created)
                     context = {"userList": userList, "invite_failure": True}
             if request.POST.get("delete"):
                 deleteUser(request, request.POST.get("delete"))
         return render(request, "allUsers.html", context)
     return HttpResponseRedirect(reverse("search"))
 
-
+# View for allAdmins.html
 def allAdmins(request):
     if (
         request.user.is_authenticated
         and request.user.userinfo.isAdmin
         and not request.user.userinfo.isPending
     ):
+        # Note we are not writing to the context yet.
+        # All if statements below cover all ways of getting to the page,
+        # and none of them only have userList as the context.
         userList = userInfo.objects.filter(isAdmin=True)
         if request.method == "POST":
-            if request.POST.get("current") or request.POST.get("confirm"):
+            # Check if both password fields are filled out
+            if request.POST.get("current") and request.POST.get("confirm"):
+                # Check if the new passwords are equal.
                 if request.POST.get("current") == request.POST.get("confirm"):
                     # Check for Duplicate Email Entry (Email Already in Database)
                     emailAddr = request.POST["emailAddr"]
+                    # Check if the new admin's email already exists in the database.
                     checkInfo = UserAccount.objects.filter(email=emailAddr)
                     if checkInfo.count() >= 1:
                         context = {"userList": userList, "emailTaken": True}
                         return render(request, "allAdmins.html", context)
                     else:
+                        # If the new user is unique to the database, create the Django superuser.
                         current = request.POST["current"]
                         newUser = UserAccount.objects.create_superuser(
                             emailAddr, emailAddr, current
                         )
+                        # Also create the userInfo user table.
                         uInfo = userInfo(
                             user=newUser,
                             org_name="Administrator",
@@ -210,15 +238,20 @@ def allAdmins(request):
                             isPending=False,
                         )
                         uInfo.save()
+                        # Also try to send an email to the new admin's email.
                         try:
                             send_email(
                                 [emailAddr],
                                 render_to_string("messaging/invite_admin_subject.txt"),
                                 render_to_string("messaging/invite_admin_mail.txt"),
                             )
+                        # But if it fails, write to the context invalidEmail,
+                        # which displays the appropriate message in the template.
                         except SMTPRecipientsRefused:
                             context = {"invalidEmail": True, "userList": userList}
                             return render(request, "allAdmins.html", context)
+                        # Set emailTaken to False, which will not show the email taken message in the template,
+                        # as expected.
                         context = {"userList": userList, "emailTaken": False}
                         return render(request, "allAdmins.html", context)
             if request.POST.get("delete"):
@@ -230,7 +263,7 @@ def allAdmins(request):
             return render(request, "allAdmins.html", context)
     return HttpResponseRedirect(reverse("search"))
 
-
+# View for allEvents.html
 def allEvents(request):
     if (
         request.user.is_authenticated
@@ -245,22 +278,7 @@ def allEvents(request):
         return render(request, "allEvents.html", context)
     return HttpResponseRedirect(reverse("search"))
 
-
-def changepw(request):
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            current = request.POST["current"]
-            new = request.POST["new"]
-            if request.user.check_password(current):
-                request.user.set_password(new)
-                request.user.save()
-            else:
-                return
-    else:
-        return HttpResponseRedirect(reverse("search"))
-    return render(request, "changePW.html")
-
-
+# View for createEvent.html
 def createevent(request):
     context = {
         "config": settings.CONFIG,
@@ -270,6 +288,7 @@ def createevent(request):
             g = str(request.user.userinfo.id)
             # .title() sets the first letter of each word to be uppercase, this fixes the sorting issue where capital letters would appear on top
             program = Program(
+                # This sets the user_id_id to the creator's id.
                 user_id_id=g,
                 title=(request.POST["title"]).title(),
                 content=request.POST["content"],
@@ -279,11 +298,18 @@ def createevent(request):
                 contact_name=request.POST["contact_name"],
                 contact_email=request.POST["contact_email"],
                 contact_phone=request.POST["contact_phone"],
+                # lat and lng are hidden values in the form that are determined from MapQuest,
+                # after the form is submitted, based on the inputted street address.
                 lat=request.POST["lat"],
                 lng=request.POST["lng"],
             )
             program.save()
             i = 0
+            # For the following "for tag" statements,
+            # the categories from the POST statements are read through one at a time
+            # and written to "var".
+            # Then that category is written to the link table,
+            # linking the program and it's categories together.
             for tag in request.POST.getlist("activity"):
                 var = Category.objects.get(
                     description=str(request.POST.getlist("activity")[i])
@@ -292,6 +318,10 @@ def createevent(request):
                 program.categories.add(var)
                 i = i + 1
             i = 0
+            # There are only two options for transportation,
+            # "Provided" or "Not Provided".
+            # If transportation is provided, write it as such, but if Not-Provided, do not write anything.
+            # If nothing is written, Not Provided will be shown in the event page template by default.
             for tag in request.POST.getlist("transportation"):
                 if str(request.POST.getlist("transportation")[i]) != "Not-Provided":
                     var = Category.objects.get(
@@ -309,6 +339,8 @@ def createevent(request):
                 program.categories.add(var)
                 i = i + 1
             i = 0
+            # Similar case here as in Transportation.
+            # Write male or female only, otherwise, Non Specific will be displayed.
             for tag in request.POST.getlist("gender"):
                 if str(request.POST.getlist("gender")[i]) != "Non-Specific":
                     var = Category.objects.get(
@@ -333,17 +365,35 @@ def createevent(request):
 
 
 def getEventInfo(eventID):
+    """Function to get information on events for the events page
+
+        Takes the event ID from the url provided to the event view, and gathers the appropriate information to return
+        to the template for use.
+
+        Args:
+            eventID: An integer that is associated with an event, the end of the /event/{#} url.
+        Returns:
+            context: The information about the event, for use by the template.
+        """
+    # Get the program from the table.
     event = Program.objects.get(pk=eventID)
+    # To be used in the for loops below, the following lists must be declared here:
     grades_list_pub = ""
     timing_list_pub = ""
     gender_list_pub = ""
     transportation_list_pub = ""
+
+    # Filter the link table twice for the queried event, the result is to get categories with results 20-24,
+    # which correspond with the grades.
     grades_list = event.categories.filter(id__gte=20)
     grades_list = grades_list.filter(id__lte=24)
+    # Then write those to the pub variable, with a comma in between each.
     for g in grades_list:
         grades_list_pub = grades_list_pub + str(g) + ", "
+    # Remove the last two characters, to remove the trailing ", "
     grades_list_pub = grades_list_pub[:-2]
 
+    # See above comments.
     timing_list = event.categories.filter(id__gte=27)
     timing_list = timing_list.filter(id__lte=32)
     for t in timing_list:
@@ -355,6 +405,7 @@ def getEventInfo(eventID):
     for g in gender_list:
         gender_list_pub = gender_list_pub + str(g) + ", "
     gender_list_pub = gender_list_pub[:-2]
+    # At this point, write any gender if there is no list (aka, male and female were not written to the link table)
     if gender_list.count() == 0:
         gender_list_pub = "Any Gender"
 
@@ -362,9 +413,11 @@ def getEventInfo(eventID):
     transportation_list = transportation_list.filter(id__lte=19)
     for t in transportation_list:
         transportation_list_pub = transportation_list_pub + str(t)
+    # See above regarding Any Gender and the usage of Not Provided here.
     if transportation_list.count() == 0:
         transportation_list_pub = "Not Provided"
 
+    # Write all to context for usage by the template, add formatting to fees to avoid extra 0's in the price.
     context = {
         "config": settings.CONFIG,
         "event": event,
@@ -372,23 +425,30 @@ def getEventInfo(eventID):
         "gender_list_pub": gender_list_pub,
         "grades_list_pub": grades_list_pub,
         "timing_list_pub": timing_list_pub,
+        # topic_list just needs to be a list rather than a string, as it is looped through in the template.
         "topic_list": event.categories.filter(id__lte=18),
         "transportation_list_pub": transportation_list_pub,
     }
 
+    # Take the address from the event, and split it by the "+" symbol,
+    # which was used during the submit as a delimiter.
     tempAddress = context["event"].address.split("+")
     address = []
+    # Write each part of the address to the address list, removing any white space.
     for i in range(0, len(tempAddress)):
         address.append(tempAddress[i].strip())
 
+    # Add address to the context.
     context["address"] = address
 
     return context
 
-
+# View for event/<eventID>
+# Note that the ID comes from the end of the URL, see the urls.py file for specifics.
 def event(request, eventID):
     event = Program.objects.get(pk=eventID)
     if event.isPending:
+        # This checks for an authenticated, non-pending user who is an admin or the creator of the event.
         if (
             request.user.is_authenticated
             and request.user.userinfo.isPending == False
@@ -397,17 +457,24 @@ def event(request, eventID):
                 or request.user.userinfo.id == event.user_id.id
             )
         ):
+            # Write the context from getEventInfo using the provided eventID to the event page's context.
             context = getEventInfo(eventID)
+            # Then load the page with the event info.
             return render(request, "event.html", context)
+        # If the user does not match the above, redirect to search.
         else:
             return HttpResponseRedirect(reverse("search"))
+    # If not pending, load the page.
     context = getEventInfo(eventID)
     return render(request, "event.html", context)
 
-
+# View for editEvent/<eventID>.
+# Note that eventID is provided in the URL, see the urls.py file for details.
 def editEvent(request, eventID):
+    # Get the event.
     event = Program.objects.get(pk=eventID)
     if (
+        # Make sure the user is authenticated, not pending, and is either the admin or the event creator.
         request.user.is_authenticated
         and request.user.userinfo.isPending == False
         and (
@@ -415,9 +482,10 @@ def editEvent(request, eventID):
             or request.user.userinfo.id == event.user_id.id
         )
     ):
+        # Most of this is the same as the createEvent view,
+        # however, note that editOf will store the original event's ID.
         if request.method == "POST":
             g = str(request.user.userinfo.id)
-            # Only change was to set fees to fees=float(request.POST['fees']) so that the value gets stored in DB as float
             program = Program(
                 user_id_id=g,
                 title=request.POST["title"],
@@ -477,6 +545,7 @@ def editEvent(request, eventID):
                 i = i + 1
             return redirect("provider_page")
 
+        # If get, then get the information from the event to prefill the edit page.
         elif request.method == "GET":
             context = getEventInfo(eventID)
             activities = []
@@ -533,7 +602,9 @@ def editEvent(request, eventID):
     return render(request, "event.html", context)
 
 
+# View for site/login
 def login(request):
+    # If a user is already logged in, redirect to search.
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse("search"))
     if request.method == "POST":
@@ -549,13 +620,16 @@ def login(request):
             # Logic to see if the user is pending or doesn't exist
             context = {"pendingUser": True, "wrongCredentials": False}
             return render(request, "login.html", context)
+        # Check if a user's credentials are correct, and if the user is pending.
         if user is not None and not user.userinfo.isPending:
             auth_login(request, user)
+            # Then redirect to admin or provider depending on the account.
             if request.user.userinfo.isAdmin:
                 return HttpResponseRedirect(reverse("admin_page"))
             else:
                 return HttpResponseRedirect(reverse("provider_page"))
         else:
+            # Display message for wrong credentials in the template if nessasary.
             context = {"pendingUser": False, "wrongCredentials": True}
             return render(request, "login.html", context)
     else:
@@ -564,17 +638,22 @@ def login(request):
     return render(request, "login.html", context)
 
 
+# View for site/logout.
+# Simply pass it the request.
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("search"))
 
-
+# View for site/index.
+# It redirects the user to search.
 def index(request):
     return redirect("search")
 
-
+# View for provider.html
 def provider(request):
+    # currentUser gets the userInfo table information for the template (may not be used?).
     currentUser = userInfo.objects.filter(user=(request.user.userinfo.id - 1))
+    # Get the user's programs.
     myEventList = Program.objects.filter(user_id=request.user.userinfo.id)
     if request.method == "POST":
         if request.POST.get("changeemail") and (
