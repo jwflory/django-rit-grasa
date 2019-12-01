@@ -727,7 +727,8 @@ def provider(request):
     else:
         return HttpResponseRedirect(reverse("login_page"))
 
-
+    
+# View for register.html.
 def register(request):
     if request.method == "POST" and request.POST["current"] == request.POST["confirm"]:
         emailAddr = request.POST["emailAddr"]
@@ -745,7 +746,9 @@ def register(request):
             }
             return render(request, "register.html", context)
         else:
+            # Create Django user.
             newUser = UserAccount.objects.create_user(emailAddr, emailAddr, current)
+            # Create userInfo table entry. This is linked to the Django user system.
             uInfo = userInfo(
                 user=newUser,
                 org_name=orgName,
@@ -767,16 +770,19 @@ def register(request):
     }
     return render(request, "register.html", context)
 
-
+# View for resetPW.html (the page to put an email address in)
 def resetpw(request):
-    i = 0
     if request.method == "POST":
+        # Check for if the account exists.
         if UserAccount.objects.filter(username=request.POST["emailAddr"]).exists():
             try:
                 # This line attempts to delete any existing entry in the reset URL table for the user so the user cannot generate multiple reset links.
                 resetPWURLs.objects.get(user_ID=request.POST["emailAddr"]).delete()
+            # If there is no entry in the table, let the app continue withiut throwing an error.
             except resetPWURLs.DoesNotExist:
                 pass
+            # Create reset link, a 15 characrer string, then write to table,
+            # alomg with the associated user, and the exiration time.
             reset_link = "".join(
                 [random.choice(string.ascii_letters + string.digits) for n in range(15)]
             )
@@ -786,6 +792,7 @@ def resetpw(request):
                 expiry_time=(datetime.now() + timedelta(minutes=60)),
             )
             resetPWURL.save()
+            # Add reset link to the contt to be used in the email.
             email_context = {
                 "config": settings.CONFIG,
                 "reset_link": reset_link,
@@ -797,11 +804,12 @@ def resetpw(request):
                     "messaging/reset_password_mail.txt", context=email_context
                 ),
             )
+        # If the email is sent correctly, set email_submitted to true to display the appropriate message in the template.
         return render(request, "resetPW.html", context={"email_submitted": True})
     else:
         return render(request, "resetPW.html")
 
-
+# View for resetPWForm.html/<reset_string>.
 def resetPWForm(request, reset_string):
     try:
         # Check if the current time is greater than the timestamp in the table (which is 60 minutes after submission)
@@ -816,7 +824,7 @@ def resetPWForm(request, reset_string):
             return render(request, "resetPWForm.html", context)
         # This is the most typical situation, where the form has a reset_string with a valid time.
         else:
-            # The form should be showing if valid
+            # The form should be showing if valid.
             context = {"valid_string": True}
             # If a post went through (check for the time again!), and the input was valid, change the password.
             if request.method == "POST":
