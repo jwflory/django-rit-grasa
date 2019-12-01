@@ -850,15 +850,31 @@ def resetPWForm(request, reset_string):
 
 
 # Functional views, post only, need to be logged in admin, self defining names
+
+# View for <url>/approve_user/userID.
 def approveUser(request, userID):
+    """Function to approve new users.
+
+        Takes the indicated userID, and makes it so that user can log in.
+        
+        Args:
+            request: The Django request, which is used to determine whether the currently authenticated is an admin.
+            userID: An integer indicating which user to approve.
+            
+        Returns:
+            Redirects the user to the admin page. However, if the user is not authenticated, or not the admin,
+            the page redirects to the login page, with the expectation that the admin will log in.
+        """
     if (
         request.user.is_authenticated
         and request.user.userinfo.isAdmin
         and not request.user.userinfo.isPending
     ):
+        # Set ispending to false, save he user. This will allow the user to log in.
         u = userInfo.objects.get(pk=userID)
         u.isPending = False
         u.save()
+        # Send emails to the provider and alt. contact addresss.
         email_context = {
             "config": settings.CONFIG,
             "user": u,
@@ -881,8 +897,22 @@ def approveUser(request, userID):
     else:
         return redirect("login_page")
 
-
 def denyUser(request, userID, deny_user_reason):
+    """Function to deny new users.
+
+        Takes the indicated userID, and removes that user from the Django users and userInfo table.
+        Also takes the reason for the denial from the modal, and sends that reason to the provider email.
+
+        Args:
+            request: The Django request, which is used to determine whether the currently authenticated is an admin.
+            userID: An integer indicating which user to delete.
+            deny_user_reason: A string from the modal, which is sent to the provider account's email address.
+        
+        Returns:
+            Redirects the user to the admin page. However, if the user is not authenticated, or not the admin,
+            the page redirects to the login page, with the expectation that the admin will log in. No changes are made
+            to the accounts if this is the case.
+        """
     if (
         request.user.is_authenticated
         and request.user.userinfo.isAdmin
@@ -902,6 +932,7 @@ def denyUser(request, userID, deny_user_reason):
                 },
             ),
         )
+        # Delete both the Django and userInfo user entries.
         u.delete()
         v.delete()
         rebuild_index.rebuildWhooshIndex()
@@ -909,8 +940,22 @@ def denyUser(request, userID, deny_user_reason):
     else:
         return redirect("login_page")
 
-
+# Function to delete an existing user.
 def deleteUser(request, userID):
+    """Function to delete existing users, usually via the allAdmins or allUsers page.
+
+        Takes the indicated userID, and removes that user from the Django and userInfo tables.
+        Also removes all events associated with the deleted user. No reason for the deletion is collected.
+
+        Args:
+            request: The Django request, which is used to determine whether the currently authenticated is an admin.
+            userID: An integer indicating which user to delete.
+        
+        Returns:
+            Redirects the user to the admin page. However, if the user is not authenticated, or not the admin,
+            the page redirects to the login page, with the expectation that the admin will log in. No changes are made
+            to the accounts if this is the case.
+        """
     if (
         request.user.is_authenticated
         and request.user.userinfo.isAdmin
@@ -918,15 +963,30 @@ def deleteUser(request, userID):
     ):
         u = userInfo.objects.get(pk=userID)
         v = UserAccount.objects.get(id=userID)
+        # Delete the user from the Django and userInfo tables. This also removes any associated events.
         u.delete()
         v.delete()
+        # Rebuild the index to update search results.
         rebuild_index.rebuildWhooshIndex()
         return redirect("admin_page")
     else:
         return redirect("login_page")
 
-
+# View for <url>/approve_event/<eventID>
 def approveEvent(request, eventID):
+    """Function to approve pending events.
+    
+        Takes the indicated eventID, and sets the event's isPending to False. This makes is so the event shows up in search results.
+
+        Args:
+            request: The Django request, which is used to determine whether the currently authenticated is an admin.
+            eventID: An integer indicating which event to approve.
+        
+        Returns:
+            Redirects the user to the admin page. However, if the user is not authenticated, or not the admin,
+            the page redirects to the login page, with the expectation that the admin will log in. No changes are made
+            to the accounts if this is the case.
+        """
     if (
         request.user.is_authenticated
         and request.user.userinfo.isAdmin
@@ -957,12 +1017,37 @@ def approveEvent(request, eventID):
 
 
 def deleteEvent(request, eventID):
+    """Function to delete existing events, usually done via the allEvents page, or the provider portal. 
+    
+        Takes the indicated eventID, and deletes it from the program table.
+
+        Args:
+            eventID: An integer indicating which event to delete.
+        
+        Returns:
+            Returns to the page the user was originally on.
+        """
     p = Program.objects.get(pk=eventID)
     p.delete()
     rebuild_index.rebuildWhooshIndex()
 
-
+    
 def denyEvent(request, eventID, deny_event_reason):
+    """Function to deny pending events.
+
+        Takes the indicated eventID, and deletes the event.######
+        Also takes the reason for the denial from the modal, and sends that reason to the provider email.
+
+        Args:
+            request: The Django request, which is used to determine whether the currently authenticated is an admin.
+            userID: An integer indicating which user to delete.
+            deny_user_reason: A string from the modal, which is sent to the provider account's email address.
+        
+        Returns:
+            Redirects the user to the admin page. However, if the user is not authenticated, or not the admin,
+            the page redirects to the login page, with the expectation that the admin will log in. No changes are made
+            to the accounts if this is the case.
+        """
     p = Program.objects.get(pk=eventID)
     if (
         request.user.is_authenticated
