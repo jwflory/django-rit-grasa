@@ -274,7 +274,7 @@ def allEvents(request):
         context = {"programList": programList}
         if request.method == "POST":
             if request.POST.get("delete"):
-                deleteEvent(request, request.POST.get("delete"))
+                deleteEvent(request.POST.get("delete"))
         return render(request, "allEvents.html", context)
     return HttpResponseRedirect(reverse("search"))
 
@@ -704,7 +704,7 @@ def provider(request):
                 }
                 return render(request, "provider.html", context)
         if request.POST.get("delete"):
-            deleteEvent(request, request.POST.get("delete"))
+            deleteEvent(request.POST.get("delete"))
     if (
         request.user.is_authenticated
         and not request.user.userinfo.isAdmin
@@ -858,7 +858,7 @@ def approveUser(request, userID):
         Takes the indicated userID, and makes it so that user can log in.
         
         Args:
-            request: The Django request, which is used to determine whether the currently authenticated is an admin.
+            request: The Django request, which is used to determine whether the currently authenticated user is an admin.
             userID: An integer indicating which user to approve.
             
         Returns:
@@ -904,7 +904,7 @@ def denyUser(request, userID, deny_user_reason):
         Also takes the reason for the denial from the modal, and sends that reason to the provider email.
 
         Args:
-            request: The Django request, which is used to determine whether the currently authenticated is an admin.
+            request: The Django request, which is used to determine whether the currently authenticated user is an admin.
             userID: An integer indicating which user to delete.
             deny_user_reason: A string from the modal, which is sent to the provider account's email address.
         
@@ -948,7 +948,7 @@ def deleteUser(request, userID):
         Also removes all events associated with the deleted user. No reason for the deletion is collected.
 
         Args:
-            request: The Django request, which is used to determine whether the currently authenticated is an admin.
+            request: The Django request, which is used to determine whether the currently authenticated user is an admin.
             userID: An integer indicating which user to delete.
         
         Returns:
@@ -979,7 +979,7 @@ def approveEvent(request, eventID):
         Takes the indicated eventID, and sets the event's isPending to False. This makes is so the event shows up in search results.
 
         Args:
-            request: The Django request, which is used to determine whether the currently authenticated is an admin.
+            request: The Django request, which is used to determine whether the currently authenticated user is an admin.
             eventID: An integer indicating which event to approve.
         
         Returns:
@@ -1016,7 +1016,7 @@ def approveEvent(request, eventID):
         return redirect("login_page")
 
 
-def deleteEvent(request, eventID):
+def deleteEvent(eventID):
     """Function to delete existing events, usually done via the allEvents page, or the provider portal. 
     
         Takes the indicated eventID, and deletes it from the program table.
@@ -1031,17 +1031,17 @@ def deleteEvent(request, eventID):
     p.delete()
     rebuild_index.rebuildWhooshIndex()
 
-    
+# View for url/deny_edit/<editID>
 def denyEvent(request, eventID, deny_event_reason):
     """Function to deny pending events.
 
-        Takes the indicated eventID, and deletes the event.######
+        Takes the indicated eventID, and deletes the event.
         Also takes the reason for the denial from the modal, and sends that reason to the provider email.
 
         Args:
-            request: The Django request, which is used to determine whether the currently authenticated is an admin.
-            userID: An integer indicating which user to delete.
-            deny_user_reason: A string from the modal, which is sent to the provider account's email address.
+            request: The Django request, which is used to determine whether the currently authenticated user is an admin.
+            eventID: An integer indicating which user to delete.
+            deny_event_reason: A string from the modal, which is sent to the provider account's email address.
         
         Returns:
             Redirects the user to the admin page. However, if the user is not authenticated, or not the admin,
@@ -1074,8 +1074,22 @@ def denyEvent(request, eventID, deny_event_reason):
     else:
         return redirect("login_page")
 
-
+# View for <url>/approve_edit/<editID>
 def approveEdit(request, editID):
+    """Function to approve pending edits.
+
+        Takes the indicated editID, and applies it's changes to it's original event. The edit is then deleted.
+        This is done so that the link to the event is not changed between edits.
+
+        Args:
+            request: The Django request, which is used to determine whether the currently authenticated user is an admin.
+            editID: An integer indicating which event to approve.
+
+        Returns:
+            Redirects the user to the admin page. However, if the user is not authenticated, or not the admin,
+            the page redirects to the login page, with the expectation that the admin will log in. No changes are made
+            to the accounts if this is the case.
+        """
     if (
         request.user.is_authenticated
         and request.user.userinfo.isAdmin
@@ -1084,6 +1098,7 @@ def approveEdit(request, editID):
         p = Program.objects.get(pk=editID)
         # Check if oldP still exists (may have been deleted)
         oldP = Program.objects.filter(pk=p.editOf)
+        # If there is an old event, write the edit's information to the original event
         if oldP.count() >= 1:
             oldP = Program.objects.get(pk=p.editOf)
             oldP.title = p.title
@@ -1100,6 +1115,7 @@ def approveEdit(request, editID):
                 oldP.categories.remove(category)
             for category2 in p.categories.all():
                 oldP.categories.add(category2)
+            # Save the old event, delete the edit.
             oldP.save()
             p.delete()
             email_context = {
@@ -1141,8 +1157,23 @@ def approveEdit(request, editID):
     else:
         return redirect("login_page")
 
-
+# View for <url>/deny_edit/<editID>
 def denyEdit(request, editID, deny_edit_reason):
+    """Function to deny pending events.
+
+        Takes the indicated editID, and deletes the edit.
+        Also takes the reason for the denial from the modal, and sends that reason to the provider email.
+
+        Args:
+            request: The Django request, which is used to determine whether the currently authenticated user is an admin.
+            eventID: An integer indicating which edit to delete.
+            deny_edit_reason: A string from the modal, which is sent to the provider account's email address.
+
+        Returns:
+            Redirects the user to the admin page. However, if the user is not authenticated, or not the admin,
+            the page redirects to the login page, with the expectation that the admin will log in. No changes are made
+            to the accounts if this is the case.
+        """
     if (
         request.user.is_authenticated
         and request.user.userinfo.isAdmin
@@ -1167,7 +1198,6 @@ def denyEdit(request, editID, deny_edit_reason):
         return redirect("admin_page")
     else:
         return redirect("login_page")
-
 
 class programSearchView(SearchView):
     template_name = "search/search.html"
