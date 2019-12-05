@@ -28,7 +28,9 @@ def send_email(recip_address, subject, message):
     """
     # The third argument in the send_mail is the origin email address.
     # When false, fail_silently specifcally raises an SMTPException if there's an error while sending mail.
-    i = send_mail(subject, message, "grasatest@yahoo.com", recip_address, fail_silently=False)
+    i = send_mail(
+        subject, message, "grasatest@yahoo.com", recip_address, fail_silently=False
+    )
     return i
 
 
@@ -44,7 +46,7 @@ def change_username(old_email, new_email, request):
             request: Django request, used to change the username of the currently logged in user.
         """
 
-    #Set existing username to the new email, then send an email to the old and new email.
+    # Set existing username to the new email, then send an email to the old and new email.
     request.user.username = new_email
     request.user.save()
     request.user.email = new_email

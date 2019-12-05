@@ -4,6 +4,7 @@ import string
 
 from .forms import *
 from .helpers import change_username, send_email, write_categories_table
+
 # UserInfo is the class from the models.py folder. userinfo is the table name in SQL.
 # Use UserInfo if you need info from the table for multiple users/unauthenticated users (via userInfo.objects...)
 # Use userinfo if you need info from the table for the current user (via request.user.userinfo)
@@ -29,12 +30,10 @@ from smtplib import SMTPRecipientsRefused
 def aboutContact(request):
     return render(request, "about.html", context={"config": settings.CONFIG,})
 
+
 # View for admin.html
 def admin(request):
-    if (
-        request.user.is_authenticated
-        and request.user.userinfo.isAdmin
-    ):
+    if request.user.is_authenticated and request.user.userinfo.isAdmin:
         pendingUserList = userInfo.objects.filter(isPending=True)
         # editOf refers to the ID number of an event, not 0/1.
         # pendingEventList filters on pending events with an editOf of 0 (meaning they are not edits)
@@ -70,9 +69,11 @@ def admin(request):
                     )
             # Change password, check that all three fields are filled out,
             # and that the new/confirm matches (validation also handles this).
-            if (request.POST.get("current") and request.POST.get("new") and request.POST.get("confirm")) and (
-                request.POST.get("new") == request.POST.get("confirm")
-            ):
+            if (
+                request.POST.get("current")
+                and request.POST.get("new")
+                and request.POST.get("confirm")
+            ) and (request.POST.get("new") == request.POST.get("confirm")):
                 current = request.POST["current"]
                 new = request.POST["new"]
                 # Checks if the password is actually right (check_password)
@@ -143,6 +144,7 @@ def admin(request):
         return HttpResponseRedirect(reverse("login_page"))
     return render(request, "admin.html")
 
+
 # View for initial_setup, which creates a superuser and writes categories to the table.
 def initial_setup(request):
     config = settings.CONFIG
@@ -165,6 +167,7 @@ def initial_setup(request):
     if not categoryList:
         write_categories_table()
     return HttpResponseRedirect(reverse("search"))
+
 
 # View for allUsers.html (actually only displays all providers)
 def allUsers(request):
@@ -200,6 +203,7 @@ def allUsers(request):
                 deleteUser(request, request.POST.get("delete"))
         return render(request, "allUsers.html", context)
     return HttpResponseRedirect(reverse("search"))
+
 
 # View for allAdmins.html
 def allAdmins(request):
@@ -263,6 +267,7 @@ def allAdmins(request):
             return render(request, "allAdmins.html", context)
     return HttpResponseRedirect(reverse("search"))
 
+
 # View for allEvents.html
 def allEvents(request):
     if (
@@ -277,6 +282,7 @@ def allEvents(request):
                 deleteEvent(request.POST.get("delete"))
         return render(request, "allEvents.html", context)
     return HttpResponseRedirect(reverse("search"))
+
 
 # View for createEvent.html
 def createevent(request):
@@ -443,6 +449,7 @@ def getEventInfo(eventID):
 
     return context
 
+
 # View for event/<eventID>
 # Note that the ID comes from the end of the URL, see the urls.py file for specifics.
 def event(request, eventID):
@@ -467,6 +474,7 @@ def event(request, eventID):
     # If not pending, load the page.
     context = getEventInfo(eventID)
     return render(request, "event.html", context)
+
 
 # View for editEvent/<eventID>.
 # Note that eventID is provided in the URL, see the urls.py file for details.
@@ -644,10 +652,12 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("search"))
 
+
 # View for site/index.
 # It redirects the user to search.
 def index(request):
     return redirect("search")
+
 
 # View for provider.html
 def provider(request):
@@ -727,7 +737,7 @@ def provider(request):
     else:
         return HttpResponseRedirect(reverse("login_page"))
 
-    
+
 # View for register.html.
 def register(request):
     if request.method == "POST" and request.POST["current"] == request.POST["confirm"]:
@@ -770,6 +780,7 @@ def register(request):
     }
     return render(request, "register.html", context)
 
+
 # View for resetPW.html (the page to put an email address in)
 def resetpw(request):
     if request.method == "POST":
@@ -808,6 +819,7 @@ def resetpw(request):
         return render(request, "resetPW.html", context={"email_submitted": True})
     else:
         return render(request, "resetPW.html")
+
 
 # View for resetPWForm.html/<reset_string>.
 def resetPWForm(request, reset_string):
@@ -897,6 +909,7 @@ def approveUser(request, userID):
     else:
         return redirect("login_page")
 
+
 def denyUser(request, userID, deny_user_reason):
     """Function to deny new users.
 
@@ -940,6 +953,7 @@ def denyUser(request, userID, deny_user_reason):
     else:
         return redirect("login_page")
 
+
 # Function to delete an existing user.
 def deleteUser(request, userID):
     """Function to delete existing users, usually via the allAdmins or allUsers page.
@@ -971,6 +985,7 @@ def deleteUser(request, userID):
         return redirect("admin_page")
     else:
         return redirect("login_page")
+
 
 # View for <url>/approve_event/<eventID>
 def approveEvent(request, eventID):
@@ -1031,6 +1046,7 @@ def deleteEvent(eventID):
     p.delete()
     rebuild_index.rebuildWhooshIndex()
 
+
 # View for url/deny_edit/<editID>
 def denyEvent(request, eventID, deny_event_reason):
     """Function to deny pending events.
@@ -1073,6 +1089,7 @@ def denyEvent(request, eventID, deny_event_reason):
         return redirect("admin_page")
     else:
         return redirect("login_page")
+
 
 # View for <url>/approve_edit/<editID>
 def approveEdit(request, editID):
@@ -1157,6 +1174,7 @@ def approveEdit(request, editID):
     else:
         return redirect("login_page")
 
+
 # View for <url>/deny_edit/<editID>
 def denyEdit(request, editID, deny_edit_reason):
     """Function to deny pending events.
@@ -1198,6 +1216,7 @@ def denyEdit(request, editID, deny_edit_reason):
         return redirect("admin_page")
     else:
         return redirect("login_page")
+
 
 class programSearchView(SearchView):
     template_name = "search/search.html"
