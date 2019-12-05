@@ -10,7 +10,6 @@ urlpatterns = [
     path("allUsers.html", views.allUsers, name="all_users"),
     path("allAdmins.html", views.allAdmins, name="all_admins"),
     path("allEvents.html", views.allEvents, name="all_events"),
-    path("changePW.html", views.changepw, name="change_password"),
     path("createEvent.html", views.createevent, name="create_event"),
     path("initial_setup", views.initial_setup),
     path("editEvent/<eventID>", views.editEvent, name="edit_event"),
