@@ -13,9 +13,10 @@ mysqlclient = "==1.4.4"
 django-haystack = "==2.8.1"
 whoosh = "==2.7.4"
 pyyaml = "==5.1.2"
+gunicorn = {extras = ["gthread"],version = ">=20.0.4"}
 
 [dev-packages]
-black = "*"
+black = "==19.10b0"
 coverage = "*"
 django-debug-toolbar = "*"
 "flake8" = "*"
