@@ -52,6 +52,16 @@ Build the container with all the code and config file changes::
 
 This builds the container from the ``Dockerfile.production`` file and initializes database schema, so the necessary tables exist when the container is started.
 
+Proxy server
+============
+
+It is strongly recommended to run the Event Locator behind a proxy server, preferably like NGINX.
+**See** `Gunicorn deployment documentation`_ **for a detailed overview of how to do this.**
+
+Why is a proxy server needed?
+The Event Locator container runs the application with Gunicorn_, a Python WSGI HTTP Server for UNIX.
+For best performance and sustainability over time, Gunicorn recommends deploying with a proxy server.
+
 
 *******************
 Start Event Locator
@@ -112,6 +122,8 @@ If you need to restart the container without rebuilding::
 
 .. _`config.yml.example`: https://github.com/jwflory/django-rit-grasa/blob/master/config.yml.example
 .. _`Docker`: https://docs.docker.com/install/
+.. _`Gunicorn`: https://gunicorn.org/
+.. _`Gunicorn deployment documentation`: http://docs.gunicorn.org/en/stable/deploy.html
 .. _`Podman`: https://podman.io/
 .. _`Python 3`: https://www.python.org/downloads/
 .. _`rootless containers`: https://blog.justinwflory.com/2019/08/hpc-workloads-containers/
