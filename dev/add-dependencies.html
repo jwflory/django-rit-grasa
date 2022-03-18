@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to: Add new dependencies / libraries &mdash; django-rit-grasa 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How to: Conduct user testing" href="conduct-user-testing.html" />
+    <link rel="prev" title="Upgrade guide" href="../admin/upgrade.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> django-rit-grasa
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/about-project.html">About this project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about/about-project.html#high-level-project-description">High level project description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/about-project.html#objectives">Objectives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about/about-project.html#families">Families</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about/about-project.html#program-providers">Program providers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about/about-project.html#grasa-and-monroe-county-staff">GRASA and Monroe County staff</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/about-project.html#project-team">Project team</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../about/features.html">Features and Systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about/features.html#families">Families</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about/features.html#search-for-different-events">Search for different events.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about/features.html#apply-filters-to-better-discover-events-that-interest-a-user">Apply filters to better discover events that interest a user.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about/features.html#find-information-to-learn-more-about-a-specific-event">Find information to learn more about a specific event.</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/features.html#program-providers">Program Providers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about/features.html#add-new-events-with-specific-metadata-into-system-for-approval-by-administrators">Add new events with specific metadata into system for approval by administrators.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about/features.html#update-information-for-existing-events-in-system-for-approval-by-administrators">Update information for existing events in system for approval by administrators.</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/features.html#grasa-and-monroe-county-staff">GRASA and Monroe County Staff</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about/features.html#review-and-approve-submitted-events">Review and approve submitted events.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about/features.html#confirm-new-provider-accounts">Confirm new provider accounts.</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/features.html#all-users">All users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about/features.html#mobile-friendly-user-interface">Mobile-friendly user interface.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../about/open-source-licenses.html">Open source licenses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user/base-system.html">Base System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/base/change-password.html">Change password</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/base/change-password.html#admin-user">Admin User</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/base/change-password.html#provider-user">Provider User</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/base/update-email.html">Update email</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/base/update-email.html#admin-user">Admin User</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/base/update-email.html#provider-user">Provider User</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/events-system.html">Event Curation System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/events/admin-invite-provider.html">How to invite a Provider to sign up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/admin-invite-provider.html#click-view-providers-button-from-admin-portal">1. Click <em>View Providers</em> button from Admin Portal:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/admin-invite-provider.html#click-invite-provider-button-in-upper-right-corner">2. Click <em>Invite Provider</em> button in upper-right corner:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/admin-invite-provider.html#enter-email-and-click-send-invite">3. Enter email and click <em>Send Invite</em>:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/admin-invite-provider.html#wait-for-registration">4. Wait for registration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/events/admin-review-account.html">How to review Provider account registrations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/admin-review-account.html#view-pending-accounts">View pending accounts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/admin-review-account.html#approve-an-account">Approve an account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/admin-review-account.html#reject-an-account">Reject an account</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/events/admin-review-event.html">How to review and publish Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/admin-review-event.html#view-pending-events">View pending Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/admin-review-event.html#approve-an-event">Approve an Event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/admin-review-event.html#reject-an-event">Reject an Event</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/events/provider-event-create.html">How to create a new Event</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/provider-event-create.html#add-new-event">Add new Event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/provider-event-create.html#how-to-write-strategically">How to write strategically</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/events/provider-event-edit.html">How to edit an existing Event</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/provider-event-edit.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/provider-event-edit.html#edit-from-event-list">1. Edit from event list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/provider-event-edit.html#wait-for-administrator-approval">2. Wait for Administrator approval</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/events/provider-register.html">How to register a Provider account</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/provider-register.html#get-an-invitation">1. Get an invitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/provider-register.html#complete-registration-form">2. Complete registration form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/provider-register.html#wait-for-administrator-approval">3. Wait for Administrator approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/events/provider-register.html#log-in">4. Log in</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/search-system.html">Search System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/search/search-events.html">How to search for Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/search/search-events.html#make-a-keyword-search">Make a keyword search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/search/search-events.html#apply-filters">Apply filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/search/search-events.html#other-notes-about-search-system">Other notes about Search System</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/search/share-event.html">How to share an Event</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Admin Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../admin/deployment-architecture.html">Deployment architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../admin/quick-start.html">Admin quick start guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../admin/quick-start.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin/quick-start.html#set-up-database">Set up database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin/quick-start.html#install-your-configuration">Install your configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin/quick-start.html#container-host-set-up">Container host set-up</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin/quick-start.html#start-event-locator">Start Event Locator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../admin/quick-start.html#run-initialization-script">Run initialization script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../admin/quick-start.html#stop-event-locator">Stop Event Locator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin/quick-start.html#restart-event-locator">Restart Event Locator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../admin/third-party-apis.html">Third-party APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../admin/third-party-apis.html#geocoding-service-mapquest-api">Geocoding service: MapQuest API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../admin/third-party-apis.html#how-it-is-used">How it is used</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../admin/third-party-apis.html#how-to-acquire-api-access">How to acquire API access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../admin/third-party-apis.html#cost-considerations">Cost considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../admin/third-party-apis.html#email-smtp-service">Email/SMTP service</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../admin/upgrade.html">Upgrade guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../admin/upgrade.html#why-you-might-want-to-upgrade">Why you might want to upgrade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin/upgrade.html#database-concerns">Database Concerns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin/upgrade.html#how-to-actually-upgrade">How To Actually Upgrade</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to: Add new dependencies / libraries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#set-up-a-pipenv-shell">Set up a Pipenv shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-dependencies-for-testing">Installing dependencies for testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-dependencies-for-the-team">Installing dependencies for the team</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#faq">FAQ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#when-testing-dependencies-should-pip-or-pip3-be-run">When testing dependencies, should <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">pip3</span></code> be run?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conduct-user-testing.html">How to: Conduct user testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conduct-user-testing.html#background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conduct-user-testing.html#questionnaire">Questionnaire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conduct-user-testing.html#tasks">Tasks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="conduct-user-testing.html#admins">Admins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conduct-user-testing.html#providers">Providers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conduct-user-testing.html#families">Families</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="conduct-user-testing.html#template">Template</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exec-container.html">How to: Exec into a container</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="exec-container.html#background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exec-container.html#pre-requirements">Pre-requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exec-container.html#commands">Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rebuild-indexes.html">How to: Rebuild search indexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rebuild-indexes.html#background">Background</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rebuild-indexes.html#development-note">Development note</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rebuild-indexes.html#pre-requirements">Pre-requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rebuild-indexes.html#commands">Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup-dev-environment.html">Create new dev environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup-dev-environment.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-dev-environment.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-dev-environment.html#run-project-with-docker-compose">Run project with docker-compose</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="setup-dev-environment.html#run-docker-compose-in-detached-mode">Run docker-compose in detached mode</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup-dev-environment.html#open-in-web-browser">Open in web browser</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="start-fresh.html">Refresh existing dev environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="start-fresh.html#create-a-fresh-environment">Create a fresh environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start-fresh.html#initial-app-configuration">Initial app configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#q-on-fedora-pipenv-fails-with-mysql-config-error">Q: On Fedora, Pipenv fails with MySQL config error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#database-changes-during-development">Database changes during development</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">django-rit-grasa</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>How to: Add new dependencies / libraries</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/dev/add-dependencies.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="how-to-add-new-dependencies-libraries">
+<h1>How to: Add new dependencies / libraries<a class="headerlink" href="#how-to-add-new-dependencies-libraries" title="Permalink to this headline">¶</a></h1>
+<p>If we use a new library or framework, we need to <strong>install it as a dependency</strong> in the project.
+Dependencies are specific versions of third-party software we want to use in the project.
+Sometimes we want to test something out, without adding it to the project for everyone.
+Other times, we want to install something to the project for everyone.
+This guide explains both below:</p>
+<section id="set-up-a-pipenv-shell">
+<h2>Set up a Pipenv shell<a class="headerlink" href="#set-up-a-pipenv-shell" title="Permalink to this headline">¶</a></h2>
+<p>First, for either option, start a new Pipenv shell for your local development.
+The Pipenv shell sets up a <strong>Python virtual environment (virtualenv)</strong> for you.
+This way, you can install Python packages via <code class="docutils literal notranslate"><span class="pre">pip</span></code> without special user privileges, among other reasons.</p>
+<p>Using a command-line tool of your preference, change directories to the project git directory and run the following commands:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip3 install --user pipenv
+pipenv shell
+</pre></div>
+</div>
+<p>Pipenv will set up a virtualenv for you.
+Once it is done, you can now install packages using <code class="docutils literal notranslate"><span class="pre">pip</span></code> into the virtualenv.</p>
+</section>
+<section id="installing-dependencies-for-testing">
+<h2>Installing dependencies for testing<a class="headerlink" href="#installing-dependencies-for-testing" title="Permalink to this headline">¶</a></h2>
+<p>If you are trying out new libraries or third-party software, but aren’t sure if you want to keep it yet, use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>.</p>
+<p>Simply use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&lt;package</span> <span class="pre">name&gt;</span></code> to install any package from the Python Package Index (PyPI).
+The package you install is available on your workstation, but not for everyone else.
+This lets you test something out without committing everyone to using it yet.</p>
+</section>
+<section id="installing-dependencies-for-the-team">
+<h2>Installing dependencies for the team<a class="headerlink" href="#installing-dependencies-for-the-team" title="Permalink to this headline">¶</a></h2>
+<p>If you are confident in using a library or third-party software, use <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span></code>.</p>
+<p>Once you know a package and are confident in keeping it, install it as a project dependency.
+This makes it available for everyone when they run <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">build</span></code> again.
+Otherwise, when someone runs your changes, the Django app will crash because of a missing dependency.</p>
+<p>There are two steps to installing new dependencies:</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">[--dev]</span> <span class="pre">&lt;package</span> <span class="pre">name&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">update</span> <span class="pre">--dev</span></code></p></li>
+</ol>
+<p>Run the first command with the <code class="docutils literal notranslate"><span class="pre">--dev</span></code> flag if installing a dependency only for development environments, not production.
+The second command updates the <code class="docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> file with your changes and ensures the versions installed locally match what is specified in <code class="docutils literal notranslate"><span class="pre">Pipfile.lock</span></code>.</p>
+</section>
+<section id="faq">
+<h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
+<section id="when-testing-dependencies-should-pip-or-pip3-be-run">
+<h3>When testing dependencies, should <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">pip3</span></code> be run?<a class="headerlink" href="#when-testing-dependencies-should-pip-or-pip3-be-run" title="Permalink to this headline">¶</a></h3>
+<p>If in doubt, use them exactly as written above.</p>
+<p>When you install <code class="docutils literal notranslate"><span class="pre">pipenv</span></code>, this guide assumes you are running Python 3.
+<code class="docutils literal notranslate"><span class="pre">pip3</span></code> is an explicit process call to your system’s installed Python 3 interpreter.
+If you do not have Python 2 installed, <code class="docutils literal notranslate"><span class="pre">pip</span></code> probably does the same thing.
+Later, after opening a <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">shell</span></code>, the Python virtualenv rewrites the meaning of <code class="docutils literal notranslate"><span class="pre">pip</span></code> to whatever the specified <code class="docutils literal notranslate"><span class="pre">python_version</span></code> is in <code class="docutils literal notranslate"><span class="pre">Pipfile</span></code>.
+So long as you are in the shell, <code class="docutils literal notranslate"><span class="pre">pip</span></code> will <em>always</em> mean the same thing as <code class="docutils literal notranslate"><span class="pre">pip3</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../admin/upgrade.html" class="btn btn-neutral float-left" title="Upgrade guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="conduct-user-testing.html" class="btn btn-neutral float-right" title="How to: Conduct user testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, RIT Team Platypus.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRASA Event Locator documentation &mdash; django-rit-grasa 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="About this project" href="about/about-project.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> django-rit-grasa
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about/about-project.html">About this project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about/about-project.html#high-level-project-description">High level project description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about/about-project.html#objectives">Objectives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="about/about-project.html#families">Families</a></li>
+<li class="toctree-l3"><a class="reference internal" href="about/about-project.html#program-providers">Program providers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="about/about-project.html#grasa-and-monroe-county-staff">GRASA and Monroe County staff</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="about/about-project.html#project-team">Project team</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="about/features.html">Features and Systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about/features.html#families">Families</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="about/features.html#search-for-different-events">Search for different events.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="about/features.html#apply-filters-to-better-discover-events-that-interest-a-user">Apply filters to better discover events that interest a user.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="about/features.html#find-information-to-learn-more-about-a-specific-event">Find information to learn more about a specific event.</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="about/features.html#program-providers">Program Providers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="about/features.html#add-new-events-with-specific-metadata-into-system-for-approval-by-administrators">Add new events with specific metadata into system for approval by administrators.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="about/features.html#update-information-for-existing-events-in-system-for-approval-by-administrators">Update information for existing events in system for approval by administrators.</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="about/features.html#grasa-and-monroe-county-staff">GRASA and Monroe County Staff</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="about/features.html#review-and-approve-submitted-events">Review and approve submitted events.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="about/features.html#confirm-new-provider-accounts">Confirm new provider accounts.</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="about/features.html#all-users">All users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="about/features.html#mobile-friendly-user-interface">Mobile-friendly user interface.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="about/open-source-licenses.html">Open source licenses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user/base-system.html">Base System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/base/change-password.html">Change password</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user/base/change-password.html#admin-user">Admin User</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/base/change-password.html#provider-user">Provider User</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user/base/update-email.html">Update email</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user/base/update-email.html#admin-user">Admin User</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/base/update-email.html#provider-user">Provider User</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user/events-system.html">Event Curation System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/events/admin-invite-provider.html">How to invite a Provider to sign up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user/events/admin-invite-provider.html#click-view-providers-button-from-admin-portal">1. Click <em>View Providers</em> button from Admin Portal:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/admin-invite-provider.html#click-invite-provider-button-in-upper-right-corner">2. Click <em>Invite Provider</em> button in upper-right corner:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/admin-invite-provider.html#enter-email-and-click-send-invite">3. Enter email and click <em>Send Invite</em>:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/admin-invite-provider.html#wait-for-registration">4. Wait for registration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user/events/admin-review-account.html">How to review Provider account registrations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user/events/admin-review-account.html#view-pending-accounts">View pending accounts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/admin-review-account.html#approve-an-account">Approve an account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/admin-review-account.html#reject-an-account">Reject an account</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user/events/admin-review-event.html">How to review and publish Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user/events/admin-review-event.html#view-pending-events">View pending Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/admin-review-event.html#approve-an-event">Approve an Event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/admin-review-event.html#reject-an-event">Reject an Event</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user/events/provider-event-create.html">How to create a new Event</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user/events/provider-event-create.html#add-new-event">Add new Event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/provider-event-create.html#how-to-write-strategically">How to write strategically</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user/events/provider-event-edit.html">How to edit an existing Event</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user/events/provider-event-edit.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/provider-event-edit.html#edit-from-event-list">1. Edit from event list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/provider-event-edit.html#wait-for-administrator-approval">2. Wait for Administrator approval</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user/events/provider-register.html">How to register a Provider account</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user/events/provider-register.html#get-an-invitation">1. Get an invitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/provider-register.html#complete-registration-form">2. Complete registration form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/provider-register.html#wait-for-administrator-approval">3. Wait for Administrator approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/events/provider-register.html#log-in">4. Log in</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user/search-system.html">Search System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/search/search-events.html">How to search for Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user/search/search-events.html#make-a-keyword-search">Make a keyword search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/search/search-events.html#apply-filters">Apply filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user/search/search-events.html#other-notes-about-search-system">Other notes about Search System</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user/search/share-event.html">How to share an Event</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Admin Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="admin/deployment-architecture.html">Deployment architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="admin/quick-start.html">Admin quick start guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#set-up-database">Set up database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#install-your-configuration">Install your configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#container-host-set-up">Container host set-up</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#start-event-locator">Start Event Locator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="admin/quick-start.html#run-initialization-script">Run initialization script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#stop-event-locator">Stop Event Locator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#restart-event-locator">Restart Event Locator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="admin/third-party-apis.html">Third-party APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="admin/third-party-apis.html#geocoding-service-mapquest-api">Geocoding service: MapQuest API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="admin/third-party-apis.html#how-it-is-used">How it is used</a></li>
+<li class="toctree-l3"><a class="reference internal" href="admin/third-party-apis.html#how-to-acquire-api-access">How to acquire API access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="admin/third-party-apis.html#cost-considerations">Cost considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="admin/third-party-apis.html#email-smtp-service">Email/SMTP service</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="admin/upgrade.html">Upgrade guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="admin/upgrade.html#why-you-might-want-to-upgrade">Why you might want to upgrade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/upgrade.html#database-concerns">Database Concerns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/upgrade.html#how-to-actually-upgrade">How To Actually Upgrade</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev/add-dependencies.html">How to: Add new dependencies / libraries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/add-dependencies.html#set-up-a-pipenv-shell">Set up a Pipenv shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/add-dependencies.html#installing-dependencies-for-testing">Installing dependencies for testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/add-dependencies.html#installing-dependencies-for-the-team">Installing dependencies for the team</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/add-dependencies.html#faq">FAQ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev/add-dependencies.html#when-testing-dependencies-should-pip-or-pip3-be-run">When testing dependencies, should <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">pip3</span></code> be run?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/conduct-user-testing.html">How to: Conduct user testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/conduct-user-testing.html#background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/conduct-user-testing.html#questionnaire">Questionnaire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/conduct-user-testing.html#tasks">Tasks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev/conduct-user-testing.html#admins">Admins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dev/conduct-user-testing.html#providers">Providers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dev/conduct-user-testing.html#families">Families</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dev/conduct-user-testing.html#template">Template</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exec-container.html">How to: Exec into a container</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/exec-container.html#background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/exec-container.html#pre-requirements">Pre-requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/exec-container.html#commands">Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/rebuild-indexes.html">How to: Rebuild search indexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/rebuild-indexes.html#background">Background</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev/rebuild-indexes.html#development-note">Development note</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dev/rebuild-indexes.html#pre-requirements">Pre-requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/rebuild-indexes.html#commands">Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/setup-dev-environment.html">Create new dev environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/setup-dev-environment.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/setup-dev-environment.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/setup-dev-environment.html#run-project-with-docker-compose">Run project with docker-compose</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev/setup-dev-environment.html#run-docker-compose-in-detached-mode">Run docker-compose in detached mode</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dev/setup-dev-environment.html#open-in-web-browser">Open in web browser</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/start-fresh.html">Refresh existing dev environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/start-fresh.html#create-a-fresh-environment">Create a fresh environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/start-fresh.html#initial-app-configuration">Initial app configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/troubleshooting.html#q-on-fedora-pipenv-fails-with-mysql-config-error">Q: On Fedora, Pipenv fails with MySQL config error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/troubleshooting.html#database-changes-during-development">Database changes during development</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">django-rit-grasa</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>GRASA Event Locator documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="grasa-event-locator-documentation">
+<h1>GRASA Event Locator documentation<a class="headerlink" href="#grasa-event-locator-documentation" title="Permalink to this headline">¶</a></h1>
+<p>This is the main page for the GRASA Event Locator documentation.
+Other pages are available for you to navigate and explore below.
+For more information, see the <a class="reference external" href="https://github.com/jwflory/django-rit-grasa">repo on GitHub</a>.</p>
+<div class="toctree-wrapper compound" id="about">
+<p class="caption" role="heading"><span class="caption-text">About:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about/about-project.html">About this project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about/about-project.html#high-level-project-description">High level project description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about/about-project.html#objectives">Objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about/about-project.html#project-team">Project team</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="about/features.html">Features and Systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about/features.html#families">Families</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about/features.html#program-providers">Program Providers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about/features.html#grasa-and-monroe-county-staff">GRASA and Monroe County Staff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about/features.html#all-users">All users</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="about/open-source-licenses.html">Open source licenses</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="user">
+<p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user/base-system.html">Base System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/events-system.html">Event Curation System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/search-system.html">Search System</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="admin">
+<p class="caption" role="heading"><span class="caption-text">Admin Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="admin/deployment-architecture.html">Deployment architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="admin/quick-start.html">Admin quick start guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#set-up-database">Set up database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#install-your-configuration">Install your configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#container-host-set-up">Container host set-up</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#start-event-locator">Start Event Locator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#stop-event-locator">Stop Event Locator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/quick-start.html#restart-event-locator">Restart Event Locator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="admin/third-party-apis.html">Third-party APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="admin/third-party-apis.html#geocoding-service-mapquest-api">Geocoding service: MapQuest API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/third-party-apis.html#email-smtp-service">Email/SMTP service</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="admin/upgrade.html">Upgrade guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="admin/upgrade.html#why-you-might-want-to-upgrade">Why you might want to upgrade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/upgrade.html#database-concerns">Database Concerns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin/upgrade.html#how-to-actually-upgrade">How To Actually Upgrade</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="development">
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev/add-dependencies.html">How to: Add new dependencies / libraries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/add-dependencies.html#set-up-a-pipenv-shell">Set up a Pipenv shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/add-dependencies.html#installing-dependencies-for-testing">Installing dependencies for testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/add-dependencies.html#installing-dependencies-for-the-team">Installing dependencies for the team</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/add-dependencies.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/conduct-user-testing.html">How to: Conduct user testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/conduct-user-testing.html#background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/conduct-user-testing.html#questionnaire">Questionnaire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/conduct-user-testing.html#tasks">Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/conduct-user-testing.html#template">Template</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exec-container.html">How to: Exec into a container</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/exec-container.html#background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/exec-container.html#pre-requirements">Pre-requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/exec-container.html#commands">Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/rebuild-indexes.html">How to: Rebuild search indexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/rebuild-indexes.html#background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/rebuild-indexes.html#pre-requirements">Pre-requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/rebuild-indexes.html#commands">Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/setup-dev-environment.html">Create new dev environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/setup-dev-environment.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/setup-dev-environment.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/setup-dev-environment.html#run-project-with-docker-compose">Run project with docker-compose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/setup-dev-environment.html#open-in-web-browser">Open in web browser</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/start-fresh.html">Refresh existing dev environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/start-fresh.html#create-a-fresh-environment">Create a fresh environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/start-fresh.html#initial-app-configuration">Initial app configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/troubleshooting.html#q-on-fedora-pipenv-fails-with-mysql-config-error">Q: On Fedora, Pipenv fails with MySQL config error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/troubleshooting.html#database-changes-during-development">Database changes during development</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="about/about-project.html" class="btn btn-neutral float-right" title="About this project" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, RIT Team Platypus.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
