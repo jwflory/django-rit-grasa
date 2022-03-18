@@ -1,6 +1,6 @@
 # Production container.
 # Does not install development dependencies. Runs Django with prod settings.
-FROM python:3.6-stretch
+FROM python:3.9-bullseye
 
 ENV DJANGO_SETTINGS_MODULE=grasa_event_locator.settings.production
 

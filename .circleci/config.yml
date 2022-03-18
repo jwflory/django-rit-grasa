@@ -1,0 +1,113 @@
+---
+# https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+workflows:
+  main:
+    jobs:
+      - lint
+      - docs_build:
+          requires:
+            - lint
+      - docs_deploy:
+          filters:
+            branches:
+              only: main
+          requires:
+            - docs_build
+      - docker_build:
+          requires:
+            - lint
+
+jobs:
+
+  lint:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run: sudo apt-get update
+      - run: sudo apt install yamllint
+      - run: yamllint -c .yamllintrc config.yml.example docker-compose.yml
+
+  docs_build:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - restore_cache:
+          key: django-rit-grasa-python-{{ checksum "Pipfile.lock" }}
+
+      - run: pipenv lock --dev --requirements > /tmp/requirements.txt
+      - run: pip install -r /tmp/requirements.txt
+      - save_cache:
+          key: django-rit-grasa-python-{{ checksum "Pipfile.lock" }}
+          paths:
+            - /home/circleci/.local/share/virtualenvs/
+
+      - run: docs/build_docs.sh
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docs/_build/html
+
+  docker_build:
+    docker:
+      - image: docker:20.10-git
+    working_directory: /docker
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/app.tar
+
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i /caches/app.tar | true
+      - run:
+          name: Build application Docker image
+          command: |
+            ls -Alh
+            docker build --cache-from=jwflory/django-rit-grasa -t jwflory/django-rit-grasa:latest .
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/app.tar jwflory/django-rit-grasa:latest
+
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/app.tar
+
+  docs_deploy:
+    docker:
+      - image: cibuilds/base:latest
+    working_directory: ~/sphinx
+    environment:
+      BUILD_DIR: ~/sphinx/django-rit-grasa/docs/_build/html/
+    steps:
+      # add repository deploy key (for pull/push access)
+      - add_ssh_keys:
+          fingerprints:
+            - "53:9e:5f:9b:d4:39:49:8f:2d:a9:70:e2:68:66:45:ac"
+
+      # deploy.sh dependencies
+      - run: apk add rsync
+
+      # clone repo (required to access `.circleci/deploy.sh`)
+      - run: git clone https://github.com/jwflory/django-rit-grasa.git
+
+      # checkout generated html
+      - attach_workspace:
+          at: django-rit-grasa
+
+      # deploy to production
+      - deploy:
+          name: Deploy to GitHub Pages
+          command: ./django-rit-grasa/.circleci/deploy.sh

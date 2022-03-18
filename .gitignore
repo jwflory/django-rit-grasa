@@ -2,7 +2,7 @@
 
 # This section includes files specific to the django-rit-grasa project.
 
-config.yml
+/config.yml
 
 
 

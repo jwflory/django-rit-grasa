@@ -1,6 +1,6 @@
 # Local development container.
 # Includes development dependencies. Django runs with development settings.
-FROM python:3.6-stretch
+FROM python:3.9-bullseye
 
 ENV DJANGO_SETTINGS_MODULE=grasa_event_locator.settings.development
 
